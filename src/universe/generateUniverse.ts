@@ -3,6 +3,8 @@ import {System} from "src/universe/entities/System";
 import * as fs from "fs";
 import {pickRandom} from "src/universe/utilities";
 import {getDistance} from "src/universe/getDistance";
+import {generateSystem} from "./generateSystem";
+import {starTypes} from "./static-data/star-types";
 
 const MAX_SYSTEMS = 12000
 const MAX_FACTIONS = 12
@@ -19,41 +21,7 @@ const UNIVERSE_ROTATION_SPEED = Math.PI / 15
 const CANVAS_SIZE = 2500
 const MINIMUM_DISTANCE_APART = 250
 const MAXIMUM_DISTANCE_APART = 1500
-
-const starTypes: Record<string, { color: string }> = {
-    YOUNG_STAR: {
-        color: 'white'
-    },
-    BLUE_STAR: {
-        color: 'blue'
-    },
-    ORANGE_STAR: {
-        color: 'orange'
-    },
-    RED_STAR: {
-        color: 'red'
-    },
-    BLACK_HOLE: {
-        color: 'gray'
-    },
-    UNSTABLE: {
-        color: 'pink'
-    },
-    WHITE_DWARF: {
-        color: 'white'
-    },
-    HYPERGIANT: {
-        color: 'darkred'
-    },
-    NEUTRON_STAR: {
-        color: 'yellow'
-    },
-    NEBULA: {
-        color: 'green'
-    }
-}
-
-const starTypeNames = Object.keys(starTypes)
+const UNIVERSE_SYMBOL = 'X1'
 
 export function generateUniverse() {
     const startPos = {x: 0, y: 0}
@@ -95,11 +63,12 @@ export function generateUniverse() {
                     failedPositionAttempts++
                 }
 
-                systems.push(new System({
+                const system = generateSystem({
                     x: potentialX,
                     y: potentialY,
-                    type: pickRandom(starTypeNames)
-                }))
+                    universeSymbol: UNIVERSE_SYMBOL
+                })
+                systems.push(system)
             }
         }
     }
