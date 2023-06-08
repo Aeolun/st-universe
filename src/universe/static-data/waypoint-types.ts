@@ -1,7 +1,6 @@
 export type WaypointType = 'ASTEROID_FIELD' | 'GAS_GIANT' | 'PLANET' | 'MOON' | 'ORBITAL_STATION'
-export const waypointTypes: Record<WaypointType, { orbitalOptions?: { type: WaypointType; orbitalCount: number[] }[] }> = {
+export const waypointTypes: Record<WaypointType, { text?: string, orbitalOptions?: { type: WaypointType; orbitalCount: number[] }[] }> = {
     ASTEROID_FIELD: {
-
         orbitalOptions: [{
             type: 'ORBITAL_STATION',
             orbitalCount: [0, 0, 1]
