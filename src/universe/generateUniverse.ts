@@ -1,4 +1,4 @@
-import { createCanvas } from 'canvas'
+import {CanvasRenderingContext2D, createCanvas} from 'canvas'
 import {System} from "src/universe/entities/System";
 import * as fs from "fs";
 import {pickRandom} from "src/universe/utilities";
@@ -23,7 +23,9 @@ const MINIMUM_DISTANCE_APART = 250
 const MAXIMUM_DISTANCE_APART = 1500
 const UNIVERSE_SYMBOL = 'X1'
 
-export function generateUniverse() {
+const scale = CANVAS_SIZE / MAX_MAP_SIZE / 2
+
+export async function generateUniverse() {
     const startPos = {x: 0, y: 0}
     let failedPositionAttempts = 0;
 
@@ -76,6 +78,7 @@ export function generateUniverse() {
     let shortestDistance = 1000
     let longestDistance = 0
     let totalMin = 0
+    let totalWaypoints = 0
     systems.forEach(system => {
         let minDist = 10000
         systems.forEach(otherSystem => {
@@ -91,26 +94,88 @@ export function generateUniverse() {
         if (minDist < shortestDistance) {
             shortestDistance = minDist
         }
+
+        totalWaypoints += system.waypoints.length
     })
 
     console.log(`Failed to position with gap after 10 attempts for ${failedPositionAttempts} systems`)
     console.log(`Furthest distance between systems: ${longestDistance}, shortest ${shortestDistance}, average ${totalMin}`)
-    console.log(`Universe with ${systems.length} systems generated, output image.`)
+    console.log(`Universe with ${systems.length} systems, ${totalWaypoints} waypoints generated.`)
     const canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE)
     const context = canvas.getContext('2d')
-    const scale = CANVAS_SIZE / MAX_MAP_SIZE / 2
-    context.fillStyle = 'black';
-    context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
-    for(const system of systems) {
-        context.beginPath()
-        context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
-        context.fillStyle = starTypes[system.type].color
-        context.closePath()
-        context.fill()
+
+    const renderMethods: Record<string, (system: System, context: CanvasRenderingContext2D) => void> = {
+        starType: renderStarType,
+        marketAvailable: renderMarketAvailable,
+        populationCenter: renderPopulationCenter,
+        fuelAvailable: renderFuelAvailable,
+        jumpGates: renderJumpGates,
     }
 
-    const imgBuffer = canvas.toBuffer('image/png')
-    fs.writeFileSync('./systems.png', imgBuffer)
+    fs.mkdirSync('./renders', {recursive: true})
+
+    for(const renderMethod in renderMethods) {
+        const renderFunction = renderMethods[renderMethod]
+        context.fillStyle = 'black';
+        context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
+        for (const system of systems) {
+            renderFunction(system, context)
+        }
+
+        const imgBuffer = canvas.toBuffer('image/png')
+        fs.writeFileSync(`./renders/${renderMethod}.png`, imgBuffer)
+    }
+
+    fs.writeFileSync('./systems.json', JSON.stringify(systems.slice(0, 100), null, 2))
 }
 
-generateUniverse();
+function renderStarType(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    context.fillStyle = starTypes[system.type].color
+    context.closePath()
+    context.fill()
+}
+function renderMarketAvailable(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    const marketCount = system.waypoints.filter(w => w.traits.includes('MARKETPLACE')).length
+    context.fillStyle = marketCount > 0 ? 'lime' : 'red'
+    context.closePath()
+    context.fill()
+}
+
+function renderFuelAvailable(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    const marketCount = system.waypoints.filter(w => w.imports.includes('FUEL') || w.exports.includes('FUEL') || w.exchange.includes('FUEL')).length
+    context.fillStyle = marketCount > 0 ? 'lime' : 'red'
+    context.closePath()
+    context.fill()
+}
+
+function renderPopulationCenter(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    const populationCenters = system.waypoints.filter(w => w.population >= 3).length
+    context.fillStyle = populationCenters > 0 ? 'lime' : 'red'
+    context.closePath()
+    context.fill()
+}
+
+function renderJumpGates(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    context.fillStyle = system.waypoints.some(w => w.type === 'JUMP_GATE') ? 'lime' : 'red'
+    context.closePath()
+    context.fill()
+
+    const jg = system.waypoints.find(w => w.jumpGate)?.jumpGate
+    if (jg) {
+        context.beginPath()
+        context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), jg.range * scale, 0, 2 * Math.PI, false);
+        context.strokeStyle = 'blue'
+        context.stroke()
+        context.closePath()
+    }
+}

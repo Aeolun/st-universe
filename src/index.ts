@@ -1,6 +1,7 @@
 import {$log} from "@tsed/common";
 import { PlatformKoa } from "@tsed/platform-koa";
 import {Server} from "./Server";
+import {generateUniverse} from "src/universe/generateUniverse";
 
 async function bootstrap() {
   try {
@@ -16,6 +17,6 @@ async function bootstrap() {
 }
 
 generateUniverse().then(() => {
-  bootstrap();
+  //bootstrap();
 })
 

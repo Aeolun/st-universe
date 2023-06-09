@@ -1,0 +1,6105 @@
+[
+  {
+    "x": -5995.335755570434,
+    "y": 8050.018041122343,
+    "type": "HYPERGIANT",
+    "symbol": "X1_4569",
+    "waypoints": [
+      {
+        "symbol": "X1_4569_7439",
+        "x": -11.41689835478026,
+        "y": -70.4820020500565,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS",
+          "STRONG_MAGNETOSPHERE",
+          "TEMPERATE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "ELECTRONICS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4569_4138",
+        "x": -28.589983751079252,
+        "y": 21.3583904667723,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2086.3357555704342,
+    "y": 7362.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_8065",
+    "waypoints": []
+  },
+  {
+    "x": -2239.3357555704342,
+    "y": 6504.018041122343,
+    "type": "NEBULA",
+    "symbol": "X1_6760",
+    "waypoints": [
+      {
+        "symbol": "X1_6760_1124",
+        "x": -48.617034210055586,
+        "y": -5.757047265558706,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6760_5193",
+        "x": 28.16747570976287,
+        "y": -28.733687265734105,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6760_7183",
+        "x": 43.08467746140658,
+        "y": 43.79216139382717,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "GENETHERAPEUTICS",
+          "NUCLEAR_DEVICES",
+          "VIRAL_VECTORS",
+          "AI_MAINFRAMES",
+          "SILVER_ORE",
+          "THERMAL_REGULATORS",
+          "COPPER_ORE",
+          "LAB_INSTRUMENTS"
+        ],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3548.3357555704342,
+    "y": 7298.018041122343,
+    "type": "BLUE_STAR",
+    "symbol": "X1_8421",
+    "waypoints": [
+      {
+        "symbol": "X1_8421_1434",
+        "x": 33.02560088893739,
+        "y": 48.390838031775345,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED",
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8421_5912",
+        "x": -52.1841903861325,
+        "y": -50.944336256377234,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8421_1944",
+        "x": 61.92711603050562,
+        "y": -33.25072804404548,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8421_5009",
+        "x": -6.079455671041897,
+        "y": -29.120648419108534,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3125.3357555704342,
+    "y": 5421.018041122343,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_1715",
+    "waypoints": []
+  },
+  {
+    "x": -2904.3357555704342,
+    "y": 6349.018041122343,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_5199",
+    "waypoints": [
+      {
+        "symbol": "X1_5199_7842",
+        "x": 36.99329598865386,
+        "y": -15.493921559704697,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "LUXURY_GOODS"
+        ],
+        "traits": [
+          "SCATTERED_SETTLEMENTS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "FOOD",
+          "PLASTICS",
+          "ELECTRONICS"
+        ],
+        "exports": [
+          "LUXURY_GOODS"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_5199_5728",
+        "x": -54.694810352198154,
+        "y": -33.14240795420365,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5199_5785",
+        "x": 61.560040107863614,
+        "y": 28.62191495355878,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "STRIPPED",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "FABRICS",
+          "THERMAL_REGULATORS",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "LIVESTOCK"
+        ],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5199_2406",
+        "x": 27.58757049005411,
+        "y": 9.093680564218204,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5199_1074",
+        "x": 34.3211321360151,
+        "y": -97.39865283484917,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "VIBRANT_AURORAS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "TOURISTS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5199_4075",
+        "x": -27.85107316770097,
+        "y": -63.28100682801078,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "TECHNOLOGY"
+        ],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "ADVANCED_CIRCUITRY",
+          "ELECTRONICS"
+        ],
+        "exports": [
+          "AI_MAINFRAMES",
+          "QUANTUM_DRIVES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_5199_7039",
+        "x": 80.3186684629514,
+        "y": -94.51817450293908,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2113.3357555704342,
+    "y": 4998.018041122343,
+    "type": "HYPERGIANT",
+    "symbol": "X1_7813",
+    "waypoints": [
+      {
+        "symbol": "X1_7813_6115",
+        "x": 49.33482551766179,
+        "y": 23.267491976603072,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_7813_5311",
+        "x": 64.28554151812638,
+        "y": -22.63753999537365,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "ENERGY",
+          "LIGHT_MANUFACTURING"
+        ],
+        "traits": [
+          "HIGH_TECH",
+          "EXPLOSIVE_GASES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "ELECTRONICS",
+          "RESEARCH_DATA",
+          "HYDROCARBONS",
+          "IRON",
+          "ALUMINUM",
+          "COPPER"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "FUSION_GENERATORS",
+          "NUCLEAR_DEVICES",
+          "MACHINERY"
+        ],
+        "exchange": [
+          "FUEL",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "population": 2
+      }
+    ]
+  },
+  {
+    "x": -2240.3357555704342,
+    "y": 4281.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_1829",
+    "waypoints": []
+  },
+  {
+    "x": -1267.3357555704342,
+    "y": 6725.018041122343,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_1571",
+    "waypoints": [
+      {
+        "symbol": "X1_1571_3380",
+        "x": 84.74291802439019,
+        "y": -46.99909220967034,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "EXOTIC_MATTER",
+          "HEAVY_MACHINERY",
+          "GRAVITON_EMITTERS",
+          "SILVER",
+          "ANTIMATTER"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_1571_8285",
+        "x": 15.417357086065275,
+        "y": 68.7631299511086,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1571_5963",
+        "x": -16.809499717293882,
+        "y": -20.2112764604566,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "WAREHOUSING",
+          "REFINING"
+        ],
+        "traits": [
+          "INDUSTRIAL",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "FUEL",
+          "HEAVY_MACHINERY",
+          "FOOD",
+          "CLOTHING",
+          "ELECTRONICS",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "exports": [
+          "RADIOACTIVE_WASTE",
+          "MILITARY_EQUIPMENT",
+          "MACHINERY",
+          "IRON",
+          "ALUMINUM",
+          "COPPER"
+        ],
+        "exchange": [],
+        "population": 2
+      },
+      {
+        "symbol": "X1_1571_3341",
+        "x": 64.29339698797787,
+        "y": 34.90880703291034,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1802.3357555704342,
+    "y": 4471.018041122343,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_2051",
+    "waypoints": [
+      {
+        "symbol": "X1_2051_1962",
+        "x": -9.617557606901913,
+        "y": 88.0098486713221,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -835.3357555704341,
+    "y": 3370.0180411223428,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_3048",
+    "waypoints": [
+      {
+        "symbol": "X1_3048_8803",
+        "x": -52.011800463722984,
+        "y": -10.072832712815694,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3048_8205",
+        "x": -13.516403920282514,
+        "y": 68.74693661973608,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2735.3357555704342,
+    "y": 6099.018041122343,
+    "type": "NEBULA",
+    "symbol": "X1_1277",
+    "waypoints": [
+      {
+        "symbol": "X1_1277_3892",
+        "x": 29.92375548183992,
+        "y": 63.09003476939625,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1277_1809",
+        "x": -15.060830880429297,
+        "y": 28.56802793296019,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "WAREHOUSING",
+          "CONSTRUCTION_MATERIALS",
+          "ENERGY",
+          "LUXURY_GOODS",
+          "REFINING"
+        ],
+        "traits": [
+          "BLACK_MARKET",
+          "HIGH_TECH",
+          "MEGA_STRUCTURES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "FOOD",
+          "CLOTHING",
+          "EQUIPMENT",
+          "RESEARCH_DATA",
+          "ALUMINUM",
+          "HYDROCARBONS",
+          "HEAVY_MACHINERY",
+          "PLASTICS",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "SHIP_PLATING",
+          "FUSION_GENERATORS",
+          "NUCLEAR_DEVICES",
+          "LUXURY_GOODS",
+          "ALUMINUM"
+        ],
+        "exchange": [
+          "FUEL",
+          "ELECTRONICS",
+          "IRON",
+          "COPPER",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_1277_8255",
+        "x": -36.55103976153017,
+        "y": 8.850264428851057,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3206.3357555704342,
+    "y": 5105.018041122343,
+    "type": "NEBULA",
+    "symbol": "X1_4574",
+    "waypoints": [
+      {
+        "symbol": "X1_4574_4847",
+        "x": -37.44402271368396,
+        "y": -60.01989640111161,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRONG_MAGNETOSPHERE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "ELECTRONICS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4574_4041",
+        "x": 6.625472595285428,
+        "y": -59.80334482328986,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1425.3357555704342,
+    "y": 3505.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_3110",
+    "waypoints": [
+      {
+        "symbol": "X1_3110_1136",
+        "x": -7.161126243271126,
+        "y": -83.2772216123189,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1305.3357555704342,
+    "y": 2902.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_3706",
+    "waypoints": [
+      {
+        "symbol": "X1_3706_1136",
+        "x": -30.551483212513297,
+        "y": 0.0835180434334776,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3706_5122",
+        "x": 64.31267984525579,
+        "y": -87.72089791140203,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3706_8136",
+        "x": -63.94888804981702,
+        "y": -82.92642398463617,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SHIPYARD",
+          "JUNGLE"
+        ],
+        "extractableResources": [
+          "BOTANICAL_SPECIMENS",
+          "NOVEL_LIFEFORMS",
+          "LIVESTOCK",
+          "RESEARCH_DATA"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3706_4346",
+        "x": -45.57316829195529,
+        "y": -35.52370969891056,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2262.3357555704342,
+    "y": 5774.018041122343,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_3492",
+    "waypoints": [
+      {
+        "symbol": "X1_3492_5331",
+        "x": 32.87459369396537,
+        "y": -48.574192467552884,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3492_2902",
+        "x": -24.30874130964324,
+        "y": 38.42686465098763,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1074.3357555704342,
+    "y": 3016.0180411223428,
+    "type": "NEBULA",
+    "symbol": "X1_3438",
+    "waypoints": [
+      {
+        "symbol": "X1_3438_8535",
+        "x": -92.30900280693398,
+        "y": -51.675517641788176,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3438_4538",
+        "x": 72.7182809169269,
+        "y": -84.34543724270927,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "BIOCOMPOSITES",
+          "PRECIOUS_STONES",
+          "AMMONIA_ICE",
+          "IRON",
+          "MACHINERY"
+        ],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1828.3357555704342,
+    "y": 2075.0180411223428,
+    "type": "NEBULA",
+    "symbol": "X1_7579",
+    "waypoints": [
+      {
+        "symbol": "X1_7579_5516",
+        "x": -39.03429903589704,
+        "y": 38.270939837876675,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "CLOTHING",
+          "NEURAL_CHIPS",
+          "RESEARCH_DATA",
+          "HEAVY_MACHINERY",
+          "DIAMONDS"
+        ],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3120.3357555704342,
+    "y": 3498.0180411223428,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_4864",
+    "waypoints": []
+  },
+  {
+    "x": -1576.3357555704342,
+    "y": 6665.018041122343,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_6986",
+    "waypoints": [
+      {
+        "symbol": "X1_6986_9555",
+        "x": 37.31381678607269,
+        "y": 63.47966473068047,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6986_7468",
+        "x": -14.251632359988829,
+        "y": -45.35728609856346,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6986_4346",
+        "x": 70.89490482513774,
+        "y": 33.49417033781579,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6986_1780",
+        "x": -74.52418744994759,
+        "y": -8.124359179773046,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS",
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6986_3024",
+        "x": -30.00504219158549,
+        "y": 56.70771547357499,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6986_1667",
+        "x": -61.7316671747973,
+        "y": 34.73339937191259,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "ENERGY"
+        ],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "RESEARCH_FACILITY",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "LAB_INSTRUMENTS",
+          "ADVANCED_CIRCUITRY",
+          "NOVEL_LIFEFORMS",
+          "HYDROCARBONS",
+          "ELECTRONICS"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "FUSION_GENERATORS",
+          "NUCLEAR_DEVICES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -2908.3357555704342,
+    "y": 2735.0180411223428,
+    "type": "BLUE_STAR",
+    "symbol": "X1_3956",
+    "waypoints": [
+      {
+        "symbol": "X1_3956_6990",
+        "x": -84.44519724212064,
+        "y": 2.0304656180572755,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3956_1485",
+        "x": 23.123237753824135,
+        "y": 37.651624066692705,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "CORROSIVE_ATMOSPHERE",
+          "TEMPERATE",
+          "TOXIC_ATMOSPHERE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3956_6588",
+        "x": -26.32729175611292,
+        "y": 30.585992361389973,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "REFINING",
+          "AGRICULTURE",
+          "TOURISM"
+        ],
+        "traits": [
+          "MEGA_STRUCTURES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "HEAVY_MACHINERY",
+          "ADVANCED_CIRCUITRY",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "LIVESTOCK",
+          "FERTILIZERS",
+          "TOURISTS"
+        ],
+        "exports": [
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "FOOD",
+          "FABRICS"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_3956_8439",
+        "x": -48.09264323118238,
+        "y": 89.34073840596946,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "TECHNOLOGY"
+        ],
+        "traits": [
+          "MILITARY_BASE",
+          "BLACK_MARKET",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "MILITARY_EQUIPMENT",
+          "FIREARMS",
+          "ADVANCED_CIRCUITRY",
+          "ELECTRONICS"
+        ],
+        "exports": [
+          "AI_MAINFRAMES",
+          "QUANTUM_DRIVES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -751.3357555704341,
+    "y": 3102.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_1431",
+    "waypoints": [
+      {
+        "symbol": "X1_1431_2192",
+        "x": 40.4486229621667,
+        "y": -16.56245824804068,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1431_1020",
+        "x": 24.94282170290803,
+        "y": 14.29690099954608,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1431_7776",
+        "x": -27.84281829974061,
+        "y": 27.642088777347627,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS",
+          "CORROSIVE_ATMOSPHERE",
+          "BARREN"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4045.3357555704342,
+    "y": 2880.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_6925",
+    "waypoints": [
+      {
+        "symbol": "X1_6925_1880",
+        "x": -21.847498443910325,
+        "y": -22.054132649281936,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS",
+          "EXTREME_PRESSURE",
+          "VIBRANT_AURORAS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "TOURISTS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6925_2951",
+        "x": -49.22800334164452,
+        "y": 22.695251568695063,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6925_1405",
+        "x": 58.75692210684327,
+        "y": -25.711399703373,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6925_4253",
+        "x": 52.53088100113752,
+        "y": 61.76522381465904,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3378.3357555704342,
+    "y": 3600.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_8353",
+    "waypoints": [
+      {
+        "symbol": "X1_8353_7325",
+        "x": 58.09231764906603,
+        "y": -15.701530845753568,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2593.3357555704342,
+    "y": 4825.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_7831",
+    "waypoints": [
+      {
+        "symbol": "X1_7831_4657",
+        "x": -22.629728049928367,
+        "y": -12.336584998069807,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXTREME_TEMPERATURES",
+          "FROZEN",
+          "EXPLORATION_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "ICE_WATER",
+          "AMMONIA_ICE",
+          "RESEARCH_DATA"
+        ],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "MACHINERY",
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -4910.335755570434,
+    "y": 3836.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_7689",
+    "waypoints": [
+      {
+        "symbol": "X1_7689_8405",
+        "x": -58.32093849149299,
+        "y": -48.488805108905765,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "COPPER",
+          "SLAVES",
+          "CLOTHING",
+          "POLYNUCLEOTIDES",
+          "MEDICAL_SUPPLIES"
+        ],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7689_7903",
+        "x": 13.71070027986032,
+        "y": -32.82962512892854,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7689_8632",
+        "x": -43.97629540718408,
+        "y": 38.719536309159906,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TOXIC_ATMOSPHERE",
+          "DRY_SEABEDS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "QUARTZ_SAND",
+          "POLYNUCLEOTIDES",
+          "DIAMONDS"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7689_4995",
+        "x": 30.71592453002028,
+        "y": 32.34242116863261,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "CHEMICALS"
+        ],
+        "traits": [
+          "WEAK_GRAVITY",
+          "INDUSTRIAL",
+          "TERRAFORMED",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "GRAVITON_EMITTERS",
+          "EQUIPMENT",
+          "FUEL",
+          "HYDROCARBONS",
+          "POLYNUCLEOTIDES"
+        ],
+        "exports": [
+          "RADIOACTIVE_WASTE",
+          "MILITARY_EQUIPMENT",
+          "MACHINERY",
+          "PLASTICS"
+        ],
+        "exchange": [],
+        "population": 2
+      },
+      {
+        "symbol": "X1_7689_4801",
+        "x": -16.811026971236668,
+        "y": 29.612508283699448,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7689_5572",
+        "x": -80.3788298633562,
+        "y": 89.28245635072703,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 469.6642444295659,
+    "y": 3139.0180411223428,
+    "type": "BLUE_STAR",
+    "symbol": "X1_5040",
+    "waypoints": [
+      {
+        "symbol": "X1_5040_7605",
+        "x": 19.285461141075565,
+        "y": -23.50834234918146,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5040_7293",
+        "x": -82.94094992705128,
+        "y": -94.08338243557188,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5040_4648",
+        "x": 82.53457029460449,
+        "y": -84.19571873386685,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SHIPYARD"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5040_5020",
+        "x": -58.59843072379417,
+        "y": -67.59638713747906,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5040_4157",
+        "x": 62.05045077980355,
+        "y": 69.35172157234145,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -3095.3357555704342,
+    "y": 3067.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_5323",
+    "waypoints": [
+      {
+        "symbol": "X1_5323_2057",
+        "x": -20.88572657312193,
+        "y": 55.86511027068627,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5323_4960",
+        "x": -31.102185757064884,
+        "y": 16.748772959849376,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5323_6093",
+        "x": 43.703273767174394,
+        "y": -0.5782533602592225,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5323_1256",
+        "x": -20.257491564395266,
+        "y": -15.606396831278728,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS",
+          "EXTREME_PRESSURE",
+          "EXPLOSIVE_GASES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE",
+          "HYDROCARBONS"
+        ],
+        "imports": [
+          "HEAVY_MACHINERY"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5323_2936",
+        "x": 68.12691303305643,
+        "y": 66.10556135671615,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5323_2385",
+        "x": 27.191848877493708,
+        "y": -21.47320884021217,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4321.335755570434,
+    "y": 3572.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_7303",
+    "waypoints": []
+  },
+  {
+    "x": 32.66424442956588,
+    "y": 1825.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_1717",
+    "waypoints": [
+      {
+        "symbol": "X1_1717_7687",
+        "x": -11.62567623369145,
+        "y": 26.492033141597684,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1717_4258",
+        "x": 94.30090457880142,
+        "y": -72.94946978154645,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3744.3357555704342,
+    "y": 6771.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_6630",
+    "waypoints": [
+      {
+        "symbol": "X1_6630_1291",
+        "x": 74.6486669891824,
+        "y": 5.08012510388734,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -567.3357555704341,
+    "y": 6005.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_3791",
+    "waypoints": [
+      {
+        "symbol": "X1_3791_1810",
+        "x": 38.18713842721242,
+        "y": -10.123702502943665,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "WAREHOUSING"
+        ],
+        "traits": [
+          "MINERAL_DEPOSITS",
+          "OUTPOST",
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "FOOD",
+          "CLOTHING",
+          "ELECTRONICS"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -3528.3357555704342,
+    "y": 6119.018041122343,
+    "type": "HYPERGIANT",
+    "symbol": "X1_8757",
+    "waypoints": [
+      {
+        "symbol": "X1_8757_6950",
+        "x": -42.749339142017824,
+        "y": 28.02250563734703,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8757_5681",
+        "x": 18.06241208381079,
+        "y": -29.673603158265855,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 58.66424442956588,
+    "y": 3945.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_4335",
+    "waypoints": []
+  },
+  {
+    "x": -3545.3357555704342,
+    "y": 8282.018041122343,
+    "type": "RED_STAR",
+    "symbol": "X1_1114",
+    "waypoints": [
+      {
+        "symbol": "X1_1114_7029",
+        "x": 75.39411648049222,
+        "y": -47.77600176233228,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_1114_2522",
+        "x": -72.64815994579943,
+        "y": -20.221701600030087,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "VIBRANT_AURORAS",
+          "EXPLORATION_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "TOURISTS",
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [],
+        "population": 1
+      },
+      {
+        "symbol": "X1_1114_6937",
+        "x": -25.487239181540026,
+        "y": 23.841787219280064,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1114_2783",
+        "x": 32.711623825788365,
+        "y": -26.59998226669966,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1114_9348",
+        "x": 72.52848712740631,
+        "y": 68.36183338486062,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1114_3418",
+        "x": 49.509961024905834,
+        "y": 17.364762360940183,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TERRAFORMED",
+          "STRONG_GRAVITY",
+          "SURVEILLANCE_OUTPOST",
+          "CORRUPT",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "THERMAL_REGULATORS",
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_1114_2257",
+        "x": 9.67051041537199,
+        "y": 27.63828696567197,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -731.3357555704341,
+    "y": 1556.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_7450",
+    "waypoints": [
+      {
+        "symbol": "X1_7450_2276",
+        "x": -41.07013528275939,
+        "y": 7.275454899261328,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4832.335755570434,
+    "y": 8136.018041122343,
+    "type": "NEBULA",
+    "symbol": "X1_4096",
+    "waypoints": [
+      {
+        "symbol": "X1_4096_5504",
+        "x": 46.26187523088347,
+        "y": -2.109821418629703,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -260.3357555704341,
+    "y": 3517.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_5109",
+    "waypoints": []
+  },
+  {
+    "x": 209.66424442956588,
+    "y": 1274.0180411223428,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_2528",
+    "waypoints": [
+      {
+        "symbol": "X1_2528_6763",
+        "x": -60.81167441681765,
+        "y": 68.34939292454732,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_2528_7949",
+        "x": -14.287599623879924,
+        "y": -73.9658134992625,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS",
+          "OCEAN"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE",
+          "FOOD"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_2528_6744",
+        "x": -10.746145645148266,
+        "y": 53.45680395704446,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_2528_8600",
+        "x": -44.58329332928098,
+        "y": -2.7267768614153844,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4505.335755570434,
+    "y": 5994.018041122343,
+    "type": "UNSTABLE",
+    "symbol": "X1_3923",
+    "waypoints": [
+      {
+        "symbol": "X1_3923_4225",
+        "x": -75.25881566615963,
+        "y": -51.85099986480658,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3923_4431",
+        "x": -90.16185312461667,
+        "y": 31.23622308930288,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3030.3357555704342,
+    "y": 1275.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_6875",
+    "waypoints": [
+      {
+        "symbol": "X1_6875_1282",
+        "x": -27.236518904140055,
+        "y": -33.17327456897341,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SWAMP",
+          "STRONG_GRAVITY",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "NOVEL_LIFEFORMS"
+        ],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "THERMAL_REGULATORS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6875_8931",
+        "x": -72.74483095437895,
+        "y": -72.03815435555636,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6875_9775",
+        "x": -55.397810268673645,
+        "y": 4.486464183093575,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MILITARY_BASE",
+          "BARREN",
+          "EXPLORATION_OUTPOST",
+          "EXPLORATION_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "MILITARY_EQUIPMENT",
+          "FIREARMS",
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6875_8994",
+        "x": 95.93353121026303,
+        "y": -62.07876730280368,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2607.3357555704342,
+    "y": 665.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_7127",
+    "waypoints": []
+  },
+  {
+    "x": 610.6642444295659,
+    "y": 1316.0180411223428,
+    "type": "HYPERGIANT",
+    "symbol": "X1_7380",
+    "waypoints": [
+      {
+        "symbol": "X1_7380_6736",
+        "x": -0.9319948228434025,
+        "y": -25.129760507863132,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3680.3357555704342,
+    "y": 2381.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_6745",
+    "waypoints": [
+      {
+        "symbol": "X1_6745_5763",
+        "x": -44.829466419227835,
+        "y": -31.996326605231992,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_6844",
+        "x": 66.62924634918456,
+        "y": 45.171778211051425,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_4280",
+        "x": 36.397638756499504,
+        "y": 4.3124742808940635,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS",
+          "BARREN"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_3150",
+        "x": 92.14555045928965,
+        "y": -92.14490063963723,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "DIVERSE_LIVE",
+          "MINERAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "BOTANICAL_SPECIMENS",
+          "NOVEL_LIFEFORMS",
+          "LIVESTOCK",
+          "RESEARCH_DATA",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_2794",
+        "x": 14.181471383613992,
+        "y": -30.041230304529677,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_8185",
+        "x": -32.21988460236375,
+        "y": -7.9793789480456425,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_2768",
+        "x": -45.55473406340548,
+        "y": 46.35362192445993,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS",
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6745_4418",
+        "x": 18.4918743486195,
+        "y": 64.39132579902041,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "MINING"
+        ],
+        "traits": [
+          "SCATTERED_SETTLEMENTS",
+          "BARREN",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "HEAVY_MACHINERY"
+        ],
+        "exports": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6745_1270",
+        "x": -70.62615312090497,
+        "y": -41.60677907040693,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1316.3357555704342,
+    "y": 2648.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_6281",
+    "waypoints": [
+      {
+        "symbol": "X1_6281_4240",
+        "x": -24.464365926342094,
+        "y": 50.29271604547614,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6281_5894",
+        "x": 5.717985830495326,
+        "y": -88.74837981724241,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6281_7095",
+        "x": 52.06211908185567,
+        "y": -53.19872144740471,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6281_5861",
+        "x": -91.88986444579959,
+        "y": 82.21016403818822,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS",
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -2532.3357555704342,
+    "y": -271.98195887765723,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_4536",
+    "waypoints": [
+      {
+        "symbol": "X1_4536_2898",
+        "x": 30.699690773133856,
+        "y": -26.848205625068868,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4536_7814",
+        "x": -11.733903975458261,
+        "y": -72.66110920396697,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2919.3357555704342,
+    "y": 2111.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_5403",
+    "waypoints": []
+  },
+  {
+    "x": -4577.335755570434,
+    "y": 4724.018041122343,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_8232",
+    "waypoints": [
+      {
+        "symbol": "X1_8232_2161",
+        "x": -26.95952557688841,
+        "y": 23.346989445863116,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8232_1893",
+        "x": 34.92072564066937,
+        "y": 23.07403093166673,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3193.3357555704342,
+    "y": -1073.9819588776572,
+    "type": "NEBULA",
+    "symbol": "X1_4510",
+    "waypoints": [
+      {
+        "symbol": "X1_4510_5072",
+        "x": 71.12399239884064,
+        "y": -72.87515481799394,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4510_5786",
+        "x": -33.03037389861441,
+        "y": 81.27174420306036,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4510_6825",
+        "x": 2.3478960971296785,
+        "y": 26.61076087544215,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 1320.6642444295658,
+    "y": 828.0180411223428,
+    "type": "BLUE_STAR",
+    "symbol": "X1_4414",
+    "waypoints": [
+      {
+        "symbol": "X1_4414_4072",
+        "x": 15.731169354963873,
+        "y": -39.90026718521071,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4414_8258",
+        "x": 44.580330038749715,
+        "y": 66.81607564571294,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4414_9705",
+        "x": 22.23673006062708,
+        "y": 41.72709037080383,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4414_6166",
+        "x": 60.21752395619726,
+        "y": 87.35316845182419,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4414_4853",
+        "x": 95.60788824226996,
+        "y": -19.600932345955187,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3845.3357555704342,
+    "y": 2631.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_7479",
+    "waypoints": [
+      {
+        "symbol": "X1_7479_5889",
+        "x": 30.80795269295258,
+        "y": -83.05438520791373,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7479_3094",
+        "x": 68.75176027374243,
+        "y": -14.071034987159383,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7479_9218",
+        "x": 57.030504909171874,
+        "y": 58.50645267292907,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_7479_4243",
+        "x": 48.46217504019985,
+        "y": 7.668477053823252,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7479_9665",
+        "x": -87.5963043227441,
+        "y": 77.20099083287889,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -775.3357555704341,
+    "y": 833.0180411223428,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_8662",
+    "waypoints": []
+  },
+  {
+    "x": -3249.3357555704342,
+    "y": 1648.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_4025",
+    "waypoints": [
+      {
+        "symbol": "X1_4025_7019",
+        "x": -0.607600692192534,
+        "y": 46.89775457761086,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "CHEMICALS"
+        ],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS",
+          "TRADING_HUB",
+          "RESEARCH_FACILITY",
+          "EXPLOSIVE_GASES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE",
+          "HYDROCARBONS"
+        ],
+        "imports": [
+          "LAB_INSTRUMENTS",
+          "ADVANCED_CIRCUITRY",
+          "NOVEL_LIFEFORMS",
+          "HYDROCARBONS",
+          "POLYNUCLEOTIDES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "PLASTICS"
+        ],
+        "exchange": [
+          "FUEL",
+          "QUARTZ_SAND",
+          "PLATINUM_ORE",
+          "IRON",
+          "JEWELRY"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_4025_4899",
+        "x": 59.706022831925885,
+        "y": -52.40148106135055,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "FUEL_REFINING",
+          "CHEMICALS",
+          "CONSTRUCTION_MATERIALS",
+          "ELECTRONICS",
+          "LIGHT_MANUFACTURING",
+          "BIOCHEMICALS"
+        ],
+        "traits": [
+          "MILITARY_BASE",
+          "TEMPERATE",
+          "SPRAWLING_CITIES",
+          "SPRAWLING_CITIES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "MILITARY_EQUIPMENT",
+          "FIREARMS",
+          "HYDROCARBONS",
+          "POLYNUCLEOTIDES",
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "COPPER_ORE",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exports": [
+          "FUEL",
+          "SHIP_PLATING",
+          "MACHINERY",
+          "BIOCOMPOSITES"
+        ],
+        "exchange": [
+          "FUEL",
+          "PLASTICS",
+          "ELECTRONICS"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_4025_5450",
+        "x": 49.52009918943959,
+        "y": 47.67579820436511,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2791.3357555704342,
+    "y": -238.98195887765723,
+    "type": "NEBULA",
+    "symbol": "X1_7369",
+    "waypoints": [
+      {
+        "symbol": "X1_7369_5876",
+        "x": 33.31433309139989,
+        "y": -7.128764479354808,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7369_8714",
+        "x": -88.55746232174516,
+        "y": -20.625650445355948,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "FROZEN",
+          "ROCKY",
+          "STRONG_GRAVITY",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "ICE_WATER",
+          "AMMONIA_ICE",
+          "RESEARCH_DATA",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND"
+        ],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "THERMAL_REGULATORS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7369_2870",
+        "x": 66.47027374925086,
+        "y": -67.38150247104551,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXTREME_PRESSURE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "HEAVY_MACHINERY"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1148.3357555704342,
+    "y": 4614.018041122343,
+    "type": "UNSTABLE",
+    "symbol": "X1_3928",
+    "waypoints": [
+      {
+        "symbol": "X1_3928_5184",
+        "x": -44.75130830393721,
+        "y": 78.48852021286244,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "ALUMINUM",
+          "IRON_ORE",
+          "MOOD_REGULATORS",
+          "JEWELRY",
+          "DIAMONDS"
+        ],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3928_6920",
+        "x": -73.62949639988173,
+        "y": 13.719958318965396,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 5000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -54.33575557043412,
+    "y": 3060.0180411223428,
+    "type": "BLUE_STAR",
+    "symbol": "X1_3834",
+    "waypoints": [
+      {
+        "symbol": "X1_3834_3911",
+        "x": 24.206173122175613,
+        "y": -23.45451643659722,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3834_1211",
+        "x": -35.486808057999845,
+        "y": -36.85528243837483,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "BARREN",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_3834_3088",
+        "x": 69.06835879016627,
+        "y": -6.817671916368604,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3834_8923",
+        "x": 34.422754139821166,
+        "y": 33.80744995848126,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1726.3357555704342,
+    "y": 119.01804112234277,
+    "type": "RED_STAR",
+    "symbol": "X1_6509",
+    "waypoints": [
+      {
+        "symbol": "X1_6509_4484",
+        "x": 41.52539595807752,
+        "y": -35.11002436573827,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "GENETHERAPEUTICS",
+          "MILITARY_EQUIPMENT",
+          "DRUGS",
+          "HEAVY_MACHINERY",
+          "URANITE"
+        ],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6509_7766",
+        "x": -22.19011314354296,
+        "y": -19.27209905694126,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6509_5442",
+        "x": 14.825848326972803,
+        "y": -42.17890264412545,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6509_8634",
+        "x": -25.72559345281576,
+        "y": 88.91409990426443,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6509_8362",
+        "x": 28.423479108719235,
+        "y": -5.152064163851788,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "SOFTWARE"
+        ],
+        "traits": [
+          "RESEARCH_FACILITY",
+          "WEAK_GRAVITY",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "LAB_INSTRUMENTS",
+          "ADVANCED_CIRCUITRY",
+          "NOVEL_LIFEFORMS",
+          "ELECTRONICS",
+          "HEAVY_MACHINERY",
+          "GRAVITON_EMITTERS"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "QUANTUM_DRIVES",
+          "AI_MAINFRAMES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6509_5847",
+        "x": 35.647241588916586,
+        "y": 63.36278771163294,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6509_5266",
+        "x": 7.060301000808037,
+        "y": 39.331337218377,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4644.335755570434,
+    "y": -1412.9819588776572,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_6196",
+    "waypoints": [
+      {
+        "symbol": "X1_6196_3448",
+        "x": 30.915250155208852,
+        "y": 21.876246328978464,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "ROCKY",
+          "OCEAN"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "FOOD"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6196_1784",
+        "x": 54.268098981799426,
+        "y": 45.600278434469935,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLORATION_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": 1291.6642444295658,
+    "y": 3385.0180411223428,
+    "type": "UNSTABLE",
+    "symbol": "X1_8386",
+    "waypoints": []
+  },
+  {
+    "x": -3687.3357555704342,
+    "y": 7915.018041122343,
+    "type": "BLUE_STAR",
+    "symbol": "X1_5731",
+    "waypoints": [
+      {
+        "symbol": "X1_5731_9615",
+        "x": -42.499533241498966,
+        "y": 29.03611871911742,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "RARE_METAL_DEPOSITS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_5731_5481",
+        "x": -79.39248679186817,
+        "y": -96.88221959770577,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5731_2397",
+        "x": 11.567620428542586,
+        "y": 46.57739364629996,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1911.3357555704342,
+    "y": -703.9819588776572,
+    "type": "NEBULA",
+    "symbol": "X1_4473",
+    "waypoints": [
+      {
+        "symbol": "X1_4473_6124",
+        "x": 49.32197217879329,
+        "y": 44.74332734114833,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4473_4373",
+        "x": -2.8434231762604223,
+        "y": -68.54956510295378,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "ENERGY"
+        ],
+        "traits": [
+          "OUTPOST",
+          "TERRAFORMED",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "HYDROCARBONS",
+          "ADVANCED_CIRCUITRY",
+          "ELECTRONICS"
+        ],
+        "exports": [
+          "FUSION_GENERATORS",
+          "NUCLEAR_DEVICES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -2637.3357555704342,
+    "y": 2735.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_5056",
+    "waypoints": [
+      {
+        "symbol": "X1_5056_4956",
+        "x": 84.84213132033807,
+        "y": 84.38968510833372,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5056_5106",
+        "x": -31.710940294339906,
+        "y": 28.74348438386055,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS",
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5056_8739",
+        "x": 22.29419045265258,
+        "y": 42.33576944403088,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "FROZEN"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "ICE_WATER",
+          "AMMONIA_ICE",
+          "RESEARCH_DATA"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5056_7925",
+        "x": 19.828964093470248,
+        "y": -23.96068464374297,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5056_7749",
+        "x": 10.38681528929713,
+        "y": 68.7752770409401,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1395.3357555704342,
+    "y": 5078.018041122343,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_3157",
+    "waypoints": [
+      {
+        "symbol": "X1_3157_8635",
+        "x": 26.677291514189086,
+        "y": 57.49583356724727,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3541.3357555704342,
+    "y": 879.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_8008",
+    "waypoints": [
+      {
+        "symbol": "X1_8008_1236",
+        "x": 13.549422981155107,
+        "y": -40.77066446164522,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_8008_2655",
+        "x": -42.54556003320989,
+        "y": -76.51535533790334,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4226.335755570434,
+    "y": 3131.0180411223428,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_2429",
+    "waypoints": [
+      {
+        "symbol": "X1_2429_6163",
+        "x": -34.074637150615274,
+        "y": -52.13193371041599,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1026.3357555704342,
+    "y": 902.0180411223428,
+    "type": "NEBULA",
+    "symbol": "X1_5963",
+    "waypoints": [
+      {
+        "symbol": "X1_5963_3248",
+        "x": 41.26450382336186,
+        "y": -5.687806307430747,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -327.3357555704341,
+    "y": 575.0180411223428,
+    "type": "NEBULA",
+    "symbol": "X1_4204",
+    "waypoints": [
+      {
+        "symbol": "X1_4204_5886",
+        "x": -4.814789396103611,
+        "y": -38.88245190938187,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4204_3453",
+        "x": 25.79353767526431,
+        "y": -2.9690931502565445,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -5597.335755570434,
+    "y": 3752.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_4909",
+    "waypoints": [
+      {
+        "symbol": "X1_4909_2790",
+        "x": -61.02556688730437,
+        "y": -27.316114953052388,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS",
+          "STRIPPED"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1370.3357555704342,
+    "y": 127.01804112234277,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_3407",
+    "waypoints": [
+      {
+        "symbol": "X1_3407_2636",
+        "x": 35.00686372825172,
+        "y": 33.01275303854688,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS",
+          "STRIPPED"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3407_5928",
+        "x": 28.363806328665856,
+        "y": -42.65334981264634,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -47.33575557043412,
+    "y": -897.9819588776572,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_4762",
+    "waypoints": [
+      {
+        "symbol": "X1_4762_6307",
+        "x": -88.92142483604506,
+        "y": -70.30004588601878,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "CORROSIVE_ATMOSPHERE",
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4296.335755570434,
+    "y": 4670.018041122343,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_1488",
+    "waypoints": []
+  },
+  {
+    "x": 1717.6642444295658,
+    "y": 4290.018041122343,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_3874",
+    "waypoints": [
+      {
+        "symbol": "X1_3874_1798",
+        "x": -13.185460872720869,
+        "y": -62.53694906874947,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3874_4271",
+        "x": 69.20609045572938,
+        "y": -25.720491267162714,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -6248.335755570434,
+    "y": 7680.018041122343,
+    "type": "BLUE_STAR",
+    "symbol": "X1_4724",
+    "waypoints": [
+      {
+        "symbol": "X1_4724_1269",
+        "x": 50.403933211585716,
+        "y": 83.45046777811919,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "PRECIOUS_METAL_DEPOSITS",
+          "BARREN"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4724_3345",
+        "x": 74.07175823341913,
+        "y": 70.26883619973852,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "FROZEN"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "ICE_WATER",
+          "AMMONIA_ICE",
+          "RESEARCH_DATA"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4724_7179",
+        "x": -5.7453830703688205,
+        "y": -45.521470851262244,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 1981.6642444295658,
+    "y": 2724.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_3651",
+    "waypoints": [
+      {
+        "symbol": "X1_3651_3951",
+        "x": 36.32606435071887,
+        "y": 37.00543380625662,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXTREME_TEMPERATURES",
+          "JUNGLE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "BOTANICAL_SPECIMENS",
+          "NOVEL_LIFEFORMS",
+          "LIVESTOCK",
+          "RESEARCH_DATA"
+        ],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "MACHINERY"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3651_3691",
+        "x": 15.243643114077235,
+        "y": -77.59882850226575,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3641.3357555704342,
+    "y": -1702.9819588776572,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_7094",
+    "waypoints": [
+      {
+        "symbol": "X1_7094_2558",
+        "x": -64.27512753129214,
+        "y": 65.286609248961,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7094_4440",
+        "x": -50.357686308617325,
+        "y": 30.796422082608927,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_7094_1220",
+        "x": -21.049531732049495,
+        "y": 13.64889003239536,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "MINING",
+          "LIGHT_MANUFACTURING",
+          "PHARMACEUTICALS"
+        ],
+        "traits": [
+          "STRIPPED",
+          "RESEARCH_FACILITY",
+          "TOXIC_ATMOSPHERE",
+          "INDUSTRIAL",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "LAB_INSTRUMENTS",
+          "ADVANCED_CIRCUITRY",
+          "NOVEL_LIFEFORMS",
+          "HEAVY_MACHINERY",
+          "EQUIPMENT",
+          "FUEL",
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "ELECTRONICS",
+          "BOTANICAL_SPECIMENS",
+          "POLYNUCLEOTIDES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "RADIOACTIVE_WASTE",
+          "MILITARY_EQUIPMENT",
+          "MACHINERY"
+        ],
+        "exchange": [
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_7094_2174",
+        "x": -55.68696660307063,
+        "y": 4.434531305504613,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "POLYNUCLEOTIDES",
+          "GRAVITON_EMITTERS",
+          "IRON_ORE",
+          "BOTANICAL_SPECIMENS",
+          "TOURISTS"
+        ],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 515.6642444295659,
+    "y": 320.01804112234277,
+    "type": "RED_STAR",
+    "symbol": "X1_6770",
+    "waypoints": [
+      {
+        "symbol": "X1_6770_6871",
+        "x": 81.77436351725294,
+        "y": -18.775882617213092,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "LIGHT_MANUFACTURING",
+          "MINING",
+          "FUEL_REFINING"
+        ],
+        "traits": [
+          "EXPLORATION_OUTPOST",
+          "INDUSTRIAL",
+          "SCATTERED_SETTLEMENTS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "HEAVY_MACHINERY",
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "ELECTRONICS",
+          "HYDROCARBONS"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS",
+          "RADIOACTIVE_WASTE",
+          "MILITARY_EQUIPMENT",
+          "MACHINERY",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6770_4058",
+        "x": -32.2489524022584,
+        "y": 7.771311656994373,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "HEAVY_MANUFACTURING",
+          "BIOCHEMICALS"
+        ],
+        "traits": [
+          "EXPLORATION_OUTPOST",
+          "HIGH_TECH",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "FUEL",
+          "ELECTRONICS",
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "POLYNUCLEOTIDES"
+        ],
+        "exports": [
+          "NOVEL_LIFEFORMS",
+          "ROBOTICS",
+          "ADVANCED_CIRCUITRY",
+          "HEAVY_MACHINERY",
+          "BIOCOMPOSITES"
+        ],
+        "exchange": [
+          "FUEL",
+          "MEDICAL_SUPPLIES",
+          "RESEARCH_DATA",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_6770_6454",
+        "x": -40.54928734855357,
+        "y": -27.629951865427312,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRONG_MAGNETOSPHERE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "ELECTRONICS"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6770_4433",
+        "x": 33.26686567066144,
+        "y": 79.3626805381084,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1391.3357555704342,
+    "y": -1593.9819588776572,
+    "type": "HYPERGIANT",
+    "symbol": "X1_7625",
+    "waypoints": [
+      {
+        "symbol": "X1_7625_4686",
+        "x": -66.27042065529716,
+        "y": -3.5483738383110097,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7625_6216",
+        "x": -98.63830959829818,
+        "y": 57.254309377377375,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2798.3357555704342,
+    "y": 3041.0180411223428,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_6627",
+    "waypoints": [
+      {
+        "symbol": "X1_6627_5115",
+        "x": 59.648422348506905,
+        "y": 14.322903880294074,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6627_8222",
+        "x": -45.516263002985966,
+        "y": 5.1632235547215375,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6627_4587",
+        "x": -32.303554880078615,
+        "y": -26.791435478761557,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6627_1033",
+        "x": -43.96630827144472,
+        "y": 58.73245345076903,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "AMMUNITION",
+          "HEAVY_MACHINERY",
+          "PLATINUM_ORE",
+          "ANTIMATTER",
+          "DIAMONDS"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -3206.3357555704342,
+    "y": -2459.9819588776572,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_7473",
+    "waypoints": [
+      {
+        "symbol": "X1_7473_4072",
+        "x": 25.120791855616496,
+        "y": 33.701515089498784,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7473_3995",
+        "x": -37.73145810475048,
+        "y": -20.24974444757454,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_7473_2674",
+        "x": 41.797972358864065,
+        "y": -29.30985489326588,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7473_6311",
+        "x": -15.075480611753571,
+        "y": 65.33562418477776,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7473_5093",
+        "x": 94.7185725694986,
+        "y": -95.36252681129052,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLOSIVE_GASES",
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7473_5595",
+        "x": 79.70939867560837,
+        "y": -58.58370708533376,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2613.3357555704342,
+    "y": -2332.9819588776572,
+    "type": "HYPERGIANT",
+    "symbol": "X1_8634",
+    "waypoints": [
+      {
+        "symbol": "X1_8634_6800",
+        "x": -25.664385663464838,
+        "y": -6.220011976185542,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "RADIOACTIVE_WASTE",
+          "HOLOGRAPHICS",
+          "URANITE",
+          "ICE_WATER",
+          "ELECTRONICS"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_8634_8505",
+        "x": 37.301496311663406,
+        "y": 31.145801942005697,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2634.3357555704342,
+    "y": 1702.0180411223428,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_1431",
+    "waypoints": []
+  },
+  {
+    "x": -1862.3357555704342,
+    "y": 2588.0180411223428,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_5245",
+    "waypoints": [
+      {
+        "symbol": "X1_5245_7276",
+        "x": -43.894440610848974,
+        "y": -12.35249682815475,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5245_1996",
+        "x": -15.000152628146212,
+        "y": -26.352507074399906,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5245_6784",
+        "x": -29.47652270502402,
+        "y": -49.36443976627955,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "SOFTWARE",
+          "STOCK_EXCHANGE"
+        ],
+        "traits": [
+          "HIGH_TECH",
+          "STRIPPED",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "ELECTRONICS",
+          "RESEARCH_DATA"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "QUANTUM_DRIVES",
+          "AI_MAINFRAMES",
+          "RADIOACTIVE_WASTE"
+        ],
+        "exchange": [
+          "FUEL",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_5245_4077",
+        "x": -74.33801103206696,
+        "y": -66.60783514668957,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5245_5449",
+        "x": 74.01676860472773,
+        "y": 73.74877301553322,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5245_7558",
+        "x": 65.24292818261524,
+        "y": -81.58085970857964,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MILITARY_BASE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "MILITARY_EQUIPMENT",
+          "FIREARMS"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -879.3357555704341,
+    "y": 45.018041122342765,
+    "type": "RED_STAR",
+    "symbol": "X1_6369",
+    "waypoints": [
+      {
+        "symbol": "X1_6369_8510",
+        "x": -23.887900784580566,
+        "y": -21.394977098822615,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6369_5969",
+        "x": -11.073600163938217,
+        "y": 31.32425790667939,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLORATION_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6369_8225",
+        "x": -46.25881301452171,
+        "y": 61.131746371595796,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6369_1944",
+        "x": 43.44887880227877,
+        "y": 52.6914115578425,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6369_7034",
+        "x": 62.686086555150986,
+        "y": -16.088465085074393,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6369_4937",
+        "x": -38.55031254389081,
+        "y": 25.791372329445338,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2625.3357555704342,
+    "y": -3205.9819588776572,
+    "type": "HYPERGIANT",
+    "symbol": "X1_4733",
+    "waypoints": [
+      {
+        "symbol": "X1_4733_1524",
+        "x": -54.47272935949704,
+        "y": 76.23769590733507,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4733_4872",
+        "x": -31.881151596040723,
+        "y": 88.81497132245418,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3383.3357555704342,
+    "y": 1910.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_6689",
+    "waypoints": [
+      {
+        "symbol": "X1_6689_5725",
+        "x": -14.299436296642906,
+        "y": 29.43072939847699,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6689_1759",
+        "x": 28.82204035825792,
+        "y": -37.282054282874356,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6689_7919",
+        "x": 93.52085000712415,
+        "y": 79.67469505606998,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -1043.3357555704342,
+    "y": 520.0180411223428,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_5803",
+    "waypoints": [
+      {
+        "symbol": "X1_5803_1044",
+        "x": -47.72097494527904,
+        "y": 59.406957698262026,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_5803_1170",
+        "x": 32.412670647859066,
+        "y": -9.295704181088794,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "BIOCHEMICALS",
+          "SOFTWARE"
+        ],
+        "traits": [
+          "MEGA_STRUCTURES",
+          "ROCKY",
+          "STRONG_MAGNETOSPHERE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "HEAVY_MACHINERY",
+          "ADVANCED_CIRCUITRY",
+          "BOTANICAL_SPECIMENS",
+          "POLYNUCLEOTIDES",
+          "ELECTRONICS",
+          "THERMAL_REGULATORS"
+        ],
+        "exports": [
+          "BIOCOMPOSITES",
+          "QUANTUM_DRIVES",
+          "AI_MAINFRAMES"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_5803_5330",
+        "x": -50.96995583614068,
+        "y": 18.147438146819283,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "AGRICULTURE",
+          "WAREHOUSING",
+          "LUXURY_GOODS",
+          "FUEL_REFINING"
+        ],
+        "traits": [
+          "EXTREME_TEMPERATURES",
+          "HIGH_TECH",
+          "MEGA_STRUCTURES",
+          "PRECIOUS_METAL_DEPOSITS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "MACHINERY",
+          "EQUIPMENT",
+          "ELECTRONICS",
+          "RESEARCH_DATA",
+          "LIVESTOCK",
+          "FERTILIZERS",
+          "CLOTHING",
+          "HEAVY_MACHINERY",
+          "PLASTICS",
+          "HYDROCARBONS"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "FABRICS",
+          "LUXURY_GOODS",
+          "FUEL"
+        ],
+        "exchange": [
+          "FUEL",
+          "FOOD",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_5803_5261",
+        "x": 16.47144063649294,
+        "y": -79.6515587862767,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "TRADING_HUB",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "THERMAL_REGULATORS",
+          "LUXURY_GOODS",
+          "HOLOGRAPHICS",
+          "MOOD_REGULATORS",
+          "NUCLEAR_DEVICES"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_5803_3152",
+        "x": -7.509332367052793,
+        "y": -35.13822244214309,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4212.335755570434,
+    "y": 2348.0180411223428,
+    "type": "BLACK_HOLE",
+    "symbol": "X1_3870",
+    "waypoints": [
+      {
+        "symbol": "X1_3870_1464",
+        "x": 45.593985544398365,
+        "y": 13.292066926138187,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "WAREHOUSING"
+        ],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "BLACK_MARKET",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "FOOD",
+          "CLOTHING",
+          "ELECTRONICS"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  },
+  {
+    "x": -3410.3357555704342,
+    "y": 2766.0180411223428,
+    "type": "RED_STAR",
+    "symbol": "X1_4924",
+    "waypoints": [
+      {
+        "symbol": "X1_4924_5945",
+        "x": -72.34935556600448,
+        "y": 77.76790488466895,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4924_1532",
+        "x": 44.16004338216339,
+        "y": 38.647385893638464,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS",
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE",
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4924_2820",
+        "x": -49.53078429245838,
+        "y": 30.515295681914985,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "FUEL_REFINING"
+        ],
+        "traits": [
+          "STRIPPED",
+          "STRONG_MAGNETOSPHERE",
+          "OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "ELECTRONICS",
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES",
+          "HYDROCARBONS"
+        ],
+        "exports": [
+          "FUEL"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_4924_2170",
+        "x": 53.78084914902067,
+        "y": -79.01226532808009,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4924_4522",
+        "x": -27.26539368714004,
+        "y": -71.67800899612598,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "RARE_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -3109.3357555704342,
+    "y": 55.018041122342765,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_4980",
+    "waypoints": [
+      {
+        "symbol": "X1_4980_1163",
+        "x": 15.358021216962332,
+        "y": 38.50228848226881,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "STRIPPED"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4888.335755570434,
+    "y": 1557.0180411223428,
+    "type": "NEUTRON_STAR",
+    "symbol": "X1_1042",
+    "waypoints": [
+      {
+        "symbol": "X1_1042_5428",
+        "x": -26.75601062451302,
+        "y": 16.319288335146567,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "WAREHOUSING",
+          "BIOCHEMICALS"
+        ],
+        "traits": [
+          "TRADING_HUB",
+          "HIGH_TECH",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "ELECTRONICS",
+          "RESEARCH_DATA",
+          "FOOD",
+          "CLOTHING",
+          "BOTANICAL_SPECIMENS",
+          "POLYNUCLEOTIDES"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "ADVANCED_CIRCUITRY",
+          "BIOCOMPOSITES"
+        ],
+        "exchange": [
+          "FUEL",
+          "DRUGS",
+          "JEWELRY",
+          "ANTIMATTER",
+          "BOTANICAL_SPECIMENS",
+          "IRON"
+        ],
+        "population": 2
+      }
+    ]
+  },
+  {
+    "x": -4265.335755570434,
+    "y": 4185.018041122343,
+    "type": "RED_STAR",
+    "symbol": "X1_6603",
+    "waypoints": [
+      {
+        "symbol": "X1_6603_2365",
+        "x": 62.75171605575605,
+        "y": 22.78944854016274,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "HEAVY_MANUFACTURING",
+          "TOURISM",
+          "FUEL_REFINING"
+        ],
+        "traits": [
+          "RESEARCH_FACILITY",
+          "OVERCROWDED",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "LAB_INSTRUMENTS",
+          "ADVANCED_CIRCUITRY",
+          "NOVEL_LIFEFORMS",
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "ELECTRONICS",
+          "TOURISTS",
+          "HYDROCARBONS"
+        ],
+        "exports": [
+          "RESEARCH_DATA",
+          "HEAVY_MACHINERY",
+          "FUEL"
+        ],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_6603_2220",
+        "x": -81.20265158652867,
+        "y": 81.30741396161157,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "AGRICULTURE",
+          "SOFTWARE"
+        ],
+        "traits": [
+          "EXTREME_PRESSURE",
+          "VIBRANT_AURORAS",
+          "HIGH_TECH",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "HEAVY_MACHINERY",
+          "TOURISTS",
+          "EQUIPMENT",
+          "ELECTRONICS",
+          "RESEARCH_DATA",
+          "LIVESTOCK",
+          "FERTILIZERS"
+        ],
+        "exports": [
+          "ROBOTICS",
+          "MEDICAL_SUPPLIES",
+          "FOOD",
+          "FABRICS",
+          "QUANTUM_DRIVES",
+          "AI_MAINFRAMES"
+        ],
+        "exchange": [
+          "FUEL",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_6603_5127",
+        "x": 17.349090887267817,
+        "y": -19.782629281682958,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6603_6301",
+        "x": 17.803710287045536,
+        "y": 59.63309327767173,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "CONSUMER_GOODS",
+          "WAREHOUSING"
+        ],
+        "traits": [
+          "INDUSTRIAL",
+          "VOLCANIC",
+          "CORROSIVE_ATMOSPHERE",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "FUEL",
+          "HEAVY_MACHINERY",
+          "FABRICS",
+          "PLASTICS",
+          "ELECTRONICS",
+          "FOOD"
+        ],
+        "exports": [
+          "RADIOACTIVE_WASTE",
+          "MILITARY_EQUIPMENT",
+          "MACHINERY",
+          "LUXURY_GOODS"
+        ],
+        "exchange": [
+          "CLOTHING"
+        ],
+        "population": 2
+      },
+      {
+        "symbol": "X1_6603_7350",
+        "x": -33.100355221278996,
+        "y": -0.17440818233260313,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6603_2762",
+        "x": 32.92744244334712,
+        "y": 37.51667117858245,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4630.335755570434,
+    "y": 7311.018041122343,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_7888",
+    "waypoints": [
+      {
+        "symbol": "X1_7888_1125",
+        "x": 76.84878678582479,
+        "y": 18.526750235536053,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7888_3222",
+        "x": 42.159781310183824,
+        "y": 44.74037245540896,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7888_5293",
+        "x": 69.13183471899026,
+        "y": -45.994389855042556,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TERRAFORMED",
+          "MINERAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7888_1137",
+        "x": 20.344652054623797,
+        "y": 25.74221358689601,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "BARREN"
+        ],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_7888_5742",
+        "x": -51.541323451599595,
+        "y": -11.361255499354193,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4767.335755570434,
+    "y": -420.98195887765723,
+    "type": "NEBULA",
+    "symbol": "X1_5099",
+    "waypoints": [
+      {
+        "symbol": "X1_5099_3259",
+        "x": -70.69373811217629,
+        "y": 26.028728577713547,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_5099_5794",
+        "x": 53.269369484081246,
+        "y": 61.36808108519804,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLOSIVE_GASES",
+          "SHIPYARD",
+          "VOLCANIC"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "HYDROCARBONS",
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 991.6642444295659,
+    "y": 158.01804112234277,
+    "type": "WHITE_DWARF",
+    "symbol": "X1_1126",
+    "waypoints": [
+      {
+        "symbol": "X1_1126_3762",
+        "x": -75.56667489707057,
+        "y": 16.240846994354694,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLOSIVE_GASES",
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1126_2539",
+        "x": -15.435883772764456,
+        "y": -63.592822464512594,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "COMMON_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -2927.3357555704342,
+    "y": -904.9819588776572,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_1687",
+    "waypoints": [
+      {
+        "symbol": "X1_1687_3226",
+        "x": -19.854691056495433,
+        "y": 43.96201115067387,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXTREME_PRESSURE",
+          "BARREN",
+          "VOLCANIC",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [
+          "HEAVY_MACHINERY"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1687_4348",
+        "x": -52.24199737985212,
+        "y": -61.69914658927661,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1687_7964",
+        "x": -41.78684314559982,
+        "y": 23.25898901614484,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1687_6376",
+        "x": 68.86349250361692,
+        "y": 52.50167951037897,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -513.3357555704341,
+    "y": 3883.0180411223428,
+    "type": "NEBULA",
+    "symbol": "X1_1088",
+    "waypoints": [
+      {
+        "symbol": "X1_1088_6267",
+        "x": 3.8666767049564448,
+        "y": -41.71900758954509,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXTREME_TEMPERATURES",
+          "ROCKY",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND"
+        ],
+        "imports": [
+          "THERMAL_REGULATORS",
+          "MACHINERY"
+        ],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_1088_1955",
+        "x": -76.33180452851126,
+        "y": 85.160103869535,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "EXPLOSIVE_GASES"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -4791.335755570434,
+    "y": 898.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_8706",
+    "waypoints": [
+      {
+        "symbol": "X1_8706_3825",
+        "x": -22.16153178394264,
+        "y": 22.429846590943537,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 2583.6642444295658,
+    "y": 4659.018041122343,
+    "type": "ORANGE_STAR",
+    "symbol": "X1_6109",
+    "waypoints": [
+      {
+        "symbol": "X1_6109_7100",
+        "x": 29.724163593275264,
+        "y": -63.210779067027126,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "CONSTRUCTION_MATERIALS",
+          "ENERGY"
+        ],
+        "traits": [
+          "SPRAWLING_CITIES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "HYDROCARBONS",
+          "ADVANCED_CIRCUITRY"
+        ],
+        "exports": [
+          "SHIP_PLATING",
+          "FUSION_GENERATORS",
+          "NUCLEAR_DEVICES"
+        ],
+        "exchange": [
+          "ELECTRONICS"
+        ],
+        "population": 3
+      },
+      {
+        "symbol": "X1_6109_7371",
+        "x": 54.81938921881299,
+        "y": 18.006167884997076,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6109_7584",
+        "x": -43.20999900886011,
+        "y": -46.861065940348034,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [
+          "HEAVY_MANUFACTURING",
+          "AGRICULTURE",
+          "MINING"
+        ],
+        "traits": [
+          "SPRAWLING_CITIES",
+          "EXPLORATION_OUTPOST",
+          "EXTREME_TEMPERATURES",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [],
+        "imports": [
+          "IRON",
+          "ALUMINUM",
+          "COPPER",
+          "ELECTRONICS",
+          "LIVESTOCK",
+          "FERTILIZERS",
+          "EQUIPMENT",
+          "FUEL",
+          "MEDICAL_SUPPLIES",
+          "THERMAL_REGULATORS",
+          "MACHINERY"
+        ],
+        "exports": [
+          "FOOD",
+          "FABRICS",
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "RESEARCH_DATA",
+          "NOVEL_LIFEFORMS",
+          "BOTANICAL_SPECIMENS"
+        ],
+        "exchange": [
+          "HEAVY_MACHINERY"
+        ],
+        "population": 1
+      },
+      {
+        "symbol": "X1_6109_2534",
+        "x": -15.355860927480807,
+        "y": 30.534515789247514,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6109_2748",
+        "x": -49.204568477048376,
+        "y": -8.334323393977416,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6109_8166",
+        "x": 33.921961997721304,
+        "y": 50.57623440069788,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_6109_3186",
+        "x": -98.30657344813916,
+        "y": -6.8178578205908975,
+        "type": "JUMP_GATE",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "jumpGate": {
+          "range": 2000
+        },
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": 2156.6642444295658,
+    "y": 2987.0180411223428,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_3657",
+    "waypoints": [
+      {
+        "symbol": "X1_3657_4954",
+        "x": -43.50461690805809,
+        "y": 25.80188890781219,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3657_8521",
+        "x": -94.08550600911192,
+        "y": 52.82483103935347,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_3657_6459",
+        "x": -40.14466525225579,
+        "y": -64.83848796895464,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "TRADING_HUB",
+          "RARE_METAL_DEPOSITS",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "DIAMONDS",
+          "URANITE_ORE",
+          "MERITIUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [
+          "FUEL",
+          "NOVEL_LIFEFORMS",
+          "ANTIMATTER",
+          "FERTILIZERS",
+          "THERMAL_REGULATORS",
+          "LIVESTOCK"
+        ],
+        "population": 0
+      }
+    ]
+  },
+  {
+    "x": -754.3357555704341,
+    "y": -270.98195887765723,
+    "type": "YOUNG_STAR",
+    "symbol": "X1_4701",
+    "waypoints": [
+      {
+        "symbol": "X1_4701_5436",
+        "x": -69.81223519948232,
+        "y": 54.86587955003739,
+        "type": "ASTEROID_FIELD",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "MINERAL_DEPOSITS",
+          "PRECIOUS_METAL_DEPOSITS"
+        ],
+        "extractableResources": [
+          "IRON_ORE",
+          "ALUMINUM_ORE",
+          "COPPER_ORE",
+          "QUARTZ_SAND",
+          "SILICON_CRYSTALS",
+          "GOLD_ORE",
+          "SILVER_ORE",
+          "PLATINUM_ORE"
+        ],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4701_1227",
+        "x": 88.42754150659853,
+        "y": 23.647926578564363,
+        "type": "GAS_GIANT",
+        "orbitals": [],
+        "industries": [],
+        "traits": [],
+        "extractableResources": [],
+        "imports": [],
+        "exports": [],
+        "exchange": [],
+        "population": 0
+      },
+      {
+        "symbol": "X1_4701_2399",
+        "x": -25.228759724711036,
+        "y": -45.395153470556465,
+        "type": "PLANET",
+        "orbitals": [],
+        "industries": [],
+        "traits": [
+          "SURVEILLANCE_OUTPOST",
+          "FROZEN",
+          "MARKETPLACE"
+        ],
+        "extractableResources": [
+          "HYDROCARBONS",
+          "ICE_WATER",
+          "AMMONIA_ICE",
+          "RESEARCH_DATA"
+        ],
+        "imports": [
+          "EQUIPMENT",
+          "MEDICAL_SUPPLIES"
+        ],
+        "exports": [],
+        "exchange": [
+          "FUEL"
+        ],
+        "population": 1
+      }
+    ]
+  }
+]

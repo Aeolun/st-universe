@@ -1,4 +1,4 @@
-export function pickRandom(from: string[]) {
+export function pickRandom<T>(from: T[]) {
     return from[Math.floor(Math.random() * from.length)]
 }
 
@@ -7,7 +7,7 @@ export function numberBetween(from: number, to: number) {
 }
 
 export function percentageChance(percentage: number) {
-    return Math.random() > percentage/100
+    return Math.random() < (percentage/100)
 }
 
 export const uniqueId = (str: string, seed = 0) => {
