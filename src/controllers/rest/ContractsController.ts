@@ -3,7 +3,7 @@ import {Get, Post} from "@tsed/schema";
 import {PathParams} from "@tsed/platform-params";
 
 @Controller("/my/")
-export class FleetController {
+export class ContractsController {
   @Get("/contracts")
   listShips() {
     return "hello";

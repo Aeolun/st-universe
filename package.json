@@ -6,6 +6,7 @@
     "build": "npm run barrels && tsc --project tsconfig.compile.json",
     "barrels": "barrelsby --config .barrelsby.json",
     "start": "npm run barrels && tsnd --inspect --exit-child --cls --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
+    "test": "vitest",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
@@ -66,6 +67,8 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "tslib": "^2.5.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.32.0"
   }
 }

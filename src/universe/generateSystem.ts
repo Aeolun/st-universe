@@ -26,6 +26,7 @@ export const generateSystem = (data: {
         x: data.x,
         y: data.y,
         type: systemType,
+        sectorSymbol: data.universeSymbol,
         symbol: systemSymbol
     })
 
@@ -49,6 +50,9 @@ export const generateSystem = (data: {
         })
         waypoints.push(wp)
         system.waypoints.push(wp)
+        wp.orbitals.forEach(o => {
+            system.waypoints.push(o)
+        })
     }
 
     if (hasJumpgate) {
@@ -63,6 +67,9 @@ export const generateSystem = (data: {
             range: percentageChance(10) ? SUPERDUTY_JUMP_GATE_RANGE : JUMP_GATE_RANGE
         })
         system.waypoints.push(jumpGate)
+        jumpGate.orbitals.forEach(o => {
+            system.waypoints.push(o)
+        })
     }
 
 

@@ -2,6 +2,7 @@ import {$log} from "@tsed/common";
 import { PlatformKoa } from "@tsed/platform-koa";
 import {Server} from "./Server";
 import {generateUniverse} from "src/universe/generateUniverse";
+import {setUniverse} from "src/universe/universe";
 
 async function bootstrap() {
   try {
@@ -16,7 +17,10 @@ async function bootstrap() {
   }
 }
 
-generateUniverse().then(() => {
-  //bootstrap();
-})
+generateUniverse().then((universe) => {
+  setUniverse(universe)
+  setInterval(() => {
+    universe.tick()
+  }, 2000);
+}).then(bootstrap)
 
