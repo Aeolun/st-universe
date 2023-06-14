@@ -167,6 +167,7 @@ export const generateWaypoint = (data: {
             stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
             consumptionRate: waypoint.population,
             productionRate: 0,
+            localFluctuation: numberBetween(-10, 10)
         })
     })
 
@@ -183,6 +184,7 @@ export const generateWaypoint = (data: {
             stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
             consumptionRate: 0,
             productionRate: waypoint.population,
+            localFluctuation: numberBetween(-10, 10)
         })
     })
 
@@ -199,6 +201,7 @@ export const generateWaypoint = (data: {
             stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
             consumptionRate: 0,
             productionRate: 0,
+            localFluctuation: numberBetween(-10, 10)
         })
     })
 

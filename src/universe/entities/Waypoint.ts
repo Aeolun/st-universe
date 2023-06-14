@@ -4,6 +4,7 @@ import {JumpGate} from "src/universe/entities/JumpGate";
 import {TradeGood, tradeGoods} from "src/universe/static-data/trade-goods";
 import {WaypointType} from "src/universe/static-data/waypoint-types";
 import {Faction} from "src/universe/static-data/faction";
+import {Transaction} from "src/universe/entities/Transaction";
 
 export interface SupplyDemand {
     tradeGood: TradeGood
@@ -13,6 +14,7 @@ export interface SupplyDemand {
     stopSaleAt: number
     consumptionRate: number
     productionRate: number
+    localFluctuation: number
 }
 
 export class Waypoint {
@@ -38,6 +40,8 @@ export class Waypoint {
     public exchange: TradeGood[] = []
 
     public supplyDemand: SupplyDemand[] = []
+
+    public transactions: Transaction[] = []
 
     public population: number = 0
 

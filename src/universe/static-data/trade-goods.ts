@@ -70,7 +70,8 @@ export type TradeGood =
   | "URANITE_ORE"
   | "VIRAL_VECTORS"
   | "THERMAL_REGULATORS"
-  | "TOURISTS";
+  | "TOURISTS"
+  | "WATER";
 
 export const tradeGoods: Record<
   TradeGood,
@@ -365,6 +366,10 @@ export const tradeGoods: Record<
     TOURISTS: {
         basePrice: 1000,
         baseTradeVolume: 10,
+    },
+    WATER: {
+        basePrice: 10,
+        baseTradeVolume: 1000,
     }
 };
 
