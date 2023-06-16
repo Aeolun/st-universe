@@ -18,10 +18,12 @@ export type WaypointTrait =
   | "HIGH_TECH"
   | "INDUSTRIAL"
   | "JUNGLE"
+  | "LEGALIZED_SLAVERY"
   | "MARKETPLACE"
   | "MEGA_STRUCTURES"
   | "MILITARY_BASE"
   | "MINERAL_DEPOSITS"
+  | "NATURAL_SPICES"
   | "OCEAN"
   | "OUTPOST"
   | "OVERCROWDED"
@@ -46,14 +48,16 @@ export type WaypointTrait =
   | "VOLCANIC"
   | "WEAK_GRAVITY";
 
-type TraitCategory = "HABITATION"
-export interface TraitData {
-  validFor: WaypointType[]
-  category?: TraitCategory;
-  requiresCategory?: TraitCategory[];
-  imports?: TradeGood[];
-  exports?: TradeGood[];
+type TraitCategory = "HABITATION" | "PLANT_LIFE"
+export interface TraitModifiers {
+  imports?: Partial<Record<TradeGood, number>>;
+  exports?: Partial<Record<TradeGood, number>>;
   exchange?: TradeGood[];
+  produces?: Partial<Record<TradeGood, number>>;
+  consumes?: Partial<Record<TradeGood, number>>;
+  productionLine?: {
+    produces: TradeGood;
+  }[],
   productivityMultiplier?: number;
   exchangeGoodsCount?: number;
   illegalExchangeGoodsCount?: number;
@@ -64,6 +68,12 @@ export interface TraitData {
   populationLevel?: number;
   industries?: number;
   shipHullCount?: number;
+}
+
+export type TraitData = TraitModifiers & {
+  validFor: WaypointType[]
+  category?: TraitCategory;
+  requiresCategory?: TraitCategory[];
 }
 export const waypointTraits: Record<
   WaypointTrait,
@@ -102,6 +112,7 @@ export const waypointTraits: Record<
   },
   DIVERSE_LIVE: {
     validFor: ["PLANET"],
+    category: "PLANT_LIFE",
     extractableResources: ["BOTANICAL_SPECIMENS", "NOVEL_LIFEFORMS", "LIVESTOCK", "RESEARCH_DATA"],
   },
   DRY_SEABEDS: {
@@ -112,8 +123,16 @@ export const waypointTraits: Record<
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     category: "HABITATION",
     illegalExchangeGoodsCount: 1,
-    imports: ["EQUIPMENT", "FUEL", "MEDICAL_SUPPLIES"],
-    exports: ["RESEARCH_DATA", "NOVEL_LIFEFORMS", "BOTANICAL_SPECIMENS"],
+    imports: {
+      "EQUIPMENT": 1,
+      "FUEL": 1,
+      "MEDICAL_SUPPLIES": 1,
+    },
+    exports: {
+      "RESEARCH_DATA": 1,
+      "NOVEL_LIFEFORMS": 1,
+      "BOTANICAL_SPECIMENS": 1,
+    },
     populationLevel: 1,
   },
   EXPLOSIVE_GASES: {
@@ -123,13 +142,18 @@ export const waypointTraits: Record<
   },
   EXTREME_PRESSURE: {
     validFor: ["PLANET"],
-    imports: ["HEAVY_MACHINERY"],
+    imports: {
+      "HEAVY_MACHINERY": 1,
+    },
     maintenanceCostMultiplier: 2,
     constructionCostMultiplier: 2,
   },
   EXTREME_TEMPERATURES: {
     validFor: ["PLANET"],
-    imports: ["THERMAL_REGULATORS", "MACHINERY"],
+    imports: {
+      "THERMAL_REGULATORS": 1,
+      "MACHINERY": 1,
+    },
     maintenanceCostMultiplier: 1.5,
     constructionCostMultiplier: 1.5,
   },
@@ -140,8 +164,6 @@ export const waypointTraits: Record<
   HIGH_TECH: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     category: "HABITATION",
-    imports: ["EQUIPMENT", "ELECTRONICS", "RESEARCH_DATA"],
-    exports: ["ROBOTICS", "MEDICAL_SUPPLIES", "ADVANCED_CIRCUITRY"],
     exchange: ["FUEL"],
     populationLevel: 2,
     industries: 2,
@@ -149,14 +171,20 @@ export const waypointTraits: Record<
   INDUSTRIAL: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     category: "HABITATION",
-    imports: ["EQUIPMENT", "FUEL", "HEAVY_MACHINERY"],
-    exports: ["RADIOACTIVE_WASTE", "MILITARY_EQUIPMENT", "MACHINERY"],
     populationLevel: 2,
     industries: 2,
   },
   JUNGLE: {
     validFor: ["PLANET"],
+    category: "PLANT_LIFE",
     extractableResources: ["BOTANICAL_SPECIMENS", "NOVEL_LIFEFORMS", "LIVESTOCK", "RESEARCH_DATA"],
+  },
+  LEGALIZED_SLAVERY: {
+    validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
+    requiresCategory: ["HABITATION"],
+    exports: {
+      "SLAVES": 2
+    },
   },
   MARKETPLACE: {
     validFor: [],
@@ -164,7 +192,10 @@ export const waypointTraits: Record<
   MEGA_STRUCTURES: {
     validFor: ["PLANET"],
     category: "HABITATION",
-    imports: ["EQUIPMENT", "HEAVY_MACHINERY", "ADVANCED_CIRCUITRY"],
+    consumes: {
+      "HEAVY_MACHINERY": 2,
+      "ADVANCED_CIRCUITRY": 2,
+    },
     exchange: ["FUEL"],
     maintenanceCostMultiplier: 0.5,
     populationLevel: 3,
@@ -173,7 +204,10 @@ export const waypointTraits: Record<
   MILITARY_BASE: {
     validFor: ["PLANET", "ORBITAL_STATION"],
     category: "HABITATION",
-    imports: ["MILITARY_EQUIPMENT", "FIREARMS"],
+    imports: {
+      "MILITARY_EQUIPMENT": 1,
+      "FIREARMS": 1,
+    },
     exchange: ["FUEL"],
     populationLevel: 1,
   },
@@ -181,15 +215,26 @@ export const waypointTraits: Record<
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: ["IRON_ORE", "ALUMINUM_ORE", "COPPER_ORE", "QUARTZ_SAND", "SILICON_CRYSTALS"],
   },
+  NATURAL_SPICES: {
+    validFor: ["PLANET", "MOON"],
+    exports: {
+      "SPICES": 2,
+    },
+    requiresCategory: ["PLANT_LIFE"],
+  },
   OCEAN: {
     validFor: ["PLANET"],
+    category: "PLANT_LIFE",
     extractableResources: ["FOOD"],
     maintenanceCostMultiplier: 1.25
   },
   OUTPOST: {
     validFor: ["PLANET", "MOON"],
     category: "HABITATION",
-    imports: ["EQUIPMENT", "MEDICAL_SUPPLIES"],
+    consumes: {
+      "EQUIPMENT": 1,
+      "MEDICAL_SUPPLIES": 1,
+    },
     exchange: ["FUEL"],
     populationLevel: 1,
     industries: 1,
@@ -211,8 +256,14 @@ export const waypointTraits: Record<
   RESEARCH_FACILITY: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     category: "HABITATION",
-    imports: ["LAB_INSTRUMENTS", "ADVANCED_CIRCUITRY", "NOVEL_LIFEFORMS"],
-    exports: ["RESEARCH_DATA"],
+    consumes: {
+      "LAB_INSTRUMENTS": 1,
+      "ADVANCED_CIRCUITRY": 1,
+      "NOVEL_LIFEFORMS": 1,
+    },
+    exports: {
+      "RESEARCH_DATA": 1,
+    },
     exchange: ["FUEL"],
     populationLevel: 1,
     industries: 1,
@@ -235,6 +286,7 @@ export const waypointTraits: Record<
   SPRAWLING_CITIES: {
     validFor: ["PLANET", "MOON"],
     category: "HABITATION",
+    exports: ["TOURISTS"],
     populationLevel: 3,
     industries: 3,
   },
@@ -260,16 +312,19 @@ export const waypointTraits: Record<
   },
   SWAMP: {
     validFor: ["PLANET"],
+    category: "PLANT_LIFE",
     extractableResources: ["HYDROCARBONS", "NOVEL_LIFEFORMS"],
     maintenanceCostMultiplier: 1.5,
   },
   TEMPERATE: {
     validFor: ["PLANET"],
+    category: "PLANT_LIFE",
     maintenanceCostMultiplier: 0.75,
     constructionCostMultiplier: 0.75
   },
   TERRAFORMED: {
     validFor: ["PLANET", "MOON"],
+    category: "PLANT_LIFE",
     productivityMultiplier: 1.25,
   },
   TOXIC_ATMOSPHERE: {

@@ -43,344 +43,587 @@ export type TradeGood =
   | "LAB_INSTRUMENTS"
   | "LIVESTOCK"
   | "LUXURY_GOODS"
+  | "LIQUID_NITROGEN"
   | "MACHINERY"
   | "MEDICAL_SUPPLIES"
+  | "MICROPROCESSORS"
   | "MERITIUM"
   | "MERITIUM_ORE"
   | "FUSION_GENERATORS"
   | "MILITARY_EQUIPMENT"
   | "MOOD_REGULATORS"
   | "NANOBOTS"
-  | "NEURAL_CHIPS"
+  // | "NEURAL_CHIPS"
   | "NOVEL_LIFEFORMS"
-  | "NUCLEAR_DEVICES"
+  // | "NUCLEAR_DEVICES"
   | "PLASTICS"
   | "PLATINUM"
   | "PLATINUM_ORE"
   | "POLYNUCLEOTIDES"
   | "PRECIOUS_STONES"
+  | "RELIC_TECH"
   | "QUANTUM_DRIVES"
   | "QUARTZ_SAND"
-  | "RADIOACTIVE_WASTE"
+  // | "RADIOACTIVE_WASTE"
   | "RESEARCH_DATA"
-  | "ROBOTICS"
+  | "ROBOTIC_DRONES"
   | "SHIP_PLATING"
   | "SILICON_CRYSTALS"
   | "SILVER"
   | "SILVER_ORE"
-  | "SLAVES"
-  | "SPICES"
-  | "STIMULANTS"
-  | "SUPERCONDUCTORS"
+  // | "SLAVES"
+  // | "SPICES"
+  // | "STIMULANTS"
+  // | "SUPERCONDUCTORS"
   | "URANITE"
   | "URANITE_ORE"
-  | "VIRAL_VECTORS"
+  | "VIRAL_AGENTS"
   | "THERMAL_REGULATORS"
   | "TOURISTS"
-  | "WATER" | Module | Mount | Engine | Frame | Reactor;
+  // | "WATER"
+  | Module | Mount | Engine | Frame | Reactor;
 
 
-type PriceOrComponents = { basePrice: number } | { basePrice?: number; components: Partial<Record<TradeGood, number>> }
+type Components = Partial<Record<TradeGood, number>>
+type PriceOrComponents = { basePrice: number } | { basePrice?: number; components: Components | Components[] }
+export type TradeGoodData = { symbol: TradeGood; baseTradeVolume: number; illegal?: boolean; notConsumed?: boolean } & PriceOrComponents
 
 export const tradeGoods: Record<
   TradeGood,
-  { baseTradeVolume: number; illegal?: boolean; notConsumed?: boolean } & PriceOrComponents
+  TradeGoodData
 > = {
     ADVANCED_CIRCUITRY: {
-        basePrice: 1000,
+        symbol: "ADVANCED_CIRCUITRY",
+        components: {
+            ELECTRONICS: 1,
+            MICROPROCESSORS: 1
+        },
         baseTradeVolume: 10,
     },
     AI_MAINFRAMES: {
-        basePrice: 1000,
+        symbol: "AI_MAINFRAMES",
+        components: {
+            ADVANCED_CIRCUITRY: 3,
+        },
         baseTradeVolume: 10,
     },
     ALUMINUM: {
-        basePrice: 50,
+        symbol: "ALUMINUM",
+        components: {
+            ALUMINUM_ORE: 3,
+        },
         baseTradeVolume: 1000,
     },
     ALUMINUM_ORE: {
+        symbol: "ALUMINUM_ORE",
         basePrice: 10,
         baseTradeVolume: 1000,
     },
     AMMONIA_ICE: {
+        symbol: "AMMONIA_ICE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     AMMUNITION: {
-        basePrice: 100,
+        symbol: "AMMUNITION",
+        components: {
+            COPPER: 1,
+            IRON: 1,
+            LIQUID_NITROGEN: 1,
+        },
         baseTradeVolume: 10,
     },
     ANTIMATTER: {
-        basePrice: 100000,
+        symbol: "ANTIMATTER",
+        components: {
+            "MERITIUM": 1,
+            "EXOTIC_MATTER": 1,
+        },
         baseTradeVolume: 1,
     },
     BIOCOMPOSITES: {
-        basePrice: 1000,
+        symbol: "BIOCOMPOSITES",
+        components: {
+            LAB_INSTRUMENTS: 1,
+            POLYNUCLEOTIDES: 1,
+            FABRICS: 1,
+        },
         baseTradeVolume: 10,
     },
     BOTANICAL_SPECIMENS: {
-        basePrice: 1000,
+        symbol: "BOTANICAL_SPECIMENS",
+        components: {
+            LAB_INSTRUMENTS: 1,
+        },
         baseTradeVolume: 10,
     },
     CLOTHING: {
+        symbol: "CLOTHING",
         basePrice: 1000,
         baseTradeVolume: 10,
     },
     COPPER: {
-        basePrice: 1000,
+        symbol: "COPPER",
+        components: {
+            COPPER_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     COPPER_ORE: {
+        symbol: "COPPER_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     CYBERNETIC_IMPLANTS: {
-        basePrice: 1000,
+        symbol: "CYBERNETIC_IMPLANTS",
+        components: {
+            POLYNUCLEOTIDES: 1,
+            BIOCOMPOSITES: 1,
+            MICROPROCESSORS: 1,
+        },
         baseTradeVolume: 10,
     },
     DIAMONDS: {
+        symbol: "DIAMONDS",
         basePrice: 4500,
         baseTradeVolume: 10,
     },
     DRUGS: {
-        basePrice: 1100,
+        symbol: "DRUGS",
+        components: {
+            AMMONIA_ICE: 1,
+            FERTILIZERS: 1,
+            ICE_WATER: 1,
+        },
         baseTradeVolume: 10,
         illegal: true,
     },
     ELECTRONICS: {
-        basePrice: 70,
+        symbol: "ELECTRONICS",
+        components: {
+            SILICON_CRYSTALS: 1,
+            QUARTZ_SAND: 1,
+            GOLD: 1,
+        },
         baseTradeVolume: 10,
     },
     EQUIPMENT: {
-        basePrice: 850,
+        symbol: "EQUIPMENT",
+        components: {
+            MACHINERY: 1,
+            ELECTRONICS: 1,
+        },
         baseTradeVolume: 10,
     },
     EXOTIC_MATTER: {
-        basePrice: 100000,
+        symbol: "EXOTIC_MATTER",
+        components: {
+           LAB_INSTRUMENTS: 10,
+        },
         baseTradeVolume: 1,
     },
     EXPLOSIVES: {
-        basePrice: 600,
+        symbol: "EXPLOSIVES",
+        components: {
+            LIQUID_NITROGEN: 1,
+            HYDROCARBONS: 1,
+            AMMONIA_ICE: 1,
+        },
         baseTradeVolume: 10,
     },
     FABRICS: {
-        basePrice: 200,
+        symbol: "FABRICS",
+        components: {
+            FERTILIZERS: 1,
+            MACHINERY: 1,
+            AMMONIA_ICE: 1,
+        },
         baseTradeVolume: 10,
     },
     FERTILIZERS: {
-        basePrice: 3500,
+        symbol: "FERTILIZERS",
+        components: {
+            AMMONIA_ICE: 1,
+            HYDROCARBONS: 1,
+            LIQUID_NITROGEN: 1
+        },
         baseTradeVolume: 10,
     },
     FIREARMS: {
-        basePrice: 5000,
+        symbol: "FIREARMS",
+        components: {
+            PLATINUM: 1,
+            ALUMINUM: 1,
+            IRON: 1
+        },
         baseTradeVolume: 10,
     },
     FOOD: {
-        basePrice: 100,
+        symbol: "FOOD",
+        components: {
+            FERTILIZERS: 1,
+            ICE_WATER: 1,
+        },
         baseTradeVolume: 1000,
     },
     FUEL: {
-        basePrice: 1000,
+        symbol: "FUEL",
+        components: {
+            HYDROCARBONS: 1
+        },
         baseTradeVolume: 10,
     },
     GENETHERAPEUTICS: {
-        basePrice: 1000,
+        symbol: "GENETHERAPEUTICS",
+        components: {
+            POLYNUCLEOTIDES: 1,
+            LAB_INSTRUMENTS: 1,
+        },
         baseTradeVolume: 10,
     },
     GOLD: {
-        basePrice: 1000,
+        symbol: "GOLD",
+        components: {
+            GOLD_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     GOLD_ORE: {
+        symbol: "GOLD_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     GRAVITON_EMITTERS: {
-        basePrice: 1000,
+        symbol: "GRAVITON_EMITTERS",
+        components: {
+            ADVANCED_CIRCUITRY: 3
+        },
         baseTradeVolume: 10,
     },
     HEAVY_MACHINERY: {
-        basePrice: 2000,
+        symbol: "HEAVY_MACHINERY",
+        components: {
+            MACHINERY: 1,
+            IRON: 1,
+            ELECTRONICS: 1,
+        },
         baseTradeVolume: 10,
     },
     HOLOGRAPHICS: {
-        basePrice: 1000,
+        symbol: "HOLOGRAPHICS",
+        components: {
+            MICROPROCESSORS: 1,
+            GOLD: 1
+        },
         baseTradeVolume: 10,
     },
     HYDROCARBONS: {
-        basePrice: 1000,
+        symbol: "HYDROCARBONS",
+        components: {
+            MACHINERY: 1
+        },
         baseTradeVolume: 10,
     },
     ICE_WATER: {
-        basePrice: 1000,
+        symbol: "ICE_WATER",
+        components: {
+            MACHINERY: 1,
+        },
         baseTradeVolume: 10,
     },
     IRON: {
-        basePrice: 1000,
+        symbol: "IRON",
+        components: {
+            IRON_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     IRON_ORE: {
+        symbol: "IRON_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     JEWELRY: {
-        basePrice: 1000,
+        symbol: "JEWELRY",
+        components: {
+            PRECIOUS_STONES: 1,
+            GOLD: 1,
+            SILVER: 1,
+        },
         baseTradeVolume: 10,
     },
     LAB_INSTRUMENTS: {
-        basePrice: 1000,
+        symbol: "LAB_INSTRUMENTS",
+        components: {
+            SILICON_CRYSTALS: 1,
+            ELECTRONICS: 1,
+            SILVER: 1
+        },
         baseTradeVolume: 10,
     },
     LIVESTOCK: {
-        basePrice: 1000,
+        symbol: "LIVESTOCK",
+        components: {
+            FERTILIZERS: 1,
+            ICE_WATER: 1
+        },
         baseTradeVolume: 10,
     },
+    LIQUID_NITROGEN: {
+        symbol: "LIQUID_NITROGEN",
+        components: {
+            MACHINERY: 1,
+        },
+        baseTradeVolume: 100,
+    },
     LUXURY_GOODS: {
-        basePrice: 1000,
+        symbol: "LUXURY_GOODS",
+        components: {
+            JEWELRY: 1,
+            HOLOGRAPHICS: 1,
+        },
         baseTradeVolume: 10,
     },
     MACHINERY: {
-        basePrice: 1000,
+        symbol: "MACHINERY",
+        components: {
+            IRON: 1,
+            ELECTRONICS: 1,
+            ALUMINUM: 1,
+        },
         baseTradeVolume: 10,
     },
     MEDICAL_SUPPLIES: {
-        basePrice: 1000,
+        symbol: "MEDICAL_SUPPLIES",
+        components: {
+            BOTANICAL_SPECIMENS: 1,
+            NOVEL_LIFEFORMS: 1
+        },
         baseTradeVolume: 10,
     },
     MERITIUM: {
-        basePrice: 1000,
+        symbol: "MERITIUM",
+        components: {
+            MERITIUM_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     MERITIUM_ORE: {
+        symbol: "MERITIUM_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
+    MICROPROCESSORS: {
+        symbol: "MICROPROCESSORS",
+        components: {
+            QUARTZ_SAND: 1,
+            SILICON_CRYSTALS: 1
+        },
+        baseTradeVolume: 100,
+    },
     FUSION_GENERATORS: {
-        basePrice: 1000,
+        symbol: "FUSION_GENERATORS",
+        components: {
+            PLATINUM: 1,
+            DIAMONDS: 1,
+            MACHINERY: 1,
+        },
         baseTradeVolume: 10,
     },
     MILITARY_EQUIPMENT: {
-        basePrice: 1000,
+        symbol: "MILITARY_EQUIPMENT",
+        components: {
+            IRON: 1,
+            ELECTRONICS: 1,
+            MICROPROCESSORS: 1,
+        },
         baseTradeVolume: 10,
     },
     MOOD_REGULATORS: {
-        basePrice: 1000,
+        symbol: "MOOD_REGULATORS",
+        components: {
+            BOTANICAL_SPECIMENS: 1,
+            POLYNUCLEOTIDES: 1,
+            LAB_INSTRUMENTS: 1,
+        },
         baseTradeVolume: 10,
         illegal: true,
     },
     NANOBOTS: {
-        basePrice: 1000,
+        symbol: "NANOBOTS",
+        components: {
+            LAB_INSTRUMENTS: 1,
+            POLYNUCLEOTIDES: 1,
+            DIAMONDS: 1
+        },
         baseTradeVolume: 10,
     },
-    NEURAL_CHIPS: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
+    // NEURAL_CHIPS: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
     NOVEL_LIFEFORMS: {
-        basePrice: 1000,
+symbol: "NOVEL_LIFEFORMS",
+        components: {
+            LAB_INSTRUMENTS: 1,
+        },
         baseTradeVolume: 10,
     },
-    NUCLEAR_DEVICES: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
+    // NUCLEAR_DEVICES: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
     PLASTICS: {
-        basePrice: 1000,
+        symbol: "PLASTICS",
+        components: {
+            HYDROCARBONS: 1,
+            MACHINERY: 1,
+        },
         baseTradeVolume: 10,
     },
     PLATINUM: {
-        basePrice: 1000,
+        symbol: "PLATINUM",
+        components: {
+            PLATINUM_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     PLATINUM_ORE: {
+        symbol: "PLATINUM_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     POLYNUCLEOTIDES: {
-        basePrice: 1000,
+        symbol: "POLYNUCLEOTIDES",
+        components: {
+            LAB_INSTRUMENTS: 1,
+        },
         baseTradeVolume: 10,
     },
     PRECIOUS_STONES: {
+        symbol: "PRECIOUS_STONES",
         basePrice: 1000,
+        baseTradeVolume: 10,
+    },
+    RELIC_TECH: {
+        symbol: "RELIC_TECH",
+        components: {
+            LAB_INSTRUMENTS: 1,
+            RESEARCH_DATA: 1,
+        },
         baseTradeVolume: 10,
     },
     QUANTUM_DRIVES: {
-        basePrice: 1000,
+        symbol: "QUANTUM_DRIVES",
+        components: {
+            ADVANCED_CIRCUITRY: 3,
+        },
         baseTradeVolume: 10,
     },
     QUARTZ_SAND: {
+        symbol: "QUARTZ_SAND",
         basePrice: 1000,
         baseTradeVolume: 10,
     },
-    RADIOACTIVE_WASTE: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
+    // RADIOACTIVE_WASTE: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
     RESEARCH_DATA: {
-        basePrice: 1000,
+        symbol: "RESEARCH_DATA",
+        components: [{
+            "LAB_INSTRUMENTS": 1,
+            "ADVANCED_CIRCUITRY": 1,
+        }, {
+            "NOVEL_LIFEFORMS": 2,
+        }],
         baseTradeVolume: 10,
     },
-    ROBOTICS: {
-        basePrice: 1000,
+    ROBOTIC_DRONES: {
+        symbol: "ROBOTIC_DRONES",
+        components: {
+            MACHINERY: 1,
+        },
         baseTradeVolume: 10,
     },
     SHIP_PLATING: {
-        basePrice: 1000,
+        symbol: "SHIP_PLATING",
+        components: {
+            MACHINERY: 1,
+            IRON: 1,
+            FABRICS: 1
+        },
         baseTradeVolume: 10,
     },
     SILICON_CRYSTALS: {
+        symbol: "SILICON_CRYSTALS",
         basePrice: 100,
         baseTradeVolume: 100,
     },
     SILVER: {
-        basePrice: 1000,
+        symbol: "SILVER",
+        components: {
+            SILVER_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     SILVER_ORE: {
+        symbol: "SILVER_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
-    SLAVES: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
-    SPICES: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
-    STIMULANTS: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
-    SUPERCONDUCTORS: {
-        basePrice: 1000,
-        baseTradeVolume: 10,
-    },
+    // SLAVES: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
+    // SPICES: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
+    // STIMULANTS: {
+    //     basePrice: 1000,
+    //     illegal: true,
+    //     baseTradeVolume: 10,
+    // },
+    // SUPERCONDUCTORS: {
+    //     basePrice: 1000,
+    //     baseTradeVolume: 10,
+    // },
     URANITE: {
-        basePrice: 1000,
+        symbol: "URANITE",
+        components: {
+            URANITE_ORE: 3,
+        },
         baseTradeVolume: 10,
     },
     URANITE_ORE: {
+        symbol: "URANITE_ORE",
         basePrice: 100,
         baseTradeVolume: 100,
     },
-    VIRAL_VECTORS: {
-        basePrice: 1000,
+    VIRAL_AGENTS: {
+        symbol: "VIRAL_AGENTS",
+        components: {
+            POLYNUCLEOTIDES: 1,
+            NOVEL_LIFEFORMS: 1,
+        },
         baseTradeVolume: 10,
     },
     THERMAL_REGULATORS: {
-        basePrice: 1000,
+        symbol: "THERMAL_REGULATORS",
+        components: {
+            MACHINERY: 1,
+            ELECTRONICS: 1,
+        },
         baseTradeVolume: 10,
     },
     TOURISTS: {
+        symbol: "TOURISTS",
         basePrice: 1000,
         baseTradeVolume: 10,
     },
-    WATER: {
-        basePrice: 10,
-        baseTradeVolume: 1000,
-    },
     FRAME_PROBE: {
+        symbol: Frame.FRAME_PROBE,
         components: {
             SHIP_PLATING: 3
         },
@@ -388,6 +631,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_DRONE: {
+        symbol: Frame.FRAME_DRONE,
         components: {
             SHIP_PLATING: 5
         },
@@ -395,6 +639,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_INTERCEPTOR: {
+        symbol: Frame.FRAME_INTERCEPTOR,
         components: {
             SHIP_PLATING: 7
         },
@@ -402,6 +647,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_RACER: {
+        symbol: Frame.FRAME_RACER,
         components: {
             SHIP_PLATING: 5
         },
@@ -409,6 +655,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_FIGHTER: {
+        symbol: Frame.FRAME_FIGHTER,
         components: {
             SHIP_PLATING: 3
         },
@@ -416,6 +663,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_FRIGATE: {
+        symbol: Frame.FRAME_FRIGATE,
         components: {
             SHIP_PLATING: 10
         },
@@ -423,6 +671,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_SHUTTLE: {
+        symbol: Frame.FRAME_SHUTTLE,
         components: {
             SHIP_PLATING: 7
         },
@@ -430,6 +679,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_EXPLORER: {
+        symbol: Frame.FRAME_EXPLORER,
         components: {
             SHIP_PLATING: 10
         },
@@ -437,6 +687,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_MINER: {
+        symbol: Frame.FRAME_MINER,
         components: {
             SHIP_PLATING: 7
         },
@@ -444,6 +695,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_LIGHT_FREIGHTER: {
+        symbol: Frame.FRAME_LIGHT_FREIGHTER,
         components: {
             SHIP_PLATING: 7
         },
@@ -451,6 +703,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_HEAVY_FREIGHTER: {
+        symbol: Frame.FRAME_HEAVY_FREIGHTER,
         components: {
             SHIP_PLATING: 30
         },
@@ -458,6 +711,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_TRANSPORT: {
+        symbol: Frame.FRAME_TRANSPORT,
         components: {
             SHIP_PLATING: 7
         },
@@ -465,6 +719,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_DESTROYER: {
+        symbol: Frame.FRAME_DESTROYER,
         components: {
             SHIP_PLATING: 20
         },
@@ -472,6 +727,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_CRUISER: {
+        symbol: Frame.FRAME_CRUISER,
         components: {
             SHIP_PLATING: 40
         },
@@ -479,6 +735,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_BATTLESHIP: {
+        symbol: Frame.FRAME_BATTLESHIP,
         components: {
             SHIP_PLATING: 80
         },
@@ -486,6 +743,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_DREADNOUGHT: {
+        symbol: Frame.FRAME_DREADNOUGHT,
         components: {
             SHIP_PLATING: 160
         },
@@ -493,6 +751,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_TITAN: {
+        symbol: Frame.FRAME_TITAN,
         components: {
             SHIP_PLATING: 500
         },
@@ -500,6 +759,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_LEVIATHAN: {
+        symbol: Frame.FRAME_LEVIATHAN,
         components: {
             SHIP_PLATING: 1250
         },
@@ -507,6 +767,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_CARRIER: {
+        symbol: Frame.FRAME_CARRIER,
         components: {
             SHIP_PLATING: 160
         },
@@ -514,6 +775,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_FLEET_CARRIER: {
+        symbol: Frame.FRAME_FLEET_CARRIER,
         components: {
             SHIP_PLATING: 320
         },
@@ -521,6 +783,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_MOTHERSHIP: {
+        symbol: Frame.FRAME_MOTHERSHIP,
         components: {
             SHIP_PLATING: 800
         },
@@ -528,6 +791,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_STARBASE: {
+        symbol: Frame.FRAME_STARBASE,
         components: {
             SHIP_PLATING: 3000
         },
@@ -535,6 +799,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     FRAME_STATION: {
+        symbol: Frame.FRAME_STATION,
         components: {
             SHIP_PLATING: 1000
         },
@@ -542,27 +807,34 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     ENGINE_IMPULSE_DRIVE_I: {
+        symbol: Engine.ENGINE_IMPULSE_DRIVE_I,
         components: {
-            SHIP_PLATING: 2
+            IRON: 1,
+            MACHINERY: 1
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     ENGINE_ION_DRIVE_I: {
+        symbol: Engine.ENGINE_ION_DRIVE_I,
         components: {
-            SHIP_PLATING: 1
+            MACHINERY: 1,
+            IRON: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     ENGINE_ION_DRIVE_II: {
+        symbol: Engine.ENGINE_ION_DRIVE_II,
         components: {
-            SHIP_PLATING: 5
+            MACHINERY: 2,
+            PLATINUM: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     ENGINE_FUSION_DRIVE_I: {
+        symbol: Engine.ENGINE_FUSION_DRIVE_I,
         components: {
             SHIP_PLATING: 2
         },
@@ -570,6 +842,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     ENGINE_SOLAR_I: {
+        symbol: Engine.ENGINE_SOLAR_I,
         components: {
             SHIP_PLATING: 4
         },
@@ -577,20 +850,26 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_CARGO_HOLD_I: {
+        symbol: Module.MODULE_CARGO_HOLD_I,
         components: {
-            SHIP_PLATING: 2
+            MACHINERY: 1,
+            IRON: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_CREW_QUARTERS_I: {
+        symbol: Module.MODULE_CREW_QUARTERS_I,
         components: {
-            SHIP_PLATING: 1
+            IRON: 1,
+            MACHINERY: 1,
+            FABRICS: 1
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_I: {
+        symbol: Module.MODULE_WARP_DRIVE_I,
         components: {
             SHIP_PLATING: 5
         },
@@ -598,6 +877,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_II: {
+        symbol: Module.MODULE_WARP_DRIVE_II,
         components: {
             SHIP_PLATING: 10
         },
@@ -605,6 +885,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_III: {
+        symbol: Module.MODULE_WARP_DRIVE_III,
         components: {
             SHIP_PLATING: 20
         },
@@ -612,27 +893,36 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_I: {
+        symbol: Module.MODULE_JUMP_DRIVE_I,
         components: {
-            SHIP_PLATING: 10
+            ADVANCED_CIRCUITRY: 1,
+            IRON: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_II: {
+        symbol: Module.MODULE_JUMP_DRIVE_II,
         components: {
-            SHIP_PLATING: 20
+            GOLD: 1,
+            ADVANCED_CIRCUITRY: 1,
+            PLATINUM: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_III: {
+        symbol: Module.MODULE_JUMP_DRIVE_III,
         components: {
-            SHIP_PLATING: 40
+            MERITIUM: 1,
+            ADVANCED_CIRCUITRY: 1,
+            PLATINUM: 1,
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_MINERAL_PROCESSOR_I: {
+        symbol: Module.MODULE_MINERAL_PROCESSOR_I,
         components: {
             SHIP_PLATING: 10
         },
@@ -640,13 +930,17 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_ENVOY_QUARTERS_I: {
+        symbol: Module.MODULE_ENVOY_QUARTERS_I,
         components: {
-            SHIP_PLATING: 5
+            IRON: 1,
+            MACHINERY: 1,
+            FABRICS: 1
         },
         notConsumed: true,
         baseTradeVolume: 1
     },
     MODULE_SCIENCE_LAB_I: {
+        symbol: Module.MODULE_SCIENCE_LAB_I,
         components: {
             SHIP_PLATING: 6
         },
@@ -654,6 +948,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_PASSENGER_CABIN_I: {
+        symbol: Module.MODULE_PASSENGER_CABIN_I,
         components: {
             SHIP_PLATING: 3
         },
@@ -661,6 +956,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_ORE_REFINERY_I: {
+        symbol: Module.MODULE_ORE_REFINERY_I,
         components: {
             SHIP_PLATING: 10
         },
@@ -668,6 +964,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_SHIELD_GENERATOR_I: {
+        symbol: Module.MODULE_SHIELD_GENERATOR_I,
         components: {
             SHIP_PLATING: 12
         },
@@ -675,6 +972,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MODULE_SHIELD_GENERATOR_II: {
+        symbol: Module.MODULE_SHIELD_GENERATOR_II,
         components: {
             SHIP_PLATING: 24
         },
@@ -682,6 +980,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_I: {
+        symbol: Mount.MOUNT_GAS_SIPHON_I,
         components: {
             SHIP_PLATING: 4
         },
@@ -689,6 +988,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_II: {
+        symbol: Mount.MOUNT_GAS_SIPHON_II,
         components: {
             SHIP_PLATING: 12
         },
@@ -696,6 +996,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_III: {
+        symbol: Mount.MOUNT_GAS_SIPHON_III,
         components: {
             SHIP_PLATING: 24
         },
@@ -703,6 +1004,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_I: {
+        symbol: Mount.MOUNT_SURVEYOR_I,
         components: {
             SHIP_PLATING: 6
         },
@@ -710,6 +1012,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_II: {
+        symbol: Mount.MOUNT_SURVEYOR_II,
         components: {
             SHIP_PLATING: 14
         },
@@ -717,6 +1020,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_III: {
+        symbol: Mount.MOUNT_SURVEYOR_III,
         components: {
             SHIP_PLATING: 32
         },
@@ -724,6 +1028,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_I: {
+        symbol: Mount.MOUNT_SENSOR_ARRAY_I,
         components: {
             SHIP_PLATING: 3
         },
@@ -731,6 +1036,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_II: {
+        symbol: Mount.MOUNT_SENSOR_ARRAY_II,
         components: {
             SHIP_PLATING: 9
         },
@@ -738,6 +1044,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_III: {
+        symbol: Mount.MOUNT_SENSOR_ARRAY_III,
         components: {
             SHIP_PLATING: 15
         },
@@ -745,6 +1052,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_I: {
+        symbol: Mount.MOUNT_MINING_LASER_I,
         components: {
             SHIP_PLATING: 3
         },
@@ -752,6 +1060,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_II: {
+        symbol: Mount.MOUNT_MINING_LASER_II,
         components: {
             SHIP_PLATING: 12
         },
@@ -759,6 +1068,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_III: {
+        symbol: Mount.MOUNT_MINING_LASER_III,
         components: {
             SHIP_PLATING: 24
         },
@@ -766,6 +1076,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_LASER_CANNON_I: {
+        symbol: Mount.MOUNT_LASER_CANNON_I,
         components: {
             SHIP_PLATING: 7
         },
@@ -773,6 +1084,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_MISSILE_LAUNCHER_I: {
+        symbol: Mount.MOUNT_MISSILE_LAUNCHER_I,
         components: {
             SHIP_PLATING: 5
         },
@@ -780,6 +1092,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     MOUNT_TURRET_I: {
+        symbol: Mount.MOUNT_TURRET_I,
         components: {
             SHIP_PLATING: 3
         },
@@ -787,6 +1100,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     REACTOR_CHEMICAL_I: {
+        symbol: Reactor.REACTOR_CHEMICAL_I,
         components: {
             SHIP_PLATING: 4
         },
@@ -794,6 +1108,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     REACTOR_FISSION_I: {
+        symbol: Reactor.REACTOR_FISSION_I,
         components: {
             SHIP_PLATING: 10
         },
@@ -801,6 +1116,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     REACTOR_FUSION_I: {
+        symbol: Reactor.REACTOR_FUSION_I,
         components: {
             SHIP_PLATING: 15
         },
@@ -808,6 +1124,7 @@ export const tradeGoods: Record<
         baseTradeVolume: 1
     },
     REACTOR_SOLAR_I: {
+        symbol: Reactor.REACTOR_SOLAR_I,
         components: {
             SHIP_PLATING: 5
         },
@@ -816,19 +1133,44 @@ export const tradeGoods: Record<
     }
 };
 
-Object.values(tradeGoods).forEach(good => {
+const markupForValueAdd = 1.2
+
+const getBasePrice = (good: TradeGoodData, parents: TradeGood[] = []) => {
     if (!good.basePrice && 'components' in good) {
         const components = good.components
-        good.basePrice = Object.keys(components).reduce((currentTotal, tradeGood) => {
-            const component = tradeGoods[tradeGood as TradeGood];
-            const nr = components[tradeGood as TradeGood]
-            if (component.basePrice && nr) {
-                return currentTotal + component.basePrice * nr;
-            } else {
-                return currentTotal
-            }
-        }, 0);
+
+        const iterate = Array.isArray(components) ? components : [components]
+        const prices: number[] = []
+
+        iterate.forEach(components => {
+            Object.keys(components).forEach(component => {
+                if (parents.includes(component as TradeGood)) {
+                    throw new Error(`Circular dependency detected: ${parents.join(' -> ')} -> ${component}`);
+                }
+                getBasePrice(tradeGoods[component as TradeGood], [...parents, good.symbol])
+            })
+            prices.push(Object.keys(components).reduce((currentTotal, tradeGood) => {
+                const component = tradeGoods[tradeGood as TradeGood];
+                const nr = components[tradeGood as TradeGood]
+                if (component.basePrice && nr) {
+                    return currentTotal + component.basePrice * nr * markupForValueAdd;
+                } else {
+                    return currentTotal
+                }
+            }, 0));
+        })
+        good.basePrice = prices.reduce((total, price) => total + price, 0) / prices.length;
+
+        if (prices.length > 1 && prices.some(p => p != good.basePrice)) {
+            console.log(`! Multiple different prices for ${good.symbol}: ${prices}`)
+        }
     }
+    return good
+}
+
+Object.keys(tradeGoods).forEach(tg => {
+    const good = tradeGoods[tg as TradeGood]
+    getBasePrice(good)
 })
 
 export const tradeGoodTypeNames = Object.keys(tradeGoods) as TradeGood[];

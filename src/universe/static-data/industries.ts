@@ -1,11 +1,15 @@
 import { TradeGood } from "./trade-goods";
+import {TraitModifiers} from "src/universe/static-data/waypoint-traits";
 
 export type Industry =
+  | "AMMUNITION_FACTORY"
+  | "ANTIMATTER_REFINING"
   | "AGRICULTURE"
   | "BIOCHEMICALS"
   | "CHEMICALS"
   | "CONSTRUCTION_MATERIALS"
   | "CONSUMER_GOODS"
+  | "CYBERNETICS"
   | "ELECTRONICS"
   | "ENERGY"
   | "FUEL_REFINING"
@@ -13,8 +17,13 @@ export type Industry =
   | "LIGHT_MANUFACTURING"
   | "LUXURY_GOODS"
   | "MINING"
+  // | "NEURALWARE"
+  | "NANOWARE"
+  | "MILITARY_INDUSTRIAL_COMPLEX"
   | "PHARMACEUTICALS"
   | "REFINING"
+  | "PRECIOUS_METAL_REFINING"
+  | "SPECIAL_REFINING"
   | "SOFTWARE"
   | "STOCK_EXCHANGE"
   | "TECHNOLOGY"
@@ -23,94 +32,214 @@ export type Industry =
 
 export const industries: Record<
   Industry,
-  {
-    imports?: TradeGood[];
-    exports?: TradeGood[];
-    productivityMultiplier?: number;
-    exchangeGoodsCount?: number;
-    illegalExchangeGoodsCount?: number;
-    serviceCostMultiplier?: number;
-    extractableResources?: TradeGood[];
-    maintenanceCostMultiplier?: number;
-    constructionCostMultiplier?: number;
-    populationLevel?: number;
-    industries?: number;
-    shipHullCount?: number;
-  }
+  TraitModifiers
 > = {
   AGRICULTURE: {
-    imports: ["LIVESTOCK", "FERTILIZERS"],
-    exports: ["FOOD", "FABRICS"],
+    productionLine: [
+      {
+        produces: "FOOD"
+      },
+      {
+        produces: "FABRICS"
+      }
+    ],
+  },
+  ANTIMATTER_REFINING: {
+    productionLine: [
+      {
+        produces: "ANTIMATTER"
+      }
+    ]
   },
   BIOCHEMICALS: {
-    imports: ["BOTANICAL_SPECIMENS", "POLYNUCLEOTIDES"],
-    exports: ["BIOCOMPOSITES"],
+    productionLine: [{
+      produces: "BIOCOMPOSITES"
+    }]
   },
   CHEMICALS: {
-    imports: ["HYDROCARBONS", "POLYNUCLEOTIDES"],
-    exports: ["PLASTICS"],
+    productionLine: [{
+      produces: "PLASTICS"
+    }]
   },
   CONSTRUCTION_MATERIALS: {
-    imports: ["IRON", "ALUMINUM", "COPPER"],
-    exports: ["SHIP_PLATING", "ELECTRONICS"],
+    productionLine: [
+      {
+        produces: "SHIP_PLATING"
+      }, {
+        produces: "ELECTRONICS"
+      }
+    ]
   },
   CONSUMER_GOODS: {
-    imports: ["FABRICS", "PLASTICS", "ELECTRONICS"],
-    exports: ["LUXURY_GOODS", "CLOTHING"],
+    productionLine: [
+      {
+        produces: "LUXURY_GOODS"
+      }, {
+        produces: "CLOTHING"
+      }
+    ]
+  },
+  CYBERNETICS: {
+    productionLine: [
+      {
+        produces: "CYBERNETIC_IMPLANTS"
+      }
+    ]
   },
   ELECTRONICS: {
-    imports: ["PLASTICS", "COPPER_ORE"],
-    exports: ["ELECTRONICS"],
+    productionLine: [
+      {
+        produces: "ELECTRONICS"
+      }
+    ]
   },
   ENERGY: {
-    imports: ["HYDROCARBONS", "ADVANCED_CIRCUITRY", "ELECTRONICS"],
-    exports: ["FUSION_GENERATORS", "NUCLEAR_DEVICES"],
+    productionLine: [
+      {
+        produces: "FUSION_GENERATORS"
+      }
+    ]
   },
   FUEL_REFINING: {
-    imports: ["HYDROCARBONS"],
-    exports: ["FUEL"],
+    productionLine: [
+      {
+        produces: "FUEL"
+      }
+    ]
   },
   HEAVY_MANUFACTURING: {
-    imports: ["IRON", "ALUMINUM", "COPPER", "ELECTRONICS"],
-    exports: ["HEAVY_MACHINERY"],
+    productionLine: [
+      {
+        produces: "HEAVY_MACHINERY"
+      }
+    ]
   },
   LIGHT_MANUFACTURING: {
-    imports: ["IRON", "ALUMINUM", "COPPER", "ELECTRONICS"],
-    exports: ["MACHINERY"],
+    productionLine: [
+      {
+        produces: "MACHINERY"
+      }
+    ]
   },
   LUXURY_GOODS: {
-    imports: ["FOOD", "PLASTICS", "ELECTRONICS"],
-    exports: ["LUXURY_GOODS"],
+    productionLine: [
+      {
+        produces: "LUXURY_GOODS"
+      }
+    ]
   },
   MINING: {
-    imports: ["HEAVY_MACHINERY"],
-    exports: ["IRON_ORE", "ALUMINUM_ORE", "COPPER_ORE"],
+    consumes: {
+      "HEAVY_MACHINERY": 1,
+    },
+    produces: {
+      "IRON_ORE": 1,
+      "ALUMINUM_ORE": 1,
+      "COPPER_ORE": 1,
+    }
+  },
+  // NEURALWARE: {
+  //   productionLine: [
+  //     {
+  //       produces: "NEURAL_CHIPS"
+  //     }
+  //   ]
+  // },
+  NANOWARE: {
+    productionLine: [
+      {
+        produces: "NANOBOTS"
+      }
+    ]
   },
   PHARMACEUTICALS: {
-    imports: ["BOTANICAL_SPECIMENS", "POLYNUCLEOTIDES"],
-    exports: ["MEDICAL_SUPPLIES"],
+    productionLine: [
+      {
+        produces: "MEDICAL_SUPPLIES"
+      }
+    ]
   },
   REFINING: {
-    imports: ["IRON_ORE", "ALUMINUM_ORE", "COPPER_ORE"],
-    exports: ["IRON", "ALUMINUM", "COPPER"],
+    productionLine: [
+      {
+        produces: "IRON"
+      }, {
+        produces: "ALUMINUM"
+      }, {
+        produces: "COPPER"
+      }
+    ]
+  },
+  PRECIOUS_METAL_REFINING: {
+    productionLine: [
+      {
+        produces: "GOLD"
+      }, {
+        produces: "SILVER"
+      }, {
+        produces: "PLATINUM"
+      }
+    ]
+  },
+  SPECIAL_REFINING: {
+    productionLine: [
+      {
+        produces: "URANITE"
+      }, {
+        produces: "MERITIUM"
+      }
+    ]
   },
   SOFTWARE: {
-    imports: ["ADVANCED_CIRCUITRY", "ELECTRONICS"],
-    exports: ["QUANTUM_DRIVES", "AI_MAINFRAMES"],
+    productionLine: [
+      {
+        produces: "QUANTUM_DRIVES"
+      }, {
+        produces: "AI_MAINFRAMES"
+      }
+    ]
   },
   STOCK_EXCHANGE: {
-    imports: ["ELECTRONICS"],
-    exports: ["RADIOACTIVE_WASTE"],
+    consumes: {
+      "ELECTRONICS": 2,
+    },
   },
   TECHNOLOGY: {
-    imports: ["ADVANCED_CIRCUITRY", "ELECTRONICS"],
-    exports: ["AI_MAINFRAMES", "QUANTUM_DRIVES"],
+    productionLine: [
+      {
+        produces: "AI_MAINFRAMES"
+      }, {
+        produces: "QUANTUM_DRIVES"
+      }
+    ]
   },
   TOURISM: {
-    imports: ["TOURISTS"],
+    consumes: {
+      "TOURISTS": 3
+    },
+  },
+  AMMUNITION_FACTORY: {
+    productionLine: [
+      {
+        produces: "AMMUNITION"
+      }
+    ]
+  },
+  MILITARY_INDUSTRIAL_COMPLEX: {
+    productionLine: [
+      {
+        produces: "FIREARMS"
+      }, {
+        produces: "MILITARY_EQUIPMENT"
+      }
+    ]
   },
   WAREHOUSING: {
-    imports: ["FOOD", "CLOTHING", "ELECTRONICS"],
+    consumes: {
+      "FOOD": 1,
+      "CLOTHING": 1,
+      "ELECTRONICS": 1,
+    },
   }
 };
 
