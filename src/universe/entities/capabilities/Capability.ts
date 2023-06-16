@@ -6,6 +6,7 @@ type AddMultiplyStats =
   | "warpRange"
   | "surveysGenerated"
   | "scanPower"
+  | "cargoSpace"
   | "jumpRange"
   | "crewRequired"
   | "mountingPoints"

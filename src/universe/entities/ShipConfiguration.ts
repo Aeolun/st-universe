@@ -3,9 +3,10 @@ import {ShipFrame} from "src/universe/entities/ShipFrame";
 import {ShipReactor} from "src/universe/entities/ShipReactor";
 import {ShipMount} from "src/universe/entities/ShipMount";
 import {ShipModule} from "src/universe/entities/ShipModule";
+import {Configuration} from "src/universe/static-data/ship-configurations";
 
 export class ShipConfiguration {
-  symbol: string
+  symbol: Configuration
 
   frame: ShipFrame
   reactor: ShipReactor
@@ -14,21 +15,19 @@ export class ShipConfiguration {
   modules: ShipModule[] = []
   mounts: ShipMount[] = []
 
-  constructor(data: {
-    symbol: string
-    frame: ShipFrame
-    reactor: ShipReactor
-    engine: ShipEngine
-    modules: ShipModule[]
+  constructor(
+    symbol: Configuration,
+    frame: ShipFrame,
+    reactor: ShipReactor,
+    engine: ShipEngine,
+    modules: ShipModule[],
     mounts: ShipMount[]
-  }) {
-    this.symbol = data.symbol
-
-    this.frame = data.frame
-    this.reactor = data.reactor
-    this.engine = data.engine
-
-    this.modules = data.modules
-    this.mounts = data.mounts
+  ) {
+    this.symbol = symbol
+    this.frame = frame
+    this.reactor = reactor
+    this.engine = engine
+    this.modules = modules
+    this.mounts = mounts
   }
 }

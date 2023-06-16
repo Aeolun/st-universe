@@ -11,6 +11,7 @@ export class Stats {
   public fuelCapacity: number = 0
   public powerGenerated: number = 0
   public powerRequired: number = 0
+  public cargoSpace: number = 0
   public extractionPower: number = 0
   public warpRange: number = 0
   public jumpRange: number = 0

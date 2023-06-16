@@ -3,8 +3,10 @@ import {ProvidesCrewCapacity} from "src/universe/entities/capabilities/ProvidesC
 import {ProvidesWarpRange} from "src/universe/entities/capabilities/ProvidesWarpRange";
 import {ProvidesJumpRange} from "src/universe/entities/capabilities/ProvidesJumpRange";
 import {ProvidesShield} from "src/universe/entities/capabilities/ProvidesShield";
+import {ProvidesCargoSpace} from "src/universe/entities/capabilities/ProvidesCargoSpace";
 
 export enum Module {
+  MODULE_CARGO_HOLD_I,
   MODULE_CREW_QUARTERS_I,
   MODULE_WARP_DRIVE_I,
   MODULE_WARP_DRIVE_II,
@@ -20,6 +22,9 @@ export enum Module {
 }
 
 export const moduleData: Record<Module, ShipModule> = {
+  [Module.MODULE_CARGO_HOLD_I]: new ShipModule(Module.MODULE_CARGO_HOLD_I, [
+    new ProvidesCargoSpace(30),
+  ]),
   [Module.MODULE_CREW_QUARTERS_I]: new ShipModule(Module.MODULE_CREW_QUARTERS_I, [
     new ProvidesCrewCapacity(30)
   ]),

@@ -1,18 +1,15 @@
 import {AbstractCapabilities} from "src/universe/entities/capabilities/AbstractCapabilities";
-import {ProvidesPower} from "src/universe/entities/capabilities/ProvidesPower";
+import {Reactor} from "src/universe/static-data/ship-reactors";
+import {Capability} from "src/universe/entities/capabilities/Capability";
 
 export class ShipReactor extends AbstractCapabilities {
-  symbol: string
+  symbol: Reactor
 
-    constructor(data: {
-      symbol: string
-      power: number
-    }) {
+    constructor(symbol: Reactor, capabilities: Capability[]) {
         super();
-        this.symbol = data.symbol;
-        this.capabilities = [
-          new ProvidesPower(data.power)
-        ]
+
+        this.symbol = symbol;
+        this.capabilities = capabilities;
     }
 
 }
