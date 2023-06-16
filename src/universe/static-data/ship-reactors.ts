@@ -11,10 +11,10 @@ import {ShipReactor} from "src/universe/entities/ShipReactor";
 import {ProvidesPower} from "src/universe/entities/capabilities/ProvidesPower";
 
 export enum Reactor {
-  REACTOR_CHEMICAL_I,
-  REACTOR_FISSION_I,
-  REACTOR_FUSION_I,
-  REACTOR_SOLAR_I
+  REACTOR_CHEMICAL_I = "REACTOR_CHEMICAL_I",
+  REACTOR_FISSION_I = "REACTOR_FISSION_I",
+  REACTOR_FUSION_I = "REACTOR_FUSION_I",
+  REACTOR_SOLAR_I = "REACTOR_SOLAR_I"
 }
 
 export const reactorData: Record<Reactor, ShipReactor> = {

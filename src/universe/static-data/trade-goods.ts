@@ -1,3 +1,9 @@
+import {Module} from "src/universe/static-data/ship-modules";
+import {Mount} from "src/universe/static-data/ship-mounts";
+import {Engine} from "src/universe/static-data/ship-engines";
+import {Frame} from "src/universe/static-data/ship-frames";
+import {Reactor} from "src/universe/static-data/ship-reactors";
+
 export type TradeGood =
   | "ADVANCED_CIRCUITRY"
   | "AI_MAINFRAMES"
@@ -71,11 +77,14 @@ export type TradeGood =
   | "VIRAL_VECTORS"
   | "THERMAL_REGULATORS"
   | "TOURISTS"
-  | "WATER";
+  | "WATER" | Module | Mount | Engine | Frame | Reactor;
+
+
+type PriceOrComponents = { basePrice: number } | { basePrice?: number; components: Partial<Record<TradeGood, number>> }
 
 export const tradeGoods: Record<
   TradeGood,
-  { basePrice: number; baseTradeVolume: number; illegal?: boolean }
+  { baseTradeVolume: number; illegal?: boolean; notConsumed?: boolean } & PriceOrComponents
 > = {
     ADVANCED_CIRCUITRY: {
         basePrice: 1000,
@@ -370,7 +379,456 @@ export const tradeGoods: Record<
     WATER: {
         basePrice: 10,
         baseTradeVolume: 1000,
+    },
+    FRAME_PROBE: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_DRONE: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_INTERCEPTOR: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_RACER: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_FIGHTER: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_FRIGATE: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_SHUTTLE: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_EXPLORER: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_MINER: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_LIGHT_FREIGHTER: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_HEAVY_FREIGHTER: {
+        components: {
+            SHIP_PLATING: 30
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_TRANSPORT: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_DESTROYER: {
+        components: {
+            SHIP_PLATING: 20
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_CRUISER: {
+        components: {
+            SHIP_PLATING: 40
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_BATTLESHIP: {
+        components: {
+            SHIP_PLATING: 80
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_DREADNOUGHT: {
+        components: {
+            SHIP_PLATING: 160
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_TITAN: {
+        components: {
+            SHIP_PLATING: 500
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_LEVIATHAN: {
+        components: {
+            SHIP_PLATING: 1250
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_CARRIER: {
+        components: {
+            SHIP_PLATING: 160
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_FLEET_CARRIER: {
+        components: {
+            SHIP_PLATING: 320
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_MOTHERSHIP: {
+        components: {
+            SHIP_PLATING: 800
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_STARBASE: {
+        components: {
+            SHIP_PLATING: 3000
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    FRAME_STATION: {
+        components: {
+            SHIP_PLATING: 1000
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    ENGINE_IMPULSE_DRIVE_I: {
+        components: {
+            SHIP_PLATING: 2
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    ENGINE_ION_DRIVE_I: {
+        components: {
+            SHIP_PLATING: 1
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    ENGINE_ION_DRIVE_II: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    ENGINE_FUSION_DRIVE_I: {
+        components: {
+            SHIP_PLATING: 2
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    ENGINE_SOLAR_I: {
+        components: {
+            SHIP_PLATING: 4
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_CARGO_HOLD_I: {
+        components: {
+            SHIP_PLATING: 2
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_CREW_QUARTERS_I: {
+        components: {
+            SHIP_PLATING: 1
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_WARP_DRIVE_I: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_WARP_DRIVE_II: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_WARP_DRIVE_III: {
+        components: {
+            SHIP_PLATING: 20
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_JUMP_DRIVE_I: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_JUMP_DRIVE_II: {
+        components: {
+            SHIP_PLATING: 20
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_JUMP_DRIVE_III: {
+        components: {
+            SHIP_PLATING: 40
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_MINERAL_PROCESSOR_I: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_ENVOY_QUARTERS_I: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_SCIENCE_LAB_I: {
+        components: {
+            SHIP_PLATING: 6
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_PASSENGER_CABIN_I: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_ORE_REFINERY_I: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_SHIELD_GENERATOR_I: {
+        components: {
+            SHIP_PLATING: 12
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MODULE_SHIELD_GENERATOR_II: {
+        components: {
+            SHIP_PLATING: 24
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_GAS_SIPHON_I: {
+        components: {
+            SHIP_PLATING: 4
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_GAS_SIPHON_II: {
+        components: {
+            SHIP_PLATING: 12
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_GAS_SIPHON_III: {
+        components: {
+            SHIP_PLATING: 24
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SURVEYOR_I: {
+        components: {
+            SHIP_PLATING: 6
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SURVEYOR_II: {
+        components: {
+            SHIP_PLATING: 14
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SURVEYOR_III: {
+        components: {
+            SHIP_PLATING: 32
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SENSOR_ARRAY_I: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SENSOR_ARRAY_II: {
+        components: {
+            SHIP_PLATING: 9
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_SENSOR_ARRAY_III: {
+        components: {
+            SHIP_PLATING: 15
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_MINING_LASER_I: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_MINING_LASER_II: {
+        components: {
+            SHIP_PLATING: 12
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_MINING_LASER_III: {
+        components: {
+            SHIP_PLATING: 24
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_LASER_CANNON_I: {
+        components: {
+            SHIP_PLATING: 7
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_MISSILE_LAUNCHER_I: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    MOUNT_TURRET_I: {
+        components: {
+            SHIP_PLATING: 3
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    REACTOR_CHEMICAL_I: {
+        components: {
+            SHIP_PLATING: 4
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    REACTOR_FISSION_I: {
+        components: {
+            SHIP_PLATING: 10
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    REACTOR_FUSION_I: {
+        components: {
+            SHIP_PLATING: 15
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
+    },
+    REACTOR_SOLAR_I: {
+        components: {
+            SHIP_PLATING: 5
+        },
+        notConsumed: true,
+        baseTradeVolume: 1
     }
 };
+
+Object.values(tradeGoods).forEach(good => {
+    if (!good.basePrice && 'components' in good) {
+        const components = good.components
+        good.basePrice = Object.keys(components).reduce((currentTotal, tradeGood) => {
+            const component = tradeGoods[tradeGood as TradeGood];
+            const nr = components[tradeGood as TradeGood]
+            if (component.basePrice && nr) {
+                return currentTotal + component.basePrice * nr;
+            } else {
+                return currentTotal
+            }
+        }, 0);
+    }
+})
 
 export const tradeGoodTypeNames = Object.keys(tradeGoods) as TradeGood[];

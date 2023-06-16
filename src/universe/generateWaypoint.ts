@@ -4,6 +4,8 @@ import {generatableWaypointTypeNames, WaypointType, waypointTypes} from "./stati
 import {WaypointTrait, waypointTraitNames, waypointTraits} from "src/universe/static-data/waypoint-traits";
 import {tradeGoods, tradeGoodTypeNames} from "src/universe/static-data/trade-goods";
 import {industries, industryNames} from "src/universe/static-data/industries";
+import {Configuration, shipConfigurationData} from "src/universe/static-data/ship-configurations";
+import {checkNullable} from "ajv/dist/vocabularies/jtd/nullable";
 
 const availableTraits: Record<string, WaypointTrait[]> = {}
 
@@ -136,6 +138,29 @@ export const generateWaypoint = (data: {
         if (traitData.extractableResources) {
             waypoint.extractableResources.push(...traitData.extractableResources)
         }
+
+        if (traitData.shipHullCount) {
+            for(let i = 0; i < traitData.shipHullCount; i++) {
+                const newHull = pickRandom(Object.values(Configuration))
+                if (!waypoint.availableShipConfigurations.includes(newHull)) {
+                    waypoint.availableShipConfigurations.push(newHull)
+                }
+            }
+
+            waypoint.availableShipConfigurations.forEach(configuration => {
+                // add all the components to imports
+                const configurationData = shipConfigurationData[configuration]
+                waypoint.imports.push(configurationData.engine.symbol)
+                waypoint.imports.push(configurationData.frame.symbol)
+                waypoint.imports.push(configurationData.reactor.symbol)
+                configurationData.modules.forEach(m => {
+                    waypoint.imports.push(m.symbol)
+                })
+                configurationData.mounts.forEach(m => {
+                    waypoint.imports.push(m.symbol)
+                })
+            })
+        }
     }
 
     waypoint.imports.forEach(imp => {
@@ -165,7 +190,7 @@ export const generateWaypoint = (data: {
             currentSupply: idealSupply,
             maxSupply: idealSupply * 2,
             stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            consumptionRate: waypoint.population,
+            consumptionRate: tradeGoodData.notConsumed ? 0 : waypoint.population,
             productionRate: 0,
             localFluctuation: numberBetween(-10, 10)
         })

@@ -5,6 +5,7 @@ import {TradeGood, tradeGoods} from "src/universe/static-data/trade-goods";
 import {WaypointType} from "src/universe/static-data/waypoint-types";
 import {Faction} from "src/universe/static-data/faction";
 import {Transaction} from "src/universe/entities/Transaction";
+import {Configuration} from "src/universe/static-data/ship-configurations";
 
 export interface SupplyDemand {
     tradeGood: TradeGood
@@ -40,6 +41,8 @@ export class Waypoint {
     public exchange: TradeGood[] = []
 
     public supplyDemand: SupplyDemand[] = []
+
+    public availableShipConfigurations: Configuration[] = []
 
     public transactions: Transaction[] = []
 

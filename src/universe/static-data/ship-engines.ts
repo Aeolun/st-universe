@@ -9,11 +9,11 @@ import {RequiresPower} from "src/universe/entities/capabilities/RequiresPower";
 import {ProvidesThrust} from "src/universe/entities/capabilities/ProvidesThrust";
 
 export enum Engine {
-  ENGINE_IMPULSE_DRIVE_I,
-  ENGINE_ION_DRIVE_I,
-  ENGINE_ION_DRIVE_II,
-  ENGINE_FUSION_DRIVE_I,
-  ENGINE_SOLAR_SAIL_I,
+  ENGINE_IMPULSE_DRIVE_I = "ENGINE_IMPULSE_DRIVE_I",
+  ENGINE_ION_DRIVE_I = "ENGINE_ION_DRIVE_I",
+  ENGINE_ION_DRIVE_II = "ENGINE_ION_DRIVE_II",
+  ENGINE_FUSION_DRIVE_I = "ENGINE_FUSION_DRIVE_I",
+  ENGINE_SOLAR_I = "ENGINE_SOLAR_I",
 }
 
 export const engineData: Record<Engine, ShipEngine> = {
@@ -37,7 +37,7 @@ export const engineData: Record<Engine, ShipEngine> = {
     new RequiresPower(2),
     new ProvidesThrust(16),
   ]),
-  [Engine.ENGINE_SOLAR_SAIL_I]: new ShipEngine(Engine.ENGINE_SOLAR_SAIL_I, [
+  [Engine.ENGINE_SOLAR_I]: new ShipEngine(Engine.ENGINE_SOLAR_I, [
     new RequiresCrew(0),
     new RequiresPower(0),
     new ProvidesThrust(2),
