@@ -21,18 +21,18 @@ export enum Frame {
   FRAME_MINER = "FRAME_MINER",
   FRAME_LIGHT_FREIGHTER = "FRAME_LIGHT_FREIGHTER",
   FRAME_HEAVY_FREIGHTER = "FRAME_HEAVY_FREIGHTER",
-  FRAME_TRANSPORT = "FRAME_TRANSPORT",
-  FRAME_DESTROYER = "FRAME_DESTROYER",
-  FRAME_CRUISER = "FRAME_CRUISER",
-  FRAME_BATTLESHIP = "FRAME_BATTLESHIP",
-  FRAME_DREADNOUGHT = "FRAME_DREADNOUGHT",
-  FRAME_TITAN = "FRAME_TITAN",
-  FRAME_LEVIATHAN = "FRAME_LEVIATHAN",
-  FRAME_CARRIER = "FRAME_CARRIER",
-  FRAME_FLEET_CARRIER = "FRAME_FLEET_CARRIER",
-  FRAME_MOTHERSHIP = "FRAME_MOTHERSHIP",
-  FRAME_STARBASE = "FRAME_STARBASE",
-  FRAME_STATION = "FRAME_STATION",
+  // FRAME_TRANSPORT = "FRAME_TRANSPORT",
+  // FRAME_DESTROYER = "FRAME_DESTROYER",
+  // FRAME_CRUISER = "FRAME_CRUISER",
+  // FRAME_BATTLESHIP = "FRAME_BATTLESHIP",
+  // FRAME_DREADNOUGHT = "FRAME_DREADNOUGHT",
+  // FRAME_TITAN = "FRAME_TITAN",
+  // FRAME_LEVIATHAN = "FRAME_LEVIATHAN",
+  // FRAME_CARRIER = "FRAME_CARRIER",
+  // FRAME_FLEET_CARRIER = "FRAME_FLEET_CARRIER",
+  // FRAME_MOTHERSHIP = "FRAME_MOTHERSHIP",
+  // FRAME_STARBASE = "FRAME_STARBASE",
+  // FRAME_STATION = "FRAME_STATION",
 }
 
 export const frameData: Record<Frame, ShipFrame> = {
@@ -99,74 +99,74 @@ export const frameData: Record<Frame, ShipFrame> = {
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(700)
-  ]),
-  [Frame.FRAME_DESTROYER]: new ShipFrame(Frame.FRAME_DESTROYER, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(700)
-  ]),
-  [Frame.FRAME_CRUISER]: new ShipFrame(Frame.FRAME_CRUISER, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_BATTLESHIP]: new ShipFrame(Frame.FRAME_BATTLESHIP, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_DREADNOUGHT]: new ShipFrame(Frame.FRAME_DREADNOUGHT, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_TITAN]: new ShipFrame(Frame.FRAME_TITAN, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_LEVIATHAN]: new ShipFrame(Frame.FRAME_LEVIATHAN, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_CARRIER]: new ShipFrame(Frame.FRAME_CARRIER, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_FLEET_CARRIER]: new ShipFrame(Frame.FRAME_FLEET_CARRIER, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(100),
-  ]),
-  [Frame.FRAME_MOTHERSHIP]: new ShipFrame(Frame.FRAME_MOTHERSHIP, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(10000)
-  ]),
-  [Frame.FRAME_STARBASE]: new ShipFrame(Frame.FRAME_STARBASE, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-  ]),
-  [Frame.FRAME_STATION]: new ShipFrame(Frame.FRAME_STATION, [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-  ]),
+  // [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(700)
+  // ]),
+  // [Frame.FRAME_DESTROYER]: new ShipFrame(Frame.FRAME_DESTROYER, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(700)
+  // ]),
+  // [Frame.FRAME_CRUISER]: new ShipFrame(Frame.FRAME_CRUISER, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_BATTLESHIP]: new ShipFrame(Frame.FRAME_BATTLESHIP, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_DREADNOUGHT]: new ShipFrame(Frame.FRAME_DREADNOUGHT, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_TITAN]: new ShipFrame(Frame.FRAME_TITAN, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_LEVIATHAN]: new ShipFrame(Frame.FRAME_LEVIATHAN, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_CARRIER]: new ShipFrame(Frame.FRAME_CARRIER, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_FLEET_CARRIER]: new ShipFrame(Frame.FRAME_FLEET_CARRIER, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(100),
+  // ]),
+  // [Frame.FRAME_MOTHERSHIP]: new ShipFrame(Frame.FRAME_MOTHERSHIP, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  //   new StoresFuel(10000)
+  // ]),
+  // [Frame.FRAME_STARBASE]: new ShipFrame(Frame.FRAME_STARBASE, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  // ]),
+  // [Frame.FRAME_STATION]: new ShipFrame(Frame.FRAME_STATION, [
+  //   new RequiresCrew(1),
+  //   new ProvidesModuleCapacity(2),
+  //   new ProvidesMountingPoings(2),
+  // ]),
 }

@@ -49,15 +49,17 @@ export type WaypointTrait =
   | "WEAK_GRAVITY";
 
 type TraitCategory = "HABITATION" | "PLANT_LIFE"
+export type ProductionLine = {
+  produces: TradeGood;
+  count?: number;
+}
 export interface TraitModifiers {
   imports?: Partial<Record<TradeGood, number>>;
   exports?: Partial<Record<TradeGood, number>>;
   exchange?: TradeGood[];
   produces?: Partial<Record<TradeGood, number>>;
   consumes?: Partial<Record<TradeGood, number>>;
-  productionLine?: {
-    produces: TradeGood;
-  }[],
+  productionLine?: ProductionLine[],
   productivityMultiplier?: number;
   exchangeGoodsCount?: number;
   illegalExchangeGoodsCount?: number;
@@ -182,9 +184,9 @@ export const waypointTraits: Record<
   LEGALIZED_SLAVERY: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     requiresCategory: ["HABITATION"],
-    exports: {
-      "SLAVES": 2
-    },
+    // exports: {
+    //   "SLAVES": 2
+    // },
   },
   MARKETPLACE: {
     validFor: [],
@@ -217,9 +219,9 @@ export const waypointTraits: Record<
   },
   NATURAL_SPICES: {
     validFor: ["PLANET", "MOON"],
-    exports: {
-      "SPICES": 2,
-    },
+    // exports: {
+    //   "SPICES": 2,
+    // },
     requiresCategory: ["PLANT_LIFE"],
   },
   OCEAN: {
@@ -286,7 +288,9 @@ export const waypointTraits: Record<
   SPRAWLING_CITIES: {
     validFor: ["PLANET", "MOON"],
     category: "HABITATION",
-    exports: ["TOURISTS"],
+    exports: {
+      "TOURISTS": 2,
+    },
     populationLevel: 3,
     industries: 3,
   },
@@ -296,17 +300,26 @@ export const waypointTraits: Record<
   },
   STRONG_GRAVITY: {
     validFor: ["PLANET"],
-    imports: ["HEAVY_MACHINERY", "THERMAL_REGULATORS"],
+    consumes: {
+      "HEAVY_MACHINERY": 1,
+      "THERMAL_REGULATORS": 1,
+    },
     maintenanceCostMultiplier: 1.5,
   },
   STRONG_MAGNETOSPHERE: {
     validFor: ["PLANET"],
-    imports: ["THERMAL_REGULATORS", "ELECTRONICS"],
+    consumes: {
+      "ELECTRONICS": 1,
+      "THERMAL_REGULATORS": 1,
+    }
   },
   SURVEILLANCE_OUTPOST: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION", "ASTEROID_FIELD"],
     category: "HABITATION",
-    imports: ["EQUIPMENT", "MEDICAL_SUPPLIES"],
+    consumes: {
+      "EQUIPMENT": 1,
+      "MEDICAL_SUPPLIES": 1,
+    },
     exchange: ["FUEL"],
     populationLevel: 1
   },
@@ -330,7 +343,10 @@ export const waypointTraits: Record<
   TOXIC_ATMOSPHERE: {
     validFor: ["PLANET", "MOON"],
     maintenanceCostMultiplier: 1.5,
-    imports: ["EQUIPMENT", "MEDICAL_SUPPLIES"]
+    consumes: {
+      "EQUIPMENT": 1,
+      "MEDICAL_SUPPLIES": 1,
+    }
   },
   TRADING_HUB: {
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
@@ -342,7 +358,9 @@ export const waypointTraits: Record<
   },
   VIBRANT_AURORAS: {
     validFor: ["PLANET"],
-    imports: ["TOURISTS"],
+    consumes: {
+      TOURISTS: 3
+    }
   },
   VOLCANIC: {
     validFor: ["PLANET", "MOON"],
@@ -352,7 +370,10 @@ export const waypointTraits: Record<
   },
   WEAK_GRAVITY: {
     validFor: ["PLANET"],
-    imports: ["HEAVY_MACHINERY", "GRAVITON_EMITTERS"],
+    consumes: {
+      "HEAVY_MACHINERY": 1,
+      "GRAVITON_EMITTERS": 1,
+    }
   }
 };
 

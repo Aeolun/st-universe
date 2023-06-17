@@ -24,3 +24,12 @@ generateUniverse().then((universe) => {
   }, 2000);
 }).then(bootstrap)
 
+
+process.on('SIGINT', () => {
+  console.log("SIGINT received")
+  process.exit(0)
+})
+process.on('SIGTERM', () => {
+  console.log("SIGTERM received")
+  process.exit(0)
+})

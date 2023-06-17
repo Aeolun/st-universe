@@ -180,6 +180,7 @@ export async function generateUniverse() {
         fuelAvailable: renderFuelAvailable,
         jumpGates: renderJumpGates,
         factionControl: renderFactionControl,
+        shipyards: renderShipConfigurations
     }
 
     fs.mkdirSync('./renders', {recursive: true})
@@ -239,6 +240,14 @@ function renderFactionControl(system: System, context: CanvasRenderingContext2D)
     context.beginPath()
     context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
     context.fillStyle = system.factions.length > 0 ? factions[system.factions[0]].color : 'white'
+    context.closePath()
+    context.fill()
+}
+
+function renderShipConfigurations(system: System, context: CanvasRenderingContext2D) {
+    context.beginPath()
+    context.arc(CANVAS_SIZE / 2 + Math.round(system.x * scale), CANVAS_SIZE / 2 + Math.round(system.y * scale), 2, 0, 2 * Math.PI, false);
+    context.fillStyle = system.waypoints.some(wp => wp.availableShipConfigurations.length > 0) ? 'lime' : 'red'
     context.closePath()
     context.fill()
 }

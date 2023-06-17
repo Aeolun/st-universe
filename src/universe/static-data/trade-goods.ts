@@ -86,7 +86,7 @@ export type TradeGood =
 
 type Components = Partial<Record<TradeGood, number>>
 type PriceOrComponents = { basePrice: number } | { basePrice?: number; components: Components | Components[] }
-export type TradeGoodData = { symbol: TradeGood; baseTradeVolume: number; illegal?: boolean; notConsumed?: boolean } & PriceOrComponents
+export type TradeGoodData = { symbol: TradeGood; baseTradeVolume: number; illegal?: boolean; } & PriceOrComponents
 
 export const tradeGoods: Record<
   TradeGood,
@@ -110,13 +110,13 @@ export const tradeGoods: Record<
     ALUMINUM: {
         symbol: "ALUMINUM",
         components: {
-            ALUMINUM_ORE: 3,
+            ALUMINUM_ORE: 1,
         },
         baseTradeVolume: 1000,
     },
     ALUMINUM_ORE: {
         symbol: "ALUMINUM_ORE",
-        basePrice: 10,
+        basePrice: 45,
         baseTradeVolume: 1000,
     },
     AMMONIA_ICE: {
@@ -165,13 +165,13 @@ export const tradeGoods: Record<
     COPPER: {
         symbol: "COPPER",
         components: {
-            COPPER_ORE: 3,
+            COPPER_ORE: 1,
         },
         baseTradeVolume: 10,
     },
     COPPER_ORE: {
         symbol: "COPPER_ORE",
-        basePrice: 100,
+        basePrice: 50,
         baseTradeVolume: 100,
     },
     CYBERNETIC_IMPLANTS: {
@@ -284,7 +284,7 @@ export const tradeGoods: Record<
     GOLD: {
         symbol: "GOLD",
         components: {
-            GOLD_ORE: 3,
+            GOLD_ORE: 1,
         },
         baseTradeVolume: 10,
     },
@@ -326,21 +326,19 @@ export const tradeGoods: Record<
     },
     ICE_WATER: {
         symbol: "ICE_WATER",
-        components: {
-            MACHINERY: 1,
-        },
+        basePrice: 15,
         baseTradeVolume: 10,
     },
     IRON: {
         symbol: "IRON",
         components: {
-            IRON_ORE: 3,
+            IRON_ORE: 1,
         },
         baseTradeVolume: 10,
     },
     IRON_ORE: {
         symbol: "IRON_ORE",
-        basePrice: 100,
+        basePrice: 40,
         baseTradeVolume: 100,
     },
     JEWELRY: {
@@ -404,7 +402,7 @@ export const tradeGoods: Record<
     MERITIUM: {
         symbol: "MERITIUM",
         components: {
-            MERITIUM_ORE: 3,
+            MERITIUM_ORE: 1,
         },
         baseTradeVolume: 10,
     },
@@ -490,7 +488,7 @@ symbol: "NOVEL_LIFEFORMS",
     },
     PLATINUM_ORE: {
         symbol: "PLATINUM_ORE",
-        basePrice: 100,
+        basePrice: 65,
         baseTradeVolume: 100,
     },
     POLYNUCLEOTIDES: {
@@ -569,7 +567,7 @@ symbol: "NOVEL_LIFEFORMS",
     },
     SILVER_ORE: {
         symbol: "SILVER_ORE",
-        basePrice: 100,
+        basePrice: 55,
         baseTradeVolume: 100,
     },
     // SLAVES: {
@@ -627,7 +625,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 3
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_DRONE: {
@@ -635,7 +633,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 5
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_INTERCEPTOR: {
@@ -643,7 +641,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 7
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_RACER: {
@@ -651,7 +649,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 5
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_FIGHTER: {
@@ -659,7 +657,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 3
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_FRIGATE: {
@@ -667,7 +665,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 10
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_SHUTTLE: {
@@ -675,7 +673,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 7
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_EXPLORER: {
@@ -683,7 +681,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 10
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_MINER: {
@@ -691,7 +689,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 7
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_LIGHT_FREIGHTER: {
@@ -699,7 +697,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 7
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     FRAME_HEAVY_FREIGHTER: {
@@ -707,112 +705,112 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 30
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
-    FRAME_TRANSPORT: {
-        symbol: Frame.FRAME_TRANSPORT,
-        components: {
-            SHIP_PLATING: 7
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_DESTROYER: {
-        symbol: Frame.FRAME_DESTROYER,
-        components: {
-            SHIP_PLATING: 20
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_CRUISER: {
-        symbol: Frame.FRAME_CRUISER,
-        components: {
-            SHIP_PLATING: 40
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_BATTLESHIP: {
-        symbol: Frame.FRAME_BATTLESHIP,
-        components: {
-            SHIP_PLATING: 80
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_DREADNOUGHT: {
-        symbol: Frame.FRAME_DREADNOUGHT,
-        components: {
-            SHIP_PLATING: 160
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_TITAN: {
-        symbol: Frame.FRAME_TITAN,
-        components: {
-            SHIP_PLATING: 500
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_LEVIATHAN: {
-        symbol: Frame.FRAME_LEVIATHAN,
-        components: {
-            SHIP_PLATING: 1250
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_CARRIER: {
-        symbol: Frame.FRAME_CARRIER,
-        components: {
-            SHIP_PLATING: 160
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_FLEET_CARRIER: {
-        symbol: Frame.FRAME_FLEET_CARRIER,
-        components: {
-            SHIP_PLATING: 320
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_MOTHERSHIP: {
-        symbol: Frame.FRAME_MOTHERSHIP,
-        components: {
-            SHIP_PLATING: 800
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_STARBASE: {
-        symbol: Frame.FRAME_STARBASE,
-        components: {
-            SHIP_PLATING: 3000
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    FRAME_STATION: {
-        symbol: Frame.FRAME_STATION,
-        components: {
-            SHIP_PLATING: 1000
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
+    // FRAME_TRANSPORT: {
+    //     symbol: Frame.FRAME_TRANSPORT,
+    //     components: {
+    //         SHIP_PLATING: 7
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_DESTROYER: {
+    //     symbol: Frame.FRAME_DESTROYER,
+    //     components: {
+    //         SHIP_PLATING: 20
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_CRUISER: {
+    //     symbol: Frame.FRAME_CRUISER,
+    //     components: {
+    //         SHIP_PLATING: 40
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_BATTLESHIP: {
+    //     symbol: Frame.FRAME_BATTLESHIP,
+    //     components: {
+    //         SHIP_PLATING: 80
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_DREADNOUGHT: {
+    //     symbol: Frame.FRAME_DREADNOUGHT,
+    //     components: {
+    //         SHIP_PLATING: 160
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_TITAN: {
+    //     symbol: Frame.FRAME_TITAN,
+    //     components: {
+    //         SHIP_PLATING: 500
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_LEVIATHAN: {
+    //     symbol: Frame.FRAME_LEVIATHAN,
+    //     components: {
+    //         SHIP_PLATING: 1250
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_CARRIER: {
+    //     symbol: Frame.FRAME_CARRIER,
+    //     components: {
+    //         SHIP_PLATING: 160
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_FLEET_CARRIER: {
+    //     symbol: Frame.FRAME_FLEET_CARRIER,
+    //     components: {
+    //         SHIP_PLATING: 320
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_MOTHERSHIP: {
+    //     symbol: Frame.FRAME_MOTHERSHIP,
+    //     components: {
+    //         SHIP_PLATING: 800
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_STARBASE: {
+    //     symbol: Frame.FRAME_STARBASE,
+    //     components: {
+    //         SHIP_PLATING: 3000
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
+    // FRAME_STATION: {
+    //     symbol: Frame.FRAME_STATION,
+    //     components: {
+    //         SHIP_PLATING: 1000
+    //     },
+    //
+    //     baseTradeVolume: 1
+    // },
     ENGINE_IMPULSE_DRIVE_I: {
         symbol: Engine.ENGINE_IMPULSE_DRIVE_I,
         components: {
             IRON: 1,
             MACHINERY: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     ENGINE_ION_DRIVE_I: {
@@ -821,7 +819,7 @@ symbol: "NOVEL_LIFEFORMS",
             MACHINERY: 1,
             IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     ENGINE_ION_DRIVE_II: {
@@ -830,23 +828,7 @@ symbol: "NOVEL_LIFEFORMS",
             MACHINERY: 2,
             PLATINUM: 1,
         },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    ENGINE_FUSION_DRIVE_I: {
-        symbol: Engine.ENGINE_FUSION_DRIVE_I,
-        components: {
-            SHIP_PLATING: 2
-        },
-        notConsumed: true,
-        baseTradeVolume: 1
-    },
-    ENGINE_SOLAR_I: {
-        symbol: Engine.ENGINE_SOLAR_I,
-        components: {
-            SHIP_PLATING: 4
-        },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_CARGO_HOLD_I: {
@@ -855,7 +837,7 @@ symbol: "NOVEL_LIFEFORMS",
             MACHINERY: 1,
             IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_CREW_QUARTERS_I: {
@@ -865,31 +847,37 @@ symbol: "NOVEL_LIFEFORMS",
             MACHINERY: 1,
             FABRICS: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_I: {
         symbol: Module.MODULE_WARP_DRIVE_I,
         components: {
-            SHIP_PLATING: 5
+            IRON: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_II: {
         symbol: Module.MODULE_WARP_DRIVE_II,
         components: {
-            SHIP_PLATING: 10
+            MERITIUM: 1,
+            ELECTRONICS: 1,
+            ADVANCED_CIRCUITRY: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_WARP_DRIVE_III: {
         symbol: Module.MODULE_WARP_DRIVE_III,
         components: {
-            SHIP_PLATING: 20
+            MERITIUM: 1,
+            ELECTRONICS: 3,
+            ADVANCED_CIRCUITRY: 5
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_I: {
@@ -898,35 +886,36 @@ symbol: "NOVEL_LIFEFORMS",
             ADVANCED_CIRCUITRY: 1,
             IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_II: {
         symbol: Module.MODULE_JUMP_DRIVE_II,
         components: {
             GOLD: 1,
-            ADVANCED_CIRCUITRY: 1,
-            PLATINUM: 1,
+            ADVANCED_CIRCUITRY: 3,
+            PLATINUM: 3,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_JUMP_DRIVE_III: {
         symbol: Module.MODULE_JUMP_DRIVE_III,
         components: {
-            MERITIUM: 1,
-            ADVANCED_CIRCUITRY: 1,
-            PLATINUM: 1,
+            MERITIUM: 2,
+            ADVANCED_CIRCUITRY: 5,
+            PLATINUM: 3,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_MINERAL_PROCESSOR_I: {
         symbol: Module.MODULE_MINERAL_PROCESSOR_I,
         components: {
-            SHIP_PLATING: 10
+            MACHINERY: 1,
+            IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_ENVOY_QUARTERS_I: {
@@ -936,7 +925,7 @@ symbol: "NOVEL_LIFEFORMS",
             MACHINERY: 1,
             FABRICS: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_SCIENCE_LAB_I: {
@@ -944,7 +933,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 6
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_PASSENGER_CABIN_I: {
@@ -952,7 +941,7 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 3
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_ORE_REFINERY_I: {
@@ -960,175 +949,206 @@ symbol: "NOVEL_LIFEFORMS",
         components: {
             SHIP_PLATING: 10
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_SHIELD_GENERATOR_I: {
         symbol: Module.MODULE_SHIELD_GENERATOR_I,
         components: {
-            SHIP_PLATING: 12
+            IRON: 1,
+            URANITE: 1,
+            MACHINERY: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MODULE_SHIELD_GENERATOR_II: {
         symbol: Module.MODULE_SHIELD_GENERATOR_II,
         components: {
-            SHIP_PLATING: 24
+            ALUMINUM: 1,
+            URANITE: 1,
+            MACHINERY: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_I: {
         symbol: Mount.MOUNT_GAS_SIPHON_I,
         components: {
-            SHIP_PLATING: 4
+            MACHINERY: 1,
+            IRON: 1
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_II: {
         symbol: Mount.MOUNT_GAS_SIPHON_II,
         components: {
-            SHIP_PLATING: 12
+            PLATINUM: 1,
+            MACHINERY: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_GAS_SIPHON_III: {
         symbol: Mount.MOUNT_GAS_SIPHON_III,
         components: {
-            SHIP_PLATING: 24
+            PLATINUM: 1,
+            MACHINERY: 3,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_I: {
         symbol: Mount.MOUNT_SURVEYOR_I,
         components: {
-            SHIP_PLATING: 6
+            IRON: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_II: {
         symbol: Mount.MOUNT_SURVEYOR_II,
         components: {
-            SHIP_PLATING: 14
+            IRON: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SURVEYOR_III: {
         symbol: Mount.MOUNT_SURVEYOR_III,
         components: {
-            SHIP_PLATING: 32
+            IRON: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_I: {
         symbol: Mount.MOUNT_SENSOR_ARRAY_I,
         components: {
-            SHIP_PLATING: 3
+            IRON: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_II: {
         symbol: Mount.MOUNT_SENSOR_ARRAY_II,
         components: {
-            SHIP_PLATING: 9
+            PLATINUM: 1,
+            MACHINERY: 1,
+            ELECTRONICS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_SENSOR_ARRAY_III: {
         symbol: Mount.MOUNT_SENSOR_ARRAY_III,
         components: {
-            SHIP_PLATING: 15
+            PLATINUM: 1,
+            MACHINERY: 1,
+            DIAMONDS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_I: {
         symbol: Mount.MOUNT_MINING_LASER_I,
         components: {
-            SHIP_PLATING: 3
+            IRON: 1,
+            MACHINERY: 1,
+            DIAMONDS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_II: {
         symbol: Mount.MOUNT_MINING_LASER_II,
         components: {
-            SHIP_PLATING: 12
+            PLATINUM: 1,
+            MACHINERY: 1,
+            DIAMONDS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_MINING_LASER_III: {
         symbol: Mount.MOUNT_MINING_LASER_III,
         components: {
-            SHIP_PLATING: 24
+            PLATINUM: 1,
+            MACHINERY: 1,
+            DIAMONDS: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_LASER_CANNON_I: {
         symbol: Mount.MOUNT_LASER_CANNON_I,
         components: {
-            SHIP_PLATING: 7
+            MACHINERY: 1,
+            IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_MISSILE_LAUNCHER_I: {
         symbol: Mount.MOUNT_MISSILE_LAUNCHER_I,
         components: {
-            SHIP_PLATING: 5
+            MACHINERY: 1,
+            IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     MOUNT_TURRET_I: {
         symbol: Mount.MOUNT_TURRET_I,
         components: {
-            SHIP_PLATING: 3
+            MACHINERY: 1,
+            IRON: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     REACTOR_CHEMICAL_I: {
         symbol: Reactor.REACTOR_CHEMICAL_I,
         components: {
-            SHIP_PLATING: 4
+            IRON: 1,
+            MACHINERY: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     REACTOR_FISSION_I: {
         symbol: Reactor.REACTOR_FISSION_I,
         components: {
-            SHIP_PLATING: 10
+            IRON: 1,
+            MACHINERY: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     REACTOR_FUSION_I: {
         symbol: Reactor.REACTOR_FUSION_I,
         components: {
-            SHIP_PLATING: 15
+            IRON: 1,
+            MACHINERY: 1,
         },
-        notConsumed: true,
+        
         baseTradeVolume: 1
     },
     REACTOR_SOLAR_I: {
         symbol: Reactor.REACTOR_SOLAR_I,
         components: {
-            SHIP_PLATING: 5
+            IRON: 1,
+            MACHINERY: 1
         },
-        notConsumed: true,
         baseTradeVolume: 1
     }
 };

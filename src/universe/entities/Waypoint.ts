@@ -1,5 +1,5 @@
 import {Industry} from "src/universe/static-data/industries";
-import {WaypointTrait} from "src/universe/static-data/waypoint-traits";
+import {ProductionLine, WaypointTrait} from "src/universe/static-data/waypoint-traits";
 import {JumpGate} from "src/universe/entities/JumpGate";
 import {TradeGood, tradeGoods} from "src/universe/static-data/trade-goods";
 import {WaypointType} from "src/universe/static-data/waypoint-types";
@@ -9,12 +9,17 @@ import {Configuration} from "src/universe/static-data/ship-configurations";
 
 export interface SupplyDemand {
     tradeGood: TradeGood
+    kind: 'supply' | 'demand' | 'exchange'
     idealSupply: number
     currentSupply: number
     maxSupply: number
     stopSaleAt: number
-    consumptionRate: number
     productionRate: number
+    consumptionRate: number
+    lastTickProduction: number
+    lastTickConsumption: number
+    productionLineProductionRate: number
+    productionLineConsumptionRate: number
     localFluctuation: number
 }
 
@@ -40,7 +45,8 @@ export class Waypoint {
     public exports: TradeGood[] = []
     public exchange: TradeGood[] = []
 
-    public supplyDemand: SupplyDemand[] = []
+    public supplyDemand: Partial<Record<TradeGood, SupplyDemand>> = {}
+    public productionLines: ProductionLine[] = []
 
     public availableShipConfigurations: Configuration[] = []
 
@@ -63,9 +69,44 @@ export class Waypoint {
     }
 
     public tick() {
-        this.supplyDemand.forEach(supplyDemand => {
-            supplyDemand.currentSupply -= supplyDemand.consumptionRate
-            supplyDemand.currentSupply += supplyDemand.productionRate
+        Object.values(this.supplyDemand).forEach(supplyDemand => {
+            supplyDemand.lastTickProduction = 0
+            supplyDemand.lastTickConsumption = 0
+            supplyDemand.currentSupply = Math.max(supplyDemand.currentSupply + supplyDemand.productionRate - supplyDemand.consumptionRate, 0)
+        })
+        this.productionLines.forEach(productionLine => {
+            const marketGood = tradeGoods[productionLine.produces]
+            if (marketGood && 'components' in marketGood) {
+
+                const componentsOptions = Array.isArray(marketGood.components) ? marketGood.components : [marketGood.components]
+
+                componentsOptions.forEach(components => {
+                    let satisfied = true
+                    Object.keys(components).forEach((component: TradeGood) => {
+                        const requiredCount = components[component] ?? 0
+                        const supplyDemand = this.supplyDemand[component]
+                        if (!supplyDemand || supplyDemand.currentSupply < requiredCount) {
+                            satisfied = false
+                        }
+                    })
+                    if (satisfied) {
+                        Object.keys(components).forEach((component: TradeGood) => {
+                            const requiredCount = components[component] ?? 0
+                            const supplyDemand = this.supplyDemand[component]
+                            if (supplyDemand) {
+                                supplyDemand.lastTickConsumption += requiredCount
+                                supplyDemand.currentSupply -= requiredCount
+                            }
+                        })
+                        const produceDemand = this.supplyDemand[productionLine.produces]
+                        if (produceDemand) {
+                            produceDemand.lastTickProduction += productionLine.count ?? 1
+                            produceDemand.currentSupply += productionLine.count ?? 1
+                        }
+                    }
+                })
+
+            }
         })
     }
 }

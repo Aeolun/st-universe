@@ -7,6 +7,7 @@ export class ShipMount extends AbstractCapabilities {
   constructor(symbol: Mount, capabilities: Capability[]) {
     super()
 
+    this.symbol = symbol
     this.capabilities = capabilities
   }
 }

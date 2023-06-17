@@ -1,8 +1,14 @@
 import {Waypoint} from "./entities/Waypoint";
 import {numberBetween, pickRandom, randomWeightedKey, uniqueId} from "./utilities";
 import {generatableWaypointTypeNames, WaypointType, waypointTypes} from "./static-data/waypoint-types";
-import {WaypointTrait, waypointTraitNames, waypointTraits} from "src/universe/static-data/waypoint-traits";
-import {tradeGoods, tradeGoodTypeNames} from "src/universe/static-data/trade-goods";
+import {
+    TraitData,
+    TraitModifiers,
+    WaypointTrait,
+    waypointTraitNames,
+    waypointTraits
+} from "src/universe/static-data/waypoint-traits";
+import {TradeGood, tradeGoods, tradeGoodTypeNames} from "src/universe/static-data/trade-goods";
 import {industries, industryNames} from "src/universe/static-data/industries";
 import {Configuration, shipConfigurationData} from "src/universe/static-data/ship-configurations";
 import {checkNullable} from "ajv/dist/vocabularies/jtd/nullable";
@@ -76,35 +82,135 @@ export const generateWaypoint = (data: {
 
         waypoint.traits.push(newTrait)
 
+        if (traitData.populationLevel) {
+            waypoint.population += traitData.populationLevel
+        }
+
+        if (traitData.extractableResources) {
+            waypoint.extractableResources.push(...traitData.extractableResources)
+        }
+    }
+
+    const good: Partial<Record<TradeGood, boolean>> = {}
+    const productionRate: Partial<Record<TradeGood, number>> = {}
+    const consumptionRate: Partial<Record<TradeGood, number>> = {}
+    const productionLineProductionRate: Partial<Record<TradeGood, number>> = {}
+    const productionLineConsumptionRate: Partial<Record<TradeGood, number>> = {}
+    const extraRequestedStorage: Partial<Record<TradeGood, number>> = {}
+
+    const addRates = (tradeGood: TradeGood, data: {
+        production?: number,
+      consumption?: number,
+      extraStorage?: number,
+        productionLineProduction?: number,
+      productionLineConsumption?: number,
+}) => {
+        good[tradeGood] = true
+        if (data.production) {
+            productionRate[tradeGood] = (productionRate[tradeGood] ?? 0) + data.production
+        }
+        if (data.consumption) {
+            consumptionRate[tradeGood] = (consumptionRate[tradeGood] ?? 0) + data.consumption
+        }
+        if (data.productionLineProduction) {
+            productionLineProductionRate[tradeGood] = (productionLineProductionRate[tradeGood] ?? 0) + data.productionLineProduction
+        }
+        if (data.productionLineConsumption) {
+            productionLineConsumptionRate[tradeGood] = (productionLineConsumptionRate[tradeGood] ?? 0) + data.productionLineConsumption
+        }
+        if (data.extraStorage) {
+            extraRequestedStorage[tradeGood] = (extraRequestedStorage[tradeGood] ?? 0) + data.extraStorage
+        }
+    }
+    const addTraits = (traitData: TraitModifiers) => {
         if (traitData.exports) {
-            traitData.exports.forEach(tg => {
-                if (!waypoint.exports.includes(tg)) {
-                    waypoint.exports.push(tg)
+            Object.keys(traitData.exports).forEach((tg: TradeGood) => {
+                const count = traitData.exports?.[tg]
+                if (count) {
+                    addRates(tg, {
+                        production: count,
+                    })
                 }
             })
         }
         if (traitData.imports) {
-            traitData.imports.forEach(tg => {
-                if (!waypoint.imports.includes(tg)) {
-                    waypoint.imports.push(tg)
+            Object.keys(traitData.imports).forEach((tg: TradeGood) => {
+                const count = traitData.imports?.[tg]
+                if (count) {
+                    addRates(tg, {
+                        consumption: count,
+                    })
                 }
             })
         }
         if (traitData.exchange) {
             traitData.exchange.forEach(tg => {
-                if (!waypoint.exchange.includes(tg)) {
-                    waypoint.exchange.push(tg)
-                }
+                addRates(tg, {
+                    extraStorage: 1,
+                })
             })
         }
         if (traitData.exchangeGoodsCount) {
             for(let i = 0; i < traitData.exchangeGoodsCount; i++) {
                 const tradeGood = pickRandom(tradeGoodTypeNames)
-                if (!waypoint.exports.includes(tradeGood) && !waypoint.imports.includes(tradeGood) && !waypoint.exchange.includes(tradeGood)) {
-                    waypoint.exchange.push(tradeGood)
-                }
+                addRates(tradeGood, {
+                    extraStorage: 1,
+                })
             }
         }
+        if (traitData.productionLine) {
+            traitData.productionLine.forEach(line => {
+                const tradeGoodData = tradeGoods[line.produces]
+                if (tradeGoodData && 'components' in tradeGoodData) {
+                    addRates(line.produces, {
+                        productionLineProduction: line.count ?? 1
+                    })
+                    const options = Array.isArray(tradeGoodData.components) ? tradeGoodData.components : [tradeGoodData.components]
+                    for (let i = 0; i < options.length; i++) {
+                        const componentOptions = options[i]
+                        Object.keys(componentOptions).forEach((component: TradeGood) => {
+                            const count = componentOptions[component]
+                            if (count) {
+                                addRates(component, {
+                                    productionLineConsumption: count,
+                                    extraStorage: count
+                                })
+                            }
+                        })
+                    }
+                }
+
+                waypoint.productionLines.push(line)
+            })
+        }
+        if (traitData.consumes) {
+            Object.keys(traitData.consumes).forEach((tg: TradeGood) => {
+                const count = traitData.consumes?.[tg]
+                if (count) {
+                    addRates(tg, {
+                        consumption: count,
+                    })
+                }
+            })
+        }
+        if (traitData.produces) {
+            Object.keys(traitData.produces).forEach((tg: TradeGood) => {
+                const count = traitData.produces?.[tg]
+                if (count) {
+                    addRates(tg, {
+                        production: count,
+                    })
+                }
+            })
+        }
+    }
+
+    // once we've determined other factors, we can determine production
+    waypoint.traits.forEach(trait => {
+        const traitData = waypointTraits[trait]
+
+        addTraits(traitData)
+
 
         if (traitData.industries) {
             for(let i= 0; i < traitData.industries; i++) {
@@ -113,30 +219,9 @@ export const generateWaypoint = (data: {
                     waypoint.industries.push(newIndustry)
 
                     const industryData = industries[newIndustry]
-                    if (industryData.imports) {
-                        industryData.imports.forEach(tg => {
-                            if (!waypoint.imports.includes(tg)) {
-                                waypoint.imports.push(tg)
-                            }
-                        })
-                    }
-                    if (industryData.exports) {
-                        industryData.exports.forEach(tg => {
-                            if (!waypoint.exports.includes(tg)) {
-                                waypoint.exports.push(tg)
-                            }
-                        })
-                    }
+                    addTraits(industryData)
                 }
             }
-        }
-
-        if (traitData.populationLevel) {
-            waypoint.population += traitData.populationLevel
-        }
-
-        if (traitData.extractableResources) {
-            waypoint.extractableResources.push(...traitData.extractableResources)
         }
 
         if (traitData.shipHullCount) {
@@ -150,27 +235,109 @@ export const generateWaypoint = (data: {
             waypoint.availableShipConfigurations.forEach(configuration => {
                 // add all the components to imports
                 const configurationData = shipConfigurationData[configuration]
-                waypoint.imports.push(configurationData.engine.symbol)
-                waypoint.imports.push(configurationData.frame.symbol)
-                waypoint.imports.push(configurationData.reactor.symbol)
+
+                addRates(configurationData.engine.symbol, {
+                    extraStorage: 1
+                })
+                addRates(configurationData.frame.symbol, {
+                    extraStorage: 1
+                })
+                addRates(configurationData.reactor.symbol, {
+                    extraStorage: 1
+                })
                 configurationData.modules.forEach(m => {
-                    waypoint.imports.push(m.symbol)
+                    addRates(m.symbol, {
+                        extraStorage: 1
+                    })
                 })
                 configurationData.mounts.forEach(m => {
-                    waypoint.imports.push(m.symbol)
+                    addRates(m.symbol, {
+                        extraStorage: 1
+                    })
                 })
             })
         }
-    }
+    })
 
-    waypoint.imports.forEach(imp => {
-        const exp = waypoint.exports.find(exp => exp === imp)
-        if (exp) {
-            waypoint.exports.splice(waypoint.exports.indexOf(exp), 1)
-            waypoint.imports.splice(waypoint.imports.indexOf(imp), 1)
-            if (!waypoint.exchange.includes(exp)) {
-                waypoint.exchange.push(exp)
+    Object.keys(good).forEach((tg: TradeGood) => {
+        try {
+            const tgProductionRate = (productionRate[tg] ?? 0)
+            const tgConsumptionRate = (consumptionRate[tg] ?? 0)
+            const tgProductionLineProductionRate = (productionLineProductionRate[tg] ?? 0)
+            const tgProductionLineConsumptionRate = (productionLineConsumptionRate[tg] ?? 0)
+
+            const count = tgProductionRate - tgConsumptionRate
+            const productionLineCount = tgProductionLineProductionRate - tgProductionLineConsumptionRate
+            const totalCount = count + productionLineCount
+            const supplyTotal = tgProductionRate + tgConsumptionRate + tgProductionLineProductionRate + tgProductionLineConsumptionRate + (extraRequestedStorage[tg] ?? 0)
+            const tradeGoodData = tradeGoods[tg]
+            if (count !== undefined) {
+                if (totalCount > 0) {
+                    // produce
+                    const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal * waypoint.population
+
+                    waypoint.exports.push(tg)
+                    waypoint.supplyDemand[tg] = {
+                        tradeGood: tg,
+                        kind: 'supply',
+                        idealSupply: idealSupply,
+                        currentSupply: idealSupply,
+                        maxSupply: idealSupply * 2,
+                        lastTickConsumption: 0,
+                        lastTickProduction: 0,
+                        stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+                        productionRate: tgProductionRate * waypoint.population,
+                        consumptionRate: tgConsumptionRate * waypoint.population,
+                        productionLineProductionRate: tgProductionLineProductionRate * waypoint.population,
+                        productionLineConsumptionRate: tgProductionLineConsumptionRate * waypoint.population,
+                        localFluctuation: numberBetween(-10, 10)
+                    }
+                } else if (totalCount < 0) {
+                    // consumes
+                    const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal * waypoint.population
+
+                    waypoint.imports.push(tg)
+                    waypoint.supplyDemand[tg] = {
+                        tradeGood: tg,
+                        kind: 'demand',
+                        idealSupply: idealSupply,
+                        currentSupply: idealSupply,
+                        maxSupply: idealSupply * 2,
+                        lastTickConsumption: 0,
+                        lastTickProduction: 0,
+                        stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+                        productionRate: tgProductionRate * waypoint.population,
+                        consumptionRate: tgConsumptionRate * waypoint.population,
+                        productionLineProductionRate: tgProductionLineProductionRate * waypoint.population,
+                        productionLineConsumptionRate: tgProductionLineConsumptionRate * waypoint.population,
+                        localFluctuation: numberBetween(-10, 10)
+                    }
+                } else {
+                    // exchange
+                    const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal * waypoint.population
+
+                    waypoint.exchange.push(tg)
+                    waypoint.supplyDemand[tg] = {
+                        tradeGood: tg,
+                        kind: 'exchange',
+                        idealSupply: idealSupply,
+                        currentSupply: idealSupply,
+                        maxSupply: idealSupply * 2,
+                        lastTickConsumption: 0,
+                        lastTickProduction: 0,
+                        stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+                        productionRate: tgProductionRate * waypoint.population,
+                        consumptionRate: tgConsumptionRate * waypoint.population,
+                        productionLineProductionRate: tgProductionLineProductionRate * waypoint.population,
+                        productionLineConsumptionRate: tgProductionLineConsumptionRate * waypoint.population,
+                        localFluctuation: numberBetween(-10, 10)
+                    }
+                }
             }
+        } catch (e) {
+            console.log(`Issue setting consumption rate for ${tg}`)
+            console.log(e)
+
         }
     })
 
@@ -178,57 +345,6 @@ export const generateWaypoint = (data: {
         waypoint.traits.push("MARKETPLACE")
     }
 
-    //TODO: Base consumption rate/supply off of how many times the industry/good is requested by some trait/industry
-    waypoint.imports.forEach(imp => {
-        const tradeGoodData = tradeGoods[imp]
-
-        const idealSupply = tradeGoodData.baseTradeVolume * 10 * waypoint.population
-
-        waypoint.supplyDemand.push({
-            tradeGood: imp,
-            idealSupply: idealSupply,
-            currentSupply: idealSupply,
-            maxSupply: idealSupply * 2,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            consumptionRate: tradeGoodData.notConsumed ? 0 : waypoint.population,
-            productionRate: 0,
-            localFluctuation: numberBetween(-10, 10)
-        })
-    })
-
-    waypoint.exports.forEach(imp => {
-        const tradeGoodData = tradeGoods[imp]
-
-        const idealSupply = tradeGoodData.baseTradeVolume * 10 * waypoint.population
-
-        waypoint.supplyDemand.push({
-            tradeGood: imp,
-            idealSupply: idealSupply * 0.5,
-            currentSupply: idealSupply * 0.5,
-            maxSupply: idealSupply * 2,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            consumptionRate: 0,
-            productionRate: waypoint.population,
-            localFluctuation: numberBetween(-10, 10)
-        })
-    })
-
-    waypoint.exchange.forEach(imp => {
-        const tradeGoodData = tradeGoods[imp]
-
-        const idealSupply = tradeGoodData.baseTradeVolume * 10 * waypoint.population
-
-        waypoint.supplyDemand.push({
-            tradeGood: imp,
-            idealSupply: idealSupply,
-            currentSupply: idealSupply,
-            maxSupply: idealSupply * 2,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            consumptionRate: 0,
-            productionRate: 0,
-            localFluctuation: numberBetween(-10, 10)
-        })
-    })
 
     return waypoint
 }

@@ -41,7 +41,6 @@ industryNames.forEach(industry => {
         })
       }
     })
-
   }
 })
 
