@@ -6,12 +6,13 @@ import {GlobalGetResponse} from "src/controllers/schemas/global-get-response";
 import {universe} from "src/universe/universe";
 import {Agent} from "src/universe/entities/Agent";
 import {renderShipOutput} from "src/controllers/formatting/render-ship-output";
+import {Register201Response} from "src/controllers/schemas";
 
 
 @Controller("/")
 export class GlobalController {
   @Post("/register")
-  register(@BodyParams() body: GlobalRegisterPayload) {
+  register(@BodyParams() body: GlobalRegisterPayload): Register201Response {
     const newAgent = new Agent({
       symbol: body.symbol,
       faction: body.faction,
@@ -34,7 +35,7 @@ export class GlobalController {
         },
         contract: {},
         faction: {},
-        ships: newAgent.ships.map(ship => renderShipOutput(ship))
+        ship: renderShipOutput(newAgent.ships[0]),
       }
     }
   }

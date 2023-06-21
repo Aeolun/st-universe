@@ -1,41 +1,140 @@
 import {Controller} from "@tsed/di";
 import {Get} from "@tsed/schema";
-import {PathParams} from "@tsed/platform-params";
+import {PathParams, QueryParams} from "@tsed/platform-params";
+import {universe} from "src/universe/universe";
+import {
+  GetJumpGate200Response,
+  GetMarket200Response, GetShipyard200Response,
+  GetSystem200Response,
+  GetSystems200Response, GetSystemWaypoints200Response, GetWaypoint200Response,
+  SystemFaction,
+  SystemType, TradeSymbol,
+  WaypointType
+} from "src/controllers/schemas";
+import {Faction} from "src/universe/static-data/faction";
+import {renderSystem} from "src/controllers/formatting/render-system";
+import {renderWaypoint} from "src/controllers/formatting/render-waypoint";
+import {slicePage} from "src/controllers/formatting/slice-page";
+import {tradeGoods} from "src/universe/static-data/trade-goods";
+import {renderSupply} from "src/controllers/formatting/render-supply";
+import {marketPrice} from "src/universe/formulas/trade";
 
 @Controller("/systems/")
 export class SystemsController {
   @Get("/")
-  listSystems() {
-    return "hello";
+  listSystems(@QueryParams('page') page: number, @QueryParams('limit') limit: number): GetSystems200Response {
+    const systems = slicePage(universe.systems, page, limit).map(system => {
+      return renderSystem(system)
+    })
+
+    return {
+      data: systems,
+      meta: {
+        page: page,
+        limit: limit,
+        total: universe.systems.length
+      }
+    }
   }
 
   @Get("/:systemSymbol")
-  get(@PathParams('factionId') factionId: string) {
-    return "hello";
+  get(@PathParams('systemSymbol') systemSymbol: string): GetSystem200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    return {
+      data: renderSystem(system),
+    }
   }
 
   @Get("/:systemSymbol/waypoints")
-  waypoints(@PathParams('factionId') factionId: string) {
-    return "hello";
+  waypoints(@PathParams('systemSymbol') systemSymbol: string, @QueryParams('page') page: number = 1, @QueryParams('limit') limit: number = 10): GetSystemWaypoints200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    const factions: SystemFaction[] = []
+    const waypoints = slicePage(system.waypoints, page, limit).map(waypoint => {
+      return renderWaypoint(waypoint)
+    })
+    return {
+      data: waypoints,
+      meta: {
+        page: page,
+        limit: limit,
+        total: waypoints.length
+      }
+    }
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol")
-  waypoint(@PathParams('factionId') factionId: string) {
-    return "hello";
+  waypoint(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string): GetWaypoint200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    const waypoint = system.waypoints.find(waypoint => waypoint.symbol === waypointSymbol)
+    if (!waypoint) throw new Error(`Waypoint ${waypointSymbol} not found`)
+
+    return {
+      data: renderWaypoint(waypoint)
+    };
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/market")
-  market(@PathParams('factionId') factionId: string) {
-    return "hello";
+  market(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string): GetMarket200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    const waypoint = system.waypoints.find(waypoint => waypoint.symbol === waypointSymbol)
+    if (!waypoint) throw new Error(`Waypoint ${waypointSymbol} not found`)
+
+    return {
+      data: {
+        symbol: waypointSymbol,
+        exports: waypoint.exports.map(exportItem => {
+          return {
+            symbol: exportItem as TradeSymbol,
+            name: exportItem,
+            description: exportItem
+          }
+        }),
+        imports: waypoint.imports.map(exportItem => {
+          return {
+            symbol: exportItem as TradeSymbol,
+            name: exportItem,
+            description: exportItem
+          }
+        }),
+        exchange: waypoint.exchange.map(exportItem => {
+          return {
+            symbol: exportItem as TradeSymbol,
+            name: exportItem,
+            description: exportItem
+          }
+        }),
+        transactions: waypoint.transactions.map(transaction => {
+          return {
+            ...transaction,
+            timestamp: transaction.timestamp.toISOString()
+          }
+        }),
+        tradeGoods: Object.values(waypoint.supplyDemand).map(supplyDemand => {
+          const tradeGoodData = tradeGoods[supplyDemand.tradeGood]
+          const price = marketPrice(supplyDemand)
+          return {
+            symbol: supplyDemand.tradeGood as TradeSymbol,
+            tradeVolume: tradeGoodData.baseTradeVolume,
+            supply: renderSupply(supplyDemand.currentSupply, supplyDemand.idealSupply),
+            purchasePrice: price.purchasePrice,
+            sellPrice: price.salePrice
+          }
+        })
+      }
+    };
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/shipyard")
-  shipyard(@PathParams('factionId') factionId: string) {
+  shipyard(@PathParams('factionId') factionId: string): GetShipyard200Response {
     return "hello";
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/jump-gate")
-  jumpGate(@PathParams('factionId') factionId: string) {
+  jumpGate(@PathParams('factionId') factionId: string): GetJumpGate200Response {
     return "hello";
   }
 }

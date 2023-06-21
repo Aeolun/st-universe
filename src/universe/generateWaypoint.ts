@@ -30,6 +30,7 @@ export const generateWaypoint = (data: {
 
     const waypoint = new Waypoint({
         type: waypointType,
+        systemSymbol: systemSymbol,
         symbol: waypointSymbol,
         ...rest,
     })

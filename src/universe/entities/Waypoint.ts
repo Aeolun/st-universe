@@ -25,6 +25,7 @@ export interface SupplyDemand {
 
 export class Waypoint {
     public symbol: string
+    public systemSymbol: string
     public x: number
     public y: number
 
@@ -52,6 +53,11 @@ export class Waypoint {
 
     public transactions: Transaction[] = []
 
+    public chart?: {
+        submittedBy: string,
+        submittedOn: Date,
+    }
+
     public population: number = 0
 
     constructor(data: {
@@ -59,12 +65,14 @@ export class Waypoint {
         y: number
         inOrbitOf?: string
         symbol: string
+        systemSymbol: string
         type: WaypointType
     }) {
         this.x = data.x
         this.y = data.y
         this.inOrbitOf = data.inOrbitOf
         this.symbol = data.symbol
+        this.systemSymbol = data.systemSymbol
         this.type = data.type
     }
 
