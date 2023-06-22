@@ -3,11 +3,10 @@ import {Capability} from "src/universe/entities/capabilities/Capability";
 import {Module} from "src/universe/static-data/ship-modules";
 
 export class ShipModule extends AbstractCapabilities {
-  symbol: Module
-  constructor(symbol: Module, capabilities: Capability[]) {
+
+  constructor(public symbol: Module, public name: string, public description: string, capabilities: Capability[]) {
     super()
 
-    this.symbol = symbol
     this.capabilities = capabilities
   }
 }

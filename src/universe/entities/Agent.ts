@@ -1,6 +1,9 @@
 import {uniqueId} from "src/universe/utilities";
 import {Faction} from "src/universe/static-data/faction";
 import {Ship} from "src/universe/entities/Ship";
+import jwt from 'jsonwebtoken'
+import {AuthToken} from "src/models/auth-token";
+import {universe} from "src/universe/universe";
 
 export class Agent {
   public symbol: string
@@ -19,7 +22,13 @@ export class Agent {
     this.symbol = data.symbol
     this.credits = data.credits
     this.faction = data.faction
-    this.token = uniqueId(Date.now().toString())
+    var token = jwt.sign({
+      identifier: data.symbol,
+      version: 'v2',
+      reset_date: universe.createDate,
+      sub: 'agent-token'
+    } satisfies AuthToken, 'epicmegasuper');
+    this.token = token
     this.accountId = uniqueId(Date.now().toString())
   }
 

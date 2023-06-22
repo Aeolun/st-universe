@@ -4,6 +4,7 @@ import {Stats} from "src/universe/entities/Stats";
 
 export abstract class AbstractCapabilities implements HasCapabilities {
   capabilities: Capability[] = []
+  calculatedStats?: Stats
 
   addStats(stats: Stats): Stats {
     return this.capabilities.reduce((stats, capability) => capability.addStats(stats), stats)
@@ -11,5 +12,15 @@ export abstract class AbstractCapabilities implements HasCapabilities {
 
   multiplyStats(stats: Stats): Stats {
     return this.capabilities.reduce((stats, capability) => capability.multiplyStats(stats), stats)
+  }
+
+  get stats(): Stats {
+    if (this.calculatedStats)
+      return this.calculatedStats
+
+    this.calculatedStats = new Stats()
+    this.addStats(this.calculatedStats)
+    this.multiplyStats(this.calculatedStats)
+    return this.calculatedStats
   }
 }

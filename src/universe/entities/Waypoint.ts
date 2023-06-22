@@ -52,6 +52,7 @@ export class Waypoint {
     public availableShipConfigurations: Configuration[] = []
 
     public transactions: Transaction[] = []
+    public shipTransactions: Transaction[] = []
 
     public chart?: {
         submittedBy: string,

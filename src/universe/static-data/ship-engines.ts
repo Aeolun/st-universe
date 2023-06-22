@@ -15,17 +15,17 @@ export enum Engine {
 }
 
 export const engineData: Record<Engine, ShipEngine> = {
-  [Engine.ENGINE_IMPULSE_DRIVE_I]: new ShipEngine(Engine.ENGINE_IMPULSE_DRIVE_I, [
+  [Engine.ENGINE_IMPULSE_DRIVE_I]: new ShipEngine(Engine.ENGINE_IMPULSE_DRIVE_I, '', '', [
     new RequiresCrew(1),
     new RequiresPower(1),
     new ProvidesThrust(4),
   ]),
-  [Engine.ENGINE_ION_DRIVE_I]: new ShipEngine(Engine.ENGINE_ION_DRIVE_I, [
+  [Engine.ENGINE_ION_DRIVE_I]: new ShipEngine(Engine.ENGINE_ION_DRIVE_I, '', '', [
     new RequiresCrew(3),
     new RequiresPower(3),
     new ProvidesThrust(10),
   ]),
-  [Engine.ENGINE_ION_DRIVE_II]: new ShipEngine(Engine.ENGINE_ION_DRIVE_II, [
+  [Engine.ENGINE_ION_DRIVE_II]: new ShipEngine(Engine.ENGINE_ION_DRIVE_II, '', '', [
     new RequiresCrew(8),
     new RequiresPower(6),
     new ProvidesThrust(30),

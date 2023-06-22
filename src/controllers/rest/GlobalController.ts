@@ -23,6 +23,7 @@ export class GlobalController {
       configuration: 'COMMAND_SHIP'
     }))
 
+
     return {
       data: {
         token: newAgent.token,

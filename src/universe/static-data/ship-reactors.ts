@@ -18,19 +18,19 @@ export enum Reactor {
 }
 
 export const reactorData: Record<Reactor, ShipReactor> = {
-  [Reactor.REACTOR_CHEMICAL_I]: new ShipReactor(Reactor.REACTOR_CHEMICAL_I, [
+  [Reactor.REACTOR_CHEMICAL_I]: new ShipReactor(Reactor.REACTOR_CHEMICAL_I, '', '',[
     new RequiresCrew(3),
     new ProvidesPower(15),
   ]),
-  [Reactor.REACTOR_FISSION_I]: new ShipReactor(Reactor.REACTOR_FISSION_I, [
+  [Reactor.REACTOR_FISSION_I]: new ShipReactor(Reactor.REACTOR_FISSION_I, '', '', [
     new RequiresCrew(8),
     new ProvidesPower(31),
   ]),
-  [Reactor.REACTOR_FUSION_I]: new ShipReactor(Reactor.REACTOR_FUSION_I, [
+  [Reactor.REACTOR_FUSION_I]: new ShipReactor(Reactor.REACTOR_FUSION_I, '', '', [
     new RequiresCrew(12),
     new ProvidesPower(40),
   ]),
-  [Reactor.REACTOR_SOLAR_I]: new ShipReactor(Reactor.REACTOR_SOLAR_I, [
+  [Reactor.REACTOR_SOLAR_I]: new ShipReactor(Reactor.REACTOR_SOLAR_I, '', '', [
     new RequiresCrew(0),
     new ProvidesPower(3),
   ]),

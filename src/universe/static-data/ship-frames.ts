@@ -36,64 +36,64 @@ export enum Frame {
 }
 
 export const frameData: Record<Frame, ShipFrame> = {
-  [Frame.FRAME_PROBE]: new ShipFrame(Frame.FRAME_PROBE, [
+  [Frame.FRAME_PROBE]: new ShipFrame(Frame.FRAME_PROBE, '', '', [
     new RequiresCrew(-3),
   ]),
-  [Frame.FRAME_DRONE]: new ShipFrame(Frame.FRAME_DRONE, [
+  [Frame.FRAME_DRONE]: new ShipFrame(Frame.FRAME_DRONE, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(1),
     new StoresFuel(100),
   ]),
-  [Frame.FRAME_INTERCEPTOR]: new ShipFrame(Frame.FRAME_INTERCEPTOR, [
+  [Frame.FRAME_INTERCEPTOR]: new ShipFrame(Frame.FRAME_INTERCEPTOR, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(200)
   ]),
-  [Frame.FRAME_RACER]: new ShipFrame(Frame.FRAME_RACER, [
+  [Frame.FRAME_RACER]: new ShipFrame(Frame.FRAME_RACER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(400)
   ]),
-  [Frame.FRAME_FIGHTER]: new ShipFrame(Frame.FRAME_FIGHTER, [
+  [Frame.FRAME_FIGHTER]: new ShipFrame(Frame.FRAME_FIGHTER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(400)
   ]),
-  [Frame.FRAME_FRIGATE]: new ShipFrame(Frame.FRAME_FRIGATE, [
+  [Frame.FRAME_FRIGATE]: new ShipFrame(Frame.FRAME_FRIGATE, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, [
+  [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_EXPLORER]: new ShipFrame(Frame.FRAME_EXPLORER, [
+  [Frame.FRAME_EXPLORER]: new ShipFrame(Frame.FRAME_EXPLORER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_MINER]: new ShipFrame(Frame.FRAME_MINER, [
+  [Frame.FRAME_MINER]: new ShipFrame(Frame.FRAME_MINER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(Frame.FRAME_LIGHT_FREIGHTER, [
+  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(Frame.FRAME_LIGHT_FREIGHTER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700)
   ]),
-  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(Frame.FRAME_HEAVY_FREIGHTER, [
+  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(Frame.FRAME_HEAVY_FREIGHTER, '', '', [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),

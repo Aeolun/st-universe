@@ -22,6 +22,7 @@ specifiers:
   '@tsed/platform-response-filter': ^7.29.1
   '@tsed/platform-views': ^7.29.1
   '@tsed/schema': ^7.29.1
+  '@types/jsonwebtoken': ^9.0.2
   '@types/koa': ^2.13.6
   '@types/koa-bodyparser': ^4.3.10
   '@types/koa-compress': ^4.0.3
@@ -39,6 +40,8 @@ specifiers:
   dotenv: ^16.1.3
   dotenv-expand: ^10.0.0
   dotenv-flow: ^3.2.0
+  jsonwebtoken: ^9.0.0
+  jwt-decode: ^3.1.2
   koa: ^2.14.2
   koa-bodyparser: ^4.4.0
   koa-compress: ^5.1.1
@@ -59,7 +62,7 @@ dependencies:
   '@koa/cors': 4.0.0
   '@koa/router': 12.0.0
   '@tsed/ajv': 7.29.1_n2v35nbqmteubyi3v3qixcjmfq
-  '@tsed/common': 7.29.1_ujlwkubygetldm7v66ugwi3nui
+  '@tsed/common': 7.29.1
   '@tsed/core': 7.29.1
   '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
   '@tsed/engines': 7.29.1
@@ -75,8 +78,8 @@ dependencies:
   '@tsed/platform-middlewares': 7.29.1_psjqdenpcej4egta22qptw3fui
   '@tsed/platform-params': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
   '@tsed/platform-response-filter': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
-  '@tsed/platform-views': 7.29.1_viznnowsxoewucj3smuuf2hvpu
-  '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+  '@tsed/platform-views': 7.29.1_s2cjjmmxvx6vw75kgemzknk4wy
+  '@tsed/schema': 7.29.1_@tsed+core@7.29.1
   ajv: 8.12.0
   barrelsby: 2.8.0
   canvas: 2.11.2
@@ -84,6 +87,8 @@ dependencies:
   dotenv: 16.1.4
   dotenv-expand: 10.0.0
   dotenv-flow: 3.2.0
+  jsonwebtoken: 9.0.0
+  jwt-decode: 3.1.2
   koa: 2.14.2
   koa-bodyparser: 4.4.0
   koa-compress: 5.1.1
@@ -93,6 +98,7 @@ dependencies:
   tsx: 3.12.7
 
 devDependencies:
+  '@types/jsonwebtoken': 9.0.2
   '@types/koa': 2.13.6
   '@types/koa-bodyparser': 4.3.10
   '@types/koa-compress': 4.0.3
@@ -445,18 +451,15 @@ packages:
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       ajv: 8.12.0
       ajv-errors: 3.0.0_ajv@8.12.0
-      ajv-formats: 2.1.1_ajv@8.12.0
+      ajv-formats: 2.1.1
       tslib: 2.5.0
     dev: false
 
-  /@tsed/common/7.29.1_ujlwkubygetldm7v66ugwi3nui:
+  /@tsed/common/7.29.1:
     resolution: {integrity: sha512-FNOd5pi75/arCZRBY2FIelsM/3/5kARVfUYHV7VBoUcbpk/uMVy5AXjsLfosLhZJOR1+B/tUrLKmfUki0nz4jA==}
-    peerDependencies:
-      '@tsed/logger': '>=6.2.2'
-      '@tsed/logger-file': '>=6.2.2'
     dependencies:
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
@@ -470,15 +473,14 @@ packages:
       '@tsed/platform-params': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
       '@tsed/platform-response-filter': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
       '@tsed/platform-router': 7.29.1_r43d6ipie46bytcjuwtbo3tgci
-      '@tsed/platform-views': 7.29.1_viznnowsxoewucj3smuuf2hvpu
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/platform-views': 7.29.1_s2cjjmmxvx6vw75kgemzknk4wy
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       '@types/json-schema': 7.0.11
       accepts: 1.3.8
       tslib: 2.5.0
       uuid: 8.3.2
     transitivePeerDependencies:
-      - '@tsed/engines'
-      - '@tsed/openspec'
+      - supports-color
     dev: false
 
   /@tsed/core/7.29.1:
@@ -497,7 +499,7 @@ packages:
     dependencies:
       '@tsed/core': 7.29.1
       '@tsed/logger': 6.6.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -527,7 +529,7 @@ packages:
       '@tsed/schema': ^7.29.1
     dependencies:
       '@tsed/core': 7.29.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -567,7 +569,7 @@ packages:
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/json-mapper': 7.29.1_ja6nivzwiny6othmvlqs7vemci
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       cache-manager: 5.2.2
       micromatch: 4.0.5
       tslib: 2.5.0
@@ -584,7 +586,7 @@ packages:
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -606,13 +608,13 @@ packages:
       koa-session: '>=6.2.0'
     dependencies:
       '@koa/router': 12.0.0
-      '@tsed/common': 7.29.1_ujlwkubygetldm7v66ugwi3nui
+      '@tsed/common': 7.29.1
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/json-mapper': 7.29.1_ja6nivzwiny6othmvlqs7vemci
       '@tsed/logger': 6.6.1
       '@tsed/openspec': 7.29.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       encodeurl: 1.0.2
       koa: 2.14.2
       koa-bodyparser: 4.4.0
@@ -656,7 +658,7 @@ packages:
     dependencies:
       '@tsed/core': 7.29.1
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -673,7 +675,7 @@ packages:
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
       '@tsed/json-mapper': 7.29.1_ja6nivzwiny6othmvlqs7vemci
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -690,7 +692,7 @@ packages:
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
       '@tsed/json-mapper': 7.29.1_ja6nivzwiny6othmvlqs7vemci
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
@@ -709,16 +711,15 @@ packages:
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
       '@tsed/json-mapper': 7.29.1_ja6nivzwiny6othmvlqs7vemci
       '@tsed/platform-params': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       tslib: 2.5.0
     dev: false
 
-  /@tsed/platform-views/7.29.1_viznnowsxoewucj3smuuf2hvpu:
+  /@tsed/platform-views/7.29.1_s2cjjmmxvx6vw75kgemzknk4wy:
     resolution: {integrity: sha512-395XK8YwFymAtXc+HOr9BI1ZxzFvopSiB+p5tD4vWdbXexaTXyxw+NNAhq2E/3UeaSa8tRM7hMzUIE1KmdV8aw==}
     peerDependencies:
       '@tsed/core': ^7.29.1
       '@tsed/di': ^7.29.1
-      '@tsed/engines': ^7.29.1
       '@tsed/exceptions': ^7.29.1
       '@tsed/schema': ^7.29.1
     dependencies:
@@ -726,16 +727,15 @@ packages:
       '@tsed/di': 7.29.1_cwhrisrr6enku4l6riarm6mv6y
       '@tsed/engines': 7.29.1
       '@tsed/exceptions': 7.29.1_@tsed+core@7.29.1
-      '@tsed/schema': 7.29.1_irs3gmh7xc4nwa6tzwihn4moue
+      '@tsed/schema': 7.29.1_@tsed+core@7.29.1
       ejs: 3.1.9
       tslib: 2.5.0
     dev: false
 
-  /@tsed/schema/7.29.1_irs3gmh7xc4nwa6tzwihn4moue:
+  /@tsed/schema/7.29.1_@tsed+core@7.29.1:
     resolution: {integrity: sha512-s6NjSmNdoqkMzYpljGqsVQH9HlLm5C+2aTzeq9JprWWmmnaClLiR8SXn+kzeczPsprvO/ml38gR8Qyf38jVXbg==}
     peerDependencies:
       '@tsed/core': ^7.29.1
-      '@tsed/openspec': ^7.29.1
     dependencies:
       '@tsed/core': 7.29.1
       '@tsed/openspec': 7.29.1
@@ -818,6 +818,12 @@ packages:
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: false
+
+  /@types/jsonwebtoken/9.0.2:
+    resolution: {integrity: sha512-drE6uz7QBKq1fYqqoFKTDRdFCPHd5TCub75BM+D+cMx7NU9hUz7SESLfC2fSCXVFMO5Yj8sOWHuGqPgjc+fz0Q==}
+    dependencies:
+      '@types/node': 20.2.5
+    dev: true
 
   /@types/keygrip/1.0.2:
     resolution: {integrity: sha512-GJhpTepz2udxGexqos8wgaBx4I/zWIDPh/KOGEwAqtuGDkOUJu5eFvwmdBX4AmB8Odsr+9pHCQqiAqDL/yKMKw==}
@@ -1022,10 +1028,8 @@ packages:
       ajv: 8.12.0
     dev: false
 
-  /ajv-formats/2.1.1_ajv@8.12.0:
+  /ajv-formats/2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
-    peerDependencies:
-      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1144,6 +1148,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       fill-range: 7.0.1
+
+  /buffer-equal-constant-time/1.0.1:
+    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
+    dev: false
 
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
@@ -1552,6 +1560,12 @@ packages:
     dependencies:
       xtend: 4.0.2
     dev: true
+
+  /ecdsa-sig-formatter/1.0.11:
+    resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
+    dependencies:
+      safe-buffer: 5.2.1
+    dev: false
 
   /ee-first/1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -2034,6 +2048,35 @@ packages:
       graceful-fs: 4.2.11
     dev: false
 
+  /jsonwebtoken/9.0.0:
+    resolution: {integrity: sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==}
+    engines: {node: '>=12', npm: '>=6'}
+    dependencies:
+      jws: 3.2.2
+      lodash: 4.17.21
+      ms: 2.1.2
+      semver: 7.5.1
+    dev: false
+
+  /jwa/1.4.1:
+    resolution: {integrity: sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==}
+    dependencies:
+      buffer-equal-constant-time: 1.0.1
+      ecdsa-sig-formatter: 1.0.11
+      safe-buffer: 5.2.1
+    dev: false
+
+  /jws/3.2.2:
+    resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+    dependencies:
+      jwa: 1.4.1
+      safe-buffer: 5.2.1
+    dev: false
+
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+    dev: false
+
   /keygrip/1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
@@ -2173,7 +2216,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /loupe/2.3.6:
     resolution: {integrity: sha512-RaPMZKiMy8/JruncMU5Bt6na1eftNoo++R4Y+N2FrxkDVTrGvcyzFTsaGif4QTeKESheMGegbhw6iUAq+5A8zA==}

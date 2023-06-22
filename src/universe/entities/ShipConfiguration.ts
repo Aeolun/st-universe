@@ -1,29 +1,36 @@
-import {ShipEngine} from "src/universe/entities/ShipEngine";
-import {ShipFrame} from "src/universe/entities/ShipFrame";
-import {ShipReactor} from "src/universe/entities/ShipReactor";
-import {ShipMount} from "src/universe/entities/ShipMount";
-import {ShipModule} from "src/universe/entities/ShipModule";
 import {Configuration} from "src/universe/static-data/ship-configurations";
+import {Frame} from "src/universe/static-data/ship-frames";
+import {Reactor} from "src/universe/static-data/ship-reactors";
+import {Engine} from "src/universe/static-data/ship-engines";
+import {Module} from "src/universe/static-data/ship-modules";
+import {Mount} from "src/universe/static-data/ship-mounts";
 
 export class ShipConfiguration {
   symbol: Configuration
 
-  frame: ShipFrame
-  reactor: ShipReactor
-  engine: ShipEngine
+  name: string
+  description: string
 
-  modules: ShipModule[] = []
-  mounts: ShipMount[] = []
+  frame: Frame
+  reactor: Reactor
+  engine: Engine
+
+  modules: Module[] = []
+  mounts: Mount[] = []
 
   constructor(
     symbol: Configuration,
-    frame: ShipFrame,
-    reactor: ShipReactor,
-    engine: ShipEngine,
-    modules: ShipModule[],
-    mounts: ShipMount[]
+    name: string,
+    description: string,
+    frame: Frame,
+    reactor: Reactor,
+    engine: Engine,
+    modules: Module[],
+    mounts: Mount[]
   ) {
     this.symbol = symbol
+    this.name = name
+    this.description = description
     this.frame = frame
     this.reactor = reactor
     this.engine = engine

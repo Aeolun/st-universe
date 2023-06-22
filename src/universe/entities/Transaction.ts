@@ -1,5 +1,6 @@
 export class Transaction {
   waypointSymbol: string
+  agentSymbol: string
   shipSymbol: string
   tradeSymbol: string
   type: 'PURCHASE' | 'SELL'

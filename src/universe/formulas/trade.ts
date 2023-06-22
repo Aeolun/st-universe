@@ -4,6 +4,8 @@ import {tradeGoods} from "src/universe/static-data/trade-goods";
 export function marketPrice(supplyDemand: SupplyDemand) {
   const baseData = tradeGoods[supplyDemand.tradeGood]
 
+  if (!baseData.basePrice) throw new Error(`No base price for ${supplyDemand.tradeGood}. Cannot determine market price.`)
+
   let salePrice = 0, purchasePrice = 0
   if (supplyDemand.currentSupply > supplyDemand.maxSupply) {
     // supply saturated

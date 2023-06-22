@@ -1,12 +1,12 @@
 import {Controller} from "@tsed/di";
 import {Get} from "@tsed/schema";
-import {PathParams, QueryParams} from "@tsed/platform-params";
+import {Context, PathParams, QueryParams} from "@tsed/platform-params";
 import {universe} from "src/universe/universe";
 import {
   GetJumpGate200Response,
   GetMarket200Response, GetShipyard200Response,
   GetSystem200Response,
-  GetSystems200Response, GetSystemWaypoints200Response, GetWaypoint200Response,
+  GetSystems200Response, GetSystemWaypoints200Response, GetWaypoint200Response, ShipType, ShipyardShipTypesInner,
   SystemFaction,
   SystemType, TradeSymbol,
   WaypointType
@@ -18,6 +18,8 @@ import {slicePage} from "src/controllers/formatting/slice-page";
 import {tradeGoods} from "src/universe/static-data/trade-goods";
 import {renderSupply} from "src/controllers/formatting/render-supply";
 import {marketPrice} from "src/universe/formulas/trade";
+import {CustomAuth} from "src/guards/custom-authenticator";
+import {AuthToken} from "src/models/auth-token";
 
 @Controller("/systems/")
 export class SystemsController {
@@ -77,6 +79,7 @@ export class SystemsController {
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/market")
+  @CustomAuth({optional: true})
   market(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string): GetMarket200Response {
     const system = universe.systems.find(system => system.symbol === systemSymbol)
     if (!system) throw new Error(`System ${systemSymbol} not found`)
@@ -129,11 +132,46 @@ export class SystemsController {
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/shipyard")
-  shipyard(@PathParams('factionId') factionId: string): GetShipyard200Response {
-    return "hello";
+  @CustomAuth({optional: true})
+  shipyard(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string, @Context('auth') context: AuthToken): GetShipyard200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    const waypoint = system.waypoints.find(waypoint => waypoint.symbol === waypointSymbol)
+    if (!waypoint) throw new Error(`Waypoint ${waypointSymbol} not found`)
+
+    let hasShip = false
+    if (context) {
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+    }
+
+    return {
+      data: {
+        symbol: waypointSymbol,
+        shipTypes: waypoint.availableShipConfigurations.map(c => {
+          return {
+            type: c as ShipType,
+          }
+        }),
+        transactions: hasShip ? waypoint.shipTransactions.map(st => {
+          return {
+            waypointSymbol: st.waypointSymbol,
+            shipSymbol: st.tradeSymbol,
+            price: st.pricePerUnit,
+            agentSymbol: st.agentSymbol,
+            timestamp: st.timestamp.toISOString()
+          }
+        }) : undefined,
+        ships: hasShip ? waypoint.availableShipConfigurations.map(c => {
+          return {
+
+          }
+        }) : undefined
+      }
+    }
   }
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/jump-gate")
+  @CustomAuth({optional: true})
   jumpGate(@PathParams('factionId') factionId: string): GetJumpGate200Response {
     return "hello";
   }
