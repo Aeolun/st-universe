@@ -3,11 +3,10 @@ import {Mount} from "src/universe/static-data/ship-mounts";
 import {Capability} from "src/universe/entities/capabilities/Capability";
 
 export class ShipMount extends AbstractCapabilities {
-  symbol: Mount
-  constructor(symbol: Mount, capabilities: Capability[]) {
+
+  constructor(public symbol: Mount, public name: string, public description: string, capabilities: Capability[]) {
     super()
 
-    this.symbol = symbol
     this.capabilities = capabilities
   }
 }

@@ -3,12 +3,14 @@ import {Agent} from "src/universe/entities/Agent";
 import {Ship} from "src/universe/entities/Ship";
 import {SupplyDemand} from "src/universe/entities/Waypoint";
 import {TradeGood} from "src/universe/static-data/trade-goods";
+import {Faction} from "src/universe/entities/Faction";
 
 export class Universe {
   public name: string;
   public systems: System[] = []
   public agents: Agent[] = []
   public ships: Ship[] = []
+  public factions: Faction[] = []
   public waypointCount = 0
   public createDate: string
 

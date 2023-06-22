@@ -20,6 +20,8 @@ import {renderSupply} from "src/controllers/formatting/render-supply";
 import {marketPrice} from "src/universe/formulas/trade";
 import {CustomAuth} from "src/guards/custom-authenticator";
 import {AuthToken} from "src/models/auth-token";
+import {renderShipConfiguration} from "src/controllers/formatting/render-ship-configuration";
+import {getDistance} from "src/universe/getDistance";
 
 @Controller("/systems/")
 export class SystemsController {
@@ -80,11 +82,16 @@ export class SystemsController {
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/market")
   @CustomAuth({optional: true})
-  market(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string): GetMarket200Response {
+  market(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string, @Context('auth') context: AuthToken): GetMarket200Response {
     const system = universe.systems.find(system => system.symbol === systemSymbol)
     if (!system) throw new Error(`System ${systemSymbol} not found`)
     const waypoint = system.waypoints.find(waypoint => waypoint.symbol === waypointSymbol)
     if (!waypoint) throw new Error(`Waypoint ${waypointSymbol} not found`)
+
+    let hasShip = false
+    if (context) {
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+    }
 
     return {
       data: {
@@ -110,13 +117,13 @@ export class SystemsController {
             description: exportItem
           }
         }),
-        transactions: waypoint.transactions.map(transaction => {
+        transactions: hasShip ? waypoint.transactions.map(transaction => {
           return {
             ...transaction,
             timestamp: transaction.timestamp.toISOString()
           }
-        }),
-        tradeGoods: Object.values(waypoint.supplyDemand).map(supplyDemand => {
+        }) : undefined,
+        tradeGoods: hasShip ? Object.values(waypoint.supplyDemand).map(supplyDemand => {
           const tradeGoodData = tradeGoods[supplyDemand.tradeGood]
           const price = marketPrice(supplyDemand)
           return {
@@ -126,7 +133,7 @@ export class SystemsController {
             purchasePrice: price.purchasePrice,
             sellPrice: price.salePrice
           }
-        })
+        }) : undefined
       }
     };
   }
@@ -161,10 +168,8 @@ export class SystemsController {
             timestamp: st.timestamp.toISOString()
           }
         }) : undefined,
-        ships: hasShip ? waypoint.availableShipConfigurations.map(c => {
-          return {
-
-          }
+        ships: hasShip ? waypoint.availableShipConfigurations.map((item) => {
+          return renderShipConfiguration(item, waypoint)
         }) : undefined
       }
     }
@@ -172,7 +177,37 @@ export class SystemsController {
 
   @Get("/:systemSymbol/waypoints/:waypointSymbol/jump-gate")
   @CustomAuth({optional: true})
-  jumpGate(@PathParams('factionId') factionId: string): GetJumpGate200Response {
-    return "hello";
+  jumpGate(@PathParams('systemSymbol') systemSymbol: string, @PathParams('waypointSymbol') waypointSymbol: string, @Context('auth') context: AuthToken): GetJumpGate200Response {
+    const system = universe.systems.find(system => system.symbol === systemSymbol)
+    if (!system) throw new Error(`System ${systemSymbol} not found`)
+    const waypoint = system.waypoints.find(waypoint => waypoint.symbol === waypointSymbol)
+    if (!waypoint) throw new Error(`Waypoint ${waypointSymbol} not found`)
+
+    let hasShip = false
+    if (context) {
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+    }
+
+    if (!waypoint.jumpGate) throw new Error(`Waypoint ${waypointSymbol} does not have a jump gate`)
+    if (!hasShip) throw new Error(`Agent ${context.identifier} does not have a ship at waypoint ${waypointSymbol}`)
+
+    return {
+      data: {
+        factionSymbol: waypoint.ownedBy,
+        jumpRange: waypoint.jumpGate?.range,
+        connectedSystems: universe.systems.filter(s => {
+          return s.waypoints.some(w => w.type === 'JUMP_GATE') && getDistance(system, s)
+        }).map(s => {
+          return {
+            symbol: s.symbol,
+            sectorSymbol: s.sectorSymbol,
+            type: s.type as SystemType,
+            x: s.x,
+            y: s.y,
+            distance: getDistance(system, s)
+          }
+        })
+      }
+    }
   }
 }

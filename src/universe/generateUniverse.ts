@@ -7,6 +7,9 @@ import {generateSystem} from "./generateSystem";
 import {starTypes} from "./static-data/star-types";
 import {Universe} from "src/universe/entities/Universe";
 import {factionNames, factions} from "src/universe/static-data/faction";
+import {Faction} from "src/universe/entities/Faction";
+import {Faction as FactionEnum} from "src/universe/static-data/faction";
+import {Waypoint} from "src/universe/entities/Waypoint";
 
 const MAX_SYSTEMS = 12000
 const MAX_FACTIONS = 12
@@ -86,8 +89,9 @@ export async function generateUniverse() {
 
     const populationCenters = universe.systems.filter(system => system.waypoints.some(waypoint => waypoint.population >= 3))
     const factions: {
-        name: string,
-        homeSystem: System
+        name: FactionEnum,
+        homeSystem: System,
+        homeWaypoint: Waypoint
     }[] = []
     for(const faction of factionNames) {
         let factionSystem: System
@@ -103,9 +107,19 @@ export async function generateUniverse() {
         } while((factions.some(faction => getDistance(faction.homeSystem, factionSystem) < DISTANCE_BETWEEN_FACTIONS) || systemsInInfluence < FACTION_MIN_SYSTEMS) && attempts < 10)
 
         populationCenters.splice(populationCenters.indexOf(factionSystem), 1)
+        let maxPopulationWaypoint;
+        for (const waypoint of factionSystem.waypoints) {
+            if (!maxPopulationWaypoint || waypoint.population > maxPopulationWaypoint.population) {
+                maxPopulationWaypoint = waypoint
+            }
+        }
+
+        if (!maxPopulationWaypoint) throw new Error('No max population waypoint found')
+
         factions.push({
-            name: faction,
-            homeSystem: factionSystem
+            name: faction as FactionEnum,
+            homeSystem: factionSystem,
+            homeWaypoint: maxPopulationWaypoint
         })
     }
     for(const faction of factionNames) {
@@ -143,6 +157,12 @@ export async function generateUniverse() {
             }
         }
     }
+    factions.forEach(faction => {
+        universe.factions.push(new Faction(faction.name, {
+            system: faction.homeWaypoint.systemSymbol,
+            waypoint: faction.homeWaypoint.symbol
+        }))
+    })
 
     let shortestDistance = 1000
     let longestDistance = 0

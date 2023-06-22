@@ -1,5 +1,6 @@
-import {SupplyDemand} from "src/universe/entities/Waypoint";
-import {tradeGoods} from "src/universe/static-data/trade-goods";
+import {SupplyDemand, Waypoint} from "src/universe/entities/Waypoint";
+import {TradeGood, tradeGoods} from "src/universe/static-data/trade-goods";
+import {ShipConfiguration} from "src/universe/entities/ShipConfiguration";
 
 export function marketPrice(supplyDemand: SupplyDemand) {
   const baseData = tradeGoods[supplyDemand.tradeGood]
@@ -26,4 +27,23 @@ export function marketPrice(supplyDemand: SupplyDemand) {
     purchasePrice: Math.round(purchasePrice*fluct),
     salePrice: Math.round(salePrice*fluct),
   }
+}
+
+export function shipPrice(configuration: ShipConfiguration, waypoint: Waypoint) {
+  let total = 0;
+  const allShipModules: TradeGood[] = [
+    configuration.frame,
+    configuration.reactor,
+    configuration.engine,
+    ...configuration.modules,
+    ...configuration.mounts
+  ]
+  for (const module of allShipModules) {
+    const supplyDemand = waypoint.supplyDemand[module]
+    if (supplyDemand) {
+      const price = marketPrice(supplyDemand)
+      total += price.purchasePrice
+    }
+  }
+  return total
 }

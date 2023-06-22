@@ -4,11 +4,13 @@ import {Ship} from "src/universe/entities/Ship";
 import jwt from 'jsonwebtoken'
 import {AuthToken} from "src/models/auth-token";
 import {universe} from "src/universe/universe";
+import {Location} from "src/universe/entities/Navigation";
 
 export class Agent {
   public symbol: string
   public credits: number
   public faction: Faction
+  public headquarters: Location
   public token: string
   public accountId: string
   public shipCounter = 1;
@@ -17,11 +19,13 @@ export class Agent {
   constructor(data: {
     symbol: string
     faction: Faction
+    headquarters: Location
     credits: number
   }) {
     this.symbol = data.symbol
     this.credits = data.credits
     this.faction = data.faction
+    this.headquarters = data.headquarters
     var token = jwt.sign({
       identifier: data.symbol,
       version: 'v2',
@@ -33,13 +37,16 @@ export class Agent {
   }
 
   public registerShip(data: {
-    configuration: string
+    configuration: string,
+    location: Location
   }) {
     const ship = new Ship({
-      symbol: this.symbol+'_'+this.shipCounter++,
-      agent: this.symbol,
+      symbol: this.symbol+'_'+this.shipCounter.toString(16),
+      agentSymbol: this.symbol,
+      location: data.location,
     })
     this.ships.push(ship)
+    this.shipCounter++
 
     return ship
   }

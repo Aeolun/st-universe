@@ -4,6 +4,7 @@ import {Reactor} from "src/universe/static-data/ship-reactors";
 import {Engine} from "src/universe/static-data/ship-engines";
 import {Module} from "src/universe/static-data/ship-modules";
 import {Mount} from "src/universe/static-data/ship-mounts";
+import {ShipRole} from "src/controllers/schemas";
 
 export class ShipConfiguration {
   symbol: Configuration
@@ -22,6 +23,7 @@ export class ShipConfiguration {
     symbol: Configuration,
     name: string,
     description: string,
+    defaultRole: ShipRole,
     frame: Frame,
     reactor: Reactor,
     engine: Engine,

@@ -4,6 +4,7 @@ import {Reactor} from "src/universe/static-data/ship-reactors";
 import {Engine} from "src/universe/static-data/ship-engines";
 import {Module} from "src/universe/static-data/ship-modules";
 import {Mount} from "src/universe/static-data/ship-mounts";
+import {ShipRole} from "src/controllers/schemas";
 
 export enum Configuration {
   SHIP_COMMAND_FRIGATE = "SHIP_COMMAND_FRIGATE",
@@ -23,6 +24,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_COMMAND_FRIGATE,
     '',
     '',
+    ShipRole.Command,
     Frame.FRAME_FRIGATE,
     Reactor.REACTOR_FUSION_I,
     Engine.ENGINE_ION_DRIVE_II,
@@ -45,6 +47,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_EXPLORER,
     '',
     '',
+    ShipRole.Explorer,
     Frame.FRAME_EXPLORER,
     Reactor.REACTOR_FUSION_I,
     Engine.ENGINE_ION_DRIVE_II,
@@ -65,6 +68,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_HEAVY_FREIGHTER,
     '',
     '',
+    ShipRole.Hauler,
     Frame.FRAME_HEAVY_FREIGHTER,
     Reactor.REACTOR_FUSION_I,
     Engine.ENGINE_ION_DRIVE_II,
@@ -90,6 +94,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_INTERCEPTOR,
     '',
     '',
+    ShipRole.Interceptor,
     Frame.FRAME_INTERCEPTOR,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_ION_DRIVE_I,
@@ -104,6 +109,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_LIGHT_HAULER,
     '',
     '',
+    ShipRole.Hauler,
     Frame.FRAME_LIGHT_FREIGHTER,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_ION_DRIVE_I,
@@ -123,6 +129,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_LIGHT_SHUTTLE,
     '',
     '',
+    ShipRole.Transport,
     Frame.FRAME_SHUTTLE,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_IMPULSE_DRIVE_I,
@@ -140,6 +147,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_MINING_DRONE,
     '',
     '',
+    ShipRole.Excavator,
     Frame.FRAME_DRONE,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_IMPULSE_DRIVE_I,
@@ -155,6 +163,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_ORE_HOUND,
     '',
     '',
+    ShipRole.Excavator,
     Frame.FRAME_MINER,
     Reactor.REACTOR_FISSION_I,
     Engine.ENGINE_ION_DRIVE_I,
@@ -173,6 +182,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_PROBE,
     '',
     '',
+    ShipRole.Satellite,
     Frame.FRAME_PROBE,
     Reactor.REACTOR_SOLAR_I,
     Engine.ENGINE_IMPULSE_DRIVE_I,
@@ -183,6 +193,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Configuration.SHIP_REFINING_FREIGHTER,
     '',
     '',
+    ShipRole.Refinery,
     Frame.FRAME_HEAVY_FREIGHTER,
     Reactor.REACTOR_FUSION_I,
     Engine.ENGINE_ION_DRIVE_II,

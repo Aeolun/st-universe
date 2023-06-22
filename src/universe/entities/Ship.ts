@@ -3,13 +3,15 @@ import {ShipReactor} from "src/universe/entities/ShipReactor";
 import {ShipEngine} from "src/universe/entities/ShipEngine";
 import {ShipModule} from "src/universe/entities/ShipModule";
 import {ShipMount} from "src/universe/entities/ShipMount";
-import {Navigation} from "src/universe/entities/Navigation";
+import {Location, Navigation} from "src/universe/entities/Navigation";
 import {Stats} from "src/universe/entities/Stats";
 import {DerivedStats} from "src/universe/entities/DerivedStats";
+import {ShipRole} from "src/controllers/schemas";
 
 export class Ship {
     public symbol: string;
     public agentSymbol: string;
+    public role: ShipRole
 
     navigation: Navigation = new Navigation()
 
@@ -25,9 +27,13 @@ export class Ship {
     constructor(data: {
         symbol: string;
         agentSymbol: string;
+        role: ShipRole;
+        location: Location;
     }) {
         this.symbol = data.symbol;
         this.agentSymbol = data.agentSymbol;
+        this.role = data.role;
+        this.navigation.current = data.location;
 
         this.calculateStats()
     }

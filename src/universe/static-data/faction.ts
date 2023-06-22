@@ -1,3 +1,5 @@
+import * as string_decoder from "string_decoder";
+
 export enum Faction {
   COSMIC = "COSMIC",
   VOID = "VOID",
@@ -24,6 +26,9 @@ export const factionNames = Object.keys(Faction)
 
 export interface FactionData {
   color: string
+  name: string
+  description: string
+  isRecruiting: boolean
 }
 export const factions: Record<Faction, FactionData> = {
   [Faction.COSMIC]: {

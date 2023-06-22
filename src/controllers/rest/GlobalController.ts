@@ -13,14 +13,18 @@ import {Register201Response} from "src/controllers/schemas";
 export class GlobalController {
   @Post("/register")
   register(@BodyParams() body: GlobalRegisterPayload): Register201Response {
+    const faction = universe.factions.find(faction => faction.symbol === body.faction)
+    if (!faction) throw new Error(`Faction ${body.faction} not found`)
     const newAgent = new Agent({
       symbol: body.symbol,
       faction: body.faction,
+      headquarters: faction.headquarters,
       credits: 175000
     })
     universe.agents.push(newAgent)
     universe.ships.push(newAgent.registerShip({
-      configuration: 'COMMAND_SHIP'
+      configuration: 'COMMAND_SHIP',
+      location: faction.headquarters
     }))
 
 
@@ -30,12 +34,15 @@ export class GlobalController {
         agent: {
           symbol: newAgent.symbol,
           accountId: newAgent.accountId,
-          headquarters: '',
+          headquarters: newAgent.headquarters.waypoint,
           credits: newAgent.credits,
           startingFaction: newAgent.faction,
         },
         contract: {},
-        faction: {},
+        faction: {
+          symbol: faction.symbol,
+
+        },
         ship: renderShipOutput(newAgent.ships[0]),
       }
     }
