@@ -302,7 +302,7 @@ INNOVATIVE: {
   },
   ADAPTABLE: {
     name: "Adaptable",
-    description: "Adaptable factions are known for their adaptable nature.",
+    description: "Quick to adapt to changing circumstances, with the ability to adjust their plans or strategies in response to new information or challenges. Sometimes able to thrive in a wide range of environments or situations, but may also be vulnerable to sudden or unexpected changes.",
   productivityMultiplier: 1.2
   },
   STRATEGIC: {

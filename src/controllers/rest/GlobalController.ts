@@ -7,6 +7,7 @@ import {universe} from "src/universe/universe";
 import {Agent} from "src/universe/entities/Agent";
 import {renderShipOutput} from "src/controllers/formatting/render-ship-output";
 import {Register201Response} from "src/controllers/schemas";
+import {renderFaction} from "src/controllers/formatting/render-faction";
 
 
 @Controller("/")
@@ -27,7 +28,6 @@ export class GlobalController {
       location: faction.headquarters
     }))
 
-
     return {
       data: {
         token: newAgent.token,
@@ -39,10 +39,7 @@ export class GlobalController {
           startingFaction: newAgent.faction,
         },
         contract: {},
-        faction: {
-          symbol: faction.symbol,
-
-        },
+        faction: renderFaction(faction),
         ship: renderShipOutput(newAgent.ships[0]),
       }
     }
