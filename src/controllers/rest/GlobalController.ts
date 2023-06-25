@@ -1,6 +1,6 @@
 import {Controller} from "@tsed/di";
 import {Get, Post} from "@tsed/schema";
-import {BodyParams, PathParams} from "@tsed/platform-params";
+import {BodyParams} from "@tsed/platform-params";
 import {GlobalRegisterPayload} from "src/controllers/schemas/global-register-payload";
 import {GlobalGetResponse} from "src/controllers/schemas/global-get-response";
 import {universe} from "src/universe/universe";
@@ -8,6 +8,9 @@ import {Agent} from "src/universe/entities/Agent";
 import {renderShipOutput} from "src/controllers/formatting/render-ship-output";
 import {Register201Response} from "src/controllers/schemas";
 import {renderFaction} from "src/controllers/formatting/render-faction";
+import {generateContract} from "src/universe/generateContract";
+import {Configuration} from "src/universe/static-data/ship-configurations";
+import {renderContract} from "src/controllers/formatting/render-contract";
 
 
 @Controller("/")
@@ -24,9 +27,15 @@ export class GlobalController {
     })
     universe.agents.push(newAgent)
     universe.ships.push(newAgent.registerShip({
-      configuration: 'COMMAND_SHIP',
+      configuration: Configuration.SHIP_COMMAND_FRIGATE,
       location: faction.headquarters
     }))
+
+    const system = universe.systems.find(s => s.symbol === faction.headquarters.systemSymbol)
+    if (!system) throw new Error(`System ${faction.headquarters.systemSymbol} not found`)
+    const waypoint = system.waypoints.find(wp => wp.symbol === faction.headquarters.waypointSymbol)
+    if (!waypoint) throw new Error(`Waypoint ${faction.headquarters.waypointSymbol} not found in system ${faction.headquarters.systemSymbol}, only have ${system.waypoints.map(wp => wp.symbol).join(', ')}`)
+    const contract = generateContract(newAgent, waypoint)
 
     return {
       data: {
@@ -34,11 +43,11 @@ export class GlobalController {
         agent: {
           symbol: newAgent.symbol,
           accountId: newAgent.accountId,
-          headquarters: newAgent.headquarters.waypoint,
+          headquarters: newAgent.headquarters.waypointSymbol,
           credits: newAgent.credits,
           startingFaction: newAgent.faction,
         },
-        contract: {},
+        contract: renderContract(contract),
         faction: renderFaction(faction),
         ship: renderShipOutput(newAgent.ships[0]),
       }

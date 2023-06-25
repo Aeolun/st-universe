@@ -90,7 +90,7 @@ export class SystemsController {
 
     let hasShip = false
     if (context) {
-      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypointSymbol === waypointSymbol) !== undefined
     }
 
     return {
@@ -148,7 +148,7 @@ export class SystemsController {
 
     let hasShip = false
     if (context) {
-      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypointSymbol === waypointSymbol) !== undefined
     }
 
     return {
@@ -185,7 +185,7 @@ export class SystemsController {
 
     let hasShip = false
     if (context) {
-      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypoint === waypointSymbol) !== undefined
+      hasShip = universe.ships.find(ship => ship.agentSymbol == context.identifier && ship.navigation.current.waypointSymbol === waypointSymbol) !== undefined
     }
 
     if (!waypoint.jumpGate) throw new Error(`Waypoint ${waypointSymbol} does not have a jump gate`)

@@ -10,6 +10,7 @@ export class ShipConfiguration {
   symbol: Configuration
 
   name: string
+  role: ShipRole
   description: string
 
   frame: Frame
@@ -32,6 +33,7 @@ export class ShipConfiguration {
   ) {
     this.symbol = symbol
     this.name = name
+    this.role = defaultRole
     this.description = description
     this.frame = frame
     this.reactor = reactor

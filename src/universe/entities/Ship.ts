@@ -7,6 +7,13 @@ import {Location, Navigation} from "src/universe/entities/Navigation";
 import {Stats} from "src/universe/entities/Stats";
 import {DerivedStats} from "src/universe/entities/DerivedStats";
 import {ShipRole} from "src/controllers/schemas";
+import {Configuration, shipConfigurationData} from "src/universe/static-data/ship-configurations";
+import {frameData} from "src/universe/static-data/ship-frames";
+import {reactorData} from "src/universe/static-data/ship-reactors";
+import {engineData} from "src/universe/static-data/ship-engines";
+import {mountData} from "src/universe/static-data/ship-mounts";
+import {moduleData} from "src/universe/static-data/ship-modules";
+import {TradeGood} from "src/universe/static-data/trade-goods";
 
 export class Ship {
     public symbol: string;
@@ -22,10 +29,13 @@ export class Ship {
     modules: ShipModule[] = []
     mounts: ShipMount[] = []
 
+    cargo: Partial<Record<TradeGood, number>> = {}
+
     stats: Stats = new Stats()
     derivedStats: DerivedStats = new DerivedStats()
     constructor(data: {
         symbol: string;
+        configuration: Configuration;
         agentSymbol: string;
         role: ShipRole;
         location: Location;
@@ -34,6 +44,17 @@ export class Ship {
         this.agentSymbol = data.agentSymbol;
         this.role = data.role;
         this.navigation.current = data.location;
+
+        const newConfiguration = shipConfigurationData[data.configuration]
+        this.frame = frameData[newConfiguration.frame]
+        this.reactor = reactorData[newConfiguration.reactor]
+        this.engine = engineData[newConfiguration.engine]
+        newConfiguration.mounts.forEach(mount => {
+            this.mounts.push(mountData[mount])
+        })
+        newConfiguration.modules.forEach(module => {
+            this.modules.push(moduleData[module])
+        })
 
         this.calculateStats()
     }

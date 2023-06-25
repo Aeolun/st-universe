@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import {AuthToken} from "src/models/auth-token";
 import {universe} from "src/universe/universe";
 import {Location} from "src/universe/entities/Navigation";
+import {Contract} from "src/universe/entities/Contract";
+import {Configuration, shipConfigurationData} from "src/universe/static-data/ship-configurations";
 
 export class Agent {
   public symbol: string
@@ -15,6 +17,7 @@ export class Agent {
   public accountId: string
   public shipCounter = 1;
   public ships: Ship[] = []
+  public contracts: Contract[] = []
 
   constructor(data: {
     symbol: string
@@ -37,12 +40,14 @@ export class Agent {
   }
 
   public registerShip(data: {
-    configuration: string,
+    configuration: Configuration,
     location: Location
   }) {
     const ship = new Ship({
       symbol: this.symbol+'_'+this.shipCounter.toString(16),
+      configuration: data.configuration,
       agentSymbol: this.symbol,
+      role: shipConfigurationData[data.configuration].role,
       location: data.location,
     })
     this.ships.push(ship)

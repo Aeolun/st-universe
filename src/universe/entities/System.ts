@@ -9,6 +9,8 @@ export class System {
     symbol: string
     factions: Faction[] = []
 
+    hasMarket: boolean = false
+
     public waypoints: Waypoint[] = []
 
     constructor(data: {
@@ -23,6 +25,13 @@ export class System {
         this.type = data.type;
         this.sectorSymbol = data.sectorSymbol;
         this.symbol = data.symbol;
+    }
+
+    public addWaypoint(waypoint: Waypoint) {
+        if (waypoint.traits.includes("MARKETPLACE")) {
+            this.hasMarket = true
+        }
+        this.waypoints.push(waypoint)
     }
 
     public tick() {

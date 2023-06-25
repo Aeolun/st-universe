@@ -49,7 +49,7 @@ export const generateSystem = (data: {
             systemSymbol
         })
         waypoints.push(wp)
-        system.waypoints.push(wp)
+        system.addWaypoint(wp)
         wp.orbitals.forEach(o => {
             system.waypoints.push(o)
         })

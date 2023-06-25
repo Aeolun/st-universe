@@ -19,7 +19,7 @@ export class AgentsController {
       data: {
         accountId: agent.accountId,
         symbol: agent.symbol,
-        headquarters: agent.headquarters.waypoint,
+        headquarters: agent.headquarters.waypointSymbol,
         credits: agent.credits,
         startingFaction: agent.faction
       }

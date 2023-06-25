@@ -6,7 +6,7 @@ export function renderFaction(faction: Faction) {
     symbol: faction.symbol,
     name: faction.name,
     description: faction.description,
-    headquarters: faction.headquarters.waypoint,
+    headquarters: faction.headquarters.waypointSymbol,
     traits: faction.traits.map((trait) => {
       return {
         symbol: trait,

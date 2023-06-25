@@ -2,8 +2,8 @@ import {System} from "src/universe/entities/System";
 import {Waypoint} from "src/universe/entities/Waypoint";
 
 export class Location {
-  system: string
-  waypoint: string
+  systemSymbol: string
+  waypointSymbol: string
 }
 export class Navigation {
   current: Location

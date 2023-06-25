@@ -88,8 +88,8 @@ export async function generateUniverse() {
     }
 
     const populationCenters = universe.systems.filter(system => system.waypoints.some(waypoint => waypoint.population >= 3))
-    const factions: {
-        name: FactionEnum,
+    const generatedFactions: {
+        symbol: FactionEnum,
         homeSystem: System,
         homeWaypoint: Waypoint
     }[] = []
@@ -104,7 +104,7 @@ export async function generateUniverse() {
                     systemsInInfluence++
                 }
             }
-        } while((factions.some(faction => getDistance(faction.homeSystem, factionSystem) < DISTANCE_BETWEEN_FACTIONS) || systemsInInfluence < FACTION_MIN_SYSTEMS) && attempts < 10)
+        } while((generatedFactions.some(faction => getDistance(faction.homeSystem, factionSystem) < DISTANCE_BETWEEN_FACTIONS) || systemsInInfluence < FACTION_MIN_SYSTEMS) && attempts < 10)
 
         populationCenters.splice(populationCenters.indexOf(factionSystem), 1)
         let maxPopulationWaypoint;
@@ -116,14 +116,14 @@ export async function generateUniverse() {
 
         if (!maxPopulationWaypoint) throw new Error('No max population waypoint found')
 
-        factions.push({
-            name: faction as FactionEnum,
+        generatedFactions.push({
+            symbol: faction as FactionEnum,
             homeSystem: factionSystem,
             homeWaypoint: maxPopulationWaypoint
         })
     }
     for(const faction of factionNames) {
-        const factionData = factions.find(f => f.name === faction)
+        const factionData = generatedFactions.find(f => f.symbol === faction)
         for (const system of universe.systems) {
             const distance = getDistance(system, factionData.homeSystem)
             if (distance < FACTION_INNER_INFLUENCE_RADIUS) {
@@ -140,7 +140,7 @@ export async function generateUniverse() {
     for(let i = 0; i < 3; i++) {
         const randomizedFactionOrder = shuffle(factionNames)
         for(const faction of randomizedFactionOrder) {
-            const factionData = factions.find(f => f.name === faction)
+            const factionData = generatedFactions.find(f => f.symbol === faction)
             const spreadPoint = {
                 x: factionData.homeSystem.x + Math.round(Math.sin(Math.random() * Math.PI * 2) * FACTION_OUTER_INFLUENCE_RADIUS * 0.75),
                 y: factionData.homeSystem.y + Math.round(Math.cos(Math.random() * Math.PI * 2) * FACTION_OUTER_INFLUENCE_RADIUS * 0.75)
@@ -157,10 +157,14 @@ export async function generateUniverse() {
             }
         }
     }
-    factions.forEach(faction => {
-        universe.factions.push(new Faction(faction.name, {
-            system: faction.homeWaypoint.systemSymbol,
-            waypoint: faction.homeWaypoint.symbol
+    generatedFactions.forEach(faction => {
+        universe.factions.push(new Faction(faction.symbol, factions[faction.symbol].name, factions[faction.symbol].description, {
+            headquarters: {
+                systemSymbol: faction.homeWaypoint.systemSymbol,
+                waypointSymbol: faction.homeWaypoint.symbol
+            },
+            traits: factions[faction.symbol].traits,
+            isRecruiting: factions[faction.symbol].isRecruiting
         }))
     })
 

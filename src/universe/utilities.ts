@@ -10,7 +10,7 @@ export function percentageChance(percentage: number) {
     return Math.random() < (percentage/100)
 }
 
-export const uniqueId = (str: string, seed = 0) => {
+export const uniqueId = (str: string = Math.random().toString(), seed = 0) => {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for(let i = 0, ch; i < str.length; i++) {
         ch = str.charCodeAt(i);

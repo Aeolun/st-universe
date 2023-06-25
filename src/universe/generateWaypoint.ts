@@ -237,22 +237,22 @@ export const generateWaypoint = (data: {
                 // add all the components to imports
                 const configurationData = shipConfigurationData[configuration]
 
-                addRates(configurationData.engine.symbol, {
+                addRates(configurationData.engine, {
                     extraStorage: 1
                 })
-                addRates(configurationData.frame.symbol, {
+                addRates(configurationData.frame, {
                     extraStorage: 1
                 })
-                addRates(configurationData.reactor.symbol, {
+                addRates(configurationData.reactor, {
                     extraStorage: 1
                 })
                 configurationData.modules.forEach(m => {
-                    addRates(m.symbol, {
+                    addRates(m, {
                         extraStorage: 1
                     })
                 })
                 configurationData.mounts.forEach(m => {
-                    addRates(m.symbol, {
+                    addRates(m, {
                         extraStorage: 1
                     })
                 })
