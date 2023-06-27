@@ -1,5 +1,5 @@
 import { TradeGood } from "./trade-goods";
-import {TraitModifiers} from "src/universe/static-data/waypoint-traits";
+import { TraitModifiers } from "src/universe/static-data/waypoint-traits";
 
 export type Industry =
   | "AMMUNITION_FACTORY"
@@ -30,113 +30,116 @@ export type Industry =
   | "TOURISM"
   | "WAREHOUSING";
 
-export const industries: Record<
-  Industry,
-  TraitModifiers
-> = {
+export const industries: Record<Industry, TraitModifiers> = {
   AGRICULTURE: {
     productionLine: [
       {
-        produces: "FOOD"
+        produces: TradeGood.FOOD,
       },
       {
-        produces: "FABRICS"
-      }
+        produces: TradeGood.FABRICS,
+      },
     ],
   },
   ANTIMATTER_REFINING: {
     productionLine: [
       {
-        produces: "ANTIMATTER"
-      }
-    ]
+        produces: TradeGood.ANTIMATTER,
+      },
+    ],
   },
   BIOCHEMICALS: {
-    productionLine: [{
-      produces: "BIOCOMPOSITES"
-    }]
+    productionLine: [
+      {
+        produces: TradeGood.BIOCOMPOSITES,
+      },
+    ],
   },
   CHEMICALS: {
-    productionLine: [{
-      produces: "PLASTICS"
-    }]
+    productionLine: [
+      {
+        produces: TradeGood.PLASTICS,
+      },
+    ],
   },
   CONSTRUCTION_MATERIALS: {
     productionLine: [
       {
-        produces: "SHIP_PLATING"
-      }, {
-        produces: "ELECTRONICS"
-      }
-    ]
+        produces: TradeGood.SHIP_PLATING,
+      },
+      {
+        produces: TradeGood.ELECTRONICS,
+      },
+    ],
   },
   CONSUMER_GOODS: {
     productionLine: [
       {
-        produces: "LUXURY_GOODS"
-      }, {
-        produces: "CLOTHING"
-      }
-    ]
+        produces: TradeGood.LUXURY_GOODS,
+      },
+      {
+        produces: TradeGood.CLOTHING,
+      },
+    ],
   },
   CYBERNETICS: {
     productionLine: [
       {
-        produces: "CYBERNETIC_IMPLANTS"
-      }
-    ]
+        produces: TradeGood.CYBERNETIC_IMPLANTS,
+      },
+    ],
   },
   ELECTRONICS: {
     productionLine: [
       {
-        produces: "ELECTRONICS"
-      }
-    ]
+        produces: TradeGood.ELECTRONICS,
+      },
+    ],
   },
   ENERGY: {
     productionLine: [
       {
-        produces: "FUSION_GENERATORS"
-      }
-    ]
+        produces: TradeGood.FUSION_GENERATORS,
+      },
+    ],
   },
   FUEL_REFINING: {
     productionLine: [
       {
-        produces: "FUEL"
-      }
-    ]
+        produces: TradeGood.FUEL,
+      },
+    ],
   },
   HEAVY_MANUFACTURING: {
     productionLine: [
       {
-        produces: "HEAVY_MACHINERY"
-      }
-    ]
+        produces: TradeGood.HEAVY_MACHINERY,
+      },
+    ],
   },
   LIGHT_MANUFACTURING: {
     productionLine: [
       {
-        produces: "MACHINERY"
-      }
-    ]
+        produces: TradeGood.MACHINERY,
+      },
+    ],
   },
   LUXURY_GOODS: {
     productionLine: [
       {
-        produces: "LUXURY_GOODS"
-      }
-    ]
+        produces: TradeGood.LUXURY_GOODS,
+      },
+    ],
   },
   MINING: {
     consumes: {
-      "HEAVY_MACHINERY": 1,
+      HEAVY_MACHINERY: 1,
     },
     produces: {
-      "IRON_ORE": 1,
-      "ALUMINUM_ORE": 1,
-      "COPPER_ORE": 1,
-    }
+      IRON_ORE: 1,
+      ALUMINUM_ORE: 1,
+      COPPER_ORE: 1,
+    },
   },
   // NEURALWARE: {
   //   productionLine: [
@@ -148,101 +151,107 @@ export const industries: Record<
   NANOWARE: {
     productionLine: [
       {
-        produces: "NANOBOTS"
-      }
-    ]
+        produces: TradeGood.NANOBOTS,
+      },
+    ],
   },
   PHARMACEUTICALS: {
     productionLine: [
       {
-        produces: "MEDICAL_SUPPLIES"
-      }
-    ]
+        produces: TradeGood.MEDICAL_SUPPLIES,
+      },
+    ],
   },
   REFINING: {
     productionLine: [
       {
-        produces: "IRON"
-      }, {
-        produces: "ALUMINUM"
-      }, {
-        produces: "COPPER"
-      }
-    ]
+        produces: TradeGood.IRON,
+      },
+      {
+        produces: TradeGood.ALUMINUM,
+      },
+      {
+        produces: TradeGood.COPPER,
+      },
+    ],
   },
   PRECIOUS_METAL_REFINING: {
     productionLine: [
       {
-        produces: "GOLD"
-      }, {
-        produces: "SILVER"
-      }, {
-        produces: "PLATINUM"
-      }
-    ]
+        produces: TradeGood.GOLD,
+      },
+      {
+        produces: TradeGood.SILVER,
+      },
+      {
+        produces: TradeGood.PLATINUM,
+      },
+    ],
   },
   SPECIAL_REFINING: {
     productionLine: [
       {
-        produces: "URANITE"
-      }, {
-        produces: "MERITIUM"
-      }
-    ]
+        produces: TradeGood.URANITE,
+      },
+      {
+        produces: TradeGood.MERITIUM,
+      },
+    ],
   },
   SOFTWARE: {
     productionLine: [
       {
-        produces: "QUANTUM_DRIVES"
-      }, {
-        produces: "AI_MAINFRAMES"
-      }
-    ]
+        produces: TradeGood.QUANTUM_DRIVES,
+      },
+      {
+        produces: TradeGood.AI_MAINFRAMES,
+      },
+    ],
   },
   STOCK_EXCHANGE: {
     consumes: {
-      "ELECTRONICS": 2,
+      ELECTRONICS: 2,
     },
   },
   TECHNOLOGY: {
     productionLine: [
       {
-        produces: "AI_MAINFRAMES"
-      }, {
-        produces: "QUANTUM_DRIVES"
-      }
-    ]
+        produces: TradeGood.AI_MAINFRAMES,
+      },
+      {
+        produces: TradeGood.QUANTUM_DRIVES,
+      },
+    ],
   },
   TOURISM: {
     consumes: {
-      "TOURISTS": 3
+      TOURISTS: 3,
     },
   },
   AMMUNITION_FACTORY: {
     productionLine: [
       {
-        produces: "AMMUNITION"
-      }
-    ]
+        produces: TradeGood.AMMUNITION,
+      },
+    ],
   },
   MILITARY_INDUSTRIAL_COMPLEX: {
     productionLine: [
       {
-        produces: "FIREARMS"
-      }, {
-        produces: "MILITARY_EQUIPMENT"
-      }
-    ]
+        produces: TradeGood.FIREARMS,
+      },
+      {
+        produces: TradeGood.MILITARY_EQUIPMENT,
+      },
+    ],
   },
   WAREHOUSING: {
     consumes: {
-      "FOOD": 1,
-      "CLOTHING": 1,
-      "ELECTRONICS": 1,
+      FOOD: 1,
+      CLOTHING: 1,
+      ELECTRONICS: 1,
     },
-  }
+  },
 };
 
-export const industryNames = Object.keys(
-  industries
-) as Industry[];
+export const industryNames = Object.keys(industries) as Industry[];

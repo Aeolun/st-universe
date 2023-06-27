@@ -1,63 +1,66 @@
-import {System} from "src/universe/entities/System";
-import {Agent} from "src/universe/entities/Agent";
-import {Ship} from "src/universe/entities/Ship";
-import {SupplyDemand, Waypoint} from "src/universe/entities/Waypoint";
-import {TradeGood} from "src/universe/static-data/trade-goods";
-import {Faction} from "src/universe/entities/Faction";
+import { System } from "src/universe/entities/System";
+import { Agent } from "src/universe/entities/Agent";
+import { Ship } from "src/universe/entities/Ship";
+import { SupplyDemand, Waypoint } from "src/universe/entities/Waypoint";
+import { TradeGood } from "src/universe/static-data/trade-goods";
+import { Faction } from "src/universe/entities/Faction";
 
 export class Universe {
   public name: string;
-  public systems: Record<string, System> = {}
-  public waypoints: Record<string, Waypoint> = {}
-  public agents: Agent[] = []
-  public ships: Ship[] = []
-  public factions: Faction[] = []
-  public waypointCount = 0
-  public createDate: string
+  public systems: Record<string, System> = {};
+  public waypoints: Record<string, Waypoint> = {};
+  public agents: Agent[] = [];
+  public ships: Ship[] = [];
+  public factions: Faction[] = [];
+  public waypointCount = 0;
+  public createDate: string;
 
-  constructor(data: {
-    symbol: string
-  }) {
-    this.name = data.symbol
-    const createDate = new Date()
-    this.createDate = createDate.toISOString().split('T')[0]
+  constructor(data: { symbol: string }) {
+    this.name = data.symbol;
+    const createDate = new Date();
+    this.createDate = createDate.toISOString();
   }
 
   public tick() {
-    const start = Date.now()
-    for(const system in this.systems) {
-      this.systems[system].tick()
+    const start = Date.now();
+    for (const system in this.systems) {
+      this.systems[system].tick();
     }
-    const end = Date.now()
-    console.log(`Universe tick took ${end - start}ms`)
+    const end = Date.now();
+    console.log(`Universe tick took ${end - start}ms`);
   }
 
   public addSystem(system: System) {
-    this.waypointCount += system.waypoints.length
-    system.waypoints.forEach(w => {
-      this.waypoints[w.symbol] = w
-    })
-    this.systems[system.symbol] = system
+    this.waypointCount += system.waypoints.length;
+    system.waypoints.forEach((w) => {
+      this.waypoints[w.symbol] = w;
+    });
+    this.systems[system.symbol] = system;
   }
 
   public allGoods() {
-    const goods: Partial<Record<TradeGood, {
-      symbol: TradeGood
-      productionRate: number
-      consumptionRate: number
-      productionLineProductionRate: number
-      productionLineConsumptionRate: number
-      lastTickProduction: number
-      lastTickConsumption: number
-      supplyOnConsumers: number
-      supplyOnProducers: number
-      supplyOnExchange: number
-      desiredSupply: number
-      maxSupply: number
-    }>> = {};
-    Object.values(this.systems).forEach(s => {
-      s.waypoints.forEach(w => {
-        Object.values(w.supplyDemand).forEach(sd => {
+    const goods: Partial<
+      Record<
+        TradeGood,
+        {
+          symbol: TradeGood;
+          productionRate: number;
+          consumptionRate: number;
+          productionLineProductionRate: number;
+          productionLineConsumptionRate: number;
+          lastTickProduction: number;
+          lastTickConsumption: number;
+          supplyOnConsumers: number;
+          supplyOnProducers: number;
+          supplyOnExchange: number;
+          desiredSupply: number;
+          maxSupply: number;
+        }
+      >
+    > = {};
+    Object.values(this.systems).forEach((s) => {
+      s.waypoints.forEach((w) => {
+        Object.values(w.supplyDemand).forEach((sd) => {
           if (!goods[sd.tradeGood]) {
             goods[sd.tradeGood] = {
               symbol: sd.tradeGood,
@@ -72,25 +75,30 @@ export class Universe {
               productionLineConsumptionRate: 0,
               desiredSupply: 0,
               maxSupply: 0,
-            }
+            };
           }
-          const good = goods[sd.tradeGood]
+          const good = goods[sd.tradeGood];
           if (good) {
-            good.supplyOnConsumers += sd.kind === 'demand' ? sd.currentSupply : 0
-            good.supplyOnProducers += sd.kind === 'supply' ? sd.currentSupply : 0
-            good.supplyOnExchange += sd.kind === 'exchange' ? sd.currentSupply : 0
-            good.productionRate += sd.productionRate
-            good.consumptionRate += sd.consumptionRate
-            good.lastTickProduction += sd.lastTickProduction
-            good.lastTickConsumption += sd.lastTickConsumption
-            good.productionLineProductionRate += sd.productionLineProductionRate
-            good.productionLineConsumptionRate += sd.productionLineConsumptionRate
-            good.desiredSupply += sd.idealSupply
-            good.maxSupply += sd.maxSupply
+            good.supplyOnConsumers +=
+              sd.kind === "demand" ? sd.currentSupply : 0;
+            good.supplyOnProducers +=
+              sd.kind === "supply" ? sd.currentSupply : 0;
+            good.supplyOnExchange +=
+              sd.kind === "exchange" ? sd.currentSupply : 0;
+            good.productionRate += sd.productionRate;
+            good.consumptionRate += sd.consumptionRate;
+            good.lastTickProduction += sd.lastTickProduction;
+            good.lastTickConsumption += sd.lastTickConsumption;
+            good.productionLineProductionRate +=
+              sd.productionLineProductionRate;
+            good.productionLineConsumptionRate +=
+              sd.productionLineConsumptionRate;
+            good.desiredSupply += sd.idealSupply;
+            good.maxSupply += sd.maxSupply;
           }
-        })
-      })
-    })
-    return Object.values(goods)
+        });
+      });
+    });
+    return Object.values(goods);
   }
 }

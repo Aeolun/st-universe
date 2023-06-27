@@ -1,19 +1,27 @@
-import {System} from "src/universe/entities/System";
-import {SystemFaction, SystemType, WaypointType} from "src/controllers/schemas";
+import { System } from "src/universe/entities/System";
+import {
+  SystemFaction,
+  SystemType,
+  WaypointType,
+} from "src/controllers/schemas";
 
 export function renderSystem(system: System) {
-  const factions: SystemFaction[] = []
-  const waypoints = system.waypoints.map(waypoint => {
-    if (waypoint.ownedBy) factions.push({
-      symbol: waypoint.ownedBy
-    })
+  const factions: SystemFaction[] = [];
+  const waypoints = system.waypoints.map((waypoint) => {
+    if (
+      waypoint.ownedBy &&
+      !factions.some((f) => f.symbol === waypoint.ownedBy)
+    )
+      factions.push({
+        symbol: waypoint.ownedBy,
+      });
     return {
       symbol: waypoint.symbol,
       type: waypoint.type as WaypointType,
       x: waypoint.x,
-      y: waypoint.y
-    }
-  })
+      y: waypoint.y,
+    };
+  });
   return {
     symbol: system.symbol,
     sectorSymbol: system.sectorSymbol,
@@ -21,6 +29,6 @@ export function renderSystem(system: System) {
     x: system.x,
     y: system.y,
     factions: factions,
-    waypoints
-  }
+    waypoints,
+  };
 }

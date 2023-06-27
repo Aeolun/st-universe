@@ -45,19 +45,19 @@ export const mountData: Record<Mount, ShipMount> = {
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_SURVEYOR_I]: new ShipMount(Mount.MOUNT_SURVEYOR_I, '', '', [
-    new SurveysForResources([ResourceGroup.METALS, ResourceGroup.GASES], 1),
+    new SurveysForResources([ResourceGroup.METAL_ORE, ResourceGroup.GASES], 1),
     new RequiresCrew(2),
     new RequiresPower(1),
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_SURVEYOR_II]: new ShipMount(Mount.MOUNT_SURVEYOR_II, '', '', [
-    new SurveysForResources([ResourceGroup.MINERALS, ResourceGroup.METALS, ResourceGroup.PRECIOUS_METALS, ResourceGroup.GASES], 2),
+    new SurveysForResources([ResourceGroup.MINERALS, ResourceGroup.METAL_ORE, ResourceGroup.PRECIOUS_METAL_ORE, ResourceGroup.GASES], 2),
     new RequiresCrew(3),
     new RequiresPower(3),
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_SURVEYOR_III]: new ShipMount(Mount.MOUNT_SURVEYOR_III, '', '', [
-    new SurveysForResources([ResourceGroup.MINERALS, ResourceGroup.METALS, ResourceGroup.PRECIOUS_METALS, ResourceGroup.GASES], 4),
+    new SurveysForResources([ResourceGroup.MINERALS, ResourceGroup.METAL_ORE, ResourceGroup.PRECIOUS_METAL_ORE, ResourceGroup.GASES], 4),
     new RequiresCrew(4),
     new RequiresPower(4),
     new RequiresMountingPoings(1)
@@ -81,19 +81,19 @@ export const mountData: Record<Mount, ShipMount> = {
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_MINING_LASER_I]: new ShipMount(Mount.MOUNT_MINING_LASER_I, '', '', [
-    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METALS], 10),
+    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METAL_ORE], 10),
     new RequiresCrew(0),
     new RequiresPower(1),
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_MINING_LASER_II]: new ShipMount(Mount.MOUNT_MINING_LASER_II, '', '', [
-    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METALS, ResourceGroup.PRECIOUS_METALS], 25),
+    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METAL_ORE, ResourceGroup.PRECIOUS_METAL_ORE], 25),
     new RequiresCrew(2),
     new RequiresPower(2),
     new RequiresMountingPoings(1)
   ]),
   [Mount.MOUNT_MINING_LASER_III]: new ShipMount(Mount.MOUNT_MINING_LASER_III, '', '', [
-    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METALS, ResourceGroup.PRECIOUS_METALS], 60),
+    new ExtractsResources([ResourceGroup.MINERALS, ResourceGroup.METAL_ORE, ResourceGroup.PRECIOUS_METAL_ORE], 60),
     new RequiresCrew(4),
     new RequiresPower(4),
     new RequiresMountingPoings(1)

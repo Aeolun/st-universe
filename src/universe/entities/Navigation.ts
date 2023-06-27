@@ -8,7 +8,7 @@ export class Location {
 }
 export class Navigation {
   flightMode: ShipNavFlightMode = ShipNavFlightMode.Cruise
-  status: ShipNavStatus = ShipNavStatus.InOrbit
+  isDocked: boolean = false
 
   route?: {
     from: ShipNavRouteWaypoint
@@ -20,5 +20,15 @@ export class Navigation {
 
   constructor(public current: ShipNavRouteWaypoint) {
 
+  }
+
+  get status(): ShipNavStatus {
+    if (this.route && this.route.arrivalDate < new Date()) {
+      return ShipNavStatus.InTransit
+    } else if (this.isDocked) {
+      return ShipNavStatus.Docked
+    } else {
+      return ShipNavStatus.InOrbit
+    }
   }
 }

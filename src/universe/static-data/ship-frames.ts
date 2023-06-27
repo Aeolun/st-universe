@@ -1,26 +1,27 @@
-import {ShipModule} from "src/universe/entities/ShipModule";
-import {ProvidesCrewCapacity} from "src/universe/entities/capabilities/ProvidesCrewCapacity";
-import {ProvidesWarpRange} from "src/universe/entities/capabilities/ProvidesWarpRange";
-import {ProvidesJumpRange} from "src/universe/entities/capabilities/ProvidesJumpRange";
-import {ProvidesShield} from "src/universe/entities/capabilities/ProvidesShield";
-import {ShipFrame} from "src/universe/entities/ShipFrame";
-import {ProvidesModuleCapacity} from "src/universe/entities/capabilities/ProvidesModuleCapacity";
-import {RequiresCrew} from "src/universe/entities/capabilities/RequiresCrew";
-import {ProvidesMountingPoings} from "src/universe/entities/capabilities/ProvidesMountingPoings";
-import {StoresFuel} from "src/universe/entities/capabilities/StoresFuel";
+import { ShipModule } from "src/universe/entities/ShipModule";
+import { ProvidesCrewCapacity } from "src/universe/entities/capabilities/ProvidesCrewCapacity";
+import { ProvidesWarpRange } from "src/universe/entities/capabilities/ProvidesWarpRange";
+import { ProvidesJumpRange } from "src/universe/entities/capabilities/ProvidesJumpRange";
+import { ProvidesShield } from "src/universe/entities/capabilities/ProvidesShield";
+import { ShipFrame } from "src/universe/entities/ShipFrame";
+import { ProvidesModuleCapacity } from "src/universe/entities/capabilities/ProvidesModuleCapacity";
+import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
+import { ProvidesMountingPoings } from "src/universe/entities/capabilities/ProvidesMountingPoings";
+import { StoresFuel } from "src/universe/entities/capabilities/StoresFuel";
+import { TradeGood } from "src/universe/static-data/trade-goods";
 
 export enum Frame {
-  FRAME_PROBE = "FRAME_PROBE",
-  FRAME_DRONE = "FRAME_DRONE",
-  FRAME_INTERCEPTOR = "FRAME_INTERCEPTOR",
-  FRAME_RACER = "FRAME_RACER",
-  FRAME_FIGHTER = "FRAME_FIGHTER",
-  FRAME_FRIGATE = "FRAME_FRIGATE",
-  FRAME_SHUTTLE = "FRAME_SHUTTLE",
-  FRAME_EXPLORER = "FRAME_EXPLORER",
-  FRAME_MINER = "FRAME_MINER",
-  FRAME_LIGHT_FREIGHTER = "FRAME_LIGHT_FREIGHTER",
-  FRAME_HEAVY_FREIGHTER = "FRAME_HEAVY_FREIGHTER",
+  FRAME_PROBE = TradeGood.FRAME_PROBE,
+  FRAME_DRONE = TradeGood.FRAME_DRONE,
+  FRAME_INTERCEPTOR = TradeGood.FRAME_INTERCEPTOR,
+  FRAME_RACER = TradeGood.FRAME_RACER,
+  FRAME_FIGHTER = TradeGood.FRAME_FIGHTER,
+  FRAME_FRIGATE = TradeGood.FRAME_FRIGATE,
+  FRAME_SHUTTLE = TradeGood.FRAME_SHUTTLE,
+  FRAME_EXPLORER = TradeGood.FRAME_EXPLORER,
+  FRAME_MINER = TradeGood.FRAME_MINER,
+  FRAME_LIGHT_FREIGHTER = TradeGood.FRAME_LIGHT_FREIGHTER,
+  FRAME_HEAVY_FREIGHTER = TradeGood.FRAME_HEAVY_FREIGHTER,
   // FRAME_TRANSPORT = "FRAME_TRANSPORT",
   // FRAME_DESTROYER = "FRAME_DESTROYER",
   // FRAME_CRUISER = "FRAME_CRUISER",
@@ -36,69 +37,79 @@ export enum Frame {
 }
 
 export const frameData: Record<Frame, ShipFrame> = {
-  [Frame.FRAME_PROBE]: new ShipFrame(Frame.FRAME_PROBE, '', '', [
+  [Frame.FRAME_PROBE]: new ShipFrame(Frame.FRAME_PROBE, "", "", [
     new RequiresCrew(-3),
   ]),
-  [Frame.FRAME_DRONE]: new ShipFrame(Frame.FRAME_DRONE, '', '', [
+  [Frame.FRAME_DRONE]: new ShipFrame(Frame.FRAME_DRONE, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(1),
     new StoresFuel(100),
   ]),
-  [Frame.FRAME_INTERCEPTOR]: new ShipFrame(Frame.FRAME_INTERCEPTOR, '', '', [
+  [Frame.FRAME_INTERCEPTOR]: new ShipFrame(Frame.FRAME_INTERCEPTOR, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(200)
+    new StoresFuel(200),
   ]),
-  [Frame.FRAME_RACER]: new ShipFrame(Frame.FRAME_RACER, '', '', [
+  [Frame.FRAME_RACER]: new ShipFrame(Frame.FRAME_RACER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(400)
+    new StoresFuel(400),
   ]),
-  [Frame.FRAME_FIGHTER]: new ShipFrame(Frame.FRAME_FIGHTER, '', '', [
+  [Frame.FRAME_FIGHTER]: new ShipFrame(Frame.FRAME_FIGHTER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(400)
+    new StoresFuel(400),
   ]),
-  [Frame.FRAME_FRIGATE]: new ShipFrame(Frame.FRAME_FRIGATE, '', '', [
+  [Frame.FRAME_FRIGATE]: new ShipFrame(Frame.FRAME_FRIGATE, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(700)
+    new StoresFuel(700),
   ]),
-  [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, '', '', [
+  [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(700)
+    new StoresFuel(700),
   ]),
-  [Frame.FRAME_EXPLORER]: new ShipFrame(Frame.FRAME_EXPLORER, '', '', [
+  [Frame.FRAME_EXPLORER]: new ShipFrame(Frame.FRAME_EXPLORER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(700)
+    new StoresFuel(700),
   ]),
-  [Frame.FRAME_MINER]: new ShipFrame(Frame.FRAME_MINER, '', '', [
+  [Frame.FRAME_MINER]: new ShipFrame(Frame.FRAME_MINER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
-    new StoresFuel(700)
+    new StoresFuel(700),
   ]),
-  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(Frame.FRAME_LIGHT_FREIGHTER, '', '', [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(700)
-  ]),
-  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(Frame.FRAME_HEAVY_FREIGHTER, '', '', [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(700)
-  ]),
+  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(
+    Frame.FRAME_LIGHT_FREIGHTER,
+    "",
+    "",
+    [
+      new RequiresCrew(1),
+      new ProvidesModuleCapacity(2),
+      new ProvidesMountingPoings(2),
+      new StoresFuel(700),
+    ]
+  ),
+  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(
+    Frame.FRAME_HEAVY_FREIGHTER,
+    "",
+    "",
+    [
+      new RequiresCrew(1),
+      new ProvidesModuleCapacity(2),
+      new ProvidesMountingPoings(2),
+      new StoresFuel(700),
+    ]
+  ),
   // [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, [
   //   new RequiresCrew(1),
   //   new ProvidesModuleCapacity(2),
@@ -169,4 +180,4 @@ export const frameData: Record<Frame, ShipFrame> = {
   //   new ProvidesModuleCapacity(2),
   //   new ProvidesMountingPoings(2),
   // ]),
-}
+};
