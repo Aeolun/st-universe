@@ -1,13 +1,14 @@
 import {System} from "src/universe/entities/System";
 import {Agent} from "src/universe/entities/Agent";
 import {Ship} from "src/universe/entities/Ship";
-import {SupplyDemand} from "src/universe/entities/Waypoint";
+import {SupplyDemand, Waypoint} from "src/universe/entities/Waypoint";
 import {TradeGood} from "src/universe/static-data/trade-goods";
 import {Faction} from "src/universe/entities/Faction";
 
 export class Universe {
   public name: string;
-  public systems: System[] = []
+  public systems: Record<string, System> = {}
+  public waypoints: Record<string, Waypoint> = {}
   public agents: Agent[] = []
   public ships: Ship[] = []
   public factions: Faction[] = []
@@ -24,14 +25,19 @@ export class Universe {
 
   public tick() {
     const start = Date.now()
-    this.systems.forEach(s => s.tick())
+    for(const system in this.systems) {
+      this.systems[system].tick()
+    }
     const end = Date.now()
     console.log(`Universe tick took ${end - start}ms`)
   }
 
   public addSystem(system: System) {
     this.waypointCount += system.waypoints.length
-    this.systems.push(system)
+    system.waypoints.forEach(w => {
+      this.waypoints[w.symbol] = w
+    })
+    this.systems[system.symbol] = system
   }
 
   public allGoods() {
@@ -48,8 +54,8 @@ export class Universe {
       supplyOnExchange: number
       desiredSupply: number
       maxSupply: number
-    }>> = {}
-    this.systems.forEach(s => {
+    }>> = {};
+    Object.values(this.systems).forEach(s => {
       s.waypoints.forEach(w => {
         Object.values(w.supplyDemand).forEach(sd => {
           if (!goods[sd.tradeGood]) {

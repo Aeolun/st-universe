@@ -1,18 +1,24 @@
 import {System} from "src/universe/entities/System";
 import {Waypoint} from "src/universe/entities/Waypoint";
+import {ShipNav, ShipNavFlightMode, ShipNavRouteWaypoint, ShipNavStatus} from "src/controllers/schemas";
 
 export class Location {
   systemSymbol: string
   waypointSymbol: string
 }
 export class Navigation {
-  current: Location
+  flightMode: ShipNavFlightMode = ShipNavFlightMode.Cruise
+  status: ShipNavStatus = ShipNavStatus.InOrbit
 
   route?: {
-    from: Location
-    to: Location
+    from: ShipNavRouteWaypoint
+    to: ShipNavRouteWaypoint
 
     arrivalDate: Date
     departureDate: Date
+  }
+
+  constructor(public current: ShipNavRouteWaypoint) {
+
   }
 }

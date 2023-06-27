@@ -14,13 +14,14 @@ import {engineData} from "src/universe/static-data/ship-engines";
 import {mountData} from "src/universe/static-data/ship-mounts";
 import {moduleData} from "src/universe/static-data/ship-modules";
 import {TradeGood} from "src/universe/static-data/trade-goods";
+import {Waypoint} from "src/universe/entities/Waypoint";
 
 export class Ship {
     public symbol: string;
     public agentSymbol: string;
     public role: ShipRole
 
-    navigation: Navigation = new Navigation()
+    navigation: Navigation
 
     frame: ShipFrame
     reactor: ShipReactor
@@ -38,12 +39,12 @@ export class Ship {
         configuration: Configuration;
         agentSymbol: string;
         role: ShipRole;
-        location: Location;
+        waypoint: Waypoint;
     }) {
         this.symbol = data.symbol;
         this.agentSymbol = data.agentSymbol;
         this.role = data.role;
-        this.navigation.current = data.location;
+        this.navigation = new Navigation(data.waypoint)
 
         const newConfiguration = shipConfigurationData[data.configuration]
         this.frame = frameData[newConfiguration.frame]

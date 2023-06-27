@@ -7,6 +7,8 @@ import {universe} from "src/universe/universe";
 import {Location} from "src/universe/entities/Navigation";
 import {Contract} from "src/universe/entities/Contract";
 import {Configuration, shipConfigurationData} from "src/universe/static-data/ship-configurations";
+import {ShipNavRouteWaypoint} from "src/controllers/schemas";
+import {Waypoint} from "src/universe/entities/Waypoint";
 
 export class Agent {
   public symbol: string
@@ -41,14 +43,14 @@ export class Agent {
 
   public registerShip(data: {
     configuration: Configuration,
-    location: Location
+    waypoint: Waypoint
   }) {
     const ship = new Ship({
       symbol: this.symbol+'_'+this.shipCounter.toString(16),
       configuration: data.configuration,
       agentSymbol: this.symbol,
       role: shipConfigurationData[data.configuration].role,
-      location: data.location,
+      waypoint: data.waypoint,
     })
     this.ships.push(ship)
     this.shipCounter++

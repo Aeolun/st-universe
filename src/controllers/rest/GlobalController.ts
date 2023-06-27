@@ -11,12 +11,19 @@ import {renderFaction} from "src/controllers/formatting/render-faction";
 import {generateContract} from "src/universe/generateContract";
 import {Configuration} from "src/universe/static-data/ship-configurations";
 import {renderContract} from "src/controllers/formatting/render-contract";
+import {renderAgent} from "src/controllers/formatting/render-agent";
+import {getSystem} from "src/controllers/helpers/get-system";
+import {getWaypoint} from "src/controllers/helpers/get-waypoint";
 
 
 @Controller("/")
 export class GlobalController {
   @Post("/register")
   register(@BodyParams() body: GlobalRegisterPayload): Register201Response {
+    if (universe.agents.find(agent => agent.symbol === body.symbol)) {
+      throw new Error(`Agent ${body.symbol} already exists`)
+    }
+
     const faction = universe.factions.find(faction => faction.symbol === body.faction)
     if (!faction) throw new Error(`Faction ${body.faction} not found`)
     const newAgent = new Agent({
@@ -26,27 +33,19 @@ export class GlobalController {
       credits: 175000
     })
     universe.agents.push(newAgent)
+    const wp = getWaypoint(universe, faction.headquarters.waypointSymbol)
     universe.ships.push(newAgent.registerShip({
       configuration: Configuration.SHIP_COMMAND_FRIGATE,
-      location: faction.headquarters
+      waypoint: wp
     }))
 
-    const system = universe.systems.find(s => s.symbol === faction.headquarters.systemSymbol)
-    if (!system) throw new Error(`System ${faction.headquarters.systemSymbol} not found`)
-    const waypoint = system.waypoints.find(wp => wp.symbol === faction.headquarters.waypointSymbol)
-    if (!waypoint) throw new Error(`Waypoint ${faction.headquarters.waypointSymbol} not found in system ${faction.headquarters.systemSymbol}, only have ${system.waypoints.map(wp => wp.symbol).join(', ')}`)
+    const waypoint = getWaypoint(universe, faction.headquarters.waypointSymbol)
     const contract = generateContract(newAgent, waypoint)
 
     return {
       data: {
         token: newAgent.token,
-        agent: {
-          symbol: newAgent.symbol,
-          accountId: newAgent.accountId,
-          headquarters: newAgent.headquarters.waypointSymbol,
-          credits: newAgent.credits,
-          startingFaction: newAgent.faction,
-        },
+        agent: renderAgent(newAgent),
         contract: renderContract(contract),
         faction: renderFaction(faction),
         ship: renderShipOutput(newAgent.ships[0]),
@@ -64,7 +63,7 @@ export class GlobalController {
       stats: {
         agents: universe.agents.length,
         ships: universe.ships.length,
-        systems: universe.systems.length,
+        systems: Object.values(universe.systems).length,
         waypoints: universe.waypointCount
       },
       serverResets: {
@@ -76,7 +75,7 @@ export class GlobalController {
 
   @Get('/systems.json')
   systems() {
-    return universe.systems.map(system => ({
+    return Object.values(universe.systems).map(system => ({
       symbol: system.symbol,
       sectorSymbol: system.sectorSymbol,
       type: system.type,

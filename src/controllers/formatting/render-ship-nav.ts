@@ -1,32 +1,32 @@
 import {
-    MarketTradeGoodSupplyEnum,
-    ShipEngine,
-    ShipModule,
-    ShipMount,
-    ShipMountDepositsEnum,
-    ShipReactor,
+    ShipNav,
 } from "src/controllers/schemas";
-import {Reactor, reactorData} from "src/universe/static-data/ship-reactors";
-import {Engine, engineData} from "src/universe/static-data/ship-engines";
-import {Module, moduleData} from "src/universe/static-data/ship-modules";
-import {Mount, mountData} from "src/universe/static-data/ship-mounts";
-import {resourceGroups} from "src/universe/static-data/resource-groups";
+import {Ship} from "src/universe/entities/Ship";
 
-export const renderShipNav = (symbol: Mount): ShipMount => {
-    const mount = mountData[symbol];
+export const renderShipNav = (nav: Ship['navigation']): ShipNav => {
+    let arrived = false
+    if (nav.route && nav.status === 'IN_TRANSIT' && nav.route.arrivalDate > new Date()) {
+        //arrived
+        arrived = true
+    }
+
+    const now = new Date().toISOString();
 
     return {
-        symbol: symbol,
-        name: mount.name,
-        description: mount.description,
-        strength: mount.stats.scanPower ?? mount.stats.extractionPower,
-        deposits: (mount.stats.resourcesExtracted ?? mount.stats.resourcesSurveyed).reduce((total, current) => {
-            return [ ...total, ...resourceGroups[current] as ShipMountDepositsEnum[] ];
-        }, [] as ShipMountDepositsEnum[]),
-        requirements: {
-            power: mount.stats.powerRequired,
-            crew: mount.stats.crewRequired,
-            slots: mount.stats.moduleCapacityRequired,
-        }
+        flightMode: nav.flightMode,
+        systemSymbol: nav.current.systemSymbol,
+        waypointSymbol: nav.current.symbol,
+        route: nav.route && !arrived ? {
+            departure: nav.route.from,
+            destination: nav.route.to,
+            departureTime: nav.route.departureDate.toISOString(),
+            arrival: nav.route.arrivalDate.toISOString(),
+        } : {
+            departure: nav.current,
+            destination: nav.current,
+            departureTime: now,
+            arrival: now,
+        },
+        status: arrived ? 'IN_ORBIT' : nav.status
     };
 }
