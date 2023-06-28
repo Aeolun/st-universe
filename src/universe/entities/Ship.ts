@@ -67,6 +67,12 @@ export class Ship {
     });
 
     this.calculateStats();
+
+    this.derivedStats.crew = this.stats.crewRequired;
+    this.derivedStats.fuel = this.stats.fuelCapacity;
+    this.derivedStats.crewMorale = 50;
+    this.derivedStats.crewExperience = 0;
+    this.derivedStats.condition = 100;
   }
 
   public calculateStats() {

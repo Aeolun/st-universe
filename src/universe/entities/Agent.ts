@@ -1,4 +1,4 @@
-import { uniqueId } from "src/universe/utilities";
+import { trulyUniqId, uniqueId } from "src/universe/utilities";
 import { Faction } from "src/universe/static-data/faction";
 import { Ship } from "src/universe/entities/Ship";
 import jwt from "jsonwebtoken";
@@ -44,7 +44,7 @@ export class Agent {
       "epicmegasuper"
     );
     this.token = token;
-    this.accountId = uniqueId(Date.now().toString());
+    this.accountId = trulyUniqId();
   }
 
   public registerShip(data: {

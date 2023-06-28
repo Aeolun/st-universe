@@ -1,17 +1,23 @@
 import { ShipNavFlightMode } from "src/controllers/schemas";
+import {
+  MINIMUM_NAVIGATE_TIME,
+  MINIMUM_WARP_TIME,
+  NAVIGATION_FACTOR,
+  WARP_FACTOR,
+} from "src/universe/constants";
 
 export function navigateFuelUsed(
   distance: number,
   travelMethod: ShipNavFlightMode
 ) {
   if (travelMethod === ShipNavFlightMode.Cruise) {
-    return distance;
+    return Math.round(distance);
   } else if (travelMethod === ShipNavFlightMode.Burn) {
-    return distance * 2;
+    return Math.round(distance * 2);
   } else if (travelMethod === ShipNavFlightMode.Drift) {
     return 1;
   } else {
-    return distance;
+    return Math.round(distance);
   }
 }
 
@@ -20,13 +26,13 @@ export function warpFuelUsed(
   travelMethod: ShipNavFlightMode
 ) {
   if (travelMethod === ShipNavFlightMode.Cruise) {
-    return distance / 2;
+    return Math.round(distance / 2);
   } else if (travelMethod === ShipNavFlightMode.Burn) {
-    return distance;
+    return Math.round(distance);
   } else if (travelMethod === ShipNavFlightMode.Drift) {
     return 1;
   } else {
-    return distance / 2;
+    return Math.round(distance / 2);
   }
 }
 
@@ -36,13 +42,24 @@ export function navigateTravelTime(
   speed: number
 ) {
   if (travelMethod === ShipNavFlightMode.Cruise) {
-    return 15 + Math.round((distance * 15) / speed);
+    return (
+      MINIMUM_NAVIGATE_TIME + Math.round((distance * NAVIGATION_FACTOR) / speed)
+    );
   } else if (travelMethod === ShipNavFlightMode.Burn) {
-    return 15 + Math.round((distance * 7.5) / speed);
+    return (
+      MINIMUM_NAVIGATE_TIME +
+      Math.round((distance * NAVIGATION_FACTOR) / 2 / speed)
+    );
   } else if (travelMethod === ShipNavFlightMode.Drift) {
-    return 15 + Math.round((distance * 150) / speed);
+    return (
+      MINIMUM_NAVIGATE_TIME +
+      Math.round((distance * NAVIGATION_FACTOR * 10) / speed)
+    );
   } else {
-    return 15 + Math.round((distance * 30) / speed);
+    return (
+      MINIMUM_NAVIGATE_TIME +
+      Math.round((distance * NAVIGATION_FACTOR * 2) / speed)
+    );
   }
 }
 
@@ -52,12 +69,14 @@ export function warpTravelTime(
   speed: number
 ) {
   if (travelMethod === ShipNavFlightMode.Cruise) {
-    return 15 + Math.round((distance * 20) / speed);
+    return MINIMUM_WARP_TIME + Math.round((distance * WARP_FACTOR) / speed);
   } else if (travelMethod === ShipNavFlightMode.Burn) {
-    return 15 + Math.round((distance * 10) / speed);
+    return MINIMUM_WARP_TIME + Math.round((distance * WARP_FACTOR) / 2 / speed);
   } else if (travelMethod === ShipNavFlightMode.Drift) {
-    return 15 + Math.round((distance * 200) / speed);
+    return (
+      MINIMUM_WARP_TIME + Math.round((distance * WARP_FACTOR * 10) / speed)
+    );
   } else {
-    return 15 + Math.round((distance * 40) / speed);
+    return MINIMUM_WARP_TIME + Math.round((distance * WARP_FACTOR * 2) / speed);
   }
 }

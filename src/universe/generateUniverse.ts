@@ -11,6 +11,7 @@ import { Faction } from "src/universe/entities/Faction";
 import { Faction as FactionEnum } from "src/universe/static-data/faction";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
+import { generateWaypoint } from "src/universe/generateWaypoint";
 
 const MAX_SYSTEMS = 12000;
 const MAX_FACTIONS = 12;
@@ -83,12 +84,12 @@ export async function generateUniverse() {
             );
           attempts++;
         } while (
-          (Object.values(universe.systems).some(
+          (universe.systemsArray.some(
             (system) =>
               getDistance(system, { x: potentialX, y: potentialY }) <
               MINIMUM_DISTANCE_APART
           ) ||
-            Object.values(universe.systems).every(
+            universe.systemsArray.every(
               (system) =>
                 getDistance(system, { x: potentialX, y: potentialY }) >
                 MAXIMUM_DISTANCE_APART
@@ -109,8 +110,10 @@ export async function generateUniverse() {
     }
   }
 
-  const populationCenters = Object.values(universe.systems).filter((system) =>
-    system.waypoints.some((waypoint) => waypoint.population >= 3)
+  const populationCenters = universe.systemsArray.filter((system) =>
+    system.waypoints.some(
+      (waypoint) => waypoint.population >= 3 && waypoint.type === "PLANET"
+    )
   );
   const generatedFactions: {
     symbol: FactionEnum;
@@ -124,7 +127,7 @@ export async function generateUniverse() {
     do {
       factionSystem = pickRandom(populationCenters);
       systemsInInfluence = 0;
-      for (const system of Object.values(universe.systems)) {
+      for (const system of universe.systemsArray) {
         if (
           getDistance(system, factionSystem) < FACTION_INNER_INFLUENCE_RADIUS
         ) {
@@ -146,7 +149,8 @@ export async function generateUniverse() {
     for (const waypoint of factionSystem.waypoints) {
       if (
         !maxPopulationWaypoint ||
-        waypoint.population > maxPopulationWaypoint.population
+        (waypoint.population > maxPopulationWaypoint.population &&
+          waypoint.type === "PLANET")
       ) {
         maxPopulationWaypoint = waypoint;
       }
@@ -154,6 +158,34 @@ export async function generateUniverse() {
 
     if (!maxPopulationWaypoint)
       throw new Error("No max population waypoint found");
+
+    const hasJumpgate = factionSystem.waypoints.some(
+      (waypoint) => waypoint.type === "JUMP_GATE"
+    );
+    if (!hasJumpgate) {
+      const jumpGateWp = factionSystem.addJumpGate(100, 5000);
+      jumpGateWp.ownedBy = faction as FactionEnum;
+      universe.waypoints[jumpGateWp.symbol] = jumpGateWp;
+      universe.waypointCount++;
+    }
+    const hasShipyard = factionSystem.waypoints.some((waypoint) =>
+      waypoint.traits.some((trait) => trait === "SHIPYARD")
+    );
+    if (!hasShipyard) {
+      const shipyard = generateWaypoint({
+        x: maxPopulationWaypoint.x,
+        y: maxPopulationWaypoint.y,
+        systemSymbol: factionSystem.symbol,
+        type: "ORBITAL_STATION",
+        inOrbitOf: maxPopulationWaypoint.symbol,
+        traits: ["SHIPYARD"],
+      });
+      factionSystem.addWaypoint(shipyard);
+      maxPopulationWaypoint.orbitals.push(shipyard);
+      shipyard.ownedBy = faction as FactionEnum;
+      universe.waypoints[shipyard.symbol] = shipyard;
+      universe.waypointCount++;
+    }
 
     generatedFactions.push({
       symbol: faction as FactionEnum,
@@ -163,7 +195,7 @@ export async function generateUniverse() {
   }
   for (const faction of factionNames) {
     const factionData = generatedFactions.find((f) => f.symbol === faction);
-    for (const system of Object.values(universe.systems)) {
+    for (const system of universe.systemsArray) {
       if (factionData) {
         const distance = getDistance(system, factionData.homeSystem);
         if (distance < FACTION_INNER_INFLUENCE_RADIUS) {
@@ -214,7 +246,7 @@ export async function generateUniverse() {
           ),
       };
 
-      for (const system of Object.values(universe.systems)) {
+      for (const system of universe.systemsArray) {
         const distance = getDistance(system, spreadPoint);
         if (
           distance < FACTION_OUTER_INFLUENCE_RADIUS &&
@@ -257,15 +289,15 @@ export async function generateUniverse() {
   let longestDistance = 0;
   let totalMin = 0;
   let totalWaypoints = 0;
-  Object.values(universe.systems).forEach((system) => {
+  universe.systemsArray.forEach((system) => {
     let minDist = 10000;
-    Object.values(universe.systems).forEach((otherSystem) => {
+    universe.systemsArray.forEach((otherSystem) => {
       if (system === otherSystem) return;
       const dist = getDistance(system, otherSystem);
       if (dist < minDist) minDist = dist;
     });
 
-    totalMin += minDist / Object.values(universe.systems).length;
+    totalMin += minDist / universe.systemsArray.length;
     if (minDist > longestDistance) {
       longestDistance = minDist;
     }
@@ -307,7 +339,7 @@ export async function generateUniverse() {
     const renderFunction = renderMethods[renderMethod];
     context.fillStyle = "black";
     context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    for (const system of Object.values(universe.systems)) {
+    for (const system of universe.systemsArray) {
       renderFunction(system, context);
     }
 
@@ -317,7 +349,7 @@ export async function generateUniverse() {
 
   fs.writeFileSync(
     "./systems.json",
-    JSON.stringify(Object.values(universe.systems).slice(0, 100), null, 2)
+    JSON.stringify(universe.systemsArray.slice(0, 100), null, 2)
   );
 
   return universe;

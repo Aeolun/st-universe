@@ -75,7 +75,7 @@ export class GlobalController {
         agents: universe.agents.length,
         ships: universe.ships.length,
         systems: Object.values(universe.systems).length,
-        waypoints: universe.waypointCount,
+        waypoints: Object.values(universe.waypoints).length,
       },
       serverResets: {
         next: new Date(new Date().getTime() + 1000 * 60 * 60).toISOString(),

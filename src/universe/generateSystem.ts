@@ -2,6 +2,8 @@ import {
   numberBetween,
   percentageChance,
   pickRandom,
+  randomString,
+  trulyUniqId,
   uniqueId,
 } from "./utilities";
 import { System } from "./entities/System";
@@ -21,9 +23,7 @@ export const generateSystem = (data: {
   y: number;
   universeSymbol: string;
 }) => {
-  const systemSymbol = `${data.universeSymbol}-${uniqueId(
-    data.x.toString() + data.y.toString()
-  ).substring(0, 4)}`;
+  const systemSymbol = `${data.universeSymbol}-${randomString()}`;
 
   const hasJumpgate = percentageChance(JUMP_GATE_CHANCE);
 
@@ -62,32 +62,20 @@ export const generateSystem = (data: {
     );
 
     const wp = generateWaypoint({
-      x: potentialX,
-      y: potentialY,
+      x: Math.round(potentialX),
+      y: Math.round(potentialY),
       systemSymbol,
     });
     waypoints.push(wp);
     system.addWaypoint(wp);
-    wp.orbitals.forEach((o) => {
-      system.waypoints.push(o);
-    });
   }
 
   if (hasJumpgate) {
     console.log("hasjumpgate");
-    const jumpGate = generateWaypoint({
-      x: Math.sin(Math.random() * Math.PI * 2) * SYSTEM_SIZE,
-      y: Math.cos(Math.random() * Math.PI * 2) * SYSTEM_SIZE,
-      systemSymbol,
-      type: "JUMP_GATE",
-    });
-    jumpGate.jumpGate = new JumpGate({
-      range: percentageChance(10) ? SUPERDUTY_JUMP_GATE_RANGE : JUMP_GATE_RANGE,
-    });
-    system.waypoints.push(jumpGate);
-    jumpGate.orbitals.forEach((o) => {
-      system.waypoints.push(o);
-    });
+    system.addJumpGate(
+      SYSTEM_SIZE,
+      percentageChance(10) ? SUPERDUTY_JUMP_GATE_RANGE : JUMP_GATE_RANGE
+    );
   }
 
   return system;

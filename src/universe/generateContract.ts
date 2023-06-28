@@ -3,7 +3,7 @@ import { universe } from "src/universe/universe";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { Contract } from "src/universe/entities/Contract";
 import { Agent } from "src/universe/entities/Agent";
-import { pickRandom, uniqueId } from "src/universe/utilities";
+import { pickRandom, trulyUniqId, uniqueId } from "src/universe/utilities";
 import { Faction } from "src/universe/static-data/faction";
 import { marketPrice } from "src/universe/formulas/trade";
 import { getDistance } from "src/universe/getDistance";
@@ -61,7 +61,7 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
   const totalReward = price.salePrice * mostLackingResource.amount;
 
   const contract = new Contract(
-    agent.symbol + uniqueId(),
+    agent.symbol + trulyUniqId(),
     generationWaypoint.ownedBy,
     [
       {

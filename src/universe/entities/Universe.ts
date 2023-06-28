@@ -8,6 +8,7 @@ import { Faction } from "src/universe/entities/Faction";
 export class Universe {
   public name: string;
   public systems: Record<string, System> = {};
+  public systemsArray: System[] = [];
   public waypoints: Record<string, Waypoint> = {};
   public agents: Agent[] = [];
   public ships: Ship[] = [];
@@ -33,9 +34,17 @@ export class Universe {
   public addSystem(system: System) {
     this.waypointCount += system.waypoints.length;
     system.waypoints.forEach((w) => {
+      if (this.waypoints[w.symbol]) {
+        console.log({
+          existingWaypoint: this.waypoints[w.symbol],
+          newWaypoint: w,
+        });
+        throw new Error(`Waypoint ${w.symbol} already exists`);
+      }
       this.waypoints[w.symbol] = w;
     });
     this.systems[system.symbol] = system;
+    this.systemsArray.push(system);
   }
 
   public allGoods() {

@@ -9,6 +9,7 @@ import { WaypointType } from "src/universe/static-data/waypoint-types";
 import { Faction } from "src/universe/static-data/faction";
 import { Transaction } from "src/universe/entities/Transaction";
 import { Configuration } from "src/universe/static-data/ship-configurations";
+import { MarketPrice } from "src/universe/formulas/trade";
 
 export interface SupplyDemand {
   tradeGood: TradeGood;
@@ -24,6 +25,7 @@ export interface SupplyDemand {
   productionLineProductionRate: number;
   productionLineConsumptionRate: number;
   localFluctuation: number;
+  price?: MarketPrice;
 }
 
 export interface WaypointChart {

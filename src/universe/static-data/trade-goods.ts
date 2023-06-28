@@ -201,7 +201,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   CLOTHING: {
     symbol: TradeGood.CLOTHING,
-    basePrice: 1000,
+    basePrice: 200,
     baseTradeVolume: 10,
   },
   COPPER: {
@@ -361,9 +361,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   HYDROCARBONS: {
     symbol: TradeGood.HYDROCARBONS,
-    components: {
-      MACHINERY: 1,
-    },
+    basePrice: 50,
     baseTradeVolume: 10,
   },
   ICE_WATER: {
@@ -542,7 +540,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   PRECIOUS_STONES: {
     symbol: TradeGood.PRECIOUS_STONES,
-    basePrice: 1000,
+    basePrice: 300,
     baseTradeVolume: 10,
   },
   RELIC_TECH: {
@@ -562,7 +560,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   QUARTZ_SAND: {
     symbol: TradeGood.QUARTZ_SAND,
-    basePrice: 1000,
+    basePrice: 10,
     baseTradeVolume: 10,
   },
   // RADIOACTIVE_WASTE: {
@@ -595,7 +593,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   SILICON_CRYSTALS: {
     symbol: TradeGood.SILICON_CRYSTALS,
-    basePrice: 100,
+    basePrice: 65,
     baseTradeVolume: 100,
   },
   SILVER: {
@@ -657,7 +655,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   TOURISTS: {
     symbol: TradeGood.TOURISTS,
-    basePrice: 1000,
+    basePrice: 1200,
     baseTradeVolume: 10,
   },
   FRAME_PROBE: {
@@ -1230,6 +1228,17 @@ const getBasePrice = (good: TradeGoodData, parents: TradeGood[] = []) => {
     });
     good.basePrice =
       prices.reduce((total, price) => total + price, 0) / prices.length;
+    if (good.basePrice < 10) {
+      good.baseTradeVolume = 10000;
+    } else if (good.basePrice < 100) {
+      good.baseTradeVolume = 1000;
+    } else if (good.basePrice < 1000) {
+      good.baseTradeVolume = 100;
+    } else if (good.basePrice < 10000) {
+      good.baseTradeVolume = 10;
+    } else {
+      good.baseTradeVolume = 1;
+    }
 
     if (prices.length > 1 && prices.some((p) => p != good.basePrice)) {
       console.log(`! Multiple different prices for ${good.symbol}: ${prices}`);

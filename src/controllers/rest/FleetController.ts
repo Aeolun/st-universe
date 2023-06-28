@@ -72,6 +72,7 @@ import {
   numberBetween,
   pickRandom,
   randomWeightedKey,
+  trulyUniqId,
   uniqueId,
 } from "src/universe/utilities";
 import { ExtractsResources } from "src/universe/entities/capabilities/ExtractsResources";
@@ -353,10 +354,7 @@ export class FleetController {
         }
 
         const survey = {
-          symbol: `${ship.navigation.current.symbol}-${uniqueId().substring(
-            0,
-            10
-          )}`,
+          symbol: `${ship.navigation.current.symbol}-${trulyUniqId()}`,
           size: size,
           deposits: resources.map((r) => ({
             symbol: r,
@@ -593,6 +591,7 @@ export class FleetController {
       arrivalDate: arrivalDate,
       departureDate: departureDate,
     };
+    ship.derivedStats.fuel -= fuel;
     ship.navigation.current = targetWaypoint;
 
     return {

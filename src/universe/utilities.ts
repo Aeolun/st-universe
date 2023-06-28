@@ -1,3 +1,6 @@
+import uniqid from "uniqid";
+import * as randomstring from "randomstring";
+
 export function pickRandom<T>(from: T[]) {
   return from[Math.floor(Math.random() * from.length)];
 }
@@ -10,7 +13,7 @@ export function percentageChance(percentage: number) {
   return Math.random() < percentage / 100;
 }
 
-export const uniqueId = (str: string = Math.random().toString(), seed = 0) => {
+export const uniqueId = (str: string, seed: number = 0) => {
   let h1 = 0xdeadbeef ^ seed,
     h2 = 0x41c6ce57 ^ seed;
   for (let i = 0, ch; i < str.length; i++) {
@@ -24,6 +27,19 @@ export const uniqueId = (str: string = Math.random().toString(), seed = 0) => {
   h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
 
   return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString();
+};
+
+export const randomString = (length = 4) => {
+  return randomstring
+    .generate({
+      length: length,
+      charset: "alphanumeric",
+    })
+    .toUpperCase();
+};
+
+export const trulyUniqId = () => {
+  return uniqid.process();
 };
 
 export function randomWeightedKey<T extends string | number | symbol>(

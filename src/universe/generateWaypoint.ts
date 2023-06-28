@@ -2,7 +2,9 @@ import { Waypoint } from "./entities/Waypoint";
 import {
   numberBetween,
   pickRandom,
+  randomString,
   randomWeightedKey,
+  trulyUniqId,
   uniqueId,
 } from "./utilities";
 import {
@@ -36,11 +38,12 @@ export const generateWaypoint = (data: {
   y: number;
   inOrbitOf?: string;
   type?: WaypointType;
+  traits?: WaypointTrait[];
   systemSymbol: string;
 }) => {
   const { systemSymbol, ...rest } = data;
 
-  const waypointSymbol = `${systemSymbol}-${uniqueId().substring(0, 4)}`;
+  const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
 
   const waypointType = data.type ?? pickRandom(generatableWaypointTypeNames);
 
@@ -82,32 +85,38 @@ export const generateWaypoint = (data: {
 
   const waypointTraitCount = numberBetween(0, waypointTypeData.maxTraits);
 
-  waypointTrait: for (let i = 0; i < waypointTraitCount; i++) {
-    if (availableTraitsForType.length === 0) {
-      continue;
-    }
+  if (data.traits) {
+    waypoint.traits.push(...data.traits);
+  } else {
+    waypointTrait: for (let i = 0; i < waypointTraitCount; i++) {
+      if (availableTraitsForType.length === 0) {
+        continue;
+      }
 
-    const newTrait = pickRandom(availableTraitsForType);
-    const traitData = waypointTraits[newTrait];
-    const requiredCategories = traitData.requiresCategory;
-    if (requiredCategories) {
-      for (const category of requiredCategories) {
-        if (
-          !waypoint.traits.some((t) => waypointTraits[t].category === category)
-        ) {
-          continue waypointTrait;
+      const newTrait = pickRandom(availableTraitsForType);
+      const traitData = waypointTraits[newTrait];
+      const requiredCategories = traitData.requiresCategory;
+      if (requiredCategories) {
+        for (const category of requiredCategories) {
+          if (
+            !waypoint.traits.some(
+              (t) => waypointTraits[t].category === category
+            )
+          ) {
+            continue waypointTrait;
+          }
         }
       }
-    }
 
-    waypoint.traits.push(newTrait);
+      waypoint.traits.push(newTrait);
 
-    if (traitData.populationLevel) {
-      waypoint.population += traitData.populationLevel;
-    }
+      if (traitData.populationLevel) {
+        waypoint.population += traitData.populationLevel;
+      }
 
-    if (traitData.extractableResources) {
-      waypoint.extractableResources.push(...traitData.extractableResources);
+      if (traitData.extractableResources) {
+        waypoint.extractableResources.push(...traitData.extractableResources);
+      }
     }
   }
 
@@ -304,20 +313,17 @@ export const generateWaypoint = (data: {
         tgProductionLineProductionRate - tgProductionLineConsumptionRate;
       const totalCount = count + productionLineCount;
       const supplyTotal =
-        tgProductionRate +
-        tgConsumptionRate +
-        tgProductionLineProductionRate +
-        tgProductionLineConsumptionRate +
-        (extraRequestedStorage[tg] ?? 0);
+        (tgProductionRate +
+          tgConsumptionRate +
+          tgProductionLineProductionRate +
+          tgProductionLineConsumptionRate +
+          Math.max(extraRequestedStorage[tg] ?? 0, 1)) *
+        Math.max(waypoint.population, 1);
       const tradeGoodData = tradeGoods[tg];
       if (count !== undefined) {
         if (totalCount > 0) {
           // produce
-          const idealSupply =
-            tradeGoodData.baseTradeVolume *
-            10 *
-            supplyTotal *
-            waypoint.population;
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.exports.push(tg);
           waypoint.supplyDemand[tg] = {
@@ -339,11 +345,7 @@ export const generateWaypoint = (data: {
           };
         } else if (totalCount < 0) {
           // consumes
-          const idealSupply =
-            tradeGoodData.baseTradeVolume *
-            10 *
-            supplyTotal *
-            waypoint.population;
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.imports.push(tg);
           waypoint.supplyDemand[tg] = {
@@ -365,11 +367,7 @@ export const generateWaypoint = (data: {
           };
         } else {
           // exchange
-          const idealSupply =
-            tradeGoodData.baseTradeVolume *
-            10 *
-            supplyTotal *
-            waypoint.population;
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.exchange.push(tg);
           waypoint.supplyDemand[tg] = {

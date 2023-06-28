@@ -7,7 +7,13 @@ import { Module } from "src/universe/static-data/ship-modules";
 import { Mount } from "src/universe/static-data/ship-mounts";
 import { Frame } from "src/universe/static-data/ship-frames";
 
-export function marketPrice(supplyDemand: SupplyDemand) {
+export interface MarketPrice {
+  purchasePrice: number;
+  salePrice: number;
+  tradeVolume: number;
+}
+
+export function marketPrice(supplyDemand: SupplyDemand): MarketPrice {
   const baseData = tradeGoods[supplyDemand.tradeGood];
 
   if (!baseData.basePrice)
@@ -16,7 +22,13 @@ export function marketPrice(supplyDemand: SupplyDemand) {
     );
 
   let salePrice = 0,
-    purchasePrice = 0;
+    purchasePrice = 0,
+    tradeVolume = baseData.baseTradeVolume;
+
+  if (supplyDemand.kind === "demand") {
+    tradeVolume *= 10;
+  }
+
   if (supplyDemand.currentSupply > supplyDemand.maxSupply) {
     // supply saturated
     salePrice =
@@ -26,6 +38,7 @@ export function marketPrice(supplyDemand: SupplyDemand) {
       (baseData.basePrice /
         Math.pow(supplyDemand.currentSupply / supplyDemand.idealSupply, 3)) *
       0.8;
+    tradeVolume *= 10;
   } else if (supplyDemand.currentSupply >= supplyDemand.idealSupply) {
     // demand satisfied
     salePrice =
@@ -51,6 +64,7 @@ export function marketPrice(supplyDemand: SupplyDemand) {
   return {
     purchasePrice: Math.round(purchasePrice * fluct),
     salePrice: Math.round(salePrice * fluct),
+    tradeVolume,
   };
 }
 
