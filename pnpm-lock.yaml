@@ -22,6 +22,7 @@ specifiers:
   '@tsed/platform-response-filter': ^7.29.1
   '@tsed/platform-views': ^7.29.1
   '@tsed/schema': ^7.29.1
+  '@tsed/swagger': ^7.30.0
   '@types/jsonwebtoken': ^9.0.2
   '@types/koa': ^2.13.6
   '@types/koa-bodyparser': ^4.3.10
@@ -80,6 +81,7 @@ dependencies:
   '@tsed/platform-response-filter': 7.29.1_4h5nxmuxrfuck3f5xktvdlfqqi
   '@tsed/platform-views': 7.29.1_s2cjjmmxvx6vw75kgemzknk4wy
   '@tsed/schema': 7.29.1_@tsed+core@7.29.1
+  '@tsed/swagger': 7.30.0_@tsed+common@7.29.1
   ajv: 8.12.0
   barrelsby: 2.8.0
   canvas: 2.11.2
@@ -554,8 +556,19 @@ packages:
       tslib: 2.3.1
     dev: false
 
+  /@tsed/normalize-path/7.30.0:
+    resolution: {integrity: sha512-KY3HJ6G2yh0cJ+V0qpBm30ePGTXOBSRQsuKm9cuCPLDMb7FcBhRlIhI7ugXZ/E4BgN2ZncARxJ0MV9Ifo/SRsw==}
+    dependencies:
+      normalize-path: 3.0.0
+      tslib: 2.5.0
+    dev: false
+
   /@tsed/openspec/7.29.1:
     resolution: {integrity: sha512-t+gvn/av/foY+WkapAgkS5wr9zc/xzxmHaKTRzl7L9gGM2ASX+MWKRAkTOYROHVedx+MuRfqxI6flXG766EovQ==}
+    dev: false
+
+  /@tsed/openspec/7.30.0:
+    resolution: {integrity: sha512-CEKKzhPlbYMi2V+f3Edy/ApMOwhU11PkOFeM158QYZBI2hjPyOqWGQU7NpVMhtDtp3F10Sw6AtHwolkzApZmVA==}
     dev: false
 
   /@tsed/platform-cache/7.29.1_yz4ee6uvj6veursqc3mma7nzse:
@@ -744,6 +757,21 @@ packages:
       json-schema: 0.4.0
       picomatch: 2.3.1
       statuses: 2.0.1
+      tslib: 2.5.0
+    dev: false
+
+  /@tsed/swagger/7.30.0_@tsed+common@7.29.1:
+    resolution: {integrity: sha512-LUlOpiVpahiTkv/ojKlHtf/bkYIT9VU6+z08GOh6njHRhhec4Tpa0XUr/rnjQG2JEcTAdzzODfupxL5DfJM7pQ==}
+    peerDependencies:
+      '@tsed/common': ^7.30.0
+    dependencies:
+      '@tsed/common': 7.29.1
+      '@tsed/normalize-path': 7.30.0
+      '@tsed/openspec': 7.30.0
+      filedirname: 2.7.0
+      fs-extra: 10.0.1
+      micromatch: 4.0.5
+      swagger-ui-dist: 4.19.1
       tslib: 2.5.0
     dev: false
 
@@ -2421,7 +2449,6 @@ packages:
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /npmlog/5.0.1:
     resolution: {integrity: sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==}
@@ -2933,6 +2960,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /swagger-ui-dist/4.19.1:
+    resolution: {integrity: sha512-n/gFn+R7G/BXWwl5UZLw6F1YgWOlf3zkwGlsPhTMhNtAAolBGKg0JS5b2RKt5NI6/hSopVaSrki2wTIMUDDy2w==}
+    dev: false
 
   /tar/6.1.15:
     resolution: {integrity: sha512-/zKt9UyngnxIT/EAGYuxaMYgOIJiP81ab9ZfkILq4oNLPFX50qyYmu7jRj9qeXoxmJHjGlbH0+cm2uy1WCs10A==}
