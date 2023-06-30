@@ -12,6 +12,7 @@ export class Location {
   waypointSymbol: string;
 }
 export class Navigation {
+  current: ShipNavRouteWaypoint;
   flightMode: ShipNavFlightMode = ShipNavFlightMode.Cruise;
   isDocked: boolean = false;
 
@@ -23,7 +24,25 @@ export class Navigation {
     departureDate: Date;
   };
 
-  constructor(public current: ShipNavRouteWaypoint) {}
+  constructor(current: ShipNavRouteWaypoint) {
+    this.current = {
+      symbol: current.symbol,
+      systemSymbol: current.systemSymbol,
+      x: current.x,
+      y: current.y,
+      type: current.type,
+    };
+  }
+
+  setCurrent(waypoint: ShipNavRouteWaypoint) {
+    this.current = {
+      symbol: current.symbol,
+      systemSymbol: current.systemSymbol,
+      x: current.x,
+      y: current.y,
+      type: current.type,
+    };
+  }
 
   get status(): ShipNavStatus {
     if (this.route && this.route.arrivalDate.getTime() > Date.now()) {

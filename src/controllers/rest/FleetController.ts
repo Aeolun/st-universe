@@ -47,7 +47,10 @@ import { universe } from "src/universe/universe";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { renderAgent } from "src/controllers/formatting/render-agent";
 import { marketPrice, shipPrice } from "src/universe/formulas/trade";
-import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
+import {
+  Configuration,
+  shipConfigurationData,
+} from "src/universe/static-data/ship-configurations";
 import { Transaction } from "src/universe/entities/Transaction";
 import { renderShipTransaction } from "src/controllers/formatting/render-ship-transaction";
 import { getShip } from "src/controllers/helpers/get-ship";
@@ -150,6 +153,7 @@ export class FleetController {
       configuration: body.shipType,
       waypoint: waypoint,
     });
+    universe.ships.push(newShip);
     return {
       data: {
         agent: renderAgent(agent),
@@ -532,7 +536,7 @@ export class FleetController {
       );
     }
 
-    ship.navigation.current = targetSystem.waypoints[0];
+    ship.navigation.setCurrent(targetSystem.waypoints[0]);
     ship.navigation.route = undefined;
     ship.navigation.isDocked = false;
 
@@ -592,7 +596,7 @@ export class FleetController {
       departureDate: departureDate,
     };
     ship.derivedStats.fuel -= fuel;
-    ship.navigation.current = targetWaypoint;
+    ship.navigation.setCurrent(targetWaypoint);
 
     return {
       data: {
@@ -702,7 +706,7 @@ export class FleetController {
       arrivalDate: arrivalDate,
       departureDate: departureDate,
     };
-    ship.navigation.current = targetWaypoint;
+    ship.navigation.setCurrent(targetWaypoint);
 
     return {
       data: {

@@ -12,6 +12,11 @@ export class AdminController {
     return universe.allGoods();
   }
 
+  @Get("/ships")
+  ships() {
+    return universe.ships;
+  }
+
   @Get("/systems")
   @View("systems.ejs")
   systems() {

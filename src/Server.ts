@@ -1,9 +1,10 @@
-import {join} from "path";
-import {Configuration, Inject} from "@tsed/di";
-import {PlatformApplication} from "@tsed/common";
+import { join } from "path";
+import { Configuration, Inject } from "@tsed/di";
+import { PlatformApplication } from "@tsed/common";
 import "@tsed/platform-koa"; // /!\ keep this import
 import "@tsed/ajv";
-import {config} from "./config/index";
+import "@tsed/swagger";
+import { config } from "./config/index";
 import * as rest from "./controllers/rest/index";
 
 @Configuration({
@@ -13,32 +14,23 @@ import * as rest from "./controllers/rest/index";
   httpsPort: false, // CHANGE
   disableComponentsScan: true,
   mount: {
-    "/v2": [
-      ...Object.values(rest)
-    ]
+    "/v2": [...Object.values(rest)],
   },
   swagger: [
     {
       path: "/v2/docs",
       specVersion: "3.0.1",
       viewPath: join(__dirname, "..", "views", "swagger.ejs"),
-    }
+    },
   ],
-  middlewares: [
-    "@koa/cors",
-    "koa-compress",
-    "koa-override",
-    "koa-bodyparser"
-  ],
+  middlewares: ["@koa/cors", "koa-compress", "koa-override", "koa-bodyparser"],
   views: {
     root: join(process.cwd(), "../views"),
     extensions: {
-      ejs: "ejs"
-    }
+      ejs: "ejs",
+    },
   },
-  exclude: [
-    "**/*.spec.ts"
-  ]
+  exclude: ["**/*.spec.ts"],
 })
 export class Server {
   @Inject()
