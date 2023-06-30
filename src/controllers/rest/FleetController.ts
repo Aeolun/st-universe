@@ -536,7 +536,16 @@ export class FleetController {
       );
     }
 
-    ship.navigation.setCurrent(targetSystem.waypoints[0]);
+    const arrivalWp = targetSystem.waypoints.find(
+      (wp) => wp.type === "JUMP_GATE"
+    );
+    if (!arrivalWp) {
+      throw new BadRequest(
+        `There is no jump gate in ${body.systemSymbol} to jump to.`
+      );
+    }
+
+    ship.navigation.setCurrent(arrivalWp);
     ship.navigation.route = undefined;
     ship.navigation.isDocked = false;
 
@@ -589,13 +598,13 @@ export class FleetController {
           1000
     );
 
-    ship.navigation.route = {
-      to: targetWaypoint,
-      from: waypoint,
-      arrivalDate: arrivalDate,
-      departureDate: departureDate,
-    };
     ship.derivedStats.fuel -= fuel;
+    ship.navigation.setRoute(
+      waypoint,
+      targetWaypoint,
+      departureDate,
+      arrivalDate
+    );
     ship.navigation.setCurrent(targetWaypoint);
 
     return {
@@ -700,12 +709,13 @@ export class FleetController {
           1000
     );
 
-    ship.navigation.route = {
-      to: targetWaypoint,
-      from: waypoint,
-      arrivalDate: arrivalDate,
-      departureDate: departureDate,
-    };
+    ship.derivedStats.fuel -= fuel;
+    ship.navigation.setRoute(
+      waypoint,
+      targetWaypoint,
+      departureDate,
+      arrivalDate
+    );
     ship.navigation.setCurrent(targetWaypoint);
 
     return {
@@ -745,7 +755,7 @@ export class FleetController {
       );
     }
     const price = marketPrice(supplyDemand);
-    const total = price.salePrice * body.units;
+    const total = price.purchasePrice * body.units;
     agent.credits += total;
     ship.cargo.remove(body.symbol, body.units);
     const transaction: Transaction = {
@@ -756,10 +766,11 @@ export class FleetController {
       agentSymbol: agent.symbol,
       type: "SELL",
       totalPrice: total,
-      pricePerUnit: price.salePrice,
+      pricePerUnit: price.purchasePrice,
       units: body.units,
     };
     waypoint.transactions.push(transaction);
+    supplyDemand.currentSupply += body.units;
 
     return {
       data: {
@@ -778,7 +789,7 @@ export class FleetController {
     const ship = getShip(agent, shipSymbol);
     checkShipNotOnCooldown(ship);
 
-    const scanMounts = ship.modules.filter((m) => {
+    const scanMounts = [...ship.modules, ...ship.mounts].filter((m) => {
       return m.capabilities.some((c) => c instanceof ProvidesScanPower);
     });
 
@@ -826,7 +837,7 @@ export class FleetController {
     const ship = getShip(agent, shipSymbol);
     checkShipNotOnCooldown(ship);
 
-    const scanMounts = ship.modules.filter((m) => {
+    const scanMounts = [...ship.modules, ...ship.mounts].filter((m) => {
       return m.capabilities.some((c) => c instanceof ProvidesScanPower);
     });
     if (scanMounts.length === 0) {
@@ -863,7 +874,7 @@ export class FleetController {
     const ship = getShip(agent, shipSymbol);
     checkShipNotOnCooldown(ship);
 
-    const scanMounts = ship.modules.filter((m) => {
+    const scanMounts = [...ship.modules, ...ship.mounts].filter((m) => {
       return m.capabilities.some((c) => c instanceof ProvidesScanPower);
     });
     if (scanMounts.length === 0) {
@@ -921,7 +932,7 @@ export class FleetController {
     const refuelUnits = Math.ceil((body.units ?? missingFuel) / 100);
 
     const price = marketPrice(supplyDemand);
-    const total = price.purchasePrice * refuelUnits;
+    const total = price.salePrice * refuelUnits;
     agent.credits -= total;
     ship.derivedStats.fuel += Math.min(refuelUnits * 100, missingFuel);
     const transaction: Transaction = {
@@ -932,10 +943,11 @@ export class FleetController {
       agentSymbol: agent.symbol,
       type: "PURCHASE",
       totalPrice: total,
-      pricePerUnit: price.purchasePrice,
+      pricePerUnit: price.salePrice,
       units: refuelUnits,
     };
     waypoint.transactions.push(transaction);
+    supplyDemand.currentSupply -= refuelUnits;
 
     return {
       data: {
@@ -974,7 +986,7 @@ export class FleetController {
     }
 
     const price = marketPrice(supplyDemand);
-    const total = price.purchasePrice * body.units;
+    const total = price.salePrice * body.units;
 
     if (agent.credits < total) {
       throw new BadRequest(`You do not have enough credits.`);
@@ -994,6 +1006,7 @@ export class FleetController {
       units: body.units,
     };
     waypoint.transactions.push(transaction);
+    supplyDemand.currentSupply -= body.units;
 
     return {
       data: {

@@ -126,6 +126,7 @@ export const generateWaypoint = (data: {
   const productionLineProductionRate: Partial<Record<TradeGood, number>> = {};
   const productionLineConsumptionRate: Partial<Record<TradeGood, number>> = {};
   const extraRequestedStorage: Partial<Record<TradeGood, number>> = {};
+  const consumedByConstruction: Partial<Record<TradeGood, boolean>> = {};
 
   const addRates = (
     tradeGood: TradeGood,
@@ -135,6 +136,7 @@ export const generateWaypoint = (data: {
       extraStorage?: number;
       productionLineProduction?: number;
       productionLineConsumption?: number;
+      consumedByConstruction?: boolean;
     }
   ) => {
     good[tradeGood] = true;
@@ -159,6 +161,9 @@ export const generateWaypoint = (data: {
     if (data.extraStorage) {
       extraRequestedStorage[tradeGood] =
         (extraRequestedStorage[tradeGood] ?? 0) + data.extraStorage;
+    }
+    if (data.consumedByConstruction) {
+      consumedByConstruction[tradeGood] = true;
     }
   };
   const addTraits = (traitData: TraitModifiers) => {
@@ -278,21 +283,26 @@ export const generateWaypoint = (data: {
 
         addRates(configurationData.engine as unknown as TradeGood, {
           extraStorage: 1,
+          consumedByConstruction: true,
         });
         addRates(configurationData.frame as unknown as TradeGood, {
           extraStorage: 1,
+          consumedByConstruction: true,
         });
         addRates(configurationData.reactor as unknown as TradeGood, {
           extraStorage: 1,
+          consumedByConstruction: true,
         });
         configurationData.modules.forEach((m) => {
           addRates(m as unknown as TradeGood, {
             extraStorage: 1,
+            consumedByConstruction: true,
           });
         });
         configurationData.mounts.forEach((m) => {
           addRates(m as unknown as TradeGood, {
             extraStorage: 1,
+            consumedByConstruction: true,
           });
         });
       });
@@ -307,11 +317,13 @@ export const generateWaypoint = (data: {
         productionLineProductionRate[tg] ?? 0;
       const tgProductionLineConsumptionRate =
         productionLineConsumptionRate[tg] ?? 0;
+      const tgConsumedByConstruction = consumedByConstruction[tg] ?? false;
 
       const count = tgProductionRate - tgConsumptionRate;
       const productionLineCount =
         tgProductionLineProductionRate - tgProductionLineConsumptionRate;
-      const totalCount = count + productionLineCount;
+      const totalCount =
+        count + productionLineCount - (tgConsumedByConstruction ? 1 : 0);
       const supplyTotal =
         (tgProductionRate +
           tgConsumptionRate +

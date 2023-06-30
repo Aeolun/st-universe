@@ -34,13 +34,39 @@ export class Navigation {
     };
   }
 
+  setRoute(
+    fromWaypoint: ShipNavRouteWaypoint,
+    toWaypoint: ShipNavRouteWaypoint,
+    departureTime: Date,
+    arrivalTime: Date
+  ) {
+    this.route = {
+      from: {
+        symbol: fromWaypoint.symbol,
+        systemSymbol: fromWaypoint.systemSymbol,
+        x: fromWaypoint.x,
+        y: fromWaypoint.y,
+        type: fromWaypoint.type,
+      },
+      to: {
+        symbol: toWaypoint.symbol,
+        systemSymbol: toWaypoint.systemSymbol,
+        x: toWaypoint.x,
+        y: toWaypoint.y,
+        type: toWaypoint.type,
+      },
+      departureDate: departureTime,
+      arrivalDate: arrivalTime,
+    };
+  }
+
   setCurrent(waypoint: ShipNavRouteWaypoint) {
     this.current = {
-      symbol: current.symbol,
-      systemSymbol: current.systemSymbol,
-      x: current.x,
-      y: current.y,
-      type: current.type,
+      symbol: waypoint.symbol,
+      systemSymbol: waypoint.systemSymbol,
+      x: waypoint.x,
+      y: waypoint.y,
+      type: waypoint.type,
     };
   }
 

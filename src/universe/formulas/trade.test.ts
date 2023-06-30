@@ -26,6 +26,52 @@ test("when supply is ideal, price is equal to base", () => {
   });
 });
 
+test("when supply is ideal, in large market, price is equal to base", () => {
+  // slightly below ideal
+  const supplyDemand: SupplyDemand = {
+    tradeGood: TradeGood.ALUMINUM,
+    idealSupply: 6000,
+    currentSupply: 5953,
+    maxSupply: 12000,
+    stopSaleAt: 20,
+    consumptionRate: 0,
+    productionRate: 0,
+    localFluctuation: 0,
+    kind: "demand",
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
+    lastTickProduction: 0,
+    lastTickConsumption: 0,
+  };
+
+  expect(marketPrice(supplyDemand)).toMatchObject({
+    salePrice: 163,
+    purchasePrice: 147,
+  });
+
+  // slightly over ideal
+  const supplyDemand2: SupplyDemand = {
+    tradeGood: TradeGood.ALUMINUM,
+    idealSupply: 6000,
+    currentSupply: 6047,
+    maxSupply: 12000,
+    stopSaleAt: 20,
+    consumptionRate: 0,
+    productionRate: 0,
+    localFluctuation: 0,
+    kind: "demand",
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
+    lastTickProduction: 0,
+    lastTickConsumption: 0,
+  };
+
+  expect(marketPrice(supplyDemand2)).toMatchObject({
+    salePrice: 161,
+    purchasePrice: 142,
+  });
+});
+
 test("when supply is over ideal, purchase price rapidly deteriorates", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,

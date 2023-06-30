@@ -66,8 +66,8 @@ export const frameData: Record<Frame, ShipFrame> = {
   ]),
   [Frame.FRAME_FRIGATE]: new ShipFrame(Frame.FRAME_FRIGATE, "", "", [
     new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
+    new ProvidesModuleCapacity(8),
+    new ProvidesMountingPoings(5),
     new StoresFuel(700),
   ]),
   [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, "", "", [

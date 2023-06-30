@@ -6,7 +6,11 @@ import { ShipMount } from "src/universe/entities/ShipMount";
 import { Location, Navigation } from "src/universe/entities/Navigation";
 import { Stats } from "src/universe/entities/Stats";
 import { DerivedStats } from "src/universe/entities/DerivedStats";
-import { ShipRole } from "src/controllers/schemas";
+import {
+  ShipNav,
+  ShipNavRouteWaypoint,
+  ShipRole,
+} from "src/controllers/schemas";
 import {
   Configuration,
   shipConfigurationData,
@@ -48,7 +52,7 @@ export class Ship {
     configuration: Configuration;
     agentSymbol: string;
     role: ShipRole;
-    waypoint: Waypoint;
+    waypoint: ShipNavRouteWaypoint;
   }) {
     this.symbol = data.symbol;
     this.agentSymbol = data.agentSymbol;
@@ -86,6 +90,7 @@ export class Ship {
     this.mounts.forEach((mount) => {
       mount.addStats(this.stats);
     });
+    console.log("stats before multiply", this.stats);
     this.frame.multiplyStats(this.stats);
     this.reactor.multiplyStats(this.stats);
     this.engine.multiplyStats(this.stats);
@@ -114,11 +119,19 @@ export class Ship {
   }
 
   setCooldown(powerUsage: number) {
-    const seconds = powerUsageCooldown(powerUsage, this.stats.powerGenerated);
+    const ms = powerUsageCooldown(powerUsage, this.stats.powerGenerated);
 
+    console.log(
+      "cooldown set",
+      ms,
+      powerUsage,
+      this.stats.powerGenerated,
+      "expire at ",
+      new Date(Date.now() + ms).toISOString()
+    );
     this.cooldown = {
-      expires: new Date(Date.now() + seconds),
-      originalSeconds: seconds,
+      expires: new Date(Date.now() + ms),
+      originalSeconds: Math.round(ms / 1000),
     };
   }
 }

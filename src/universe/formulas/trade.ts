@@ -8,8 +8,17 @@ import { Mount } from "src/universe/static-data/ship-mounts";
 import { Frame } from "src/universe/static-data/ship-frames";
 
 export interface MarketPrice {
+  /**
+   * The purchase price from the perspective of the waypoint
+   */
   purchasePrice: number;
+  /**
+   * The sale price from the perspective of the waypoint
+   */
   salePrice: number;
+  /**
+   * The volume of the trade good that can be traded in a single transaction
+   */
   tradeVolume: number;
 }
 
@@ -57,7 +66,8 @@ export function marketPrice(supplyDemand: SupplyDemand): MarketPrice {
       baseData.basePrice *
       (1 +
         (supplyDemand.idealSupply - supplyDemand.currentSupply) /
-          supplyDemand.idealSupply);
+          supplyDemand.idealSupply) *
+      0.9;
   }
 
   const fluct = 1 + supplyDemand.localFluctuation / 100;
