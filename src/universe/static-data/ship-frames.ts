@@ -1,8 +1,3 @@
-import { ShipModule } from "src/universe/entities/ShipModule";
-import { ProvidesCrewCapacity } from "src/universe/entities/capabilities/ProvidesCrewCapacity";
-import { ProvidesWarpRange } from "src/universe/entities/capabilities/ProvidesWarpRange";
-import { ProvidesJumpRange } from "src/universe/entities/capabilities/ProvidesJumpRange";
-import { ProvidesShield } from "src/universe/entities/capabilities/ProvidesShield";
 import { ShipFrame } from "src/universe/entities/ShipFrame";
 import { ProvidesModuleCapacity } from "src/universe/entities/capabilities/ProvidesModuleCapacity";
 import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
@@ -68,7 +63,7 @@ export const frameData: Record<Frame, ShipFrame> = {
     new RequiresCrew(1),
     new ProvidesModuleCapacity(8),
     new ProvidesMountingPoings(5),
-    new StoresFuel(700),
+    new StoresFuel(1200),
   ]),
   [Frame.FRAME_SHUTTLE]: new ShipFrame(Frame.FRAME_SHUTTLE, "", "", [
     new RequiresCrew(1),
@@ -96,7 +91,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new RequiresCrew(1),
       new ProvidesModuleCapacity(2),
       new ProvidesMountingPoings(2),
-      new StoresFuel(700),
+      new StoresFuel(1500),
     ]
   ),
   [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(
@@ -105,9 +100,9 @@ export const frameData: Record<Frame, ShipFrame> = {
     "",
     [
       new RequiresCrew(1),
-      new ProvidesModuleCapacity(2),
+      new ProvidesModuleCapacity(12),
       new ProvidesMountingPoings(2),
-      new StoresFuel(700),
+      new StoresFuel(2100),
     ]
   ),
   // [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, [

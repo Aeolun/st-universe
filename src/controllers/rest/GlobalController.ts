@@ -17,6 +17,7 @@ import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderAgent } from "src/controllers/formatting/render-agent";
 import { getSystem } from "src/controllers/helpers/get-system";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
+import { STARTING_MONEY } from "src/universe/constants";
 
 @Controller("/")
 export class GlobalController {
@@ -34,7 +35,7 @@ export class GlobalController {
       symbol: body.symbol,
       faction: body.faction,
       headquarters: faction.headquarters,
-      credits: 175000,
+      credits: STARTING_MONEY,
     });
     universe.agents.push(newAgent);
     const wp = getWaypoint(universe, faction.headquarters.waypointSymbol);

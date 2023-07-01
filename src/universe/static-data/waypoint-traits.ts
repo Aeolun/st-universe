@@ -48,7 +48,7 @@ export type WaypointTrait =
   | "VOLCANIC"
   | "WEAK_GRAVITY";
 
-type TraitCategory = "HABITATION" | "PLANT_LIFE";
+type TraitCategory = "HABITATION" | "PLANT_LIFE" | "DEPOSIT";
 export type ProductionLine = {
   produces: TradeGood;
   count?: number;
@@ -234,6 +234,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     populationLevel: 1,
   },
   MINERAL_DEPOSITS: {
+    category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
       TradeGood.IRON_ORE,
@@ -244,6 +245,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     ],
   },
   NATURAL_SPICES: {
+    category: "DEPOSIT",
     validFor: ["PLANET", "MOON"],
     // exports: {
     //   "SPICES": 2,
@@ -274,6 +276,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     industries: 2,
   },
   PRECIOUS_METAL_DEPOSITS: {
+    category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
       TradeGood.GOLD_ORE,
@@ -282,6 +285,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     ],
   },
   RARE_METAL_DEPOSITS: {
+    category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
       TradeGood.DIAMONDS,
@@ -305,6 +309,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     industries: 1,
   },
   ROCKY: {
+    category: "DEPOSIT",
     validFor: ["PLANET"],
     extractableResources: [
       TradeGood.IRON_ORE,
@@ -334,6 +339,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     industries: 3,
   },
   STRIPPED: {
+    requiresCategory: ["DEPOSIT", "PLANT_LIFE"],
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     productivityMultiplier: 0.5,
   },

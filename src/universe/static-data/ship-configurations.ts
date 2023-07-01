@@ -74,6 +74,8 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
       Module.MODULE_CARGO_HOLD_I,
       Module.MODULE_CARGO_HOLD_I,
       Module.MODULE_CARGO_HOLD_I,
+      Module.MODULE_CARGO_HOLD_I,
+      Module.MODULE_CARGO_HOLD_I,
       Module.MODULE_CREW_QUARTERS_I,
       Module.MODULE_CREW_QUARTERS_I,
       Module.MODULE_CREW_QUARTERS_I,

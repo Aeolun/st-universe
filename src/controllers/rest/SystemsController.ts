@@ -108,6 +108,7 @@ export class SystemsController {
   ): GetMarket200Response {
     const waypoint = getWaypoint(universe, waypointSymbol);
 
+    console.log(context);
     let hasShip = false;
     if (context) {
       hasShip =
@@ -262,7 +263,7 @@ export class SystemsController {
               type: s.type as SystemType,
               x: s.x,
               y: s.y,
-              distance: getDistance(system, s),
+              distance: Math.round(getDistance(system, s)),
             };
           }),
       },

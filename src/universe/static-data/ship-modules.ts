@@ -33,50 +33,89 @@ export const moduleData: Record<Module, ShipModule> = {
     Module.MODULE_CARGO_HOLD_I,
     "",
     "",
-    [new ProvidesCargoSpace(30)]
+    [
+      new ProvidesCargoSpace(30),
+      new RequiresPower(1),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_CREW_QUARTERS_I]: new ShipModule(
     Module.MODULE_CREW_QUARTERS_I,
     "",
     "",
-    [new ProvidesCrewCapacity(30)]
+    [
+      new ProvidesCrewCapacity(40),
+      new RequiresCrew(2),
+      new RequiresPower(1),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_WARP_DRIVE_I]: new ShipModule(
     Module.MODULE_WARP_DRIVE_I,
     "",
     "",
-    [new ProvidesWarpRange(2000)]
+    [
+      new ProvidesWarpRange(2000),
+      new RequiresCrew(3),
+      new RequiresPower(2),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_WARP_DRIVE_II]: new ShipModule(
     Module.MODULE_WARP_DRIVE_II,
     "",
     "",
-    [new ProvidesWarpRange(4000)]
+    [
+      new ProvidesWarpRange(4000),
+      new RequiresCrew(6),
+      new RequiresPower(4),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_WARP_DRIVE_III]: new ShipModule(
     Module.MODULE_WARP_DRIVE_III,
     "",
     "",
-    [new ProvidesWarpRange(8000)]
+    [
+      new ProvidesWarpRange(8000),
+      new RequiresCrew(10),
+      new RequiresPower(6),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_JUMP_DRIVE_I]: new ShipModule(
     Module.MODULE_JUMP_DRIVE_I,
     "",
     "",
-    [new ProvidesJumpRange(500)]
+    [
+      new ProvidesJumpRange(500),
+      new RequiresCrew(10),
+      new RequiresPower(4),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_JUMP_DRIVE_II]: new ShipModule(
     Module.MODULE_JUMP_DRIVE_II,
     "",
     "",
-    [new ProvidesJumpRange(1000)]
+    [
+      new ProvidesJumpRange(1000),
+      new RequiresCrew(20),
+      new RequiresPower(8),
+      new RequiresModuleCapacity(1),
+    ]
   ),
 
   [Module.MODULE_JUMP_DRIVE_III]: new ShipModule(
     Module.MODULE_JUMP_DRIVE_III,
     "",
     "",
-    [new ProvidesJumpRange(2000)]
+    [
+      new ProvidesJumpRange(2000),
+      new RequiresCrew(40),
+      new RequiresPower(14),
+      new RequiresModuleCapacity(1),
+    ]
   ),
   [Module.MODULE_MINERAL_PROCESSOR_I]: new ShipModule(
     Module.MODULE_MINERAL_PROCESSOR_I,

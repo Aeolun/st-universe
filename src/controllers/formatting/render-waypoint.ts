@@ -4,9 +4,9 @@ import {
   Waypoint,
   WaypointFaction,
   WaypointTraitSymbolEnum,
-  WaypointType
+  WaypointType,
 } from "src/controllers/schemas";
-import {Waypoint as WaypointEntity} from "src/universe/entities/Waypoint";
+import { Waypoint as WaypointEntity } from "src/universe/entities/Waypoint";
 
 export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
   return {
@@ -15,25 +15,32 @@ export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
     type: waypoint.type as WaypointType,
     x: waypoint.x,
     y: waypoint.y,
-    faction: waypoint.ownedBy ? {
-      symbol: waypoint.ownedBy
-    } : undefined,
-    orbitals: waypoint.orbitals.map(orbital => {
+    faction: waypoint.ownedBy
+      ? {
+          symbol: waypoint.ownedBy,
+        }
+      : undefined,
+    orbitals: waypoint.orbitals.map((orbital) => {
       return {
         symbol: orbital.symbol,
-      }
+      };
     }),
-    traits: waypoint.traits.map(trait => {
+    traits: (waypoint.traits.includes("UNCHARTED")
+      ? ["UNCHARTED"]
+      : waypoint.traits
+    ).map((trait) => {
       return {
         symbol: trait as WaypointTraitSymbolEnum,
         name: trait,
         description: trait,
-      }
+      };
     }),
-    chart: waypoint.chart ? {
-      waypointSymbol: waypoint.symbol,
-      submittedBy: waypoint.chart.submittedBy,
-      submittedOn: waypoint.chart.submittedOn.toISOString(),
-    } : undefined,
-  }
+    chart: waypoint.chart
+      ? {
+          waypointSymbol: waypoint.symbol,
+          submittedBy: waypoint.chart.submittedBy,
+          submittedOn: waypoint.chart.submittedOn.toISOString(),
+        }
+      : undefined,
+  };
 }

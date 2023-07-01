@@ -2,6 +2,7 @@ import { TradeGood } from "src/universe/static-data/trade-goods";
 
 export enum ResourceGroup {
   MINERALS = "RESOURCE_GROUP_MINERALS",
+  PRECIOUS_STONES = "RESOURCE_GROUP_PRECIOUS_STONES",
   METAL_ORE = "RESOURCE_GROUP_METAL_ORE",
   METALS = "RESOURCE_GROUP_METALS",
   PRECIOUS_METAL_ORE = "RESOURCE_GROUP_PRECIOUS_METAL_ORE",
@@ -17,10 +18,10 @@ export const resourceGroups: Record<ResourceGroup, TradeGood[]> = {
     TradeGood.SILICON_CRYSTALS,
     TradeGood.ICE_WATER,
     TradeGood.QUARTZ_SAND,
-    TradeGood.DIAMONDS,
     TradeGood.PRECIOUS_STONES,
     TradeGood.AMMONIA_ICE,
   ],
+  [ResourceGroup.PRECIOUS_STONES]: [TradeGood.DIAMONDS],
   [ResourceGroup.METAL_ORE]: [
     TradeGood.IRON_ORE,
     TradeGood.COPPER_ORE,

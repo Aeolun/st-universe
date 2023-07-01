@@ -8,4 +8,6 @@
 export const MINIMUM_NAVIGATE_TIME = 0;
 export const MINIMUM_WARP_TIME = 0;
 export const NAVIGATION_FACTOR = 1.5;
-export const WARP_FACTOR = 2;
+export const WARP_FACTOR = 0.25;
+
+export const STARTING_MONEY = 1_000_000;

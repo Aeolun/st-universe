@@ -257,11 +257,11 @@ export class FleetController {
     if (waypoint.chart)
       throw new BadRequest(`Chart already exists for ${waypoint.symbol}`);
 
-    waypoint.chart = {
+    waypoint.chartWaypoint({
       waypointSymbol: waypoint.symbol,
       submittedBy: shipSymbol,
       submittedOn: new Date(),
-    };
+    });
 
     return {
       data: {
@@ -505,9 +505,9 @@ export class FleetController {
     const jumpMounts = ship.modules.filter((m) => {
       return m.capabilities.some((c) => c instanceof ProvidesJumpRange);
     });
-    const powerUsage = jumpMounts.reduce(
-      (acc, mount) => acc + mount.stats.powerRequired,
-      0
+    const powerUsage = Math.min(
+      jumpMounts.reduce((acc, mount) => acc + mount.stats.powerRequired, 0),
+      10
     );
 
     if (jumpMounts.length === 0 && !waypoint.jumpGate) {
@@ -673,7 +673,7 @@ export class FleetController {
     }
 
     const warpMountsRange = warpMounts.reduce(
-      (acc, mount) => Math.max(acc, mount.stats.jumpRange),
+      (acc, mount) => Math.max(acc, mount.stats.warpRange),
       0
     );
 

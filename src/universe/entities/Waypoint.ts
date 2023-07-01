@@ -85,6 +85,11 @@ export class Waypoint {
     this.type = data.type;
   }
 
+  public chartWaypoint(chart: WaypointChart) {
+    this.traits.splice(this.traits.indexOf("UNCHARTED"), 1);
+    this.chart = chart;
+  }
+
   public tick() {
     Object.values(this.supplyDemand).forEach((supplyDemand) => {
       supplyDemand.lastTickProduction = 0;

@@ -47,9 +47,10 @@ export class System {
   }
 
   public addJumpGate(radius: number, range: number) {
+    const angle = Math.random() * Math.PI * 2;
     const jumpGate = generateWaypoint({
-      x: Math.round(Math.sin(Math.random() * Math.PI * 2) * radius),
-      y: Math.round(Math.cos(Math.random() * Math.PI * 2) * radius),
+      x: Math.round(Math.sin(angle) * radius),
+      y: Math.round(Math.cos(angle) * radius),
       systemSymbol: this.symbol,
       type: "JUMP_GATE",
     });

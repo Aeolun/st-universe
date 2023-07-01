@@ -33,6 +33,12 @@ const FACTION_INNER_INFLUENCE_RADIUS = 4000;
 const FACTION_OUTER_INFLUENCE_RADIUS = 8000;
 const FACTION_MIN_SYSTEMS = 20;
 const UNIVERSE_SYMBOL = "X1";
+const JUMP_GATE_CHANCE = 15;
+const JUMP_GATE_DROPOFF = 7.5;
+const SUPERDUTY_JUMP_GATE_CHANCE = 10;
+const SUPERDUTY_JUMP_GATE_DROPOFF = -30;
+const JUMP_GATE_RANGE = 2000;
+const SUPERDUTY_JUMP_GATE_RANGE = 5000;
 
 const scale = CANVAS_SIZE / MAX_MAP_SIZE / 2;
 
@@ -70,18 +76,20 @@ export async function generateUniverse() {
           attempts = 0;
         do {
           const rotation = Math.random() * Math.PI * 2;
-          potentialX =
+          potentialX = Math.round(
             startPos.x +
-            step * stepSize * rotationVectorX +
-            Math.round(
-              Math.sin(rotation) * Math.random() * spreadSize - spreadSize / 2
-            );
-          potentialY =
+              step * stepSize * rotationVectorX +
+              Math.round(
+                Math.sin(rotation) * Math.random() * spreadSize - spreadSize / 2
+              )
+          );
+          potentialY = Math.round(
             startPos.y +
-            step * stepSize * rotationVectorY +
-            Math.round(
-              Math.cos(rotation) * Math.random() * spreadSize - spreadSize / 2
-            );
+              step * stepSize * rotationVectorY +
+              Math.round(
+                Math.cos(rotation) * Math.random() * spreadSize - spreadSize / 2
+              )
+          );
           attempts++;
         } while (
           (universe.systemsArray.some(
@@ -100,10 +108,29 @@ export async function generateUniverse() {
           failedPositionAttempts++;
         }
 
+        const jumpDecreaseChance = JUMP_GATE_DROPOFF * (step / STEPS_PER_ARM);
+        const hasJumpgate = percentageChance(
+          JUMP_GATE_CHANCE - jumpDecreaseChance
+        );
+
+        const superdutyJumpDecreaseChance =
+          SUPERDUTY_JUMP_GATE_DROPOFF * (step / STEPS_PER_ARM);
+        const isSuperduty = percentageChance(
+          SUPERDUTY_JUMP_GATE_CHANCE - superdutyJumpDecreaseChance
+        )
+          ? SUPERDUTY_JUMP_GATE_RANGE
+          : JUMP_GATE_RANGE;
         const system = generateSystem({
           x: potentialX,
           y: potentialY,
           universeSymbol: UNIVERSE_SYMBOL,
+          jumpGateSpecs: hasJumpgate
+            ? {
+                range: isSuperduty
+                  ? SUPERDUTY_JUMP_GATE_RANGE
+                  : JUMP_GATE_RANGE,
+              }
+            : undefined,
         });
         universe.addSystem(system);
       }
@@ -201,6 +228,11 @@ export async function generateUniverse() {
         if (distance < FACTION_INNER_INFLUENCE_RADIUS) {
           system.waypoints.forEach((wp) => {
             wp.ownedBy = faction as FactionEnum;
+            wp.chartWaypoint({
+              waypointSymbol: wp.symbol,
+              submittedBy: faction,
+              submittedOn: new Date(),
+            });
           });
           system.factions = [faction as FactionEnum];
         } else if (
@@ -215,9 +247,14 @@ export async function generateUniverse() {
                   40
             )
           ) {
-            system.waypoints.forEach(
-              (wp) => (wp.ownedBy = faction as FactionEnum)
-            );
+            system.waypoints.forEach((wp) => {
+              wp.ownedBy = faction as FactionEnum;
+              wp.chartWaypoint({
+                waypointSymbol: wp.symbol,
+                submittedBy: faction,
+                submittedOn: new Date(),
+              });
+            });
             system.factions = [faction as FactionEnum];
           }
         }
@@ -260,7 +297,14 @@ export async function generateUniverse() {
                   40
             )
           ) {
-            system.waypoints.forEach((wp) => (wp.ownedBy = faction));
+            system.waypoints.forEach((wp) => {
+              wp.ownedBy = faction;
+              wp.chartWaypoint({
+                waypointSymbol: wp.symbol,
+                submittedBy: faction,
+                submittedOn: new Date(),
+              });
+            });
             system.factions = [faction];
           }
         }

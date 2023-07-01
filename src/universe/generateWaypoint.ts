@@ -41,18 +41,20 @@ export const generateWaypoint = (data: {
   traits?: WaypointTrait[];
   systemSymbol: string;
 }) => {
-  const { systemSymbol, ...rest } = data;
+  const { systemSymbol, traits, ...rest } = data;
 
   const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
 
-  const waypointType = data.type ?? pickRandom(generatableWaypointTypeNames);
+  const waypointType: WaypointType =
+    data.type ?? pickRandom(generatableWaypointTypeNames);
 
   const waypoint = new Waypoint({
-    type: waypointType,
+    ...rest,
     systemSymbol: systemSymbol,
     symbol: waypointSymbol,
-    ...rest,
+    type: waypointType,
   });
+  waypoint.traits.push("UNCHARTED");
 
   const waypointTypeData = waypointTypes[waypointType];
 
