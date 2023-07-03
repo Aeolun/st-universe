@@ -26,6 +26,9 @@ export class Storage {
       throw new Error(`Cannot remove ${amount} of ${resource}`);
     }
     this.resources[resource] = (this.resources[resource] ?? 0) - amount;
+    if (this.resources[resource] === 0) {
+      delete this.resources[resource];
+    }
   }
 
   has(resource: TradeGood, amount: number) {
@@ -34,9 +37,11 @@ export class Storage {
   }
 
   toGoodArray() {
-    return Object.keys(this.resources).map((resource: TradeGood) => ({
-      tradeSymbol: resource,
-      units: this.get(resource as TradeGood),
-    }));
+    return Object.keys(this.resources)
+      .map((resource: TradeGood) => ({
+        tradeSymbol: resource,
+        units: this.get(resource as TradeGood),
+      }))
+      .filter(({ units }) => units > 0);
   }
 }

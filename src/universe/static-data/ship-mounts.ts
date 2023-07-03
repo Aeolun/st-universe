@@ -26,15 +26,20 @@ export enum Mount {
 }
 
 export const mountData: Record<Mount, ShipMount> = {
-  [Mount.MOUNT_GAS_SIPHON_I]: new ShipMount(Mount.MOUNT_GAS_SIPHON_I, "", "", [
-    new ExtractsResources([ResourceGroup.GASES], 10),
-    new RequiresCrew(0),
-    new RequiresPower(1),
-    new RequiresMountingPoings(1),
-  ]),
+  [Mount.MOUNT_GAS_SIPHON_I]: new ShipMount(
+    Mount.MOUNT_GAS_SIPHON_I,
+    "Gas Siphon I",
+    "",
+    [
+      new ExtractsResources([ResourceGroup.GASES], 10),
+      new RequiresCrew(0),
+      new RequiresPower(1),
+      new RequiresMountingPoings(1),
+    ]
+  ),
   [Mount.MOUNT_GAS_SIPHON_II]: new ShipMount(
     Mount.MOUNT_GAS_SIPHON_II,
-    "",
+    "Gas Siphon II",
     "",
     [
       new ExtractsResources([ResourceGroup.GASES], 25),
@@ -45,7 +50,7 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_GAS_SIPHON_III]: new ShipMount(
     Mount.MOUNT_GAS_SIPHON_III,
-    "",
+    "Gas Siphon III",
     "",
     [
       new ExtractsResources([ResourceGroup.GASES], 60),
@@ -72,20 +77,25 @@ export const mountData: Record<Mount, ShipMount> = {
       new RequiresMountingPoings(1),
     ]
   ),
-  [Mount.MOUNT_SURVEYOR_II]: new ShipMount(Mount.MOUNT_SURVEYOR_II, "", "", [
-    new SurveysForResources(
-      [
-        ResourceGroup.MINERALS,
-        ResourceGroup.METAL_ORE,
-        ResourceGroup.PRECIOUS_METAL_ORE,
-        ResourceGroup.GASES,
-      ],
-      2
-    ),
-    new RequiresCrew(3),
-    new RequiresPower(3),
-    new RequiresMountingPoings(1),
-  ]),
+  [Mount.MOUNT_SURVEYOR_II]: new ShipMount(
+    Mount.MOUNT_SURVEYOR_II,
+    "Surveyor II",
+    "",
+    [
+      new SurveysForResources(
+        [
+          ResourceGroup.MINERALS,
+          ResourceGroup.METAL_ORE,
+          ResourceGroup.PRECIOUS_METAL_ORE,
+          ResourceGroup.GASES,
+        ],
+        2
+      ),
+      new RequiresCrew(3),
+      new RequiresPower(3),
+      new RequiresMountingPoings(1),
+    ]
+  ),
   [Mount.MOUNT_SURVEYOR_III]: new ShipMount(
     Mount.MOUNT_SURVEYOR_III,
     "Surveyor III",
@@ -107,7 +117,7 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_SENSOR_ARRAY_I]: new ShipMount(
     Mount.MOUNT_SENSOR_ARRAY_I,
-    "",
+    "Sensor Array I",
     "",
     [
       new ProvidesScanPower(1),
@@ -118,7 +128,7 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_SENSOR_ARRAY_II]: new ShipMount(
     Mount.MOUNT_SENSOR_ARRAY_II,
-    "",
+    "Sensor Array II",
     "",
     [
       new ProvidesScanPower(2),
@@ -129,8 +139,8 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_SENSOR_ARRAY_III]: new ShipMount(
     Mount.MOUNT_SENSOR_ARRAY_III,
-    "",
-    "",
+    "Sensor Array III",
+    "A powerful sensor array that can be used to scan for nearby objects and resources.",
     [
       new ProvidesScanPower(4),
       new RequiresCrew(4),
@@ -140,7 +150,7 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_MINING_LASER_I]: new ShipMount(
     Mount.MOUNT_MINING_LASER_I,
-    "",
+    "Mining Laser I",
     "",
     [
       new ExtractsResources(
@@ -172,7 +182,7 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_MINING_LASER_III]: new ShipMount(
     Mount.MOUNT_MINING_LASER_III,
-    "",
+    "Mining Laser III",
     "",
     [
       new ExtractsResources(
@@ -190,17 +200,17 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_LASER_CANNON_I]: new ShipMount(
     Mount.MOUNT_LASER_CANNON_I,
-    "",
+    "Laser Cannon I",
     "",
     [new RequiresCrew(1), new RequiresPower(2), new RequiresMountingPoings(1)]
   ),
   [Mount.MOUNT_MISSILE_LAUNCHER_I]: new ShipMount(
     Mount.MOUNT_MISSILE_LAUNCHER_I,
-    "",
+    "Missile Launcher I",
     "",
     [new RequiresCrew(2), new RequiresPower(1), new RequiresMountingPoings(1)]
   ),
-  [Mount.MOUNT_TURRET_I]: new ShipMount(Mount.MOUNT_TURRET_I, "", "", [
+  [Mount.MOUNT_TURRET_I]: new ShipMount(Mount.MOUNT_TURRET_I, "Turret I", "", [
     new RequiresCrew(1),
     new RequiresPower(1),
     new RequiresMountingPoings(1),

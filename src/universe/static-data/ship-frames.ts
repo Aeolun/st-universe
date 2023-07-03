@@ -4,6 +4,7 @@ import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
 import { ProvidesMountingPoings } from "src/universe/entities/capabilities/ProvidesMountingPoings";
 import { StoresFuel } from "src/universe/entities/capabilities/StoresFuel";
 import { TradeGood } from "src/universe/static-data/trade-goods";
+import { RequiresPower } from "src/universe/entities/capabilities/RequiresPower";
 
 export enum Frame {
   FRAME_PROBE = TradeGood.FRAME_PROBE,
@@ -35,12 +36,17 @@ export const frameData: Record<Frame, ShipFrame> = {
   [Frame.FRAME_PROBE]: new ShipFrame(Frame.FRAME_PROBE, "", "", [
     new RequiresCrew(-3),
   ]),
-  [Frame.FRAME_DRONE]: new ShipFrame(Frame.FRAME_DRONE, "", "", [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(1),
-    new StoresFuel(100),
-  ]),
+  [Frame.FRAME_DRONE]: new ShipFrame(
+    Frame.FRAME_DRONE,
+    "Drone Frame",
+    "A small, unmanned spacecraft used for various tasks, such as surveillance, transportation, or combat.",
+    [
+      new RequiresCrew(1),
+      new ProvidesModuleCapacity(2),
+      new ProvidesMountingPoings(1),
+      new StoresFuel(100),
+    ]
+  ),
   [Frame.FRAME_INTERCEPTOR]: new ShipFrame(Frame.FRAME_INTERCEPTOR, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
@@ -77,12 +83,17 @@ export const frameData: Record<Frame, ShipFrame> = {
     new ProvidesMountingPoings(2),
     new StoresFuel(700),
   ]),
-  [Frame.FRAME_MINER]: new ShipFrame(Frame.FRAME_MINER, "", "", [
-    new RequiresCrew(1),
-    new ProvidesModuleCapacity(2),
-    new ProvidesMountingPoings(2),
-    new StoresFuel(700),
-  ]),
+  [Frame.FRAME_MINER]: new ShipFrame(
+    Frame.FRAME_MINER,
+    "Frame Miner",
+    "A medium-sized spacecraft designed for mining operations and resource extraction.",
+    [
+      new RequiresCrew(1),
+      new ProvidesModuleCapacity(2),
+      new ProvidesMountingPoings(2),
+      new StoresFuel(700),
+    ]
+  ),
   [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(
     Frame.FRAME_LIGHT_FREIGHTER,
     "",
@@ -101,8 +112,10 @@ export const frameData: Record<Frame, ShipFrame> = {
     [
       new RequiresCrew(1),
       new ProvidesModuleCapacity(12),
-      new ProvidesMountingPoings(2),
-      new StoresFuel(2100),
+      new ProvidesMountingPoings(3),
+      new RequiresPower(10),
+      new RequiresCrew(100),
+      new StoresFuel(2300),
     ]
   ),
   // [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, [

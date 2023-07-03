@@ -22,7 +22,7 @@ export enum Configuration {
 export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   [Configuration.SHIP_COMMAND_FRIGATE]: new ShipConfiguration(
     Configuration.SHIP_COMMAND_FRIGATE,
-    "",
+    "Command Frigate",
     "",
     ShipRole.Command,
     Frame.FRAME_FRIGATE,
@@ -45,7 +45,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_EXPLORER]: new ShipConfiguration(
     Configuration.SHIP_EXPLORER,
-    "",
+    "Explorer",
     "",
     ShipRole.Explorer,
     Frame.FRAME_EXPLORER,
@@ -63,7 +63,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_HEAVY_FREIGHTER]: new ShipConfiguration(
     Configuration.SHIP_HEAVY_FREIGHTER,
-    "",
+    "Heavy Freighter",
     "",
     ShipRole.Hauler,
     Frame.FRAME_HEAVY_FREIGHTER,
@@ -87,7 +87,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_INTERCEPTOR]: new ShipConfiguration(
     Configuration.SHIP_INTERCEPTOR,
-    "",
+    "Interceptor",
     "",
     ShipRole.Interceptor,
     Frame.FRAME_INTERCEPTOR,
@@ -98,7 +98,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_LIGHT_HAULER]: new ShipConfiguration(
     Configuration.SHIP_LIGHT_HAULER,
-    "",
+    "Light Hauler",
     "",
     ShipRole.Hauler,
     Frame.FRAME_LIGHT_FREIGHTER,
@@ -116,7 +116,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_LIGHT_SHUTTLE]: new ShipConfiguration(
     Configuration.SHIP_LIGHT_SHUTTLE,
-    "",
+    "Shuttle",
     "",
     ShipRole.Transport,
     Frame.FRAME_SHUTTLE,
@@ -132,8 +132,8 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_MINING_DRONE]: new ShipConfiguration(
     Configuration.SHIP_MINING_DRONE,
-    "",
-    "",
+    "Mining Drone",
+    "A small, unmanned spacecraft that can be used for mining operations, such as extracting valuable minerals from asteroids.",
     ShipRole.Excavator,
     Frame.FRAME_DRONE,
     Reactor.REACTOR_CHEMICAL_I,
@@ -143,8 +143,8 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_ORE_HOUND]: new ShipConfiguration(
     Configuration.SHIP_ORE_HOUND,
-    "",
-    "",
+    "Ore Hound",
+    "The Ore Hound is a specialized mining ship designed for extracting valuable ores and minerals from asteroids and other celestial bodies. With its advanced mining lasers and reinforced hull, the Ore Hound is capable of excavating large amounts of ore and minerals from even the toughest asteroids. It is equipped with a range of modules and mounts for handling a variety of mining and defensive needs, and is an essential vessel for miners and traders looking to profit from the rich resources of the galaxy.",
     ShipRole.Excavator,
     Frame.FRAME_MINER,
     Reactor.REACTOR_FISSION_I,
@@ -159,7 +159,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_PROBE]: new ShipConfiguration(
     Configuration.SHIP_PROBE,
-    "",
+    "Probe",
     "",
     ShipRole.Satellite,
     Frame.FRAME_PROBE,
@@ -170,7 +170,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   ),
   [Configuration.SHIP_REFINING_FREIGHTER]: new ShipConfiguration(
     Configuration.SHIP_REFINING_FREIGHTER,
-    "",
+    "Refining Freighter",
     "",
     ShipRole.Refinery,
     Frame.FRAME_HEAVY_FREIGHTER,

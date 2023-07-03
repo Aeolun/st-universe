@@ -11,11 +11,14 @@ import {
   CreateSurvey201Response,
   DockShip200Response,
   ExtractResources201Response,
+  GetMounts200Response,
   GetMyShip200Response,
   GetMyShipCargo200Response,
   GetMyShips200Response,
   GetShipCooldown200Response,
   GetShipNav200Response,
+  InstallMount201Response,
+  InstallMountRequest,
   Jettison200Response,
   JettisonRequest,
   JumpShip200Response,
@@ -31,6 +34,8 @@ import {
   PurchaseShipRequest,
   RefuelShip200Response,
   RefuelShipRequest,
+  RemoveMount201Response,
+  RemoveMountRequest,
   SellCargo201Response,
   SellCargoRequest,
   ShipRefineRequest,
@@ -96,6 +101,9 @@ import { Ship } from "src/universe/entities/Ship";
 import { renderScannedShip } from "src/controllers/formatting/render-scanned-ship";
 import { generateContract } from "src/universe/generateContract";
 import { renderContract } from "src/controllers/formatting/render-contract";
+import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
+import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
+import { mountData } from "src/universe/static-data/ship-mounts";
 
 @Controller("/my/")
 @CustomAuth()
@@ -505,10 +513,13 @@ export class FleetController {
     const jumpMounts = ship.modules.filter((m) => {
       return m.capabilities.some((c) => c instanceof ProvidesJumpRange);
     });
-    const powerUsage = Math.min(
-      jumpMounts.reduce((acc, mount) => acc + mount.stats.powerRequired, 0),
-      10
+    let powerUsage = jumpMounts.reduce(
+      (acc, mount) => acc + mount.stats.powerRequired,
+      0
     );
+    if (!powerUsage) {
+      powerUsage = 20;
+    }
 
     if (jumpMounts.length === 0 && !waypoint.jumpGate) {
       throw new BadRequest(
@@ -1090,6 +1101,116 @@ export class FleetController {
     return {
       data: {
         contract: renderContract(contract),
+      },
+    };
+  }
+
+  @Get("/ships/:shipSymbol/mounts")
+  getMounts(
+    @AgentParam() agent: Agent,
+    @PathParams("shipSymbol") shipSymbol: string
+  ): GetMounts200Response {
+    const ship = getShip(agent, shipSymbol);
+
+    return {
+      data: ship.mounts.map((m) => {
+        return renderShipMount(m.symbol);
+      }),
+    };
+  }
+
+  @Post("/ships/:shipSymbol/mounts/install")
+  installMount(
+    @AgentParam() agent: Agent,
+    @PathParams("shipSymbol") shipSymbol: string,
+    @BodyParams() body: InstallMountRequest
+  ): InstallMount201Response {
+    const ship = getShip(agent, shipSymbol);
+
+    const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
+    if (!waypoint.traits.some((t) => t === "SHIPYARD")) {
+      throw new BadRequest(`You need to install mounts at a shipyard.`);
+    }
+
+    checkShipDocked(ship);
+
+    if (ship.cargo.get(body.symbol as unknown as TradeGood) === 0) {
+      throw new BadRequest(`You cannot install a mount you do not own.`);
+    }
+
+    ship.mounts.push(mountData[body.symbol]);
+    agent.credits -= 5000;
+    const trans: Transaction = {
+      waypointSymbol: waypoint.symbol,
+      tradeSymbol: "INSTALL_MOUNT",
+      timestamp: new Date(),
+      shipSymbol: ship.symbol,
+      agentSymbol: agent.symbol,
+      type: "PURCHASE",
+      totalPrice: 5000,
+      pricePerUnit: 5000,
+      units: 1,
+    };
+    waypoint.transactions.push(trans);
+
+    return {
+      data: {
+        agent: renderAgent(agent),
+        cargo: renderShipCargo(ship),
+        mounts: ship.mounts.map((m) => {
+          return renderShipMount(m.symbol);
+        }),
+        transaction: renderServiceTransaction(trans),
+      },
+    };
+  }
+
+  @Post("/ships/:shipSymbol/mounts/remove")
+  removeMount(
+    @AgentParam() agent: Agent,
+    @PathParams("shipSymbol") shipSymbol: string,
+    @BodyParams() body: RemoveMountRequest
+  ): RemoveMount201Response {
+    const ship = getShip(agent, shipSymbol);
+
+    const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
+    if (!waypoint.traits.some((t) => t === "SHIPYARD")) {
+      throw new BadRequest(`You can only remove mounts at a shipyard.`);
+    }
+
+    checkShipDocked(ship);
+
+    if (ship.cargo.total() >= ship.stats.cargoSpace) {
+      throw new BadRequest(`You cannot remove a mount if your cargo is full.`);
+    }
+
+    ship.mounts.splice(
+      ship.mounts.findIndex((m) => m.symbol === body.symbol),
+      1
+    );
+    ship.cargo.add(body.symbol as unknown as TradeGood, 1);
+    agent.credits -= 5000;
+    const trans: Transaction = {
+      waypointSymbol: waypoint.symbol,
+      tradeSymbol: "REMOVE_MOUNT",
+      timestamp: new Date(),
+      shipSymbol: ship.symbol,
+      agentSymbol: agent.symbol,
+      type: "PURCHASE",
+      totalPrice: 5000,
+      pricePerUnit: 5000,
+      units: 1,
+    };
+    waypoint.transactions.push(trans);
+
+    return {
+      data: {
+        agent: renderAgent(agent),
+        cargo: renderShipCargo(ship),
+        mounts: ship.mounts.map((m) => {
+          return renderShipMount(m.symbol);
+        }),
+        transaction: renderServiceTransaction(trans),
       },
     };
   }

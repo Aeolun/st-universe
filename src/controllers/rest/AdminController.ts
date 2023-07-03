@@ -1,5 +1,5 @@
 import { Controller } from "@tsed/di";
-import { Get, View } from "@tsed/schema";
+import { Get, Hidden, View } from "@tsed/schema";
 import { PathParams } from "@tsed/platform-params";
 import { universe } from "src/universe/universe";
 import { getSystem } from "src/controllers/helpers/get-system";
@@ -8,17 +8,20 @@ import { marketPrice } from "src/universe/formulas/trade";
 @Controller("/admin/")
 export class AdminController {
   @Get("/global-market")
+  @Hidden()
   globalMarket() {
     return universe.allGoods();
   }
 
   @Get("/ships")
+  @Hidden()
   ships() {
     return universe.ships;
   }
 
   @Get("/systems")
   @View("systems.ejs")
+  @Hidden()
   systems() {
     return {
       systems: Object.keys(universe.systems),
@@ -26,6 +29,7 @@ export class AdminController {
   }
 
   @Get("/system/:systemSymbol")
+  @Hidden()
   system(@PathParams("systemSymbol") systemSymbol: string) {
     const system = getSystem(universe, systemSymbol);
 
