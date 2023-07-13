@@ -52,10 +52,7 @@ import { universe } from "src/universe/universe";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { renderAgent } from "src/controllers/formatting/render-agent";
 import { marketPrice, shipPrice } from "src/universe/formulas/trade";
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
+import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
 import { Transaction } from "src/universe/entities/Transaction";
 import { renderShipTransaction } from "src/controllers/formatting/render-ship-transaction";
 import { getShip } from "src/controllers/helpers/get-ship";
@@ -72,8 +69,7 @@ import { renderWaypoint } from "src/controllers/formatting/render-waypoint";
 import { renderChart } from "src/controllers/formatting/render-chart";
 import { Refines } from "src/universe/entities/capabilities/Refines";
 import { resourceGroups } from "src/universe/static-data/resource-groups";
-import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
-import { ShipRefine200ResponseDataProducedInner } from "src/controllers/schemas/ship-refine200-response-data-produced-inner";
+import { TradeGood } from "src/universe/static-data/trade-goods";
 import { refine } from "src/controllers/helpers/refine";
 import { SurveysForResources } from "src/universe/entities/capabilities/SurveysForResources";
 import {
@@ -81,7 +77,6 @@ import {
   pickRandom,
   randomWeightedKey,
   trulyUniqId,
-  uniqueId,
 } from "src/universe/utilities";
 import { ExtractsResources } from "src/universe/entities/capabilities/ExtractsResources";
 import { ProvidesJumpRange } from "src/universe/entities/capabilities/ProvidesJumpRange";
