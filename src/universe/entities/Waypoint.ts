@@ -51,7 +51,7 @@ export class Waypoint {
 
   public jumpGate?: JumpGate;
 
-  public extractableResources: TradeGood[] = [];
+  public extractableResources: Partial<Record<TradeGood, number>> = {};
 
   public imports: TradeGood[] = [];
   public exports: TradeGood[] = [];
@@ -88,6 +88,8 @@ export class Waypoint {
   public chartWaypoint(chart: WaypointChart) {
     this.traits.splice(this.traits.indexOf("UNCHARTED"), 1);
     this.chart = chart;
+
+    return chart;
   }
 
   public tick() {

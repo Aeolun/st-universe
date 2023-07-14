@@ -1,4 +1,4 @@
-import {Agent} from "src/universe/entities/Agent";
+import { Agent } from "src/universe/entities/Agent";
 
 export function renderAgent(newAgent: Agent) {
   return {
@@ -6,6 +6,7 @@ export function renderAgent(newAgent: Agent) {
     accountId: newAgent.accountId,
     headquarters: newAgent.headquarters.waypointSymbol,
     credits: newAgent.credits,
+    ships: newAgent.ships.length,
     startingFaction: newAgent.faction,
-  }
+  };
 }

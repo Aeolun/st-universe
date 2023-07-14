@@ -10,8 +10,7 @@ import {
   Configuration,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
-import { ShipNavRouteWaypoint } from "src/controllers/schemas";
-import { Waypoint } from "src/universe/entities/Waypoint";
+import { Waypoint, WaypointChart } from "src/universe/entities/Waypoint";
 
 export class Agent {
   public symbol: string;
@@ -23,6 +22,7 @@ export class Agent {
   public shipCounter = 1;
   public ships: Ship[] = [];
   public contracts: Contract[] = [];
+  public charts: WaypointChart[] = [];
 
   constructor(data: {
     symbol: string;
@@ -41,7 +41,7 @@ export class Agent {
         reset_date: universe.createDate,
         sub: "agent-token",
       } satisfies AuthToken,
-      "epicmegasuper"
+      process.env.JWT_SECRET ?? "mysecret"
     );
     this.token = token;
     this.accountId = trulyUniqId();

@@ -43,13 +43,14 @@ export const generateSystem = (data: {
   );
 
   const waypoints: Waypoint[] = [];
-  const existingOrbits = [];
+  const existingOrbits: number[] = [];
   for (let i = 0; i < waypointCount; i++) {
     let potentialX = 0,
       potentialY = 0,
-      attempts = 0;
+      attempts = 0,
+      distance = 0;
     do {
-      const distance = SYSTEM_SIZE * (Math.random() * 0.8 + 0.2);
+      distance = SYSTEM_SIZE * (Math.random() * 0.8 + 0.2);
       const angle = Math.random() * Math.PI * 2;
       potentialX = Math.sin(angle) * distance;
       potentialY = Math.cos(angle) * distance;

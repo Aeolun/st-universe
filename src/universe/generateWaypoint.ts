@@ -117,7 +117,10 @@ export const generateWaypoint = (data: {
       }
 
       if (traitData.extractableResources) {
-        waypoint.extractableResources.push(...traitData.extractableResources);
+        traitData.extractableResources.forEach((ex) => {
+          waypoint.extractableResources[ex.tradegood] =
+            (waypoint.extractableResources[ex.tradegood] ?? 0) + ex.prevalence;
+        });
       }
     }
   }

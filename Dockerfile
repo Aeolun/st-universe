@@ -14,31 +14,36 @@
 ##                                                                           ##
 ###############################################################################
 ###############################################################################
-ARG NODE_VERSION=16.13.1
+ARG NODE_VERSION=18.16.1
 
 FROM node:${NODE_VERSION}-alpine as build
 WORKDIR /opt
 
-COPY package.json package-lock.json tsconfig.json tsconfig.compile.json .barrelsby.json ./
+RUN apk update && apk add build-base git curl
+RUN apk add --no-cache python3 g++ build-base cairo-dev jpeg-dev pango-dev musl-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev freetype-dev
+RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml tsconfig.json tsconfig.compile.json .barrelsby.json ./
 
 
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 COPY ./src ./src
 
 
-RUN npm run build
+RUN pnpm run build
 
 FROM node:${NODE_VERSION}-alpine as runtime
 ENV WORKDIR /opt
 WORKDIR $WORKDIR
 
+RUN npm install -g pnpm
 RUN apk update && apk add build-base git curl
+RUN apk add --no-cache python3 g++ build-base cairo-dev jpeg-dev pango-dev musl-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev freetype-dev
 RUN npm install -g pm2
 
 COPY --from=build /opt .
 
-RUN yarn install --pure-lockfile --production
+RUN pnpm install --frozen-lockfile --prod
 
 COPY processes.config.js .
 

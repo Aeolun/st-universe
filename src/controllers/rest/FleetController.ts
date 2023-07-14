@@ -260,11 +260,13 @@ export class FleetController {
     if (waypoint.chart)
       throw new BadRequest(`Chart already exists for ${waypoint.symbol}`);
 
-    waypoint.chartWaypoint({
+    const chart = waypoint.chartWaypoint({
       waypointSymbol: waypoint.symbol,
       submittedBy: shipSymbol,
       submittedOn: new Date(),
     });
+
+    agent.charts.push(chart);
 
     return {
       data: {

@@ -64,7 +64,10 @@ export interface TraitModifiers {
   exchangeGoodsCount?: number;
   illegalExchangeGoodsCount?: number;
   serviceCostMultiplier?: number;
-  extractableResources?: TradeGood[];
+  extractableResources?: {
+    tradegood: TradeGood;
+    prevalence: number;
+  }[];
   maintenanceCostMultiplier?: number;
   constructionCostMultiplier?: number;
   populationLevel?: number;
@@ -98,9 +101,18 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   COMMON_METAL_DEPOSITS: {
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      TradeGood.IRON_ORE,
-      TradeGood.ALUMINUM_ORE,
-      TradeGood.COPPER_ORE,
+      {
+        tradegood: TradeGood.IRON_ORE,
+        prevalence: 40,
+      },
+      {
+        tradegood: TradeGood.ALUMINUM_ORE,
+        prevalence: 40,
+      },
+      {
+        tradegood: TradeGood.COPPER_ORE,
+        prevalence: 30,
+      },
     ],
   },
   CORROSIVE_ATMOSPHERE: {
@@ -117,18 +129,18 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      TradeGood.BOTANICAL_SPECIMENS,
-      TradeGood.NOVEL_LIFEFORMS,
-      TradeGood.LIVESTOCK,
-      TradeGood.RESEARCH_DATA,
+      { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+      { tradegood: TradeGood.LIVESTOCK, prevalence: 40 },
+      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   DRY_SEABEDS: {
     validFor: ["PLANET"],
     extractableResources: [
-      TradeGood.QUARTZ_SAND,
-      TradeGood.POLYNUCLEOTIDES,
-      TradeGood.DIAMONDS,
+      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 30 },
+      { tradegood: TradeGood.POLYNUCLEOTIDES, prevalence: 20 },
+      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
     ],
   },
   EXPLORATION_OUTPOST: {
@@ -150,7 +162,9 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   EXPLOSIVE_GASES: {
     validFor: ["PLANET", "MOON"],
     maintenanceCostMultiplier: 2,
-    extractableResources: [TradeGood.HYDROCARBONS],
+    extractableResources: [
+      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+    ],
   },
   EXTREME_PRESSURE: {
     validFor: ["PLANET"],
@@ -172,10 +186,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   FROZEN: {
     validFor: ["PLANET"],
     extractableResources: [
-      TradeGood.HYDROCARBONS,
-      TradeGood.ICE_WATER,
-      TradeGood.AMMONIA_ICE,
-      TradeGood.RESEARCH_DATA,
+      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+      { tradegood: TradeGood.ICE_WATER, prevalence: 30 },
+      { tradegood: TradeGood.AMMONIA_ICE, prevalence: 40 },
+      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   HIGH_TECH: {
@@ -195,10 +209,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      TradeGood.BOTANICAL_SPECIMENS,
-      TradeGood.NOVEL_LIFEFORMS,
-      TradeGood.LIVESTOCK,
-      TradeGood.RESEARCH_DATA,
+      { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+      { tradegood: TradeGood.LIVESTOCK, prevalence: 20 },
+      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   LEGALIZED_SLAVERY: {
@@ -237,11 +251,11 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      TradeGood.IRON_ORE,
-      TradeGood.ALUMINUM_ORE,
-      TradeGood.COPPER_ORE,
-      TradeGood.QUARTZ_SAND,
-      TradeGood.SILICON_CRYSTALS,
+      { tradegood: TradeGood.IRON_ORE, prevalence: 20 },
+      { tradegood: TradeGood.ALUMINUM_ORE, prevalence: 20 },
+      { tradegood: TradeGood.COPPER_ORE, prevalence: 20 },
+      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 30 },
+      { tradegood: TradeGood.SILICON_CRYSTALS, prevalence: 30 },
     ],
   },
   NATURAL_SPICES: {
@@ -255,7 +269,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   OCEAN: {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
-    extractableResources: [TradeGood.FOOD],
+    extractableResources: [{ tradegood: TradeGood.FOOD, prevalence: 30 }],
     maintenanceCostMultiplier: 1.25,
   },
   OUTPOST: {
@@ -279,18 +293,18 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      TradeGood.GOLD_ORE,
-      TradeGood.SILVER_ORE,
-      TradeGood.PLATINUM_ORE,
+      { tradegood: TradeGood.GOLD_ORE, prevalence: 10 },
+      { tradegood: TradeGood.SILVER_ORE, prevalence: 20 },
+      { tradegood: TradeGood.PLATINUM_ORE, prevalence: 10 },
     ],
   },
   RARE_METAL_DEPOSITS: {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      TradeGood.DIAMONDS,
-      TradeGood.URANITE_ORE,
-      TradeGood.MERITIUM_ORE,
+      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
+      { tradegood: TradeGood.URANITE_ORE, prevalence: 20 },
+      { tradegood: TradeGood.MERITIUM_ORE, prevalence: 20 },
     ],
   },
   RESEARCH_FACILITY: {
@@ -312,10 +326,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET"],
     extractableResources: [
-      TradeGood.IRON_ORE,
-      TradeGood.ALUMINUM_ORE,
-      TradeGood.COPPER_ORE,
-      TradeGood.QUARTZ_SAND,
+      { tradegood: TradeGood.IRON_ORE, prevalence: 30 },
+      { tradegood: TradeGood.ALUMINUM_ORE, prevalence: 10 },
+      { tradegood: TradeGood.COPPER_ORE, prevalence: 10 },
+      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 40 },
     ],
   },
   SCATTERED_SETTLEMENTS: {
@@ -371,7 +385,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   SWAMP: {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
-    extractableResources: [TradeGood.HYDROCARBONS, TradeGood.NOVEL_LIFEFORMS],
+    extractableResources: [
+      { tradegood: TradeGood.HYDROCARBONS, prevalence: 20 },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+    ],
     maintenanceCostMultiplier: 1.5,
   },
   TEMPERATE: {
@@ -412,10 +429,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     maintenanceCostMultiplier: 1.5,
     constructionCostMultiplier: 1.5,
     extractableResources: [
-      TradeGood.HYDROCARBONS,
-      TradeGood.DIAMONDS,
-      TradeGood.URANITE_ORE,
-      TradeGood.MERITIUM_ORE,
+      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
+      { tradegood: TradeGood.URANITE_ORE, prevalence: 10 },
+      { tradegood: TradeGood.MERITIUM_ORE, prevalence: 10 },
     ],
   },
   WEAK_GRAVITY: {

@@ -20,7 +20,6 @@ import * as rest from "./controllers/rest/index";
     {
       path: "/v2/docs",
       specVersion: "3.0.1",
-      viewPath: join(__dirname, "..", "views", "swagger.ejs"),
     },
   ],
   middlewares: ["@koa/cors", "koa-compress", "koa-override", "koa-bodyparser"],
