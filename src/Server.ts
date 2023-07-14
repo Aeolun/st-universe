@@ -6,6 +6,7 @@ import "@tsed/ajv";
 import "@tsed/swagger";
 import { config } from "./config/index";
 import * as rest from "./controllers/rest/index";
+import { HttpExceptionFilter } from "src/guards/http-exception-filter";
 
 @Configuration({
   ...config,
@@ -22,7 +23,13 @@ import * as rest from "./controllers/rest/index";
       specVersion: "3.0.1",
     },
   ],
-  middlewares: ["@koa/cors", "koa-compress", "koa-override", "koa-bodyparser"],
+  middlewares: [
+    "@koa/cors",
+    "koa-compress",
+    "koa-override",
+    "koa-bodyparser",
+    new HttpExceptionFilter(),
+  ],
   views: {
     root: join(process.cwd(), "../views"),
     extensions: {

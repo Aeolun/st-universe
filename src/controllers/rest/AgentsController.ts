@@ -9,6 +9,7 @@ import { STError } from "src/error/STError";
 import { GetAgents200Response } from "src/controllers/schemas/get-agents200-response";
 import { slicePage } from "src/controllers/formatting/slice-page";
 import { renderAgent } from "src/controllers/formatting/render-agent";
+import { agentNotExistsError } from "src/universe/static-data/error-codes";
 
 @Controller("/")
 export class AgentsController {

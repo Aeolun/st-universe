@@ -332,7 +332,9 @@ export class FleetController {
 
       mount.stats.resourcesSurveyed.forEach((resource) => {
         resourceGroups[resource].forEach((good) => {
-          if (waypoint.extractableResources.includes(good)) {
+          if (
+            Object.keys(waypoint.extractableResources).find((ex) => ex === good)
+          ) {
             possibleResources.push(good);
           }
         });
@@ -427,7 +429,9 @@ export class FleetController {
       const possibleResources: TradeGood[] = [];
       mount.stats.resourcesExtracted.forEach((resource) => {
         resourceGroups[resource].forEach((good) => {
-          if (waypoint.extractableResources.includes(good)) {
+          if (
+            Object.keys(waypoint.extractableResources).find((ex) => ex === good)
+          ) {
             possibleResources.push(good);
           }
         });

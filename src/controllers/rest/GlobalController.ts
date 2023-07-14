@@ -22,6 +22,7 @@ import { STError } from "src/error/STError";
 import next from "ajv/dist/vocabularies/next";
 import { nextReset, resetDuration } from "src/index";
 import humanizeDuration from "humanize-duration";
+import {registerAgentExistsError} from "src/universe/static-data/error-codes";
 
 @Controller("/")
 export class GlobalController {

@@ -6,6 +6,7 @@ import { CustomAuthOptions } from "src/guards/custom-authenticator";
 import jwtDecode from "jwt-decode";
 import { verify } from "jsonwebtoken";
 import { STError } from "src/error/STError";
+import { missingTokenRequestError } from "src/universe/static-data/error-codes";
 
 const secret = process.env.JWT_SECRET;
 if (!secret) {
@@ -28,6 +29,10 @@ export class CustomAuthMiddleware implements MiddlewareMethods {
     }
 
     if (request.headers.authorization && !ctx.has("auth")) {
+      if (!secret) {
+        throw new STError(500, 500, "No JWT_SECRET specified in environment");
+      }
+
       try {
         const jwt = verify(request.headers.authorization.split(" ")[1], secret);
       } catch (err) {

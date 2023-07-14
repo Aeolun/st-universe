@@ -6,6 +6,7 @@ import { JsonParameterStore, PipeMethods } from "@tsed/schema";
 import { Injectable } from "@tsed/di";
 import { useDecorators } from "@tsed/core";
 import { STError } from "src/error/STError";
+import {agentNotExistsError} from "src/universe/static-data/error-codes";
 
 @Injectable()
 export class AgentPipe implements PipeMethods {
