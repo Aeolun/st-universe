@@ -14,7 +14,7 @@ export const engineData: Record<Engine, ShipEngine> = {
     Engine.ENGINE_IMPULSE_DRIVE_I,
     "Impulse Drive I",
     "A basic low-energy propulsion system that generates thrust for interplanetary travel.",
-    [new RequiresCrew(1), new RequiresPower(1), new ProvidesThrust(4)]
+    [new RequiresCrew(1), new RequiresPower(1), new ProvidesThrust(2)]
   ),
   [Engine.ENGINE_ION_DRIVE_I]: new ShipEngine(
     Engine.ENGINE_ION_DRIVE_I,

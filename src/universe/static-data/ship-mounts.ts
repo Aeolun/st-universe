@@ -29,7 +29,7 @@ export const mountData: Record<Mount, ShipMount> = {
   [Mount.MOUNT_GAS_SIPHON_I]: new ShipMount(
     Mount.MOUNT_GAS_SIPHON_I,
     "Gas Siphon I",
-    "",
+    "A basic gas siphon that can extract gas from gas giants and other gas-rich bodies.",
     [
       new ExtractsResources([ResourceGroup.GASES], 10),
       new RequiresCrew(0),
@@ -118,7 +118,7 @@ export const mountData: Record<Mount, ShipMount> = {
   [Mount.MOUNT_SENSOR_ARRAY_I]: new ShipMount(
     Mount.MOUNT_SENSOR_ARRAY_I,
     "Sensor Array I",
-    "",
+    "A basic sensor array that improves a ship's ability to detect and track other objects in space.",
     [
       new ProvidesScanPower(1),
       new RequiresCrew(0),
@@ -129,9 +129,9 @@ export const mountData: Record<Mount, ShipMount> = {
   [Mount.MOUNT_SENSOR_ARRAY_II]: new ShipMount(
     Mount.MOUNT_SENSOR_ARRAY_II,
     "Sensor Array II",
-    "",
+    "An advanced sensor array that improves a ship's ability to detect and track other objects in space with greater accuracy and range.",
     [
-      new ProvidesScanPower(2),
+      new ProvidesScanPower(4),
       new RequiresCrew(2),
       new RequiresPower(2),
       new RequiresMountingPoings(1),
@@ -151,7 +151,7 @@ export const mountData: Record<Mount, ShipMount> = {
   [Mount.MOUNT_MINING_LASER_I]: new ShipMount(
     Mount.MOUNT_MINING_LASER_I,
     "Mining Laser I",
-    "",
+    "A basic mining laser that can be used to extract valuable minerals from asteroids and other space objects.",
     [
       new ExtractsResources(
         [ResourceGroup.MINERALS, ResourceGroup.METAL_ORE],
@@ -200,19 +200,20 @@ export const mountData: Record<Mount, ShipMount> = {
   ),
   [Mount.MOUNT_LASER_CANNON_I]: new ShipMount(
     Mount.MOUNT_LASER_CANNON_I,
-    "Laser Cannon I",
-    "",
+    "Laser Cannon",
+    "A basic laser weapon that fires concentrated beams of energy at high speed and accuracy.",
     [new RequiresCrew(1), new RequiresPower(2), new RequiresMountingPoings(1)]
   ),
   [Mount.MOUNT_MISSILE_LAUNCHER_I]: new ShipMount(
     Mount.MOUNT_MISSILE_LAUNCHER_I,
-    "Missile Launcher I",
-    "",
+    "Missile Launcher",
+    "A basic missile launcher that fires guided missiles with a variety of warheads for different targets.",
     [new RequiresCrew(2), new RequiresPower(1), new RequiresMountingPoings(1)]
   ),
-  [Mount.MOUNT_TURRET_I]: new ShipMount(Mount.MOUNT_TURRET_I, "Turret I", "", [
-    new RequiresCrew(1),
-    new RequiresPower(1),
-    new RequiresMountingPoings(1),
-  ]),
+  [Mount.MOUNT_TURRET_I]: new ShipMount(
+    Mount.MOUNT_TURRET_I,
+    "Rotary Cannon",
+    "A rotary cannon is a type of mounted turret that is designed to fire a high volume of rounds in rapid succession.",
+    [new RequiresCrew(1), new RequiresPower(1), new RequiresMountingPoings(1)]
+  ),
 };

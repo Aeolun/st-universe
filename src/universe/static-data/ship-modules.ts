@@ -31,8 +31,8 @@ export enum Module {
 export const moduleData: Record<Module, ShipModule> = {
   [Module.MODULE_CARGO_HOLD_I]: new ShipModule(
     Module.MODULE_CARGO_HOLD_I,
-    "",
-    "",
+    "Cargo Hold",
+    "A module that increases a ship's cargo capacity.",
     [
       new ProvidesCargoSpace(30),
       new RequiresPower(1),
@@ -41,8 +41,8 @@ export const moduleData: Record<Module, ShipModule> = {
   ),
   [Module.MODULE_CREW_QUARTERS_I]: new ShipModule(
     Module.MODULE_CREW_QUARTERS_I,
-    "",
-    "",
+    "Crew Quarters",
+    "A module that provides living space and amenities for the crew.",
     [
       new ProvidesCrewCapacity(40),
       new RequiresCrew(2),
@@ -52,23 +52,23 @@ export const moduleData: Record<Module, ShipModule> = {
   ),
   [Module.MODULE_WARP_DRIVE_I]: new ShipModule(
     Module.MODULE_WARP_DRIVE_I,
-    "",
-    "",
+    "Warp Drive I",
+    "A basic warp drive that allows for short-range interstellar travel.",
     [
       new ProvidesWarpRange(2000),
-      new RequiresCrew(3),
-      new RequiresPower(2),
+      new RequiresCrew(2),
+      new RequiresPower(3),
       new RequiresModuleCapacity(1),
     ]
   ),
   [Module.MODULE_WARP_DRIVE_II]: new ShipModule(
     Module.MODULE_WARP_DRIVE_II,
-    "",
-    "",
+    "Warp Drive II",
+    "An advanced warp drive that allows for longer-range interstellar travel with improved reliability.",
     [
-      new ProvidesWarpRange(4000),
-      new RequiresCrew(6),
-      new RequiresPower(4),
+      new ProvidesWarpRange(6000),
+      new RequiresCrew(8),
+      new RequiresPower(5),
       new RequiresModuleCapacity(1),
     ]
   ),
