@@ -13,24 +13,27 @@ import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { generateWaypoint } from "src/universe/generateWaypoint";
 
-const MAX_SYSTEMS = 12000;
+const MAX_SYSTEMS = process.env.MAX_SYSTEMS
+  ? parseInt(process.env.MAX_SYSTEMS)
+  : 12000;
+const SIZE_MULTIPLIER = MAX_SYSTEMS / 12000;
 const MAX_FACTIONS = 12;
-const MAX_SYSTEM_DISTANCE = 40000;
+const MAX_SYSTEM_DISTANCE = 40000 * SIZE_MULTIPLIER;
 const MAX_MAP_SIZE = MAX_SYSTEM_DISTANCE + 10000;
 const STELLAR_ARMS = 5;
 const STEPS_PER_ARM = 16;
-const STEP_SIZE_DECREASE = 120;
-const SPREAD_SIZE_DECREASE = 300;
-const STEP_SYSTEM_DECREASE = 3;
-const SPREAD_MULTIPLIER = 3.7;
-const STEP_MULTIPLIER = 1.75;
+const STEP_SIZE_DECREASE = 120 * SIZE_MULTIPLIER;
+const SPREAD_SIZE_DECREASE = 300 * SIZE_MULTIPLIER;
+const STEP_SYSTEM_DECREASE = 3 * SIZE_MULTIPLIER;
+const SPREAD_MULTIPLIER = 3.7 * SIZE_MULTIPLIER;
+const STEP_MULTIPLIER = 1.75 * SIZE_MULTIPLIER;
 const UNIVERSE_ROTATION_SPEED = Math.PI / 15;
 const CANVAS_SIZE = 2500;
 const MINIMUM_DISTANCE_APART = 250;
 const MAXIMUM_DISTANCE_APART = 1500;
-const DISTANCE_BETWEEN_FACTIONS = 8000;
-const FACTION_INNER_INFLUENCE_RADIUS = 4000;
-const FACTION_OUTER_INFLUENCE_RADIUS = 8000;
+const DISTANCE_BETWEEN_FACTIONS = 8000 * SIZE_MULTIPLIER;
+const FACTION_INNER_INFLUENCE_RADIUS = 4000 * SIZE_MULTIPLIER;
+const FACTION_OUTER_INFLUENCE_RADIUS = 8000 * SIZE_MULTIPLIER;
 const FACTION_MIN_SYSTEMS = 20;
 const UNIVERSE_SYMBOL = "X1";
 const JUMP_GATE_CHANCE = 15;
@@ -161,6 +164,7 @@ export async function generateUniverse() {
           systemsInInfluence++;
         }
       }
+      attempts++;
     } while (
       (generatedFactions.some(
         (faction) =>

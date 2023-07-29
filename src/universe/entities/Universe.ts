@@ -2,7 +2,7 @@ import { System } from "src/universe/entities/System";
 import { Agent } from "src/universe/entities/Agent";
 import { Ship } from "src/universe/entities/Ship";
 import { SupplyDemand, Waypoint } from "src/universe/entities/Waypoint";
-import { TradeGood } from "src/universe/static-data/trade-goods";
+import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { Faction } from "src/universe/entities/Faction";
 
 export class Universe {
@@ -64,6 +64,7 @@ export class Universe {
           supplyOnExchange: number;
           desiredSupply: number;
           maxSupply: number;
+          marketPrice: number | undefined;
         }
       >
     > = {};
@@ -84,6 +85,7 @@ export class Universe {
               productionLineConsumptionRate: 0,
               desiredSupply: 0,
               maxSupply: 0,
+              marketPrice: tradeGoods[sd.tradeGood].basePrice,
             };
           }
           const good = goods[sd.tradeGood];
