@@ -690,7 +690,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_PROBE: {
     symbol: TradeGood.FRAME_PROBE,
     components: {
-      SHIP_PLATING: 3,
+      SHIP_PLATING: 200,
     },
 
     baseTradeVolume: 1,
@@ -698,7 +698,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_DRONE: {
     symbol: TradeGood.FRAME_DRONE,
     components: {
-      SHIP_PLATING: 5,
+      SHIP_PLATING: 200,
     },
 
     baseTradeVolume: 1,
@@ -706,7 +706,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_INTERCEPTOR: {
     symbol: TradeGood.FRAME_INTERCEPTOR,
     components: {
-      SHIP_PLATING: 7,
+      SHIP_PLATING: 500,
     },
 
     baseTradeVolume: 1,
@@ -714,7 +714,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_RACER: {
     symbol: TradeGood.FRAME_RACER,
     components: {
-      SHIP_PLATING: 5,
+      SHIP_PLATING: 400,
     },
 
     baseTradeVolume: 1,
@@ -722,7 +722,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_FIGHTER: {
     symbol: TradeGood.FRAME_FIGHTER,
     components: {
-      SHIP_PLATING: 3,
+      SHIP_PLATING: 300,
     },
 
     baseTradeVolume: 1,
@@ -730,7 +730,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_FRIGATE: {
     symbol: TradeGood.FRAME_FRIGATE,
     components: {
-      SHIP_PLATING: 10,
+      SHIP_PLATING: 1500,
     },
 
     baseTradeVolume: 1,
@@ -738,7 +738,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_SHUTTLE: {
     symbol: TradeGood.FRAME_SHUTTLE,
     components: {
-      SHIP_PLATING: 7,
+      SHIP_PLATING: 300,
     },
 
     baseTradeVolume: 1,
@@ -746,15 +746,14 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_EXPLORER: {
     symbol: TradeGood.FRAME_EXPLORER,
     components: {
-      SHIP_PLATING: 10,
+      SHIP_PLATING: 1600,
     },
-
     baseTradeVolume: 1,
   },
   FRAME_MINER: {
     symbol: TradeGood.FRAME_MINER,
     components: {
-      SHIP_PLATING: 7,
+      SHIP_PLATING: 500,
     },
 
     baseTradeVolume: 1,
@@ -762,7 +761,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_LIGHT_FREIGHTER: {
     symbol: TradeGood.FRAME_LIGHT_FREIGHTER,
     components: {
-      SHIP_PLATING: 7,
+      SHIP_PLATING: 1200,
     },
 
     baseTradeVolume: 1,
@@ -770,7 +769,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FRAME_HEAVY_FREIGHTER: {
     symbol: TradeGood.FRAME_HEAVY_FREIGHTER,
     components: {
-      SHIP_PLATING: 30,
+      SHIP_PLATING: 6500,
     },
 
     baseTradeVolume: 1,

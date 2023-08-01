@@ -53,9 +53,7 @@ export class System {
       y: Math.round(Math.cos(angle) * radius),
       systemSymbol: this.symbol,
       type: "JUMP_GATE",
-    });
-    jumpGate.jumpGate = new JumpGate({
-      range: range,
+      jumpGateRange: range,
     });
     this.addWaypoint(jumpGate);
 

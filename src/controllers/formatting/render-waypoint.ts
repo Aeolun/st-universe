@@ -7,6 +7,7 @@ import {
   WaypointType,
 } from "src/controllers/schemas";
 import { Waypoint as WaypointEntity } from "src/universe/entities/Waypoint";
+import { waypointTraits } from "src/universe/static-data/waypoint-traits";
 
 export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
   return {
@@ -27,7 +28,10 @@ export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
     }),
     traits: (waypoint.traits.includes("UNCHARTED")
       ? ["UNCHARTED"]
-      : waypoint.traits
+      : waypoint.traits.filter((trait) => {
+          const traitData = waypointTraits[trait];
+          return !traitData.hidden;
+        })
     ).map((trait) => {
       return {
         symbol: trait as WaypointTraitSymbolEnum,

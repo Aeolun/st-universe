@@ -137,6 +137,8 @@ export class FleetController {
     if (agent.credits < price)
       throw new Error(`Insufficient funds. Ship costs ${price} credits.`);
 
+    // TODO: Need to take components out of waypoint inventory
+
     agent.credits -= price;
     const transaction: Transaction = {
       agentSymbol: agent.symbol,

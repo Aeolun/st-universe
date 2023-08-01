@@ -12,6 +12,7 @@ import { Faction as FactionEnum } from "src/universe/static-data/faction";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { generateWaypoint } from "src/universe/generateWaypoint";
+import { generateHomeSystem } from "src/universe/preset/generate-home-system";
 
 const MAX_SYSTEMS = process.env.MAX_SYSTEMS
   ? parseInt(process.env.MAX_SYSTEMS)
@@ -176,6 +177,17 @@ export async function generateUniverse() {
     );
 
     populationCenters.splice(populationCenters.indexOf(factionSystem), 1);
+    // remove the original faction system from the universe
+    universe.removeSystem(factionSystem);
+
+    // replace original faction system with a new one
+    factionSystem = generateHomeSystem({
+      x: factionSystem.x,
+      y: factionSystem.y,
+      universeSymbol: UNIVERSE_SYMBOL,
+    });
+    universe.addSystem(factionSystem);
+
     let maxPopulationWaypoint;
     for (const waypoint of factionSystem.waypoints) {
       if (
@@ -189,34 +201,6 @@ export async function generateUniverse() {
 
     if (!maxPopulationWaypoint)
       throw new Error("No max population waypoint found");
-
-    const hasJumpgate = factionSystem.waypoints.some(
-      (waypoint) => waypoint.type === "JUMP_GATE"
-    );
-    if (!hasJumpgate) {
-      const jumpGateWp = factionSystem.addJumpGate(100, 5000);
-      jumpGateWp.ownedBy = faction as FactionEnum;
-      universe.waypoints[jumpGateWp.symbol] = jumpGateWp;
-      universe.waypointCount++;
-    }
-    const hasShipyard = factionSystem.waypoints.some((waypoint) =>
-      waypoint.traits.some((trait) => trait === "SHIPYARD")
-    );
-    if (!hasShipyard) {
-      const shipyard = generateWaypoint({
-        x: maxPopulationWaypoint.x,
-        y: maxPopulationWaypoint.y,
-        systemSymbol: factionSystem.symbol,
-        type: "ORBITAL_STATION",
-        inOrbitOf: maxPopulationWaypoint.symbol,
-        traits: ["SHIPYARD"],
-      });
-      factionSystem.addWaypoint(shipyard);
-      maxPopulationWaypoint.orbitals.push(shipyard);
-      shipyard.ownedBy = faction as FactionEnum;
-      universe.waypoints[shipyard.symbol] = shipyard;
-      universe.waypointCount++;
-    }
 
     generatedFactions.push({
       symbol: faction as FactionEnum,

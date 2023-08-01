@@ -24,23 +24,32 @@ import {
   tradeGoods,
   tradeGoodTypeNames,
 } from "src/universe/static-data/trade-goods";
-import { industries, industryNames } from "src/universe/static-data/industries";
+import {
+  industries,
+  Industry,
+  industryNames,
+} from "src/universe/static-data/industries";
 import {
   Configuration,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
-import { checkNullable } from "ajv/dist/vocabularies/jtd/nullable";
+import { JumpGate } from "src/universe/entities/JumpGate";
 
 const availableTraits: Record<string, WaypointTrait[]> = {};
 
-export const generateWaypoint = (data: {
+export interface WaypointGenerationProperties {
   x: number;
   y: number;
   inOrbitOf?: string;
   type?: WaypointType;
   traits?: WaypointTrait[];
+  industries?: Industry[];
+  tradeGoods?: { symbol: TradeGood; type: "import" | "export" | "exchange" }[];
+  shipHullsAvailable?: Configuration[];
+  jumpGateRange?: number;
   systemSymbol: string;
-}) => {
+}
+export const generateWaypoint = (data: WaypointGenerationProperties) => {
   const { systemSymbol, traits, ...rest } = data;
 
   const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
@@ -57,25 +66,6 @@ export const generateWaypoint = (data: {
   waypoint.traits.push("UNCHARTED");
 
   const waypointTypeData = waypointTypes[waypointType];
-
-  const orbitalOptions = waypointTypeData.orbitalOptions;
-  if (orbitalOptions) {
-    orbitalOptions.forEach((o) => {
-      const count = randomWeightedKey(o.orbitalCount);
-      if (count) {
-        for (let i = 0; i < count; i++) {
-          const newOrbital = generateWaypoint({
-            x: data.x,
-            y: data.y,
-            inOrbitOf: waypointSymbol,
-            systemSymbol,
-            type: o.type,
-          });
-          waypoint.orbitals.push(newOrbital);
-        }
-      }
-    });
-  }
 
   let availableTraitsForType = availableTraits[waypointType];
   if (!availableTraitsForType) {
@@ -111,18 +101,26 @@ export const generateWaypoint = (data: {
       }
 
       waypoint.traits.push(newTrait);
-
-      if (traitData.populationLevel) {
-        waypoint.population += traitData.populationLevel;
-      }
-
-      if (traitData.extractableResources) {
-        traitData.extractableResources.forEach((ex) => {
-          waypoint.extractableResources[ex.tradegood] =
-            (waypoint.extractableResources[ex.tradegood] ?? 0) + ex.prevalence;
-        });
-      }
     }
+  }
+  waypoint.traits.forEach((trait) => {
+    const traitData = waypointTraits[trait];
+    if (traitData.populationLevel) {
+      waypoint.population += traitData.populationLevel;
+    }
+
+    if (traitData.extractableResources) {
+      traitData.extractableResources.forEach((ex) => {
+        waypoint.extractableResources[ex.tradegood] =
+          (waypoint.extractableResources[ex.tradegood] ?? 0) + ex.prevalence;
+      });
+    }
+  });
+
+  if (waypoint.population === 1) {
+    waypoint.traits.push("SPARSELY_POPULATED");
+  } else if (waypoint.population > 1) {
+    waypoint.traits.push("POPULATED");
   }
 
   const good: Partial<Record<TradeGood, boolean>> = {};
@@ -254,6 +252,63 @@ export const generateWaypoint = (data: {
         }
       });
     }
+
+    const newHulls: Configuration[] = [];
+    if (traitData.shipHullCount) {
+      for (let i = 0; i < traitData.shipHullCount; i++) {
+        const newHull = pickRandom(Object.values(Configuration));
+        if (!newHulls.includes(newHull)) {
+          newHulls.push(newHull);
+        }
+      }
+    }
+    if (traitData.shipHullsAvailable) {
+      traitData.shipHullsAvailable.forEach((hull) => {
+        if (!newHulls.includes(hull)) {
+          newHulls.push(hull);
+        }
+      });
+    }
+    newHulls.forEach((configuration) => {
+      // add all the components to imports
+      const configurationData = shipConfigurationData[configuration];
+      const frameTradeGood =
+        tradeGoods[configurationData.frame as unknown as TradeGood];
+
+      addRates(configurationData.engine as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      if ("components" in frameTradeGood) {
+        Object.keys(frameTradeGood.components).forEach((component) => {
+          addRates(component as unknown as TradeGood, {
+            extraStorage: frameTradeGood.components[component as TradeGood],
+            consumedByConstruction: true,
+          });
+        });
+      }
+      addRates(configurationData.reactor as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      configurationData.modules.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+      configurationData.mounts.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+    });
+    newHulls.forEach((newHull) => {
+      if (!waypoint.availableShipConfigurations.includes(newHull)) {
+        waypoint.availableShipConfigurations.push(newHull);
+      }
+    });
   };
 
   // once we've determined other factors, we can determine production
@@ -262,7 +317,8 @@ export const generateWaypoint = (data: {
 
     addTraits(traitData);
 
-    if (traitData.industries) {
+    // generate random industries based on traits if none are specified
+    if (traitData.industries && !data.industries) {
       for (let i = 0; i < traitData.industries; i++) {
         const newIndustry = pickRandom(industryNames);
         if (!waypoint.industries.includes(newIndustry)) {
@@ -273,46 +329,19 @@ export const generateWaypoint = (data: {
         }
       }
     }
-
-    if (traitData.shipHullCount) {
-      for (let i = 0; i < traitData.shipHullCount; i++) {
-        const newHull = pickRandom(Object.values(Configuration));
-        if (!waypoint.availableShipConfigurations.includes(newHull)) {
-          waypoint.availableShipConfigurations.push(newHull);
-        }
-      }
-
-      waypoint.availableShipConfigurations.forEach((configuration) => {
-        // add all the components to imports
-        const configurationData = shipConfigurationData[configuration];
-
-        addRates(configurationData.engine as unknown as TradeGood, {
-          extraStorage: 1,
-          consumedByConstruction: true,
-        });
-        addRates(configurationData.frame as unknown as TradeGood, {
-          extraStorage: 1,
-          consumedByConstruction: true,
-        });
-        addRates(configurationData.reactor as unknown as TradeGood, {
-          extraStorage: 1,
-          consumedByConstruction: true,
-        });
-        configurationData.modules.forEach((m) => {
-          addRates(m as unknown as TradeGood, {
-            extraStorage: 1,
-            consumedByConstruction: true,
-          });
-        });
-        configurationData.mounts.forEach((m) => {
-          addRates(m as unknown as TradeGood, {
-            extraStorage: 1,
-            consumedByConstruction: true,
-          });
-        });
-      });
-    }
   });
+
+  // if specific industries have been passed to the function, add them
+  if (data.industries) {
+    data.industries.forEach((industry) => {
+      const industryData = industries[industry];
+      addTraits(industryData);
+    });
+  }
+
+  if (waypoint.availableShipConfigurations.length > 0) {
+    waypoint.traits.push("SHIPYARD");
+  }
 
   Object.keys(good).forEach((tg: TradeGood) => {
     try {
@@ -418,6 +447,12 @@ export const generateWaypoint = (data: {
     waypoint.exchange.length > 0
   ) {
     waypoint.traits.push("MARKETPLACE");
+  }
+
+  if (data.jumpGateRange) {
+    waypoint.jumpGate = new JumpGate({
+      range: data.jumpGateRange,
+    });
   }
 
   return waypoint;

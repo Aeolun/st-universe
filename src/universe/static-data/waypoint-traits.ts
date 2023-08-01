@@ -1,5 +1,6 @@
 import { TradeGood } from "./trade-goods";
 import { WaypointType } from "src/universe/static-data/waypoint-types";
+import { Configuration } from "src/universe/static-data/ship-configurations";
 
 export type WaypointTrait =
   | "BARREN"
@@ -20,6 +21,8 @@ export type WaypointTrait =
   | "JUNGLE"
   | "LEGALIZED_SLAVERY"
   | "MARKETPLACE"
+  | "SPARSELY_POPULATED"
+  | "POPULATED"
   | "MEGA_STRUCTURES"
   | "MILITARY_BASE"
   | "MINERAL_DEPOSITS"
@@ -33,6 +36,7 @@ export type WaypointTrait =
   | "ROCKY"
   | "SCATTERED_SETTLEMENTS"
   | "SHIPYARD"
+  | "HOME_SYSTEM_SHIPYARD"
   | "SPRAWLING_CITIES"
   | "STRIPPED"
   | "STRONG_GRAVITY"
@@ -73,11 +77,13 @@ export interface TraitModifiers {
   populationLevel?: number;
   industries?: number;
   shipHullCount?: number;
+  shipHullsAvailable?: Configuration[];
 }
 
 export type TraitData = TraitModifiers & {
   validFor: WaypointType[];
   category?: TraitCategory;
+  hidden?: boolean;
   requiresCategory?: TraitCategory[];
 };
 export const waypointTraits: Record<WaypointTrait, TraitData> = {
@@ -245,7 +251,6 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       FIREARMS: 1,
     },
     exchange: [TradeGood.FUEL],
-    populationLevel: 1,
   },
   MINERAL_DEPOSITS: {
     category: "DEPOSIT",
@@ -256,6 +261,42 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       { tradegood: TradeGood.COPPER_ORE, prevalence: 20 },
       { tradegood: TradeGood.QUARTZ_SAND, prevalence: 30 },
       { tradegood: TradeGood.SILICON_CRYSTALS, prevalence: 30 },
+    ],
+  },
+  POPULATED: {
+    hidden: true,
+    validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
+    requiresCategory: ["HABITATION"],
+    imports: {
+      CLOTHING: 1,
+      DRUGS: 1,
+      ELECTRONICS: 1,
+      EQUIPMENT: 1,
+      FABRICS: 1,
+      FOOD: 1,
+      FUEL: 1,
+      ICE_WATER: 1,
+      MACHINERY: 1,
+      MEDICAL_SUPPLIES: 1,
+      PLASTICS: 1,
+    },
+  },
+  SPARSELY_POPULATED: {
+    hidden: true,
+    validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
+    requiresCategory: ["HABITATION"],
+    exchange: [
+      TradeGood.CLOTHING,
+      TradeGood.DRUGS,
+      TradeGood.ELECTRONICS,
+      TradeGood.EQUIPMENT,
+      TradeGood.FABRICS,
+      TradeGood.FOOD,
+      TradeGood.FUEL,
+      TradeGood.ICE_WATER,
+      TradeGood.MACHINERY,
+      TradeGood.MEDICAL_SUPPLIES,
+      TradeGood.PLASTICS,
     ],
   },
   NATURAL_SPICES: {
@@ -337,11 +378,19 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "HABITATION",
     exchange: [TradeGood.FUEL],
     populationLevel: 1,
-    industries: 1,
+  },
+  HOME_SYSTEM_SHIPYARD: {
+    validFor: ["ORBITAL_STATION"],
+    shipHullsAvailable: [
+      Configuration.SHIP_LIGHT_HAULER,
+      Configuration.SHIP_MINING_DRONE,
+      Configuration.SHIP_ORE_HOUND,
+      Configuration.SHIP_PROBE,
+      Configuration.SHIP_REFINING_FREIGHTER,
+    ],
   },
   SHIPYARD: {
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
-    shipHullCount: 3,
   },
   SPRAWLING_CITIES: {
     validFor: ["PLANET", "MOON"],

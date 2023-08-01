@@ -47,6 +47,17 @@ export class Universe {
     this.systemsArray.push(system);
   }
 
+  public removeSystem(system: System) {
+    delete this.systems[system.symbol];
+    this.systemsArray = this.systemsArray.filter(
+      (s) => s.symbol !== system.symbol
+    );
+    system.waypoints.forEach((w) => {
+      delete this.waypoints[w.symbol];
+    });
+    this.waypointCount -= system.waypoints.length;
+  }
+
   public allGoods() {
     const goods: Partial<
       Record<

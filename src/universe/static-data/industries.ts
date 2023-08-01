@@ -1,5 +1,6 @@
 import { TradeGood } from "./trade-goods";
 import { TraitModifiers } from "src/universe/static-data/waypoint-traits";
+import { Configuration } from "src/universe/static-data/ship-configurations";
 
 export type Industry =
   | "AMMUNITION_FACTORY"
@@ -17,8 +18,13 @@ export type Industry =
   | "LIGHT_MANUFACTURING"
   | "LUXURY_GOODS"
   | "MINING"
+  | "EXPLOSIVES"
+  | "FERTILIZERS"
+  | "MINING_EXCHANGE"
   // | "NEURALWARE"
   | "NANOWARE"
+  | "BOTANICALS"
+  | "SPACESHIPS"
   | "MILITARY_INDUSTRIAL_COMPLEX"
   | "PHARMACEUTICALS"
   | "REFINING"
@@ -30,7 +36,11 @@ export type Industry =
   | "TOURISM"
   | "WAREHOUSING";
 
-export const industries: Record<Industry, TraitModifiers> = {
+type IndustryProperties = TraitModifiers & {
+  hidden?: boolean;
+};
+
+export const industries: Record<Industry, IndustryProperties> = {
   AGRICULTURE: {
     productionLine: [
       {
@@ -45,6 +55,13 @@ export const industries: Record<Industry, TraitModifiers> = {
     productionLine: [
       {
         produces: TradeGood.ANTIMATTER,
+      },
+    ],
+  },
+  BOTANICALS: {
+    productionLine: [
+      {
+        produces: TradeGood.BOTANICAL_SPECIMENS,
       },
     ],
   },
@@ -175,6 +192,23 @@ export const industries: Record<Industry, TraitModifiers> = {
       },
     ],
   },
+  SPACESHIPS: {
+    shipHullCount: 3,
+  },
+  EXPLOSIVES: {
+    productionLine: [
+      {
+        produces: TradeGood.EXPLOSIVES,
+      },
+    ],
+  },
+  FERTILIZERS: {
+    productionLine: [
+      {
+        produces: TradeGood.FERTILIZERS,
+      },
+    ],
+  },
   PRECIOUS_METAL_REFINING: {
     productionLine: [
       {
@@ -186,6 +220,20 @@ export const industries: Record<Industry, TraitModifiers> = {
       {
         produces: TradeGood.PLATINUM,
       },
+    ],
+  },
+  MINING_EXCHANGE: {
+    exchange: [
+      TradeGood.ALUMINUM_ORE,
+      TradeGood.COPPER_ORE,
+      TradeGood.IRON_ORE,
+      TradeGood.AMMONIA_ICE,
+      TradeGood.DIAMONDS,
+      TradeGood.FUEL,
+      TradeGood.ICE_WATER,
+      TradeGood.PRECIOUS_STONES,
+      TradeGood.QUARTZ_SAND,
+      TradeGood.SILICON_CRYSTALS,
     ],
   },
   SPECIAL_REFINING: {
