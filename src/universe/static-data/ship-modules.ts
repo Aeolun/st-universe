@@ -77,7 +77,7 @@ export const moduleData: Record<Module, ShipModule> = {
     "",
     "",
     [
-      new ProvidesWarpRange(8000),
+      new ProvidesWarpRange(18000),
       new RequiresCrew(10),
       new RequiresPower(6),
       new RequiresModuleCapacity(1),
@@ -99,7 +99,7 @@ export const moduleData: Record<Module, ShipModule> = {
     "",
     "",
     [
-      new ProvidesJumpRange(1000),
+      new ProvidesJumpRange(1500),
       new RequiresCrew(20),
       new RequiresPower(8),
       new RequiresModuleCapacity(1),
@@ -111,7 +111,7 @@ export const moduleData: Record<Module, ShipModule> = {
     "",
     "",
     [
-      new ProvidesJumpRange(2000),
+      new ProvidesJumpRange(4500),
       new RequiresCrew(40),
       new RequiresPower(14),
       new RequiresModuleCapacity(1),
