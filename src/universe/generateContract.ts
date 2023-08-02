@@ -58,7 +58,8 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
     throw new Error(`No contracts possible for system ${system.symbol}.`);
 
   const price = marketPrice(mostLackingResource.supplyDemand);
-  const totalReward = price.salePrice * mostLackingResource.amount;
+  const finalCount = Math.max(mostLackingResource.amount, 50);
+  const totalReward = price.salePrice * finalCount;
 
   const contract = new Contract(
     agent.symbol + trulyUniqId(),
@@ -68,7 +69,7 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
         type: "PROCUREMENT",
         deliveryWaypointSymbol: mostLackingResource.waypoint,
         deliveryGoodSymbol: mostLackingResource.tradeGoodSymbol,
-        deliveryQuantity: mostLackingResource.amount,
+        deliveryQuantity: finalCount,
         deadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         deliveredQuantity: 0,
         onAccept: Math.round(totalReward * 0.3),

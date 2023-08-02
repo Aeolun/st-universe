@@ -47,6 +47,6 @@ export const resourceGroups: Record<ResourceGroup, TradeGood[]> = {
     TradeGood.MERITIUM_ORE,
   ],
   [ResourceGroup.RARE_METALS]: [TradeGood.URANITE, TradeGood.MERITIUM],
-  [ResourceGroup.GASES]: [TradeGood.HYDROCARBONS],
+  [ResourceGroup.GASES]: [TradeGood.HYDROCARBON],
   [ResourceGroup.LIQUIDS]: [TradeGood.ICE_WATER],
 };

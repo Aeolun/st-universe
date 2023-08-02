@@ -137,8 +137,8 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     extractableResources: [
       { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
       { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
-      { tradegood: TradeGood.LIVESTOCK, prevalence: 40 },
-      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
+      // { tradegood: TradeGood.LIVESTOCK, prevalence: 40 },
+      // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   DRY_SEABEDS: {
@@ -156,10 +156,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     imports: {
       EQUIPMENT: 1,
       FUEL: 1,
-      MEDICAL_SUPPLIES: 1,
+      MEDICINE: 1,
     },
     exports: {
-      RESEARCH_DATA: 1,
+      // RESEARCH_DATA: 1,
       NOVEL_LIFEFORMS: 1,
       BOTANICAL_SPECIMENS: 1,
     },
@@ -169,13 +169,13 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET", "MOON"],
     maintenanceCostMultiplier: 2,
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
     ],
   },
   EXTREME_PRESSURE: {
     validFor: ["PLANET"],
     imports: {
-      HEAVY_MACHINERY: 1,
+      // HEAVY_MACHINERY: 1,
     },
     maintenanceCostMultiplier: 2,
     constructionCostMultiplier: 2,
@@ -183,7 +183,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   EXTREME_TEMPERATURES: {
     validFor: ["PLANET"],
     imports: {
-      THERMAL_REGULATORS: 1,
+      // THERMAL_REGULATORS: 1,
       MACHINERY: 1,
     },
     maintenanceCostMultiplier: 1.5,
@@ -192,10 +192,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   FROZEN: {
     validFor: ["PLANET"],
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
       { tradegood: TradeGood.ICE_WATER, prevalence: 30 },
       { tradegood: TradeGood.AMMONIA_ICE, prevalence: 40 },
-      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
+      // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   HIGH_TECH: {
@@ -217,8 +217,8 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     extractableResources: [
       { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
       { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
-      { tradegood: TradeGood.LIVESTOCK, prevalence: 20 },
-      { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
+      // { tradegood: TradeGood.LIVESTOCK, prevalence: 20 },
+      // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
   LEGALIZED_SLAVERY: {
@@ -235,7 +235,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "HABITATION",
     consumes: {
-      HEAVY_MACHINERY: 2,
+      // HEAVY_MACHINERY: 2,
       ADVANCED_CIRCUITRY: 2,
     },
     exchange: [TradeGood.FUEL],
@@ -277,7 +277,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       FUEL: 1,
       ICE_WATER: 1,
       MACHINERY: 1,
-      MEDICAL_SUPPLIES: 1,
+      MEDICINE: 1,
       PLASTICS: 1,
     },
   },
@@ -295,7 +295,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       TradeGood.FUEL,
       TradeGood.ICE_WATER,
       TradeGood.MACHINERY,
-      TradeGood.MEDICAL_SUPPLIES,
+      TradeGood.MEDICINE,
       TradeGood.PLASTICS,
     ],
   },
@@ -318,7 +318,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "HABITATION",
     consumes: {
       EQUIPMENT: 1,
-      MEDICAL_SUPPLIES: 1,
+      MEDICINE: 1,
     },
     exchange: [TradeGood.FUEL],
     populationLevel: 1,
@@ -357,7 +357,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       NOVEL_LIFEFORMS: 1,
     },
     exports: {
-      RESEARCH_DATA: 1,
+      // RESEARCH_DATA: 1,
     },
     exchange: [TradeGood.FUEL],
     populationLevel: 1,
@@ -380,6 +380,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     populationLevel: 1,
   },
   HOME_SYSTEM_SHIPYARD: {
+    hidden: true,
     validFor: ["ORBITAL_STATION"],
     shipHullsAvailable: [
       Configuration.SHIP_LIGHT_HAULER,
@@ -396,7 +397,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET", "MOON"],
     category: "HABITATION",
     exports: {
-      TOURISTS: 2,
+      // TOURISTS: 2,
     },
     populationLevel: 3,
     industries: 3,
@@ -409,8 +410,8 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   STRONG_GRAVITY: {
     validFor: ["PLANET"],
     consumes: {
-      HEAVY_MACHINERY: 1,
-      THERMAL_REGULATORS: 1,
+      // HEAVY_MACHINERY: 1,
+      // THERMAL_REGULATORS: 1,
     },
     maintenanceCostMultiplier: 1.5,
   },
@@ -418,7 +419,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     consumes: {
       ELECTRONICS: 1,
-      THERMAL_REGULATORS: 1,
+      // THERMAL_REGULATORS: 1,
     },
   },
   SURVEILLANCE_OUTPOST: {
@@ -426,7 +427,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "HABITATION",
     consumes: {
       EQUIPMENT: 1,
-      MEDICAL_SUPPLIES: 1,
+      MEDICINE: 1,
     },
     exchange: [TradeGood.FUEL],
     populationLevel: 1,
@@ -435,7 +436,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBONS, prevalence: 20 },
+      { tradegood: TradeGood.HYDROCARBON, prevalence: 20 },
       { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
     ],
     maintenanceCostMultiplier: 1.5,
@@ -456,7 +457,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     maintenanceCostMultiplier: 1.5,
     consumes: {
       EQUIPMENT: 1,
-      MEDICAL_SUPPLIES: 1,
+      MEDICINE: 1,
     },
   },
   TRADING_HUB: {
@@ -470,7 +471,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   VIBRANT_AURORAS: {
     validFor: ["PLANET"],
     consumes: {
-      TOURISTS: 3,
+      // TOURISTS: 3,
     },
   },
   VOLCANIC: {
@@ -478,7 +479,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     maintenanceCostMultiplier: 1.5,
     constructionCostMultiplier: 1.5,
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBONS, prevalence: 30 },
+      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
       { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
       { tradegood: TradeGood.URANITE_ORE, prevalence: 10 },
       { tradegood: TradeGood.MERITIUM_ORE, prevalence: 10 },
@@ -487,7 +488,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   WEAK_GRAVITY: {
     validFor: ["PLANET"],
     consumes: {
-      HEAVY_MACHINERY: 1,
+      // HEAVY_MACHINERY: 1,
       GRAVITON_EMITTERS: 1,
     },
   },

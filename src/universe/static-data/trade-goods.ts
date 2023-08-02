@@ -3,6 +3,7 @@ import { Mount } from "src/universe/static-data/ship-mounts";
 import { Engine } from "src/universe/static-data/ship-engines";
 import { Frame } from "src/universe/static-data/ship-frames";
 import { Reactor } from "src/universe/static-data/ship-reactors";
+import { TradeSymbol } from "src/controllers/schemas";
 
 export enum TradeGood {
   ADVANCED_CIRCUITRY = "ADVANCED_CIRCUITRY",
@@ -17,7 +18,7 @@ export enum TradeGood {
   CLOTHING = "CLOTHING",
   COPPER = "COPPER",
   COPPER_ORE = "COPPER_ORE",
-  CYBERNETIC_IMPLANTS = "CYBERNETIC_IMPLANTS",
+  CYBER_IMPLANTS = "CYBER_IMPLANTS",
   DIAMONDS = "DIAMONDS",
   DRUGS = "DRUGS",
   ELECTRONICS = "ELECTRONICS",
@@ -29,27 +30,27 @@ export enum TradeGood {
   FIREARMS = "FIREARMS",
   FOOD = "FOOD",
   FUEL = "FUEL",
-  GENETHERAPEUTICS = "GENETHERAPEUTICS",
+  GENE_THERAPEUTICS = "GENE_THERAPEUTICS",
   GOLD = "GOLD",
   GOLD_ORE = "GOLD_ORE",
   GRAVITON_EMITTERS = "GRAVITON_EMITTERS",
-  HEAVY_MACHINERY = "HEAVY_MACHINERY",
+  // HEAVY_MACHINERY = "HEAVY_MACHINERY",
   HOLOGRAPHICS = "HOLOGRAPHICS",
-  HYDROCARBONS = "HYDROCARBONS",
+  HYDROCARBON = "HYDROCARBON",
   ICE_WATER = "ICE_WATER",
   IRON = "IRON",
   IRON_ORE = "IRON_ORE",
   JEWELRY = "JEWELRY",
   LAB_INSTRUMENTS = "LAB_INSTRUMENTS",
-  LIVESTOCK = "LIVESTOCK",
-  LUXURY_GOODS = "LUXURY_GOODS",
+  // LIVESTOCK = "LIVESTOCK",
+  // LUXURY_GOODS = "LUXURY_GOODS",
   LIQUID_NITROGEN = "LIQUID_NITROGEN",
   MACHINERY = "MACHINERY",
-  MEDICAL_SUPPLIES = "MEDICAL_SUPPLIES",
+  MEDICINE = "MEDICINE",
   MICROPROCESSORS = "MICROPROCESSORS",
   MERITIUM = "MERITIUM",
   MERITIUM_ORE = "MERITIUM_ORE",
-  FUSION_GENERATORS = "FUSION_GENERATORS",
+  MICRO_FUSION_GENERATORS = "MICRO_FUSION_GENERATORS",
   MILITARY_EQUIPMENT = "MILITARY_EQUIPMENT",
   MOOD_REGULATORS = "MOOD_REGULATORS",
   NANOBOTS = "NANOBOTS",
@@ -62,7 +63,7 @@ export enum TradeGood {
   RELIC_TECH = "RELIC_TECH",
   QUANTUM_DRIVES = "QUANTUM_DRIVES",
   QUARTZ_SAND = "QUARTZ_SAND",
-  RESEARCH_DATA = "RESEARCH_DATA",
+  // RESEARCH_DATA = "RESEARCH_DATA",
   ROBOTIC_DRONES = "ROBOTIC_DRONES",
   SHIP_PLATING = "SHIP_PLATING",
   SILICON_CRYSTALS = "SILICON_CRYSTALS",
@@ -71,8 +72,8 @@ export enum TradeGood {
   URANITE = "URANITE",
   URANITE_ORE = "URANITE_ORE",
   VIRAL_AGENTS = "VIRAL_AGENTS",
-  THERMAL_REGULATORS = "THERMAL_REGULATORS",
-  TOURISTS = "TOURISTS",
+  // THERMAL_REGULATORS = "THERMAL_REGULATORS",
+  // TOURISTS = "TOURISTS",
   MODULE_CARGO_HOLD_I = "MODULE_CARGO_HOLD_I",
   MODULE_CREW_QUARTERS_I = "MODULE_CREW_QUARTERS_I",
   MODULE_WARP_DRIVE_I = "MODULE_WARP_DRIVE_I",
@@ -117,6 +118,10 @@ export enum TradeGood {
   FRAME_MINER = "FRAME_MINER",
   FRAME_LIGHT_FREIGHTER = "FRAME_LIGHT_FREIGHTER",
   FRAME_HEAVY_FREIGHTER = "FRAME_HEAVY_FREIGHTER",
+  FRAME_TRANSPORT = "FRAME_TRANSPORT",
+  FRAME_DESTROYER = "FRAME_DESTROYER",
+  FRAME_CRUISER = "FRAME_CRUISER",
+  FRAME_CARRIER = "FRAME_CARRIER",
   REACTOR_CHEMICAL_I = "REACTOR_CHEMICAL_I",
   REACTOR_FISSION_I = "REACTOR_FISSION_I",
   REACTOR_FUSION_I = "REACTOR_FUSION_I",
@@ -225,8 +230,8 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     basePrice: 53,
     baseTradeVolume: 100,
   },
-  CYBERNETIC_IMPLANTS: {
-    symbol: TradeGood.CYBERNETIC_IMPLANTS,
+  CYBER_IMPLANTS: {
+    symbol: TradeGood.CYBER_IMPLANTS,
     components: {
       POLYNUCLEOTIDES: 1,
       BIOCOMPOSITES: 1,
@@ -324,12 +329,12 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   FUEL: {
     symbol: TradeGood.FUEL,
     components: {
-      HYDROCARBONS: 1,
+      HYDROCARBON: 1,
     },
     baseTradeVolume: 10,
   },
-  GENETHERAPEUTICS: {
-    symbol: TradeGood.GENETHERAPEUTICS,
+  GENE_THERAPEUTICS: {
+    symbol: TradeGood.GENE_THERAPEUTICS,
     components: {
       POLYNUCLEOTIDES: 1,
       LAB_INSTRUMENTS: 1,
@@ -355,15 +360,15 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     },
     baseTradeVolume: 10,
   },
-  HEAVY_MACHINERY: {
-    symbol: TradeGood.HEAVY_MACHINERY,
-    components: {
-      MACHINERY: 2,
-      IRON: 4,
-      ELECTRONICS: 2,
-    },
-    baseTradeVolume: 10,
-  },
+  // HEAVY_MACHINERY: {
+  //   symbol: TradeGood.HEAVY_MACHINERY,
+  //   components: {
+  //     MACHINERY: 2,
+  //     IRON: 4,
+  //     ELECTRONICS: 2,
+  //   },
+  //   baseTradeVolume: 10,
+  // },
   HOLOGRAPHICS: {
     symbol: TradeGood.HOLOGRAPHICS,
     components: {
@@ -372,8 +377,8 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     },
     baseTradeVolume: 10,
   },
-  HYDROCARBONS: {
-    symbol: TradeGood.HYDROCARBONS,
+  HYDROCARBON: {
+    symbol: TradeGood.HYDROCARBON,
     basePrice: 34,
     baseTradeVolume: 10,
   },
@@ -414,14 +419,14 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     productionVolume: 2,
     baseTradeVolume: 10,
   },
-  LIVESTOCK: {
-    symbol: TradeGood.LIVESTOCK,
-    components: {
-      FERTILIZERS: 1,
-      ICE_WATER: 1,
-    },
-    baseTradeVolume: 10,
-  },
+  // LIVESTOCK: {
+  //   symbol: TradeGood.LIVESTOCK,
+  //   components: {
+  //     FERTILIZERS: 1,
+  //     ICE_WATER: 1,
+  //   },
+  //   baseTradeVolume: 10,
+  // },
   LIQUID_NITROGEN: {
     symbol: TradeGood.LIQUID_NITROGEN,
     components: {
@@ -430,14 +435,14 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     productionVolume: 20,
     baseTradeVolume: 100,
   },
-  LUXURY_GOODS: {
-    symbol: TradeGood.LUXURY_GOODS,
-    components: {
-      JEWELRY: 1,
-      HOLOGRAPHICS: 1,
-    },
-    baseTradeVolume: 10,
-  },
+  // LUXURY_GOODS: {
+  //   symbol: TradeGood.LUXURY_GOODS,
+  //   components: {
+  //     JEWELRY: 1,
+  //     HOLOGRAPHICS: 1,
+  //   },
+  //   baseTradeVolume: 10,
+  // },
   MACHINERY: {
     symbol: TradeGood.MACHINERY,
     components: {
@@ -448,8 +453,8 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     productionVolume: 3,
     baseTradeVolume: 10,
   },
-  MEDICAL_SUPPLIES: {
-    symbol: TradeGood.MEDICAL_SUPPLIES,
+  MEDICINE: {
+    symbol: TradeGood.MEDICINE,
     components: {
       BOTANICAL_SPECIMENS: 1,
       NOVEL_LIFEFORMS: 1,
@@ -476,8 +481,8 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     },
     baseTradeVolume: 100,
   },
-  FUSION_GENERATORS: {
-    symbol: TradeGood.FUSION_GENERATORS,
+  MICRO_FUSION_GENERATORS: {
+    symbol: TradeGood.MICRO_FUSION_GENERATORS,
     components: {
       PLATINUM: 1,
       DIAMONDS: 1,
@@ -590,14 +595,14 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   //     basePrice: 1000,
   //     baseTradeVolume: 10,
   // },
-  RESEARCH_DATA: {
-    symbol: TradeGood.RESEARCH_DATA,
-    components: {
-      LAB_INSTRUMENTS: 1,
-      ADVANCED_CIRCUITRY: 1,
-    },
-    baseTradeVolume: 10,
-  },
+  // RESEARCH_DATA: {
+  //   symbol: TradeGood.RESEARCH_DATA,
+  //   components: {
+  //     LAB_INSTRUMENTS: 1,
+  //     ADVANCED_CIRCUITRY: 1,
+  //   },
+  //   baseTradeVolume: 10,
+  // },
   ROBOTIC_DRONES: {
     symbol: TradeGood.ROBOTIC_DRONES,
     components: {
@@ -674,19 +679,19 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
     },
     baseTradeVolume: 10,
   },
-  THERMAL_REGULATORS: {
-    symbol: TradeGood.THERMAL_REGULATORS,
-    components: {
-      MACHINERY: 1,
-      ELECTRONICS: 1,
-    },
-    baseTradeVolume: 10,
-  },
-  TOURISTS: {
-    symbol: TradeGood.TOURISTS,
-    basePrice: 1200,
-    baseTradeVolume: 10,
-  },
+  // THERMAL_REGULATORS: {
+  //   symbol: TradeGood.THERMAL_REGULATORS,
+  //   components: {
+  //     MACHINERY: 1,
+  //     ELECTRONICS: 1,
+  //   },
+  //   baseTradeVolume: 10,
+  // },
+  // TOURISTS: {
+  //   symbol: TradeGood.TOURISTS,
+  //   basePrice: 1200,
+  //   baseTradeVolume: 10,
+  // },
   FRAME_PROBE: {
     symbol: TradeGood.FRAME_PROBE,
     components: {
@@ -774,30 +779,30 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
 
     baseTradeVolume: 1,
   },
-  // FRAME_TRANSPORT: {
-  //     symbol: TradeGood.FRAME_TRANSPORT,
-  //     components: {
-  //         SHIP_PLATING: 7
-  //     },
-  //
-  //     baseTradeVolume: 1
-  // },
-  // FRAME_DESTROYER: {
-  //     symbol: TradeGood.FRAME_DESTROYER,
-  //     components: {
-  //         SHIP_PLATING: 20
-  //     },
-  //
-  //     baseTradeVolume: 1
-  // },
-  // FRAME_CRUISER: {
-  //     symbol: TradeGood.FRAME_CRUISER,
-  //     components: {
-  //         SHIP_PLATING: 40
-  //     },
-  //
-  //     baseTradeVolume: 1
-  // },
+  FRAME_TRANSPORT: {
+    symbol: TradeGood.FRAME_TRANSPORT,
+    components: {
+      SHIP_PLATING: 7,
+    },
+
+    baseTradeVolume: 1,
+  },
+  FRAME_DESTROYER: {
+    symbol: TradeGood.FRAME_DESTROYER,
+    components: {
+      SHIP_PLATING: 20,
+    },
+
+    baseTradeVolume: 1,
+  },
+  FRAME_CRUISER: {
+    symbol: TradeGood.FRAME_CRUISER,
+    components: {
+      SHIP_PLATING: 40,
+    },
+
+    baseTradeVolume: 1,
+  },
   // FRAME_BATTLESHIP: {
   //     symbol: TradeGood.FRAME_BATTLESHIP,
   //     components: {
@@ -830,14 +835,14 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   //
   //     baseTradeVolume: 1
   // },
-  // FRAME_CARRIER: {
-  //     symbol: TradeGood.FRAME_CARRIER,
-  //     components: {
-  //         SHIP_PLATING: 160
-  //     },
-  //
-  //     baseTradeVolume: 1
-  // },
+  FRAME_CARRIER: {
+    symbol: TradeGood.FRAME_CARRIER,
+    components: {
+      SHIP_PLATING: 160,
+    },
+
+    baseTradeVolume: 1,
+  },
   // FRAME_FLEET_CARRIER: {
   //     symbol: TradeGood.FRAME_FLEET_CARRIER,
   //     components: {

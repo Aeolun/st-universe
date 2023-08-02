@@ -33,7 +33,7 @@ export type Industry =
   | "SOFTWARE"
   | "STOCK_EXCHANGE"
   | "TECHNOLOGY"
-  | "TOURISM"
+  // | "TOURISM"
   | "WAREHOUSING";
 
 type IndustryProperties = TraitModifiers & {
@@ -92,7 +92,7 @@ export const industries: Record<Industry, IndustryProperties> = {
   CONSUMER_GOODS: {
     productionLine: [
       {
-        produces: TradeGood.LUXURY_GOODS,
+        produces: TradeGood.JEWELRY,
       },
       {
         produces: TradeGood.CLOTHING,
@@ -102,7 +102,7 @@ export const industries: Record<Industry, IndustryProperties> = {
   CYBERNETICS: {
     productionLine: [
       {
-        produces: TradeGood.CYBERNETIC_IMPLANTS,
+        produces: TradeGood.CYBER_IMPLANTS,
       },
     ],
   },
@@ -116,7 +116,7 @@ export const industries: Record<Industry, IndustryProperties> = {
   ENERGY: {
     productionLine: [
       {
-        produces: TradeGood.FUSION_GENERATORS,
+        produces: TradeGood.MICRO_FUSION_GENERATORS,
       },
     ],
   },
@@ -130,7 +130,7 @@ export const industries: Record<Industry, IndustryProperties> = {
   HEAVY_MANUFACTURING: {
     productionLine: [
       {
-        produces: TradeGood.HEAVY_MACHINERY,
+        produces: TradeGood.MACHINERY,
       },
     ],
   },
@@ -144,13 +144,13 @@ export const industries: Record<Industry, IndustryProperties> = {
   LUXURY_GOODS: {
     productionLine: [
       {
-        produces: TradeGood.LUXURY_GOODS,
+        produces: TradeGood.JEWELRY,
       },
     ],
   },
   MINING: {
     consumes: {
-      HEAVY_MACHINERY: 1,
+      MACHINERY: 1,
     },
     produces: {
       IRON_ORE: 1,
@@ -175,7 +175,7 @@ export const industries: Record<Industry, IndustryProperties> = {
   PHARMACEUTICALS: {
     productionLine: [
       {
-        produces: TradeGood.MEDICAL_SUPPLIES,
+        produces: TradeGood.MEDICINE,
       },
     ],
   },
@@ -271,11 +271,11 @@ export const industries: Record<Industry, IndustryProperties> = {
       },
     ],
   },
-  TOURISM: {
-    consumes: {
-      TOURISTS: 3,
-    },
-  },
+  // TOURISM: {
+  //   consumes: {
+  //     TOURISTS: 3,
+  //   },
+  // },
   AMMUNITION_FACTORY: {
     productionLine: [
       {

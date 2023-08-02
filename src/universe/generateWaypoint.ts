@@ -339,7 +339,10 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     });
   }
 
-  if (waypoint.availableShipConfigurations.length > 0) {
+  if (
+    waypoint.availableShipConfigurations.length > 0 &&
+    !waypoint.traits.includes("SHIPYARD")
+  ) {
     waypoint.traits.push("SHIPYARD");
   }
 
@@ -442,9 +445,10 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
   });
 
   if (
-    waypoint.imports.length > 0 ||
-    waypoint.exports.length > 0 ||
-    waypoint.exchange.length > 0
+    (waypoint.imports.length > 0 ||
+      waypoint.exports.length > 0 ||
+      waypoint.exchange.length > 0) &&
+    !waypoint.traits.includes("MARKETPLACE")
   ) {
     waypoint.traits.push("MARKETPLACE");
   }
