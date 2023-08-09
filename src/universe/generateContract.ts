@@ -40,13 +40,15 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
       if (
         !mostLackingResource ||
         mostLackingResource.amountPercentage >
-          resource.currentSupply / resource.idealSupply
+          waypoint.inventory.get(resource.tradeGood) / resource.idealSupply
       ) {
         mostLackingResource = {
           waypoint: waypoint.symbol,
           tradeGoodSymbol: resource.tradeGood,
-          amount: resource.idealSupply - resource.currentSupply,
-          amountPercentage: resource.currentSupply / resource.idealSupply,
+          amount:
+            resource.idealSupply - waypoint.inventory.get(resource.tradeGood),
+          amountPercentage:
+            waypoint.inventory.get(resource.tradeGood) / resource.idealSupply,
           faction: waypoint.ownedBy,
           supplyDemand: resource,
         };
@@ -54,10 +56,21 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
     });
   });
 
-  if (!mostLackingResource)
+  if (!mostLackingResource) {
     throw new Error(`No contracts possible for system ${system.symbol}.`);
+  }
 
-  const price = marketPrice(mostLackingResource.supplyDemand);
+  const waypoint = system.waypoints.find(
+    (w) => w.symbol === mostLackingResource?.waypoint
+  );
+  if (!waypoint) {
+    throw new Error("Waypoint not found");
+  }
+
+  const price = marketPrice(
+    waypoint?.inventory.get(mostLackingResource.tradeGoodSymbol),
+    mostLackingResource.supplyDemand
+  );
   const finalCount = Math.max(mostLackingResource.amount, 50);
   const totalReward = price.salePrice * finalCount;
 

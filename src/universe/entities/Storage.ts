@@ -1,19 +1,19 @@
-import { TradeGood } from "src/universe/static-data/trade-goods";
+import { TradeGood, TradeGoodKey } from "src/universe/static-data/trade-goods";
 
 export class Storage {
   resources: Partial<Record<TradeGood, number>> = {};
 
-  constructor(initial?: Partial<Record<TradeGood, number>>) {
+  constructor(initial?: Partial<Record<TradeGoodKey, number>>) {
     if (initial) {
       this.resources = initial;
     }
   }
 
-  add(resource: TradeGood, amount: number) {
+  add(resource: TradeGoodKey, amount: number) {
     this.resources[resource] = (this.resources[resource] ?? 0) + amount;
   }
 
-  get(resource: TradeGood) {
+  get(resource: TradeGoodKey) {
     return this.resources[resource] ?? 0;
   }
 
@@ -21,7 +21,7 @@ export class Storage {
     return Object.values(this.resources).reduce((acc, cur) => acc + cur, 0);
   }
 
-  remove(resource: TradeGood, amount: number) {
+  remove(resource: TradeGoodKey, amount: number) {
     if (!this.has(resource, amount)) {
       throw new Error(`Cannot remove ${amount} of ${resource}`);
     }
@@ -31,7 +31,7 @@ export class Storage {
     }
   }
 
-  has(resource: TradeGood, amount: number) {
+  has(resource: TradeGoodKey, amount: number) {
     const value = this.resources[resource];
     return value ? value >= amount : false;
   }

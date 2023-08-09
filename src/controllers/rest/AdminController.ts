@@ -37,7 +37,7 @@ export class AdminController {
       ...system,
       waypoints: system.waypoints.map((waypoint) => {
         Object.values(waypoint.supplyDemand).forEach((sd) => {
-          const price = marketPrice(sd);
+          const price = marketPrice(waypoint.inventory.get(sd.tradeGood), sd);
           sd.price = price;
         });
         return {

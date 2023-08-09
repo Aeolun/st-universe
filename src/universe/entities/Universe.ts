@@ -102,11 +102,11 @@ export class Universe {
           const good = goods[sd.tradeGood];
           if (good) {
             good.supplyOnConsumers +=
-              sd.kind === "demand" ? sd.currentSupply : 0;
+              sd.kind === "demand" ? w.inventory.get(sd.tradeGood) : 0;
             good.supplyOnProducers +=
-              sd.kind === "supply" ? sd.currentSupply : 0;
+              sd.kind === "supply" ? w.inventory.get(sd.tradeGood) : 0;
             good.supplyOnExchange +=
-              sd.kind === "exchange" ? sd.currentSupply : 0;
+              sd.kind === "exchange" ? w.inventory.get(sd.tradeGood) : 0;
             good.productionRate += sd.productionRate;
             good.consumptionRate += sd.consumptionRate;
             good.lastTickProduction += sd.lastTickProduction;

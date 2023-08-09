@@ -13,7 +13,6 @@ import {
   waypointTypes,
 } from "./static-data/waypoint-types";
 import {
-  TraitData,
   TraitModifiers,
   WaypointTrait,
   waypointTraitNames,
@@ -375,11 +374,11 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
           const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.exports.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
           waypoint.supplyDemand[tg] = {
             tradeGood: tg,
             kind: "supply",
             idealSupply: idealSupply,
-            currentSupply: idealSupply,
             maxSupply: idealSupply * 2,
             lastTickConsumption: 0,
             lastTickProduction: 0,
@@ -397,11 +396,11 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
           const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.imports.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
           waypoint.supplyDemand[tg] = {
             tradeGood: tg,
             kind: "demand",
             idealSupply: idealSupply,
-            currentSupply: idealSupply,
             maxSupply: idealSupply * 2,
             lastTickConsumption: 0,
             lastTickProduction: 0,
@@ -419,11 +418,11 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
           const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
           waypoint.exchange.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
           waypoint.supplyDemand[tg] = {
             tradeGood: tg,
             kind: "exchange",
             idealSupply: idealSupply,
-            currentSupply: idealSupply,
             maxSupply: idealSupply * 2,
             lastTickConsumption: 0,
             lastTickProduction: 0,

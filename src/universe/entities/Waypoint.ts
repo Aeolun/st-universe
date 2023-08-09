@@ -10,12 +10,12 @@ import { Faction } from "src/universe/static-data/faction";
 import { Transaction } from "src/universe/entities/Transaction";
 import { Configuration } from "src/universe/static-data/ship-configurations";
 import { MarketPrice } from "src/universe/formulas/trade";
+import { Storage } from "src/universe/entities/Storage";
 
 export interface SupplyDemand {
   tradeGood: TradeGood;
   kind: "supply" | "demand" | "exchange";
   idealSupply: number;
-  currentSupply: number;
   maxSupply: number;
   stopSaleAt: number;
   productionRate: number;
@@ -58,6 +58,7 @@ export class Waypoint {
   public exchange: TradeGood[] = [];
 
   public supplyDemand: Partial<Record<TradeGood, SupplyDemand>> = {};
+  public inventory: Storage = new Storage();
   public productionLines: ProductionLine[] = [];
 
   public availableShipConfigurations: Configuration[] = [];
@@ -96,11 +97,9 @@ export class Waypoint {
     Object.values(this.supplyDemand).forEach((supplyDemand) => {
       supplyDemand.lastTickProduction = 0;
       supplyDemand.lastTickConsumption = 0;
-      supplyDemand.currentSupply = Math.max(
-        supplyDemand.currentSupply +
-          supplyDemand.productionRate -
-          supplyDemand.consumptionRate,
-        0
+      this.inventory.add(
+        supplyDemand.tradeGood,
+        supplyDemand.productionRate - supplyDemand.consumptionRate
       );
     });
     this.productionLines.forEach((productionLine) => {
@@ -115,7 +114,10 @@ export class Waypoint {
           Object.keys(components).forEach((component: TradeGood) => {
             const requiredCount = components[component] ?? 0;
             const supplyDemand = this.supplyDemand[component];
-            if (!supplyDemand || supplyDemand.currentSupply < requiredCount) {
+            if (
+              !supplyDemand ||
+              this.inventory.get(supplyDemand.tradeGood) < requiredCount
+            ) {
               satisfied = false;
             }
           });
@@ -125,13 +127,16 @@ export class Waypoint {
               const supplyDemand = this.supplyDemand[component];
               if (supplyDemand) {
                 supplyDemand.lastTickConsumption += requiredCount;
-                supplyDemand.currentSupply -= requiredCount;
+                this.inventory.remove(supplyDemand.tradeGood, requiredCount);
               }
             });
             const produceDemand = this.supplyDemand[productionLine.produces];
             if (produceDemand) {
               produceDemand.lastTickProduction += productionLine.count ?? 1;
-              produceDemand.currentSupply += productionLine.count ?? 1;
+              this.inventory.add(
+                produceDemand.tradeGood,
+                productionLine.count ?? 1
+              );
             }
           }
         });

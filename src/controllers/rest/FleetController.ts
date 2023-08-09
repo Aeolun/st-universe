@@ -69,7 +69,7 @@ import { renderWaypoint } from "src/controllers/formatting/render-waypoint";
 import { renderChart } from "src/controllers/formatting/render-chart";
 import { Refines } from "src/universe/entities/capabilities/Refines";
 import { resourceGroups } from "src/universe/static-data/resource-groups";
-import { TradeGood } from "src/universe/static-data/trade-goods";
+import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { refine } from "src/controllers/helpers/refine";
 import { SurveysForResources } from "src/universe/entities/capabilities/SurveysForResources";
 import {
@@ -133,11 +133,35 @@ export class FleetController {
     );
     if (!shipAtLocation) throw new Error(`No ship at ${waypoint.symbol}`);
 
-    const price = shipPrice(shipConfigurationData[body.shipType], waypoint);
+    const shipConfiguration = shipConfigurationData[body.shipType];
+    const frameTradeGood = tradeGoods[shipConfiguration.frame];
+
+    const price = shipPrice(shipConfiguration, waypoint);
     if (agent.credits < price)
       throw new Error(`Insufficient funds. Ship costs ${price} credits.`);
 
-    // TODO: Need to take components out of waypoint inventory
+    if ("components" in frameTradeGood) {
+      Object.keys(frameTradeGood.components).forEach((component: TradeGood) => {
+        waypoint.inventory.remove(
+          component,
+          frameTradeGood.components[component] ?? 0
+        );
+      });
+    }
+    waypoint.inventory.remove(
+      shipConfiguration.engine as unknown as TradeGood,
+      1
+    );
+    waypoint.inventory.remove(
+      shipConfiguration.reactor as unknown as TradeGood,
+      1
+    );
+    shipConfiguration.modules.forEach((module) => {
+      waypoint.inventory.remove(module as unknown as TradeGood, 1);
+    });
+    shipConfiguration.mounts.forEach((mount) => {
+      waypoint.inventory.remove(mount as unknown as TradeGood, 1);
+    });
 
     agent.credits -= price;
     const transaction: Transaction = {
@@ -768,7 +792,10 @@ export class FleetController {
         `You do not have ${body.units} ${body.symbol} to sell.`
       );
     }
-    const price = marketPrice(supplyDemand);
+    const price = marketPrice(
+      waypoint.inventory.get(supplyDemand.tradeGood),
+      supplyDemand
+    );
     const total = price.purchasePrice * body.units;
     agent.credits += total;
     ship.cargo.remove(body.symbol, body.units);
@@ -784,7 +811,7 @@ export class FleetController {
       units: body.units,
     };
     waypoint.transactions.push(transaction);
-    supplyDemand.currentSupply += body.units;
+    waypoint.inventory.add(supplyDemand.tradeGood, body.units);
 
     return {
       data: {
@@ -945,7 +972,10 @@ export class FleetController {
     const missingFuel = ship.stats.fuelCapacity - ship.derivedStats.fuel;
     const refuelUnits = Math.ceil((body.units ?? missingFuel) / 100);
 
-    const price = marketPrice(supplyDemand);
+    const price = marketPrice(
+      waypoint.inventory.get(supplyDemand.tradeGood),
+      supplyDemand
+    );
     const total = price.salePrice * refuelUnits;
     agent.credits -= total;
     ship.derivedStats.fuel += Math.min(refuelUnits * 100, missingFuel);
@@ -961,7 +991,7 @@ export class FleetController {
       units: refuelUnits,
     };
     waypoint.transactions.push(transaction);
-    supplyDemand.currentSupply -= refuelUnits;
+    waypoint.inventory.remove("FUEL", refuelUnits);
 
     return {
       data: {
@@ -999,7 +1029,10 @@ export class FleetController {
       throw new BadRequest(`You do not have enough cargo space.`);
     }
 
-    const price = marketPrice(supplyDemand);
+    const price = marketPrice(
+      waypoint.inventory.get(supplyDemand.tradeGood),
+      supplyDemand
+    );
     const total = price.salePrice * body.units;
 
     if (agent.credits < total) {
@@ -1020,7 +1053,7 @@ export class FleetController {
       units: body.units,
     };
     waypoint.transactions.push(transaction);
-    supplyDemand.currentSupply -= body.units;
+    waypoint.inventory.remove(supplyDemand.tradeGood, body.units);
 
     return {
       data: {

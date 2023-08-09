@@ -22,7 +22,10 @@ export interface MarketPrice {
   tradeVolume: number;
 }
 
-export function marketPrice(supplyDemand: SupplyDemand): MarketPrice {
+export function marketPrice(
+  inventory: number,
+  supplyDemand: SupplyDemand
+): MarketPrice {
   const baseData = tradeGoods[supplyDemand.tradeGood];
 
   if (!baseData.basePrice)
@@ -38,35 +41,27 @@ export function marketPrice(supplyDemand: SupplyDemand): MarketPrice {
     tradeVolume *= 10;
   }
 
-  if (supplyDemand.currentSupply > supplyDemand.maxSupply) {
+  if (inventory > supplyDemand.maxSupply) {
     // supply saturated
     salePrice =
-      baseData.basePrice /
-      Math.pow(supplyDemand.currentSupply / supplyDemand.idealSupply, 3);
+      baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3);
     purchasePrice =
-      (baseData.basePrice /
-        Math.pow(supplyDemand.currentSupply / supplyDemand.idealSupply, 3)) *
+      (baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3)) *
       0.8;
     tradeVolume *= 10;
-  } else if (supplyDemand.currentSupply >= supplyDemand.idealSupply) {
+  } else if (inventory >= supplyDemand.idealSupply) {
     // demand satisfied
-    salePrice =
-      baseData.basePrice /
-      (supplyDemand.currentSupply / supplyDemand.idealSupply);
+    salePrice = baseData.basePrice / (inventory / supplyDemand.idealSupply);
     purchasePrice =
-      (baseData.basePrice /
-        Math.pow(supplyDemand.currentSupply / supplyDemand.idealSupply, 3)) *
+      (baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3)) *
       0.9;
   } else {
     // demand not satisfied
     salePrice =
-      baseData.basePrice *
-      Math.min(supplyDemand.idealSupply / supplyDemand.currentSupply, 3);
+      baseData.basePrice * Math.min(supplyDemand.idealSupply / inventory, 3);
     purchasePrice =
       baseData.basePrice *
-      (1 +
-        (supplyDemand.idealSupply - supplyDemand.currentSupply) /
-          supplyDemand.idealSupply) *
+      (1 + (supplyDemand.idealSupply - inventory) / supplyDemand.idealSupply) *
       0.9;
   }
 
@@ -93,7 +88,7 @@ export function shipPrice(
   for (const module of allShipModules) {
     const supplyDemand = waypoint.supplyDemand[module];
     if (supplyDemand) {
-      const price = marketPrice(supplyDemand);
+      const price = marketPrice(waypoint.inventory.get(module), supplyDemand);
       total += price.purchasePrice;
     }
   }

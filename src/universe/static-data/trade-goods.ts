@@ -128,6 +128,8 @@ export enum TradeGood {
   REACTOR_SOLAR_I = "REACTOR_SOLAR_I",
 }
 
+export type TradeGoodKey = keyof typeof TradeGood;
+
 type Components = Partial<Record<TradeGood, number>>;
 type PriceOrComponents =
   | { basePrice: number }

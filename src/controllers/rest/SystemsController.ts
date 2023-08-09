@@ -154,12 +154,15 @@ export class SystemsController {
         tradeGoods: hasShip
           ? Object.values(waypoint.supplyDemand).map((supplyDemand) => {
               const tradeGoodData = tradeGoods[supplyDemand.tradeGood];
-              const price = marketPrice(supplyDemand);
+              const price = marketPrice(
+                waypoint.inventory.get(supplyDemand.tradeGood),
+                supplyDemand
+              );
               return {
                 symbol: supplyDemand.tradeGood as TradeSymbol,
                 tradeVolume: price.tradeVolume,
                 supply: renderSupply(
-                  supplyDemand.currentSupply,
+                  waypoint.inventory.get(supplyDemand.tradeGood),
                   supplyDemand.idealSupply
                 ),
                 // purchase and sale price inverted since we are looking at the market from the perspective of the ship
