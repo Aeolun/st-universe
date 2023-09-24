@@ -94,6 +94,7 @@ export class Waypoint {
   }
 
   public tick() {
+    // determine production/consumption at this waypoint
     Object.values(this.supplyDemand).forEach((supplyDemand) => {
       supplyDemand.lastTickProduction = 0;
       supplyDemand.lastTickConsumption = 0;

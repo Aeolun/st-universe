@@ -17,6 +17,10 @@ export class Storage {
     return this.resources[resource] ?? 0;
   }
 
+  set(resource: TradeGoodKey, amount: number) {
+    this.resources[resource] = amount;
+  }
+
   total() {
     return Object.values(this.resources).reduce((acc, cur) => acc + cur, 0);
   }

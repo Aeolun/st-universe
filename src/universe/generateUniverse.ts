@@ -1,4 +1,3 @@
-import { CanvasRenderingContext2D, createCanvas } from "canvas";
 import { System } from "src/universe/entities/System";
 import * as fs from "fs";
 import { percentageChance, pickRandom, shuffle } from "src/universe/utilities";
@@ -11,7 +10,6 @@ import { Faction } from "src/universe/entities/Faction";
 import { Faction as FactionEnum } from "src/universe/static-data/faction";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
-import { generateWaypoint } from "src/universe/generateWaypoint";
 import { generateHomeSystem } from "src/universe/preset/generate-home-system";
 
 const MAX_SYSTEMS = process.env.MAX_SYSTEMS
@@ -349,35 +347,35 @@ export async function generateUniverse() {
   console.log(
     `Universe with ${universe.systems.length} systems, ${totalWaypoints} waypoints generated.`
   );
-  const canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  const context = canvas.getContext("2d");
-
-  const renderMethods: Record<
-    string,
-    (system: System, context: CanvasRenderingContext2D) => void
-  > = {
-    starType: renderStarType,
-    marketAvailable: renderMarketAvailable,
-    populationCenter: renderPopulationCenter,
-    fuelAvailable: renderFuelAvailable,
-    jumpGates: renderJumpGates,
-    factionControl: renderFactionControl,
-    shipyards: renderShipConfigurations,
-  };
-
-  fs.mkdirSync("./renders", { recursive: true });
-
-  for (const renderMethod in renderMethods) {
-    const renderFunction = renderMethods[renderMethod];
-    context.fillStyle = "black";
-    context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    for (const system of universe.systemsArray) {
-      renderFunction(system, context);
-    }
-
-    const imgBuffer = canvas.toBuffer("image/png");
-    fs.writeFileSync(`./renders/${renderMethod}.png`, imgBuffer);
-  }
+  // const canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
+  // const context = canvas.getContext("2d");
+  //
+  // const renderMethods: Record<
+  //   string,
+  //   (system: System, context: CanvasRenderingContext2D) => void
+  // > = {
+  //   starType: renderStarType,
+  //   marketAvailable: renderMarketAvailable,
+  //   populationCenter: renderPopulationCenter,
+  //   fuelAvailable: renderFuelAvailable,
+  //   jumpGates: renderJumpGates,
+  //   factionControl: renderFactionControl,
+  //   shipyards: renderShipConfigurations,
+  // };
+  //
+  // fs.mkdirSync("./renders", { recursive: true });
+  //
+  // for (const renderMethod in renderMethods) {
+  //   const renderFunction = renderMethods[renderMethod];
+  //   context.fillStyle = "black";
+  //   context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  //   for (const system of universe.systemsArray) {
+  //     renderFunction(system, context);
+  //   }
+  //
+  //   const imgBuffer = canvas.toBuffer("image/png");
+  //   fs.writeFileSync(`./renders/${renderMethod}.png`, imgBuffer);
+  // }
 
   fs.writeFileSync(
     "./systems.json",
