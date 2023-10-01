@@ -19,7 +19,7 @@ test("ship has expected stats", () => {
 
   expect(ship.reactor.stats.powerGenerated).toBe(40);
   expect(ship.stats.powerGenerated).toBe(40);
-  expect(ship.stats.crewCapacity).toBe(60);
+  expect(ship.stats.crewCapacity).toBe(80);
   expect(ship.stats.warpRange).toBe(2000);
   expect(ship.stats.thrust).toBe(30);
   expect(ship.stats.scanPower).toBe(1);

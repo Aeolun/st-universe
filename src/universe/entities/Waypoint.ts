@@ -15,15 +15,25 @@ import { Storage } from "src/universe/entities/Storage";
 export interface SupplyDemand {
   tradeGood: TradeGood;
   kind: "supply" | "demand" | "exchange";
-  idealSupply: number;
-  maxSupply: number;
   stopSaleAt: number;
-  productionRate: number;
-  consumptionRate: number;
   lastTickProduction: number;
   lastTickConsumption: number;
-  productionLineProductionRate: number;
-  productionLineConsumptionRate: number;
+  base: {
+    idealSupply: number;
+    maxSupply: number;
+    productionRate: number;
+    consumptionRate: number;
+    productionLineProductionRate: number;
+    productionLineConsumptionRate: number;
+  };
+  current: {
+    idealSupply: number;
+    maxSupply: number;
+    productionRate: number;
+    consumptionRate: number;
+    productionLineProductionRate: number;
+    productionLineConsumptionRate: number;
+  };
   localFluctuation: number;
   price?: MarketPrice;
 }
@@ -46,7 +56,7 @@ export class Waypoint {
   public orbitals: Waypoint[] = [];
   public inOrbitOf?: string;
 
-  public industries: Industry[] = [];
+  public industries: Partial<Record<Industry, number>> = {};
   public traits: WaypointTrait[] = [];
 
   public jumpGate?: JumpGate;
@@ -93,6 +103,24 @@ export class Waypoint {
     return chart;
   }
 
+  public updateSupplyDemand() {
+    Object.keys(this.supplyDemand).forEach((tradeGood) => {
+      const sd = this.supplyDemand[tradeGood as TradeGood];
+      if (sd) {
+        sd.current = {
+          idealSupply: sd.base.idealSupply * this.population,
+          maxSupply: sd.base.maxSupply * this.population,
+          productionRate: sd.base.productionRate * this.population,
+          consumptionRate: sd.base.consumptionRate * this.population,
+          productionLineProductionRate:
+            sd.base.productionLineProductionRate * this.population,
+          productionLineConsumptionRate:
+            sd.base.productionLineConsumptionRate * this.population,
+        };
+      }
+    });
+  }
+
   public tick() {
     // determine production/consumption at this waypoint
     Object.values(this.supplyDemand).forEach((supplyDemand) => {
@@ -100,7 +128,8 @@ export class Waypoint {
       supplyDemand.lastTickConsumption = 0;
       this.inventory.add(
         supplyDemand.tradeGood,
-        supplyDemand.productionRate - supplyDemand.consumptionRate
+        supplyDemand.current.productionRate -
+          supplyDemand.current.consumptionRate
       );
     });
     this.productionLines.forEach((productionLine) => {

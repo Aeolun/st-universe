@@ -21,8 +21,7 @@ export type WaypointTrait =
   | "JUNGLE"
   | "LEGALIZED_SLAVERY"
   | "MARKETPLACE"
-  | "SPARSELY_POPULATED"
-  | "POPULATED"
+  | "CANT_PRODUCE_EVERYTHING_PLANETSIDE"
   | "MEGA_STRUCTURES"
   | "MILITARY_BASE"
   | "MINERAL_DEPOSITS"
@@ -70,12 +69,14 @@ export interface TraitModifiers {
   serviceCostMultiplier?: number;
   extractableResources?: {
     tradegood: TradeGood;
-    prevalence: number;
+    richness: {
+      min: number;
+      max: number;
+    };
   }[];
   maintenanceCostMultiplier?: number;
   constructionCostMultiplier?: number;
   populationLevel?: number;
-  industries?: number;
   shipHullCount?: number;
   shipHullsAvailable?: Configuration[];
 }
@@ -83,6 +84,7 @@ export interface TraitModifiers {
 export type TraitData = TraitModifiers & {
   validFor: WaypointType[];
   category?: TraitCategory;
+  industries?: number;
   hidden?: boolean;
   requiresCategory?: TraitCategory[];
 };
@@ -109,15 +111,15 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     extractableResources: [
       {
         tradegood: TradeGood.IRON_ORE,
-        prevalence: 40,
+        richness: { min: 0.5, max: 2 },
       },
       {
         tradegood: TradeGood.ALUMINUM_ORE,
-        prevalence: 40,
+        richness: { min: 0.5, max: 2 },
       },
       {
         tradegood: TradeGood.COPPER_ORE,
-        prevalence: 30,
+        richness: { min: 0.5, max: 2 },
       },
     ],
   },
@@ -135,8 +137,11 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
-      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+      {
+        tradegood: TradeGood.BOTANICAL_SPECIMENS,
+        richness: { min: 0.5, max: 2 },
+      },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, richness: { min: 0.5, max: 2 } },
       // { tradegood: TradeGood.LIVESTOCK, prevalence: 40 },
       // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
@@ -144,9 +149,9 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   DRY_SEABEDS: {
     validFor: ["PLANET"],
     extractableResources: [
-      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 30 },
-      { tradegood: TradeGood.POLYNUCLEOTIDES, prevalence: 20 },
-      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
+      { tradegood: TradeGood.QUARTZ_SAND, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.POLYNUCLEOTIDES, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.DIAMONDS, richness: { min: 0.5, max: 2 } },
     ],
   },
   EXPLORATION_OUTPOST: {
@@ -169,7 +174,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET", "MOON"],
     maintenanceCostMultiplier: 2,
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
+      { tradegood: TradeGood.HYDROCARBON, richness: { min: 0.5, max: 2 } },
     ],
   },
   EXTREME_PRESSURE: {
@@ -192,9 +197,9 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   FROZEN: {
     validFor: ["PLANET"],
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
-      { tradegood: TradeGood.ICE_WATER, prevalence: 30 },
-      { tradegood: TradeGood.AMMONIA_ICE, prevalence: 40 },
+      { tradegood: TradeGood.HYDROCARBON, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.ICE_WATER, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.AMMONIA_ICE, richness: { min: 0.5, max: 2 } },
       // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
   },
@@ -215,8 +220,11 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      { tradegood: TradeGood.BOTANICAL_SPECIMENS, prevalence: 10 },
-      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+      {
+        tradegood: TradeGood.BOTANICAL_SPECIMENS,
+        richness: { min: 0.5, max: 2 },
+      },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, richness: { min: 0.5, max: 2 } },
       // { tradegood: TradeGood.LIVESTOCK, prevalence: 20 },
       // { tradegood: TradeGood.RESEARCH_DATA, prevalence: 5 },
     ],
@@ -256,48 +264,29 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      { tradegood: TradeGood.IRON_ORE, prevalence: 20 },
-      { tradegood: TradeGood.ALUMINUM_ORE, prevalence: 20 },
-      { tradegood: TradeGood.COPPER_ORE, prevalence: 20 },
-      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 30 },
-      { tradegood: TradeGood.SILICON_CRYSTALS, prevalence: 30 },
+      { tradegood: TradeGood.IRON_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.ALUMINUM_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.COPPER_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.QUARTZ_SAND, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.SILICON_CRYSTALS, richness: { min: 0.5, max: 2 } },
     ],
   },
-  POPULATED: {
+  CANT_PRODUCE_EVERYTHING_PLANETSIDE: {
     hidden: true,
     validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
     requiresCategory: ["HABITATION"],
-    imports: {
-      CLOTHING: 1,
-      DRUGS: 1,
-      ELECTRONICS: 1,
-      EQUIPMENT: 1,
-      FABRICS: 1,
+    consumes: {
+      CLOTHING: 0.5,
+      ELECTRONICS: 0.25,
+      EQUIPMENT: 0.25,
+      FABRICS: 0.5,
       FOOD: 1,
-      FUEL: 1,
-      ICE_WATER: 1,
-      MACHINERY: 1,
-      MEDICINE: 1,
-      PLASTICS: 1,
+      FUEL: 0.5,
+      ICE_WATER: 2,
+      MACHINERY: 0.25,
+      MEDICINE: 0.25,
+      PLASTICS: 0.25,
     },
-  },
-  SPARSELY_POPULATED: {
-    hidden: true,
-    validFor: ["PLANET", "MOON", "ORBITAL_STATION"],
-    requiresCategory: ["HABITATION"],
-    exchange: [
-      TradeGood.CLOTHING,
-      TradeGood.DRUGS,
-      TradeGood.ELECTRONICS,
-      TradeGood.EQUIPMENT,
-      TradeGood.FABRICS,
-      TradeGood.FOOD,
-      TradeGood.FUEL,
-      TradeGood.ICE_WATER,
-      TradeGood.MACHINERY,
-      TradeGood.MEDICINE,
-      TradeGood.PLASTICS,
-    ],
   },
   NATURAL_SPICES: {
     category: "DEPOSIT",
@@ -310,7 +299,9 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
   OCEAN: {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
-    extractableResources: [{ tradegood: TradeGood.FOOD, prevalence: 30 }],
+    extractableResources: [
+      { tradegood: TradeGood.FOOD, richness: { min: 0.5, max: 2 } },
+    ],
     maintenanceCostMultiplier: 1.25,
   },
   OUTPOST: {
@@ -334,18 +325,18 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      { tradegood: TradeGood.GOLD_ORE, prevalence: 10 },
-      { tradegood: TradeGood.SILVER_ORE, prevalence: 20 },
-      { tradegood: TradeGood.PLATINUM_ORE, prevalence: 10 },
+      { tradegood: TradeGood.GOLD_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.SILVER_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.PLATINUM_ORE, richness: { min: 0.5, max: 2 } },
     ],
   },
   RARE_METAL_DEPOSITS: {
     category: "DEPOSIT",
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     extractableResources: [
-      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
-      { tradegood: TradeGood.URANITE_ORE, prevalence: 20 },
-      { tradegood: TradeGood.MERITIUM_ORE, prevalence: 20 },
+      { tradegood: TradeGood.DIAMONDS, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.URANITE_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.MERITIUM_ORE, richness: { min: 0.5, max: 2 } },
     ],
   },
   RESEARCH_FACILITY: {
@@ -367,10 +358,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     category: "DEPOSIT",
     validFor: ["PLANET"],
     extractableResources: [
-      { tradegood: TradeGood.IRON_ORE, prevalence: 30 },
-      { tradegood: TradeGood.ALUMINUM_ORE, prevalence: 10 },
-      { tradegood: TradeGood.COPPER_ORE, prevalence: 10 },
-      { tradegood: TradeGood.QUARTZ_SAND, prevalence: 40 },
+      { tradegood: TradeGood.IRON_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.ALUMINUM_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.COPPER_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.QUARTZ_SAND, richness: { min: 0.5, max: 2 } },
     ],
   },
   SCATTERED_SETTLEMENTS: {
@@ -436,8 +427,8 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET"],
     category: "PLANT_LIFE",
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBON, prevalence: 20 },
-      { tradegood: TradeGood.NOVEL_LIFEFORMS, prevalence: 5 },
+      { tradegood: TradeGood.HYDROCARBON, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.NOVEL_LIFEFORMS, richness: { min: 0.5, max: 2 } },
     ],
     maintenanceCostMultiplier: 1.5,
   },
@@ -464,6 +455,7 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     validFor: ["PLANET", "MOON", "ASTEROID_FIELD"],
     exchange: [TradeGood.FUEL],
     exchangeGoodsCount: 5,
+    populationLevel: 1,
   },
   UNCHARTED: {
     validFor: [],
@@ -479,10 +471,10 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
     maintenanceCostMultiplier: 1.5,
     constructionCostMultiplier: 1.5,
     extractableResources: [
-      { tradegood: TradeGood.HYDROCARBON, prevalence: 30 },
-      { tradegood: TradeGood.DIAMONDS, prevalence: 5 },
-      { tradegood: TradeGood.URANITE_ORE, prevalence: 10 },
-      { tradegood: TradeGood.MERITIUM_ORE, prevalence: 10 },
+      { tradegood: TradeGood.HYDROCARBON, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.DIAMONDS, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.URANITE_ORE, richness: { min: 0.5, max: 2 } },
+      { tradegood: TradeGood.MERITIUM_ORE, richness: { min: 0.5, max: 2 } },
     ],
   },
   WEAK_GRAVITY: {

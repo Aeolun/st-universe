@@ -40,15 +40,18 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
       if (
         !mostLackingResource ||
         mostLackingResource.amountPercentage >
-          waypoint.inventory.get(resource.tradeGood) / resource.idealSupply
+          waypoint.inventory.get(resource.tradeGood) /
+            resource.current.idealSupply
       ) {
         mostLackingResource = {
           waypoint: waypoint.symbol,
           tradeGoodSymbol: resource.tradeGood,
           amount:
-            resource.idealSupply - waypoint.inventory.get(resource.tradeGood),
+            resource.current.idealSupply -
+            waypoint.inventory.get(resource.tradeGood),
           amountPercentage:
-            waypoint.inventory.get(resource.tradeGood) / resource.idealSupply,
+            waypoint.inventory.get(resource.tradeGood) /
+            resource.current.idealSupply,
           faction: waypoint.ownedBy,
           supplyDemand: resource,
         };

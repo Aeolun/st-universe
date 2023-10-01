@@ -1,7 +1,7 @@
 import { System } from "src/universe/entities/System";
 import { Agent } from "src/universe/entities/Agent";
 import { Ship } from "src/universe/entities/Ship";
-import { SupplyDemand, Waypoint } from "src/universe/entities/Waypoint";
+import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { Faction } from "src/universe/entities/Faction";
 
@@ -107,16 +107,16 @@ export class Universe {
               sd.kind === "supply" ? w.inventory.get(sd.tradeGood) : 0;
             good.supplyOnExchange +=
               sd.kind === "exchange" ? w.inventory.get(sd.tradeGood) : 0;
-            good.productionRate += sd.productionRate;
-            good.consumptionRate += sd.consumptionRate;
+            good.productionRate += sd.current.productionRate;
+            good.consumptionRate += sd.current.consumptionRate;
             good.lastTickProduction += sd.lastTickProduction;
             good.lastTickConsumption += sd.lastTickConsumption;
             good.productionLineProductionRate +=
-              sd.productionLineProductionRate;
+              sd.current.productionLineProductionRate;
             good.productionLineConsumptionRate +=
-              sd.productionLineConsumptionRate;
-            good.desiredSupply += sd.idealSupply;
-            good.maxSupply += sd.maxSupply;
+              sd.current.productionLineConsumptionRate;
+            good.desiredSupply += sd.current.idealSupply;
+            good.maxSupply += sd.current.maxSupply;
           }
         });
       });

@@ -90,7 +90,7 @@ export class Ship {
     this.mounts.forEach((mount) => {
       mount.addStats(this.stats);
     });
-    console.log("stats before multiply", this.stats);
+
     this.frame.multiplyStats(this.stats);
     this.reactor.multiplyStats(this.stats);
     this.engine.multiplyStats(this.stats);

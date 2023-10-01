@@ -5,6 +5,11 @@ import { generateUniverse } from "src/universe/generateUniverse";
 import { setUniverse, universe } from "src/universe/universe";
 import { Universe } from "src/universe/entities/Universe";
 import * as os from "os";
+import { Ship } from "src/universe/entities/Ship";
+import {
+  Configuration,
+  shipConfigurationData,
+} from "src/universe/static-data/ship-configurations";
 
 let platform: Awaited<ReturnType<(typeof PlatformKoa)["bootstrap"]>>;
 async function bootstrap() {
@@ -77,6 +82,29 @@ const createNewUniverse = async () => {
 };
 
 createNewUniverse().then(() => {
+  Object.keys(shipConfigurationData).forEach((key) => {
+    const config = shipConfigurationData[key as Configuration];
+    // create a ship with this configuration to get the crew requirements
+    const ship = new Ship({
+      symbol: "",
+      agentSymbol: "",
+      role: "EXCAVATOR",
+      waypoint: {
+        symbol: "",
+        systemSymbol: "",
+        x: 0,
+        y: 0,
+        type: "GRAVITY_WELL",
+      },
+      configuration: key as Configuration,
+    });
+
+    // TODO: Make ShipConfigurations capable of calculating stats
+    config.crew = {
+      required: ship.stats.crewRequired,
+      capacity: ship.stats.crewCapacity,
+    };
+  });
   console.log("First universe started");
 });
 

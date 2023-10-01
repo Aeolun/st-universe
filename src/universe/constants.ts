@@ -1,3 +1,5 @@
+const oneWeek = 1000 * 3600 * 24 * 7;
+
 // default settings
 export const ORIGINAL_MINIMUM_NAVIGATE_TIME = 15;
 export const ORIGINAL_MINIMUM_WARP_TIME = 15;
@@ -9,8 +11,10 @@ export const ORIGINAL_POWER_USE_COOLDOWN = 10000;
 // fast settings
 export const RESET_DURATION = process.env.RESET_DURATION
   ? parseInt(process.env.RESET_DURATION)
-  : 1000 * 60 * 60 * 6;
-export const TIME_FACTOR = RESET_DURATION / (3600 * 24 * 1000 * 7);
+  : oneWeek;
+
+export const TIME_FACTOR = RESET_DURATION / oneWeek;
+
 export const MINIMUM_NAVIGATE_TIME =
   ORIGINAL_MINIMUM_NAVIGATE_TIME * TIME_FACTOR;
 export const MINIMUM_WARP_TIME = ORIGINAL_MINIMUM_WARP_TIME * TIME_FACTOR;

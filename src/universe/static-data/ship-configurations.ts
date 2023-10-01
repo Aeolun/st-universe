@@ -5,6 +5,7 @@ import { Engine } from "src/universe/static-data/ship-engines";
 import { Module } from "src/universe/static-data/ship-modules";
 import { Mount } from "src/universe/static-data/ship-mounts";
 import { ShipRole } from "src/controllers/schemas/ship-role";
+import { Ship } from "src/universe/entities/Ship";
 
 export enum Configuration {
   SHIP_COMMAND_FRIGATE = "SHIP_COMMAND_FRIGATE",

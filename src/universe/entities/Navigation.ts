@@ -1,7 +1,4 @@
-import { System } from "src/universe/entities/System";
-import { Waypoint } from "src/universe/entities/Waypoint";
 import {
-  ShipNav,
   ShipNavFlightMode,
   ShipNavRouteWaypoint,
   ShipNavStatus,
@@ -11,6 +8,7 @@ export class Location {
   systemSymbol: string;
   waypointSymbol: string;
 }
+
 export class Navigation {
   current: ShipNavRouteWaypoint;
   flightMode: ShipNavFlightMode = ShipNavFlightMode.Cruise;

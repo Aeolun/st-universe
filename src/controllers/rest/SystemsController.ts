@@ -31,6 +31,7 @@ import { getDistance } from "src/universe/getDistance";
 import { getSystem } from "src/controllers/helpers/get-system";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { renderShipTransaction } from "src/controllers/formatting/render-ship-transaction";
+import { shipModificationCost } from "src/universe/formulas/ship-modification-cost";
 
 @Controller("/systems/")
 export class SystemsController {
@@ -163,7 +164,7 @@ export class SystemsController {
                 tradeVolume: price.tradeVolume,
                 supply: renderSupply(
                   waypoint.inventory.get(supplyDemand.tradeGood),
-                  supplyDemand.idealSupply
+                  supplyDemand.current.idealSupply
                 ),
                 // purchase and sale price inverted since we are looking at the market from the perspective of the ship
                 purchasePrice: price.salePrice,
@@ -217,6 +218,7 @@ export class SystemsController {
               return renderShipConfiguration(item, waypoint);
             })
           : undefined,
+        modificationsFee: shipModificationCost(),
       },
     };
   }

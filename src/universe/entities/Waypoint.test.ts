@@ -16,47 +16,78 @@ test("waypoint tick works", () => {
   });
 
   waypoint.supplyDemand["ADVANCED_CIRCUITRY"] = {
-    productionLineProductionRate: 1,
-    productionRate: 0,
-    productionLineConsumptionRate: 0,
-    consumptionRate: 0,
+    current: {
+      productionLineProductionRate: 1,
+      productionRate: 0,
+      productionLineConsumptionRate: 0,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
+    base: {
+      productionLineProductionRate: 1,
+      productionRate: 0,
+      productionLineConsumptionRate: 0,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
+
     stopSaleAt: 0,
     lastTickConsumption: 0,
     lastTickProduction: 0,
     kind: "supply",
     tradeGood: TradeGood.ADVANCED_CIRCUITRY,
-    idealSupply: 100,
-    maxSupply: 200,
     localFluctuation: 1,
   };
 
   waypoint.supplyDemand["ELECTRONICS"] = {
-    productionLineProductionRate: 0,
-    productionRate: 0,
-    productionLineConsumptionRate: 3,
-    consumptionRate: 0,
+    current: {
+      productionLineProductionRate: 0,
+      productionRate: 0,
+      productionLineConsumptionRate: 3,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
+    base: {
+      productionLineProductionRate: 0,
+      productionRate: 0,
+      productionLineConsumptionRate: 3,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
     stopSaleAt: 0,
     lastTickConsumption: 0,
     lastTickProduction: 0,
     kind: "demand",
     tradeGood: TradeGood.ELECTRONICS,
-    idealSupply: 100,
-    maxSupply: 200,
     localFluctuation: 1,
   };
 
   waypoint.supplyDemand["MICROPROCESSORS"] = {
-    productionLineProductionRate: 0,
-    productionRate: 0,
-    productionLineConsumptionRate: 2,
-    consumptionRate: 0,
+    current: {
+      productionLineProductionRate: 0,
+      productionRate: 0,
+      productionLineConsumptionRate: 2,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
+    base: {
+      productionLineProductionRate: 0,
+      productionRate: 0,
+      productionLineConsumptionRate: 2,
+      consumptionRate: 0,
+      idealSupply: 100,
+      maxSupply: 200,
+    },
     stopSaleAt: 0,
     lastTickConsumption: 0,
     lastTickProduction: 0,
     kind: "demand",
     tradeGood: TradeGood.MICROPROCESSORS,
-    idealSupply: 100,
-    maxSupply: 200,
     localFluctuation: 1,
   };
 

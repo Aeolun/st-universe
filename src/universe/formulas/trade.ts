@@ -41,27 +41,34 @@ export function marketPrice(
     tradeVolume *= 10;
   }
 
-  if (inventory > supplyDemand.maxSupply) {
+  if (inventory > supplyDemand.current.maxSupply) {
     // supply saturated
     salePrice =
-      baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3);
+      baseData.basePrice /
+      Math.pow(inventory / supplyDemand.current.idealSupply, 3);
     purchasePrice =
-      (baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3)) *
+      (baseData.basePrice /
+        Math.pow(inventory / supplyDemand.current.idealSupply, 3)) *
       0.8;
     tradeVolume *= 10;
-  } else if (inventory >= supplyDemand.idealSupply) {
+  } else if (inventory >= supplyDemand.current.idealSupply) {
     // demand satisfied
-    salePrice = baseData.basePrice / (inventory / supplyDemand.idealSupply);
+    salePrice =
+      baseData.basePrice / (inventory / supplyDemand.current.idealSupply);
     purchasePrice =
-      (baseData.basePrice / Math.pow(inventory / supplyDemand.idealSupply, 3)) *
+      (baseData.basePrice /
+        Math.pow(inventory / supplyDemand.current.idealSupply, 3)) *
       0.9;
   } else {
     // demand not satisfied
     salePrice =
-      baseData.basePrice * Math.min(supplyDemand.idealSupply / inventory, 3);
+      baseData.basePrice *
+      Math.min(supplyDemand.current.idealSupply / inventory, 3);
     purchasePrice =
       baseData.basePrice *
-      (1 + (supplyDemand.idealSupply - inventory) / supplyDemand.idealSupply) *
+      (1 +
+        (supplyDemand.current.idealSupply - inventory) /
+          supplyDemand.current.idealSupply) *
       0.9;
   }
 

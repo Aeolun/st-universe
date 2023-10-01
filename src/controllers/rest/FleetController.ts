@@ -11,6 +11,7 @@ import {
   CreateSurvey201Response,
   DockShip200Response,
   ExtractResources201Response,
+  ExtractResourcesRequest,
   GetMounts200Response,
   GetMyShip200Response,
   GetMyShipCargo200Response,
@@ -99,6 +100,7 @@ import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
 import { mountData } from "src/universe/static-data/ship-mounts";
+import { extractResources } from "src/controllers/helpers/extract-resources";
 
 @Controller("/my/")
 @CustomAuth()
@@ -432,58 +434,54 @@ export class FleetController {
   @Post("/ships/:shipSymbol/extract")
   extract(
     @AgentParam() agent: Agent,
-    @PathParams("shipSymbol") shipSymbol: string
+    @PathParams("shipSymbol") shipSymbol: string,
+    @BodyParams() body: ExtractResourcesRequest
   ): ExtractResources201Response {
     const ship = getShip(agent, shipSymbol);
     checkShipNotOnCooldown(ship);
 
     const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
 
-    const extractMounts = ship.mounts.filter((m) =>
-      m.capabilities.some((c) => c instanceof ExtractsResources)
-    );
-    const powerUsage = extractMounts.reduce(
-      (acc, mount) => acc + mount.stats.powerRequired,
-      0
+    const { resource, extracted, powerUsage } = extractResources(
+      ship.mounts,
+      waypoint,
+      body.survey
     );
 
-    let maxPossibleResources = 0;
-    const allPossibleResources: TradeGood[] = [];
-    let variation = 0;
-    let totalPower = 0;
-    extractMounts.forEach((mount) => {
-      const possibleResources: TradeGood[] = [];
-      mount.stats.resourcesExtracted.forEach((resource) => {
-        resourceGroups[resource].forEach((good) => {
-          if (
-            Object.keys(waypoint.extractableResources).find((ex) => ex === good)
-          ) {
-            possibleResources.push(good);
-          }
-        });
-      });
+    ship.cargo.add(resource, extracted);
+    ship.setCooldown(powerUsage);
 
-      if (maxPossibleResources < possibleResources.length) {
-        maxPossibleResources = possibleResources.length;
-      }
+    return {
+      data: {
+        cooldown: renderCooldown(ship),
+        cargo: renderShipCargo(ship),
+        extraction: {
+          shipSymbol: ship.symbol,
+          yield: {
+            symbol: resource as TradeSymbol,
+            units: extracted,
+          },
+        },
+      },
+    };
+  }
 
-      if (maxPossibleResources === 0) {
-        return;
-      }
+  @Post("/ships/:shipSymbol/extract/survey")
+  extractWithSurvey(
+    @AgentParam() agent: Agent,
+    @PathParams("shipSymbol") shipSymbol: string,
+    @BodyParams() body: ExtractResourcesRequest["survey"]
+  ): ExtractResources201Response {
+    const ship = getShip(agent, shipSymbol);
+    checkShipNotOnCooldown(ship);
 
-      allPossibleResources.push(...possibleResources);
-      totalPower += mount.stats.extractionPower;
-      variation += 5;
-    });
+    const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
 
-    if (maxPossibleResources === 0) {
-      throw new BadRequest(
-        `There are no resources in this location that you can extract with your current mount/module configuration.`
-      );
-    }
-
-    const resource = pickRandom(allPossibleResources);
-    const extracted = totalPower + numberBetween(-variation, variation);
+    const { resource, extracted, powerUsage } = extractResources(
+      ship.mounts,
+      waypoint,
+      body
+    );
 
     ship.cargo.add(resource, extracted);
     ship.setCooldown(powerUsage);

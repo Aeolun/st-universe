@@ -1,13 +1,15 @@
 import { System } from "src/universe/entities/System";
 import {
   SystemFaction,
+  System as SystemSchema,
   SystemType,
   WaypointType,
+  SystemWaypoint,
 } from "src/controllers/schemas";
 
-export function renderSystem(system: System) {
+export function renderSystem(system: System): SystemSchema {
   const factions: SystemFaction[] = [];
-  const waypoints = system.waypoints.map((waypoint) => {
+  const waypoints: SystemWaypoint[] = system.waypoints.map((waypoint) => {
     if (
       waypoint.ownedBy &&
       !factions.some((f) => f.symbol === waypoint.ownedBy)
@@ -17,6 +19,11 @@ export function renderSystem(system: System) {
       });
     return {
       symbol: waypoint.symbol,
+      orbitals: waypoint.orbitals.map((orbital) => {
+        return {
+          symbol: orbital.symbol,
+        };
+      }),
       type: waypoint.type as WaypointType,
       x: waypoint.x,
       y: waypoint.y,

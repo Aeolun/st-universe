@@ -1,16 +1,26 @@
 import uniqid from "uniqid";
 import * as randomstring from "randomstring";
+import seedrandom from "seedrandom";
+
+let globalRandom = seedrandom(Math.random().toString());
+export function seedRandom(seed: string) {
+  globalRandom = seedrandom(seed);
+}
+
+export function random() {
+  return globalRandom();
+}
 
 export function pickRandom<T>(from: T[]) {
-  return from[Math.floor(Math.random() * from.length)];
+  return from[Math.floor(random() * from.length)];
 }
 
 export function numberBetween(from: number, to: number) {
-  return from + Math.round((to - from) * Math.random());
+  return from + Math.round((to - from) * random());
 }
 
 export function percentageChance(percentage: number) {
-  return Math.random() < percentage / 100;
+  return random() < percentage / 100;
 }
 
 export const uniqueId = (str: string, seed: number = 0) => {
@@ -49,13 +59,13 @@ export function randomWeightedKey<T extends string | number | symbol>(
     (a: number, b: number) => a + b,
     0
   ) as number;
-  let random = Math.random() * totalWeight;
+  let lRandom = random() * totalWeight;
   for (const key in weights) {
     const weight = weights[key];
-    if (random < weight) {
+    if (lRandom < weight) {
       return typeof key === "string" ? key : key;
     }
-    random -= weight;
+    lRandom -= weight;
   }
   throw new Error("Somehow no result from randomWeightedKey");
 }
@@ -69,7 +79,7 @@ export function shuffle(original: any[]) {
   // While there remain elements to shuffle.
   while (currentIndex != 0) {
     // Pick a remaining element.
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = Math.floor(random() * currentIndex);
     currentIndex--;
 
     // And swap it with the current element.

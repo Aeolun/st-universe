@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * SpaceTraders API
- * SpaceTraders is an open-universe game and learning platform that offers a set of HTTP endpoints to control a fleet of ships and explore a multiplayer universe.  The API is documented using [OpenAPI](https://github.com/SpaceTradersAPI/api-docs). You can send your first request right here in your browser to check the status of the game server.  ```json http {   \"method\": \"GET\",   \"url\": \"https://api.spacetraders.io/v2\", } ```  Unlike a traditional game, SpaceTraders does not have a first-party client or app to play the game. Instead, you can use the API to build your own client, write a script to automate your ships, or try an app built by the community.  We have a [Discord channel](https://discord.com/invite/jh6zurdWk5) where you can share your projects, ask questions, and get help from other players.   
+ * SpaceTraders is an open-universe game and learning platform that offers a set of HTTP endpoints to control a fleet of ships and explore a multiplayer universe.  The API is documented using [OpenAPI](https://github.com/SpaceTradersAPI/api-docs). You can send your first request right here in your browser to check the status of the game server.  ```json http {   \"method\": \"GET\",   \"url\": \"https://api.spacetraders.io/v2\", } ```  Unlike a traditional game, SpaceTraders does not have a first-party client or app to play the game. Instead, you can use the API to build your own client, write a script to automate your ships, or try an app built by the community.  We have a [Discord channel](https://discord.com/invite/jh6zurdWk5) where you can share your projects, ask questions, and get help from other players.
  *
  * The version of the OpenAPI document: 2.0.0
  * Contact: joel@spacetraders.io
@@ -12,67 +12,63 @@
  * Do not edit the class manually.
  */
 
-
 // May contain unused imports in some cases
 // @ts-ignore
-import { SystemFaction } from './system-faction';
+import { SystemFaction } from "./system-faction";
 // May contain unused imports in some cases
 // @ts-ignore
-import { SystemType } from './system-type';
+import { SystemType } from "./system-type";
 // May contain unused imports in some cases
 // @ts-ignore
-import { SystemWaypoint } from './system-waypoint';
-import {Property} from "@tsed/schema";
+import { SystemWaypoint } from "./system-waypoint";
+import { Property } from "@tsed/schema";
 
 /**
- * 
+ *
  * @export
  * @interface System
  */
 export interface System {
-    /**
-     * The symbol of the system.
-     * @type {string}
-     * @memberof System
-     */
-    'symbol': string;
-    /**
-     * The symbol of the sector.
-     * @type {string}
-     * @memberof System
-     */
-    'sectorSymbol': string;
-    /**
-     * 
-     * @type {SystemType}
-     * @memberof System
-     */
-    'type': SystemType;
-    /**
-     * Position in the universe in the x axis.
-     * @type {number}
-     * @memberof System
-     */
-    'x': number;
-    /**
-     * Position in the universe in the y axis.
-     * @type {number}
-     * @memberof System
-     */
-    'y': number;
-    /**
-     * Waypoints in this system.
-     * @type {Array<SystemWaypoint>}
-     * @memberof System
-     */
-    'waypoints': Array<SystemWaypoint>;
-    /**
-     * Factions that control this system.
-     * @type {Array<SystemFaction>}
-     * @memberof System
-     */
-    'factions': Array<SystemFaction>;
+  /**
+   * The symbol of the system.
+   * @type {string}
+   * @memberof System
+   */
+  symbol: string;
+  /**
+   * The symbol of the sector.
+   * @type {string}
+   * @memberof System
+   */
+  sectorSymbol: string;
+  /**
+   *
+   * @type {SystemType}
+   * @memberof System
+   */
+  type: SystemType;
+  /**
+   * Relative position of the system in the sector in the x axis.
+   * @type {number}
+   * @memberof System
+   */
+  x: number;
+  /**
+   * Relative position of the system in the sector in the y axis.
+   * @type {number}
+   * @memberof System
+   */
+  y: number;
+  /**
+   * Waypoints in this system.
+   * @type {Array<SystemWaypoint>}
+   * @memberof System
+   */
+  waypoints: Array<SystemWaypoint>;
+  /**
+   * Factions that control this system.
+   * @type {Array<SystemFaction>}
+   * @memberof System
+   */
+  factions: Array<SystemFaction>;
 }
-
-
-
