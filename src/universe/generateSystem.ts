@@ -126,7 +126,7 @@ export const generateSystem = (data: {
       const radius = Math.sqrt(
         Math.pow(SYSTEM_SIZE, 2) + Math.pow(SYSTEM_SIZE, 2)
       );
-      console.log("hasjumpgate", radius);
+      //console.log("hasjumpgate", radius);
       system.addJumpGate(radius, data.jumpGateSpecs.range);
     }
   }
