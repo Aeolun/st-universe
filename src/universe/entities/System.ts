@@ -42,18 +42,19 @@ export class System {
     });
   }
 
-  public tick() {
-    this.waypoints.forEach((w) => w.tick());
+  public tick(msElapsed: number) {
+    this.waypoints.forEach((w) => w.tick(msElapsed));
   }
 
-  public addJumpGate(radius: number, range: number) {
+  public addJumpGate(name: string, radius: number) {
     const angle = Math.random() * Math.PI * 2;
     const jumpGate = generateWaypoint({
+      name,
       x: Math.round(Math.sin(angle) * radius),
       y: Math.round(Math.cos(angle) * radius),
       systemSymbol: this.symbol,
       type: "JUMP_GATE",
-      jumpGateRange: range,
+      jumpGateRange: 4000,
     });
     this.addWaypoint(jumpGate);
 

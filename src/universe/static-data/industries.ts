@@ -1,6 +1,5 @@
 import { TradeGood } from "./trade-goods";
 import { TraitModifiers } from "src/universe/static-data/waypoint-traits";
-import { Configuration } from "src/universe/static-data/ship-configurations";
 
 export type Industry =
   | "AMMUNITION_FACTORY"
@@ -13,6 +12,7 @@ export type Industry =
   | "CYBERNETICS"
   | "ELECTRONICS"
   | "ENERGY"
+  | "FUEL_STATION"
   | "FUEL_REFINING"
   | "HEAVY_MANUFACTURING"
   | "LIGHT_MANUFACTURING"
@@ -21,6 +21,7 @@ export type Industry =
   | "EXPLOSIVES"
   | "FERTILIZERS"
   | "MINING_EXCHANGE"
+  | "JUMP_GATE"
   // | "NEURALWARE"
   | "NANOWARE"
   | "BOTANICALS"
@@ -120,6 +121,9 @@ export const industries: Record<Industry, IndustryProperties> = {
       },
     ],
   },
+  FUEL_STATION: {
+    exchange: [TradeGood.FUEL],
+  },
   FUEL_REFINING: {
     productionLine: [
       {
@@ -133,6 +137,9 @@ export const industries: Record<Industry, IndustryProperties> = {
         produces: TradeGood.MACHINERY,
       },
     ],
+  },
+  JUMP_GATE: {
+    exchange: [TradeGood.FUEL, TradeGood.ANTIMATTER],
   },
   LIGHT_MANUFACTURING: {
     productionLine: [

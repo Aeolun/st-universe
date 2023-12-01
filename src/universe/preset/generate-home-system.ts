@@ -11,6 +11,7 @@ export function generateHomeSystem(data: {
     ...data,
     waypoints: [
       {
+        name: "A1",
         type: "PLANET",
         x: 13,
         y: -70,

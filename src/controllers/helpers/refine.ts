@@ -1,4 +1,8 @@
-import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
+import {
+  TradeGood,
+  TradeGoodKey,
+  tradeGoods,
+} from "src/universe/static-data/trade-goods";
 import { resourceGroups } from "src/universe/static-data/resource-groups";
 import { ShipRefine200ResponseDataProducedInner } from "src/controllers/schemas/ship-refine200-response-data-produced-inner";
 import { AbstractCapabilities } from "src/universe/entities/capabilities/AbstractCapabilities";
@@ -7,7 +11,7 @@ import { Storage } from "src/universe/entities/Storage";
 export function refine(
   refineries: AbstractCapabilities[],
   cargo: Storage,
-  product: TradeGood
+  product: TradeGoodKey
 ) {
   let totalRefined = 0,
     canRefine = false;

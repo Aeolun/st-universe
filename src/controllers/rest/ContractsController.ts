@@ -18,12 +18,12 @@ import {
   FulfillContract200Response,
   GetContract200Response,
   GetContracts200Response,
+  TradeSymbol,
 } from "src/controllers/schemas";
 import { slicePage } from "src/controllers/formatting/slice-page";
 import { Contract } from "src/universe/entities/Contract";
 import { renderAgent } from "src/controllers/formatting/render-agent";
 import { renderShipCargo } from "src/controllers/formatting/render-ship-cargo";
-import { TradeGood } from "src/universe/static-data/trade-goods";
 
 @Controller("/my/")
 @CustomAuth()
@@ -116,7 +116,7 @@ export class ContractsController {
     const ship = agent.ships.find((ship) => ship.symbol === body.shipSymbol);
     if (!ship) throw new Error(`Ship ${body.shipSymbol} not found`);
 
-    if (!ship.cargo.get(body.tradeSymbol))
+    if (!ship.cargo.get(body.tradeSymbol as TradeSymbol))
       throw new Error(
         `Ship ${body.shipSymbol} has no ${body.tradeSymbol} in cargo`
       );

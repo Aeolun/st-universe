@@ -17,10 +17,36 @@ export enum Configuration {
   SHIP_MINING_DRONE = "SHIP_MINING_DRONE",
   SHIP_ORE_HOUND = "SHIP_ORE_HOUND",
   SHIP_PROBE = "SHIP_PROBE",
+  SHIP_SIPHON_DRONE = "SHIP_SIPHON_DRONE",
+  SHIP_SURVEYOR = "SHIP_SURVEYOR",
   SHIP_REFINING_FREIGHTER = "SHIP_REFINING_FREIGHTER",
 }
 
+export type ConfigurationKeys = keyof typeof Configuration;
+
 export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
+  [Configuration.SHIP_SIPHON_DRONE]: new ShipConfiguration(
+    Configuration.SHIP_SIPHON_DRONE,
+    "Siphon Drone",
+    "",
+    ShipRole.Excavator,
+    Frame.FRAME_DRONE,
+    Reactor.REACTOR_FUSION_I,
+    Engine.ENGINE_IMPULSE_DRIVE_I,
+    [Module.MODULE_CARGO_HOLD_I, Module.MODULE_GAS_PROCESSOR_I],
+    [Mount.MOUNT_GAS_SIPHON_I]
+  ),
+  [Configuration.SHIP_SURVEYOR]: new ShipConfiguration(
+    Configuration.SHIP_SIPHON_DRONE,
+    "Surveyor Craft",
+    "A specialized spacecraft equipped with surveying mounts, designed for detailed surveying of celestial bodies, resource identification, and scientific research.",
+    ShipRole.Surveyor,
+    Frame.FRAME_DRONE,
+    Reactor.REACTOR_CHEMICAL_I,
+    Engine.ENGINE_IMPULSE_DRIVE_I,
+    [],
+    [Mount.MOUNT_SURVEYOR_I]
+  ),
   [Configuration.SHIP_COMMAND_FRIGATE]: new ShipConfiguration(
     Configuration.SHIP_COMMAND_FRIGATE,
     "Command Frigate",
@@ -100,20 +126,18 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
   [Configuration.SHIP_LIGHT_HAULER]: new ShipConfiguration(
     Configuration.SHIP_LIGHT_HAULER,
     "Light Hauler",
-    "",
+    "A small, fast cargo ship that is designed for short-range transport of light loads.",
     ShipRole.Hauler,
     Frame.FRAME_LIGHT_FREIGHTER,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_ION_DRIVE_I,
     [
-      Module.MODULE_CARGO_HOLD_I,
-      Module.MODULE_CARGO_HOLD_I,
-      Module.MODULE_CARGO_HOLD_I,
-      Module.MODULE_CARGO_HOLD_I,
+      Module.MODULE_CARGO_HOLD_II,
+      Module.MODULE_CARGO_HOLD_II,
       Module.MODULE_CREW_QUARTERS_I,
       Module.MODULE_CREW_QUARTERS_I,
     ],
-    [Mount.MOUNT_SURVEYOR_I]
+    [Mount.MOUNT_TURRET_I]
   ),
   [Configuration.SHIP_LIGHT_SHUTTLE]: new ShipConfiguration(
     Configuration.SHIP_LIGHT_SHUTTLE,
@@ -123,12 +147,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Frame.FRAME_SHUTTLE,
     Reactor.REACTOR_CHEMICAL_I,
     Engine.ENGINE_IMPULSE_DRIVE_I,
-    [
-      Module.MODULE_CARGO_HOLD_I,
-      Module.MODULE_CREW_QUARTERS_I,
-      Module.MODULE_PASSENGER_CABIN_I,
-      Module.MODULE_ENVOY_QUARTERS_I,
-    ],
+    [Module.MODULE_CARGO_HOLD_II, Module.MODULE_CREW_QUARTERS_I],
     [Mount.MOUNT_TURRET_I]
   ),
   [Configuration.SHIP_MINING_DRONE]: new ShipConfiguration(

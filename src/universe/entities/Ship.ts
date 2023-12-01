@@ -13,6 +13,7 @@ import {
 } from "src/controllers/schemas";
 import {
   Configuration,
+  ConfigurationKeys,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
 import { frameData } from "src/universe/static-data/ship-frames";
@@ -49,7 +50,7 @@ export class Ship {
   derivedStats: DerivedStats = new DerivedStats();
   constructor(data: {
     symbol: string;
-    configuration: Configuration;
+    configuration: ConfigurationKeys;
     agentSymbol: string;
     role: ShipRole;
     waypoint: ShipNavRouteWaypoint;

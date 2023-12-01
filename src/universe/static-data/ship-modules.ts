@@ -12,6 +12,7 @@ import { RequiresModuleCapacity } from "src/universe/entities/capabilities/Requi
 
 export enum Module {
   MODULE_CARGO_HOLD_I = "MODULE_CARGO_HOLD_I",
+  MODULE_CARGO_HOLD_II = "MODULE_CARGO_HOLD_II",
   MODULE_CREW_QUARTERS_I = "MODULE_CREW_QUARTERS_I",
   MODULE_WARP_DRIVE_I = "MODULE_WARP_DRIVE_I",
   MODULE_WARP_DRIVE_II = "MODULE_WARP_DRIVE_II",
@@ -20,6 +21,7 @@ export enum Module {
   MODULE_JUMP_DRIVE_II = "MODULE_JUMP_DRIVE_II",
   MODULE_JUMP_DRIVE_III = "MODULE_JUMP_DRIVE_III",
   MODULE_MINERAL_PROCESSOR_I = "MODULE_MINERAL_PROCESSOR_I",
+  MODULE_GAS_PROCESSOR_I = "MODULE_GAS_PROCESSOR_I",
   MODULE_ENVOY_QUARTERS_I = "MODULE_ENVOY_QUARTERS_I",
   MODULE_SCIENCE_LAB_I = "MODULE_SCIENCE_LAB_I",
   MODULE_PASSENGER_CABIN_I = "MODULE_PASSENGER_CABIN_I",
@@ -34,9 +36,20 @@ export const moduleData: Record<Module, ShipModule> = {
     "Cargo Hold",
     "A module that increases a ship's cargo capacity.",
     [
-      new ProvidesCargoSpace(30),
+      new ProvidesCargoSpace(15),
       new RequiresPower(1),
       new RequiresModuleCapacity(1),
+    ]
+  ),
+  [Module.MODULE_CARGO_HOLD_II]: new ShipModule(
+    Module.MODULE_CARGO_HOLD_II,
+    "Cargo Hold",
+    "A module that increases a ship's cargo capacity.",
+    [
+      new ProvidesCargoSpace(40),
+      new RequiresPower(2),
+      new RequiresModuleCapacity(2),
+      new RequiresCrew(2),
     ]
   ),
   [Module.MODULE_CREW_QUARTERS_I]: new ShipModule(
@@ -122,6 +135,12 @@ export const moduleData: Record<Module, ShipModule> = {
     "Mineral Processor",
     "Crushes and processes extracted minerals and ores into their component parts, filters out impurities, and containerizes them into raw storage units.",
     []
+  ),
+  [Module.MODULE_GAS_PROCESSOR_I]: new ShipModule(
+    Module.MODULE_GAS_PROCESSOR_I,
+    "Gas Processor",
+    "Filters and processes extracted gases into their component parts, filters out impurities, and containerizes them into raw storage units.",
+    [new RequiresPower(1), new RequiresModuleCapacity(2)]
   ),
   [Module.MODULE_ENVOY_QUARTERS_I]: new ShipModule(
     Module.MODULE_ENVOY_QUARTERS_I,

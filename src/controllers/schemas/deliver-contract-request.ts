@@ -14,37 +14,29 @@
 
 
 
-import {Enum, Property} from "@tsed/schema";
-import {TradeGood} from "src/universe/static-data/trade-goods";
-
-
-
 /**
  * 
  * @export
  * @interface DeliverContractRequest
  */
-export class DeliverContractRequest {
+export interface DeliverContractRequest {
     /**
      * Symbol of a ship located in the destination to deliver a contract and that has a good to deliver in its cargo.
      * @type {string}
      * @memberof DeliverContractRequest
      */
-    @Property()
     'shipSymbol': string;
     /**
      * The symbol of the good to deliver.
      * @type {string}
      * @memberof DeliverContractRequest
      */
-    @Enum(TradeGood)
-    'tradeSymbol': TradeGood;
+    'tradeSymbol': string;
     /**
      * Amount of units to deliver.
      * @type {number}
      * @memberof DeliverContractRequest
      */
-    @Property()
     'units': number;
 }
 

@@ -16,28 +16,24 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { ShipType } from './ship-type';
-import {Enum, Property} from "@tsed/schema";
-import {Configuration} from "src/universe/static-data/ship-configurations";
 
 /**
  * 
  * @export
  * @interface PurchaseShipRequest
  */
-export class PurchaseShipRequest {
+export interface PurchaseShipRequest {
     /**
      * 
      * @type {ShipType}
      * @memberof PurchaseShipRequest
      */
-    @Enum(Configuration)
-    'shipType': Configuration;
+    'shipType': ShipType;
     /**
      * The symbol of the waypoint you want to purchase the ship at.
      * @type {string}
      * @memberof PurchaseShipRequest
      */
-    @Property()
     'waypointSymbol': string;
 }
 

@@ -1,16 +1,13 @@
-import { MarketTradeGoodSupplyEnum } from "src/controllers/schemas";
+import { SupplyLevel } from "src/controllers/schemas";
 
-export const renderSupply = (
-  current: number,
-  desired: number
-): MarketTradeGoodSupplyEnum => {
+export const renderSupply = (current: number, desired: number): SupplyLevel => {
   if (current > desired * 1.5) {
-    return MarketTradeGoodSupplyEnum.Abundant;
+    return SupplyLevel.Abundant;
   } else if (current > 0.75 * desired) {
-    return MarketTradeGoodSupplyEnum.Moderate;
+    return SupplyLevel.Moderate;
   } else if (current > 0.25 * desired) {
-    return MarketTradeGoodSupplyEnum.Limited;
+    return SupplyLevel.Limited;
   } else {
-    return MarketTradeGoodSupplyEnum.Scarce;
+    return SupplyLevel.Scarce;
   }
 };

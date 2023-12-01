@@ -3,6 +3,8 @@ import { Get } from "@tsed/schema";
 import { Context, PathParams, QueryParams } from "@tsed/platform-params";
 import { universe } from "src/universe/universe";
 import {
+  ActivityLevel,
+  GetConstruction200Response,
   GetJumpGate200Response,
   GetMarket200Response,
   GetShipyard200Response,
@@ -161,7 +163,14 @@ export class SystemsController {
               );
               return {
                 symbol: supplyDemand.tradeGood as TradeSymbol,
+                type:
+                  supplyDemand.kind === "supply"
+                    ? "EXPORT"
+                    : supplyDemand.kind === "demand"
+                    ? "IMPORT"
+                    : "EXCHANGE",
                 tradeVolume: price.tradeVolume,
+                activity: ActivityLevel.Restricted,
                 supply: renderSupply(
                   waypoint.inventory.get(supplyDemand.tradeGood),
                   supplyDemand.current.idealSupply
@@ -223,6 +232,43 @@ export class SystemsController {
     };
   }
 
+  @Get("/:systemSymbol/waypoints/:waypointSymbol/construction")
+  @CustomAuth({ optional: true })
+  constructionSite(
+    @PathParams("systemSymbol") systemSymbol: string,
+    @PathParams("waypointSymbol") waypointSymbol: string,
+    @Context("auth") context: AuthToken
+  ): GetConstruction200Response {
+    const waypoint = getWaypoint(universe, waypointSymbol);
+
+    if (!waypoint.constructionSite) {
+      throw new Error(
+        `Waypoint ${waypointSymbol} does not have a construction site`
+      );
+    }
+
+    return {
+      data: {
+        symbol: waypoint.symbol,
+        isComplete: waypoint.constructionSite.isComplete,
+        materials: Object.keys(waypoint.constructionSite.requiredResources).map(
+          (resource) => {
+            return {
+              tradeSymbol: resource as TradeSymbol,
+              required:
+                waypoint.constructionSite?.requiredResources[
+                  resource as TradeSymbol
+                ] ?? 0,
+              fulfilled:
+                waypoint.constructionSite?.resources[resource as TradeSymbol] ??
+                0,
+            };
+          }
+        ),
+      },
+    };
+  }
+
   @Get("/:systemSymbol/waypoints/:waypointSymbol/jump-gate")
   @CustomAuth({ optional: true })
   jumpGate(
@@ -230,7 +276,6 @@ export class SystemsController {
     @PathParams("waypointSymbol") waypointSymbol: string,
     @Context("auth") context: AuthToken
   ): GetJumpGate200Response {
-    const system = getSystem(universe, systemSymbol);
     const waypoint = getWaypoint(universe, waypointSymbol);
 
     let hasShip = false;
@@ -252,25 +297,7 @@ export class SystemsController {
 
     return {
       data: {
-        factionSymbol: waypoint.ownedBy,
-        jumpRange: waypoint.jumpGate?.range,
-        connectedSystems: Object.values(universe.systems)
-          .filter((s) => {
-            return (
-              s.waypoints.some((w) => w.type === "JUMP_GATE") &&
-              getDistance(system, s)
-            );
-          })
-          .map((s) => {
-            return {
-              symbol: s.symbol,
-              sectorSymbol: s.sectorSymbol,
-              type: s.type as SystemType,
-              x: s.x,
-              y: s.y,
-              distance: Math.round(getDistance(system, s)),
-            };
-          }),
+        connections: waypoint.jumpGate.connectedWaypointSymbols,
       },
     };
   }

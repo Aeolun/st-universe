@@ -13,6 +13,15 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ActivityLevel } from './activity-level';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SupplyLevel } from './supply-level';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TradeSymbol } from './trade-symbol';
 
 /**
  * 
@@ -21,23 +30,35 @@
  */
 export interface MarketTradeGood {
     /**
-     * The symbol of the trade good.
+     * 
+     * @type {TradeSymbol}
+     * @memberof MarketTradeGood
+     */
+    'symbol': TradeSymbol;
+    /**
+     * The type of trade good (export, import, or exchange).
      * @type {string}
      * @memberof MarketTradeGood
      */
-    'symbol': string;
+    'type': MarketTradeGoodTypeEnum;
     /**
-     * The typical volume flowing through the market for this type of good. The larger the trade volume, the more stable prices will be.
+     * This is the maximum number of units that can be purchased or sold at this market in a single trade for this good. Trade volume also gives an indication of price volatility. A market with a low trade volume will have large price swings, while high trade volume will be more resilient to price changes.
      * @type {number}
      * @memberof MarketTradeGood
      */
     'tradeVolume': number;
     /**
-     * A rough estimate of the total supply of this good in the marketplace.
-     * @type {string}
+     * 
+     * @type {SupplyLevel}
      * @memberof MarketTradeGood
      */
-    'supply': MarketTradeGoodSupplyEnum;
+    'supply': SupplyLevel;
+    /**
+     * 
+     * @type {ActivityLevel}
+     * @memberof MarketTradeGood
+     */
+    'activity'?: ActivityLevel;
     /**
      * The price at which this good can be purchased from the market.
      * @type {number}
@@ -52,13 +73,12 @@ export interface MarketTradeGood {
     'sellPrice': number;
 }
 
-export const MarketTradeGoodSupplyEnum = {
-    Scarce: 'SCARCE',
-    Limited: 'LIMITED',
-    Moderate: 'MODERATE',
-    Abundant: 'ABUNDANT'
+export const MarketTradeGoodTypeEnum = {
+    Export: 'EXPORT',
+    Import: 'IMPORT',
+    Exchange: 'EXCHANGE'
 } as const;
 
-export type MarketTradeGoodSupplyEnum = typeof MarketTradeGoodSupplyEnum[keyof typeof MarketTradeGoodSupplyEnum];
+export type MarketTradeGoodTypeEnum = typeof MarketTradeGoodTypeEnum[keyof typeof MarketTradeGoodTypeEnum];
 
 

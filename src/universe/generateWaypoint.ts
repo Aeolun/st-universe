@@ -48,12 +48,13 @@ export interface WaypointGenerationProperties {
   tradeGoods?: { symbol: TradeGood; type: "import" | "export" | "exchange" }[];
   shipHullsAvailable?: Configuration[];
   jumpGateRange?: number;
+  name: string;
   systemSymbol: string;
 }
 export const generateWaypoint = (data: WaypointGenerationProperties) => {
   const { systemSymbol, traits, ...rest } = data;
 
-  const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
+  const waypointSymbol = `${systemSymbol}-${data.name}`;
 
   const waypointType: WaypointType =
     data.type ?? pickRandom(generatableWaypointTypeNames);
@@ -217,9 +218,10 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("MARKETPLACE");
   }
 
-  if (data.jumpGateRange) {
+  if (data.type === "JUMP_GATE" && data.jumpGateRange) {
     waypoint.jumpGate = new JumpGate({
       range: data.jumpGateRange,
+      connectedWaypointSymbols: [],
     });
   }
 

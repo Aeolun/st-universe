@@ -3,6 +3,7 @@ import {
   SystemType,
   Waypoint,
   WaypointFaction,
+  WaypointModifierSymbolEnum,
   WaypointTraitSymbolEnum,
   WaypointType,
 } from "src/controllers/schemas";
@@ -37,6 +38,13 @@ export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
         symbol: trait as WaypointTraitSymbolEnum,
         name: trait,
         description: trait,
+      };
+    }),
+    modifiers: waypoint.modifiers.map((modifier) => {
+      return {
+        symbol: modifier.symbol,
+        name: modifier.name,
+        description: modifier.description,
       };
     }),
     chart: waypoint.chart

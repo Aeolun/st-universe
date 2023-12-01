@@ -22,10 +22,10 @@ export class Universe {
     this.createDate = createDate.toISOString();
   }
 
-  public tick() {
+  public tick(msElapsed: number) {
     const start = Date.now();
     for (const system in this.systems) {
-      this.systems[system].tick();
+      this.systems[system].tick(msElapsed);
     }
     const end = Date.now();
     console.log(`Universe tick took ${end - start}ms`);

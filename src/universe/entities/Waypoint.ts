@@ -11,6 +11,11 @@ import { Transaction } from "src/universe/entities/Transaction";
 import { Configuration } from "src/universe/static-data/ship-configurations";
 import { MarketPrice } from "src/universe/formulas/trade";
 import { Storage } from "src/universe/entities/Storage";
+import { ConstructionSite } from "./ConstructionSite";
+import {
+  WaypointModifier,
+  WaypointModifierSymbolEnum,
+} from "src/controllers/schemas";
 
 export interface SupplyDemand {
   tradeGood: TradeGood;
@@ -58,8 +63,10 @@ export class Waypoint {
 
   public industries: Partial<Record<Industry, number>> = {};
   public traits: WaypointTrait[] = [];
+  public modifiers: WaypointModifierSymbolEnum[] = [];
 
   public jumpGate?: JumpGate;
+  public constructionSite?: ConstructionSite;
 
   public extractableResources: Partial<Record<TradeGood, number>> = {};
 
@@ -79,6 +86,7 @@ export class Waypoint {
   public chart?: WaypointChart;
 
   public population: number = 0;
+  public extractionInstability: number = 0;
 
   constructor(data: {
     x: number;
@@ -87,6 +95,7 @@ export class Waypoint {
     symbol: string;
     systemSymbol: string;
     type: WaypointType;
+    constructionSite?: ConstructionSite;
   }) {
     this.x = data.x;
     this.y = data.y;
@@ -94,6 +103,7 @@ export class Waypoint {
     this.symbol = data.symbol;
     this.systemSymbol = data.systemSymbol;
     this.type = data.type;
+    this.constructionSite = data.constructionSite;
   }
 
   public chartWaypoint(chart: WaypointChart) {
@@ -121,7 +131,21 @@ export class Waypoint {
     });
   }
 
-  public tick() {
+  public tick(msElapsed: number) {
+    if (this.extractionInstability > 0) {
+      this.extractionInstability -= 2000 / (msElapsed * 3);
+
+      if (this.extractionInstability > 10) {
+        this.modifiers.push("CRITICAL_LIMIT");
+      } else if (this.extractionInstability > 6) {
+        this.modifiers.push("UNSTABLE");
+      }
+    } else if (this.modifiers.length > 0) {
+      this.modifiers = this.modifiers.filter((m) => {
+        return m !== "UNSTABLE" && m !== "CRITICAL_LIMIT";
+      });
+    }
+
     // determine production/consumption at this waypoint
     Object.values(this.supplyDemand).forEach((supplyDemand) => {
       supplyDemand.lastTickProduction = 0;

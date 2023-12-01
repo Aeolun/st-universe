@@ -6,6 +6,8 @@ import { ShipMount } from "src/universe/entities/ShipMount";
 import { resourceGroups } from "src/universe/static-data/resource-groups";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { Survey } from "src/controllers/schemas";
+import { STError } from "src/error/STError";
+import { TIME_FACTOR } from "src/universe/constants";
 
 export const extractResources = (
   mounts: ShipMount[],
@@ -19,6 +21,15 @@ export const extractResources = (
     (acc, mount) => acc + mount.stats.powerRequired,
     0
   );
+
+  if (waypoint.extractionInstability > 10) {
+    waypoint.extractionInstability += 600;
+    throw new STError(
+      400,
+      4253,
+      "Extraction instability too high. Come back here in a while to see if you can extract again."
+    );
+  }
 
   let maxPossibleResources = 0;
   const allPossibleResources: TradeGood[] = [];
@@ -81,6 +92,8 @@ export const extractResources = (
   const extracted = Math.ceil(
     (totalPower + numberBetween(-variation, variation)) * multiplier
   );
+
+  waypoint.extractionInstability += 1 / TIME_FACTOR;
 
   return {
     resource,

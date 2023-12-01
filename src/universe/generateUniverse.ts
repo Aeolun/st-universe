@@ -1,6 +1,11 @@
 import { System } from "src/universe/entities/System";
 import * as fs from "fs";
-import { percentageChance, pickRandom, shuffle } from "src/universe/utilities";
+import {
+  percentageChance,
+  pickRandom,
+  randomString,
+  shuffle,
+} from "src/universe/utilities";
 import { getDistance } from "src/universe/getDistance";
 import { generateSystem } from "./generateSystem";
 import { starTypes } from "./static-data/star-types";
@@ -11,7 +16,7 @@ import { Faction as FactionEnum } from "src/universe/static-data/faction";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { generateHomeSystem } from "src/universe/preset/generate-home-system";
-import { createCanvas } from "canvas";
+import { createCanvas, CanvasRenderingContext2D } from "canvas";
 
 const MAX_SYSTEMS = process.env.MAX_SYSTEMS
   ? parseInt(process.env.MAX_SYSTEMS)
@@ -72,6 +77,7 @@ export async function generateUniverse() {
 
   const startPos = { x: 0, y: 0 };
   let failedPositionAttempts = 0;
+  const systemNames: Record<string, boolean> = {};
 
   for (let i = 0; i < STELLAR_ARMS; i++) {
     console.log(`Arm ${i}/${STELLAR_ARMS}`);
@@ -134,15 +140,20 @@ export async function generateUniverse() {
         )
           ? SUPERDUTY_JUMP_GATE_RANGE
           : JUMP_GATE_RANGE;
+        let newSystemName = randomString();
+        while (systemNames[newSystemName]) {
+          newSystemName = randomString();
+        }
+        systemNames[newSystemName] = true;
+
         const system = generateSystem({
+          name: newSystemName,
           x: potentialX,
           y: potentialY,
           universeSymbol: UNIVERSE_SYMBOL,
           jumpGateSpecs: hasJumpgate
             ? {
-                range: isSuperduty
-                  ? SUPERDUTY_JUMP_GATE_RANGE
-                  : JUMP_GATE_RANGE,
+                connections: 5,
               }
             : undefined,
         });
@@ -186,17 +197,17 @@ export async function generateUniverse() {
       attempts < 10
     );
 
-    populationCenters.splice(populationCenters.indexOf(factionSystem), 1);
-    // remove the original faction system from the universe
-    universe.removeSystem(factionSystem);
-
-    // replace original faction system with a new one
-    factionSystem = generateHomeSystem({
-      x: factionSystem.x,
-      y: factionSystem.y,
-      universeSymbol: UNIVERSE_SYMBOL,
-    });
-    universe.addSystem(factionSystem);
+    // populationCenters.splice(populationCenters.indexOf(factionSystem), 1);
+    // // remove the original faction system from the universe
+    // universe.removeSystem(factionSystem);
+    //
+    // // replace original faction system with a new one
+    // factionSystem = generateHomeSystem({
+    //   x: factionSystem.x,
+    //   y: factionSystem.y,
+    //   universeSymbol: UNIVERSE_SYMBOL,
+    // });
+    // universe.addSystem(factionSystem);
 
     let maxPopulationWaypoint;
     for (const waypoint of factionSystem.waypoints) {

@@ -65,11 +65,14 @@ const createNewUniverse = async () => {
   nextReset = Date.now() + resetDuration;
 
   let lastCpuUsage: NodeJS.CpuUsage | undefined;
+  let lastTime = Date.now();
   universeTicker = setInterval(() => {
     const memory = process.memoryUsage();
     const cpuDiff = process.cpuUsage(lastCpuUsage);
     lastCpuUsage = process.cpuUsage();
-    universe.tick();
+    const timeDiff = Date.now() - lastTime;
+    lastTime = Date.now();
+    universe.tick(timeDiff);
     console.log(
       `Time until reset ${nextReset - Date.now()}ms, memory in use ${Math.round(
         memory.heapUsed / 1024 / 1024

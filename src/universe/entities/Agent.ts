@@ -8,6 +8,7 @@ import { Location } from "src/universe/entities/Navigation";
 import { Contract } from "src/universe/entities/Contract";
 import {
   Configuration,
+  ConfigurationKeys,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
 import { Waypoint, WaypointChart } from "src/universe/entities/Waypoint";
@@ -48,7 +49,7 @@ export class Agent {
   }
 
   public registerShip(data: {
-    configuration: Configuration;
+    configuration: ConfigurationKeys;
     waypoint: Waypoint;
   }) {
     const ship = new Ship({
