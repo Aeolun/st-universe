@@ -337,7 +337,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   DIAMONDS: {
     symbol: TradeGood.DIAMONDS,
-    basePrice: 465,
+    basePrice: 120,
     baseTradeVolume: 10,
   },
   DRUGS: {
@@ -454,7 +454,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   GOLD_ORE: {
     symbol: TradeGood.GOLD_ORE,
-    basePrice: 63,
+    basePrice: 220,
     baseTradeVolume: 100,
   },
   GRAVITON_EMITTERS: {
@@ -581,7 +581,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   MERITIUM_ORE: {
     symbol: TradeGood.MERITIUM_ORE,
-    basePrice: 747,
+    basePrice: 1100,
     baseTradeVolume: 100,
   },
   MICROPROCESSORS: {
@@ -663,7 +663,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   PLATINUM_ORE: {
     symbol: TradeGood.PLATINUM_ORE,
-    basePrice: 68,
+    basePrice: 220,
     baseTradeVolume: 100,
   },
   POLYNUCLEOTIDES: {
@@ -777,7 +777,7 @@ export const tradeGoods: Record<TradeGood, TradeGoodData> = {
   },
   URANITE_ORE: {
     symbol: TradeGood.URANITE_ORE,
-    basePrice: 138,
+    basePrice: 300,
     baseTradeVolume: 100,
   },
   VIRAL_AGENTS: {

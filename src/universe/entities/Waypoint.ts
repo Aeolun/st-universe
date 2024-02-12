@@ -136,9 +136,9 @@ export class Waypoint {
       this.extractionInstability -= 2000 / (msElapsed * 3);
 
       if (this.extractionInstability > 10) {
-        this.modifiers.push("CRITICAL_LIMIT");
-      } else if (this.extractionInstability > 6) {
         this.modifiers.push("UNSTABLE");
+      } else if (this.extractionInstability > 6) {
+        this.modifiers.push("CRITICAL_LIMIT");
       }
     } else if (this.modifiers.length > 0) {
       this.modifiers = this.modifiers.filter((m) => {
