@@ -8,22 +8,19 @@ export const renderShipNav = (nav: Ship["navigation"]): ShipNav => {
     flightMode: nav.flightMode,
     systemSymbol: nav.current.systemSymbol,
     waypointSymbol: nav.current.symbol,
-
     route: nav.route
       ? {
-          departure: nav.route.from,
-          destination: nav.route.to,
-          origin: nav.route.from,
-          departureTime: nav.route.departureDate.toISOString(),
-          arrival: nav.route.arrivalDate.toISOString(),
-        }
+        origin: nav.route.from,
+        destination: nav.route.to,
+        departureTime: nav.route.departureDate.toISOString(),
+        arrival: nav.route.arrivalDate.toISOString(),
+      }
       : {
-          departure: nav.current,
-          destination: nav.current,
-          origin: nav.current,
-          departureTime: now,
-          arrival: now,
-        },
+        origin: nav.current,
+        destination: nav.current,
+        departureTime: now,
+        arrival: now,
+      },
     status: nav.status,
   };
 };

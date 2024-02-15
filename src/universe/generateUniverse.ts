@@ -1,11 +1,6 @@
 import { System } from "src/universe/entities/System";
 import * as fs from "fs";
-import {
-  percentageChance,
-  pickRandom,
-  randomString,
-  shuffle,
-} from "src/universe/utilities";
+import { percentageChance, pickRandom, shuffle } from "src/universe/utilities";
 import { getDistance } from "src/universe/getDistance";
 import { generateSystem } from "./generateSystem";
 import { starTypes } from "./static-data/star-types";
@@ -16,33 +11,28 @@ import { Faction as FactionEnum } from "src/universe/static-data/faction";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { generateHomeSystem } from "src/universe/preset/generate-home-system";
-import { createCanvas, CanvasRenderingContext2D } from "canvas";
 
 const MAX_SYSTEMS = process.env.MAX_SYSTEMS
   ? parseInt(process.env.MAX_SYSTEMS)
   : 12000;
-const SIZE_MULTIPLIER = MAX_SYSTEMS / 2000;
+const SIZE_MULTIPLIER = MAX_SYSTEMS / 12000;
 const MAX_FACTIONS = 12;
-const MAX_SYSTEM_DISTANCE = 15000 * SIZE_MULTIPLIER;
-const MAX_MAP_SIZE = MAX_SYSTEM_DISTANCE + 5000 * SIZE_MULTIPLIER;
-const STELLAR_ARMS = 3;
-const STEPS_PER_ARM = 32;
-const SYSTEMS_IN_ARM = Math.round(MAX_SYSTEMS / STELLAR_ARMS);
-const SYSTEMS_IN_STEP = Math.round((SYSTEMS_IN_ARM / STEPS_PER_ARM) * 1.5); // 1.5 so that we end up with 0.5 at the end of the arm
-const STEP_SYSTEM_DECREASE = SYSTEMS_IN_ARM / STEPS_PER_ARM / STEPS_PER_ARM;
-
-const ARM_LENGTH = 2;
-const STEP_SIZE = (MAX_SYSTEM_DISTANCE / STEPS_PER_ARM) * ARM_LENGTH;
-const STEP_SIZE_DECREASE = STEP_SIZE / STEPS_PER_ARM / 2.5;
-const SPREAD_SIZE = Math.round((MAX_SYSTEM_DISTANCE / STEPS_PER_ARM) * 10);
-const SPREAD_SIZE_DECREASE = SPREAD_SIZE / (STEPS_PER_ARM * 1.5);
-const UNIVERSE_ROTATION_SPEED = (Math.PI / STEPS_PER_ARM) * ARM_LENGTH;
+const MAX_SYSTEM_DISTANCE = 40000 * SIZE_MULTIPLIER;
+const MAX_MAP_SIZE = MAX_SYSTEM_DISTANCE + 10000;
+const STELLAR_ARMS = 5;
+const STEPS_PER_ARM = 16;
+const STEP_SIZE_DECREASE = 120 * SIZE_MULTIPLIER;
+const SPREAD_SIZE_DECREASE = 300 * SIZE_MULTIPLIER;
+const STEP_SYSTEM_DECREASE = 3 * SIZE_MULTIPLIER;
+const SPREAD_MULTIPLIER = 3.7 * SIZE_MULTIPLIER;
+const STEP_MULTIPLIER = 1.75 * SIZE_MULTIPLIER;
+const UNIVERSE_ROTATION_SPEED = Math.PI / 15;
 const CANVAS_SIZE = 2500;
 const MINIMUM_DISTANCE_APART = 250;
 const MAXIMUM_DISTANCE_APART = 1500;
-const DISTANCE_BETWEEN_FACTIONS = 3000 * SIZE_MULTIPLIER;
-const FACTION_INNER_INFLUENCE_RADIUS = 500 * SIZE_MULTIPLIER;
-const FACTION_OUTER_INFLUENCE_RADIUS = 2500 * SIZE_MULTIPLIER;
+const DISTANCE_BETWEEN_FACTIONS = 8000 * SIZE_MULTIPLIER;
+const FACTION_INNER_INFLUENCE_RADIUS = 4000 * SIZE_MULTIPLIER;
+const FACTION_OUTER_INFLUENCE_RADIUS = 8000 * SIZE_MULTIPLIER;
 const FACTION_MIN_SYSTEMS = 20;
 const UNIVERSE_SYMBOL = "X1";
 const JUMP_GATE_CHANCE = 15;
@@ -51,22 +41,6 @@ const SUPERDUTY_JUMP_GATE_CHANCE = 10;
 const SUPERDUTY_JUMP_GATE_DROPOFF = -30;
 const JUMP_GATE_RANGE = 2000;
 const SUPERDUTY_JUMP_GATE_RANGE = 5000;
-
-console.log("Generating universe...", {
-  MAX_SYSTEMS,
-  MAX_SYSTEM_DISTANCE,
-  MAX_MAP_SIZE,
-  SIZE_MULTIPLIER,
-  STELLAR_ARMS,
-  STEPS_PER_ARM,
-  SYSTEMS_IN_ARM,
-  SYSTEMS_IN_STEP,
-  STEP_SYSTEM_DECREASE,
-  STEP_SIZE,
-  STEP_SIZE_DECREASE,
-  SPREAD_SIZE,
-  SPREAD_SIZE_DECREASE,
-});
 
 const scale = CANVAS_SIZE / MAX_MAP_SIZE / 2;
 
@@ -77,17 +51,18 @@ export async function generateUniverse() {
 
   const startPos = { x: 0, y: 0 };
   let failedPositionAttempts = 0;
-  const systemNames: Record<string, boolean> = {};
 
   for (let i = 0; i < STELLAR_ARMS; i++) {
     console.log(`Arm ${i}/${STELLAR_ARMS}`);
     const systemsInArm = Math.round(MAX_SYSTEMS / STELLAR_ARMS);
-    let spreadSize = SPREAD_SIZE;
+    let spreadSize =
+      Math.round(MAX_SYSTEM_DISTANCE / STEPS_PER_ARM) * SPREAD_MULTIPLIER;
     let rotation = ((Math.PI * 2) / STELLAR_ARMS) * i;
-    let systemsInStep = SYSTEMS_IN_STEP;
-    let stepSize = STEP_SIZE;
+    let systemsInStep = Math.round(systemsInArm / STEPS_PER_ARM);
+    let stepSize =
+      Math.round(MAX_SYSTEM_DISTANCE / STEPS_PER_ARM) * STEP_MULTIPLIER;
     for (let step = 1; step < STEPS_PER_ARM; step++) {
-      //console.log(`Step ${step}/${STEPS_PER_ARM}`);
+      console.log(`Step ${step}/${STEPS_PER_ARM}`);
       rotation += UNIVERSE_ROTATION_SPEED;
       systemsInStep -= STEP_SYSTEM_DECREASE;
       spreadSize -= SPREAD_SIZE_DECREASE;
@@ -95,38 +70,45 @@ export async function generateUniverse() {
       const rotationVectorX = Math.sin(rotation);
       const rotationVectorY = Math.cos(rotation);
 
-      const stepCenterX = startPos.x + step * stepSize * rotationVectorX;
-      const stepCenterY = startPos.y + step * stepSize * rotationVectorY;
-
       for (let j = 0; j < systemsInStep; j++) {
-        //console.log(`System ${j}/${systemsInStep}`);
+        console.log(`System ${j}/${systemsInStep}`);
 
         let potentialX: number,
           potentialY: number,
           attempts = 0;
         do {
-          const rotation = Math.random() * 2 * Math.PI;
-          const distance = Math.random() * spreadSize;
+          const rotation = Math.random() * Math.PI * 2;
           potentialX = Math.round(
-            stepCenterX + Math.round(Math.sin(rotation) * distance)
+            startPos.x +
+            step * stepSize * rotationVectorX +
+            Math.round(
+              Math.sin(rotation) * Math.random() * spreadSize - spreadSize / 2
+            )
           );
           potentialY = Math.round(
-            stepCenterY + Math.round(Math.cos(rotation) * distance)
+            startPos.y +
+            step * stepSize * rotationVectorY +
+            Math.round(
+              Math.cos(rotation) * Math.random() * spreadSize - spreadSize / 2
+            )
           );
           attempts++;
         } while (
-          universe.systemsArray.some(
+          (universe.systemsArray.some(
             (system) =>
               getDistance(system, { x: potentialX, y: potentialY }) <
               MINIMUM_DISTANCE_APART
-          ) &&
+          ) ||
+            universe.systemsArray.every(
+              (system) =>
+                getDistance(system, { x: potentialX, y: potentialY }) >
+                MAXIMUM_DISTANCE_APART
+            )) &&
           attempts < 30
         );
         if (attempts >= 30) {
           failedPositionAttempts++;
         }
-        // console.log("from center", stepCenterX, stepCenterY);
-        // console.log("absolute position", potentialX, potentialY);
 
         const jumpDecreaseChance = JUMP_GATE_DROPOFF * (step / STEPS_PER_ARM);
         const hasJumpgate = percentageChance(
@@ -140,21 +122,16 @@ export async function generateUniverse() {
         )
           ? SUPERDUTY_JUMP_GATE_RANGE
           : JUMP_GATE_RANGE;
-        let newSystemName = randomString();
-        while (systemNames[newSystemName]) {
-          newSystemName = randomString();
-        }
-        systemNames[newSystemName] = true;
-
         const system = generateSystem({
-          name: newSystemName,
           x: potentialX,
           y: potentialY,
           universeSymbol: UNIVERSE_SYMBOL,
           jumpGateSpecs: hasJumpgate
             ? {
-                connections: 5,
-              }
+              range: isSuperduty
+                ? SUPERDUTY_JUMP_GATE_RANGE
+                : JUMP_GATE_RANGE,
+            }
             : undefined,
         });
         universe.addSystem(system);
@@ -197,17 +174,17 @@ export async function generateUniverse() {
       attempts < 10
     );
 
-    // populationCenters.splice(populationCenters.indexOf(factionSystem), 1);
-    // // remove the original faction system from the universe
-    // universe.removeSystem(factionSystem);
-    //
-    // // replace original faction system with a new one
-    // factionSystem = generateHomeSystem({
-    //   x: factionSystem.x,
-    //   y: factionSystem.y,
-    //   universeSymbol: UNIVERSE_SYMBOL,
-    // });
-    // universe.addSystem(factionSystem);
+    populationCenters.splice(populationCenters.indexOf(factionSystem), 1);
+    // remove the original faction system from the universe
+    universe.removeSystem(factionSystem);
+
+    // replace original faction system with a new one
+    factionSystem = generateHomeSystem({
+      x: factionSystem.x,
+      y: factionSystem.y,
+      universeSymbol: UNIVERSE_SYMBOL,
+    });
+    universe.addSystem(factionSystem);
 
     let maxPopulationWaypoint;
     for (const waypoint of factionSystem.waypoints) {
@@ -251,9 +228,9 @@ export async function generateUniverse() {
           if (
             percentageChance(
               30 +
-                ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
-                  FACTION_OUTER_INFLUENCE_RADIUS) *
-                  40
+              ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
+                FACTION_OUTER_INFLUENCE_RADIUS) *
+              40
             )
           ) {
             system.waypoints.forEach((wp) => {
@@ -280,15 +257,15 @@ export async function generateUniverse() {
           factionData.homeSystem.x +
           Math.round(
             Math.sin(Math.random() * Math.PI * 2) *
-              FACTION_OUTER_INFLUENCE_RADIUS *
-              0.75
+            FACTION_OUTER_INFLUENCE_RADIUS *
+            0.75
           ),
         y:
           factionData.homeSystem.y +
           Math.round(
             Math.cos(Math.random() * Math.PI * 2) *
-              FACTION_OUTER_INFLUENCE_RADIUS *
-              0.75
+            FACTION_OUTER_INFLUENCE_RADIUS *
+            0.75
           ),
       };
 
@@ -301,9 +278,9 @@ export async function generateUniverse() {
           if (
             percentageChance(
               30 +
-                ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
-                  FACTION_OUTER_INFLUENCE_RADIUS) *
-                  40
+              ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
+                FACTION_OUTER_INFLUENCE_RADIUS) *
+              40
             )
           ) {
             system.waypoints.forEach((wp) => {
@@ -368,37 +345,37 @@ export async function generateUniverse() {
     `Furthest distance between systems: ${longestDistance}, shortest ${shortestDistance}, average ${totalMin}`
   );
   console.log(
-    `Universe with ${universe.systemsArray.length} systems, ${totalWaypoints} waypoints generated.`
+    `Universe with ${universe.systems.length} systems, ${totalWaypoints} waypoints generated.`
   );
-  const canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  const context = canvas.getContext("2d");
-
-  const renderMethods: Record<
-    string,
-    (system: System, context: CanvasRenderingContext2D) => void
-  > = {
-    starType: renderStarType,
-    marketAvailable: renderMarketAvailable,
-    populationCenter: renderPopulationCenter,
-    fuelAvailable: renderFuelAvailable,
-    jumpGates: renderJumpGates,
-    factionControl: renderFactionControl,
-    shipyards: renderShipConfigurations,
-  };
-
-  fs.mkdirSync("./renders", { recursive: true });
-
-  for (const renderMethod in renderMethods) {
-    const renderFunction = renderMethods[renderMethod];
-    context.fillStyle = "black";
-    context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    for (const system of universe.systemsArray) {
-      renderFunction(system, context);
-    }
-
-    const imgBuffer = canvas.toBuffer("image/png");
-    fs.writeFileSync(`./renders/${renderMethod}.png`, imgBuffer);
-  }
+  // const canvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
+  // const context = canvas.getContext("2d");
+  //
+  // const renderMethods: Record<
+  //   string,
+  //   (system: System, context: CanvasRenderingContext2D) => void
+  // > = {
+  //   starType: renderStarType,
+  //   marketAvailable: renderMarketAvailable,
+  //   populationCenter: renderPopulationCenter,
+  //   fuelAvailable: renderFuelAvailable,
+  //   jumpGates: renderJumpGates,
+  //   factionControl: renderFactionControl,
+  //   shipyards: renderShipConfigurations,
+  // };
+  //
+  // fs.mkdirSync("./renders", { recursive: true });
+  //
+  // for (const renderMethod in renderMethods) {
+  //   const renderFunction = renderMethods[renderMethod];
+  //   context.fillStyle = "black";
+  //   context.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  //   for (const system of universe.systemsArray) {
+  //     renderFunction(system, context);
+  //   }
+  //
+  //   const imgBuffer = canvas.toBuffer("image/png");
+  //   fs.writeFileSync(`./renders/${renderMethod}.png`, imgBuffer);
+  // }
 
   fs.writeFileSync(
     "./systems.json",
@@ -551,7 +528,7 @@ function renderJumpGates(system: System, context: CanvasRenderingContext2D) {
     context.arc(
       CANVAS_SIZE / 2 + Math.round(system.x * scale),
       CANVAS_SIZE / 2 + Math.round(system.y * scale),
-      jg.range * scale,
+      2000 * scale,
       0,
       2 * Math.PI,
       false

@@ -74,6 +74,7 @@ export class Ship {
       this.modules.push(moduleData[module]);
     });
 
+    // TODO: Move this to it's own function that returns a stats object
     this.calculateStats();
 
     this.derivedStats.crew = this.stats.crewRequired;

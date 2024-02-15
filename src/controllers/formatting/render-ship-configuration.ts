@@ -1,8 +1,5 @@
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
-import { ShipType, ShipyardShip } from "src/controllers/schemas";
+import { Configuration, shipConfigurationData } from "src/universe/static-data/ship-configurations";
+import { ShipType, ShipyardShip, ShipyardShipTypesInner, SupplyLevel } from "src/controllers/schemas";
 import { renderShipFrame } from "src/controllers/formatting/render-ship-frame";
 import { renderShipReactor } from "src/controllers/formatting/render-ship-reactor";
 import { renderShipEngine } from "src/controllers/formatting/render-ship-engine";
@@ -11,10 +8,7 @@ import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { shipPrice } from "src/universe/formulas/trade";
 
-export const renderShipConfiguration = (
-  configurationSymbol: Configuration,
-  waypoint: Waypoint
-): ShipyardShip => {
+export const renderShipConfiguration = (configurationSymbol: Configuration, waypoint: Waypoint): ShipyardShip => {
   const shipConfiguration = shipConfigurationData[configurationSymbol];
 
   return {
@@ -27,6 +21,10 @@ export const renderShipConfiguration = (
     engine: renderShipEngine(shipConfiguration.engine),
     modules: shipConfiguration.modules.map(renderShipModule),
     mounts: shipConfiguration.mounts.map(renderShipMount),
-    crew: shipConfiguration.crew,
+    supply: SupplyLevel.High,
+    crew: {
+      required: 0,
+      capacity: 0,
+    },
   };
-};
+}

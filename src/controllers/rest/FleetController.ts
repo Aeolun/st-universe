@@ -11,7 +11,6 @@ import {
   CreateSurvey201Response,
   DockShip200Response,
   ExtractResources201Response,
-  ExtractResourcesRequest,
   GetMounts200Response,
   GetMyShip200Response,
   GetMyShipCargo200Response,
@@ -40,7 +39,6 @@ import {
   SellCargo201Response,
   SellCargoRequest,
   ShipRefineRequest,
-  SiphonResources201Response,
   Survey,
   TradeSymbol,
   TransferCargo200Response,
@@ -100,10 +98,7 @@ import { generateContract } from "src/universe/generateContract";
 import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
-import { Mount, mountData } from "src/universe/static-data/ship-mounts";
-import { extractResources } from "src/controllers/helpers/extract-resources";
-import { STError } from "src/error/STError";
-import { purchaseAtWaypoint } from "src/controllers/helpers/purchase-at-waypoint";
+import { mountData } from "src/universe/static-data/ship-mounts";
 
 @Controller("/my/")
 @CustomAuth()
@@ -289,11 +284,7 @@ export class FleetController {
 
     const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
     if (waypoint.chart)
-      throw new STError(
-        400,
-        4230,
-        `Chart already exists for ${waypoint.symbol}`
-      );
+      throw new BadRequest(`Chart already exists for ${waypoint.symbol}`);
 
     const chart = waypoint.chartWaypoint({
       waypointSymbol: waypoint.symbol,
@@ -441,89 +432,58 @@ export class FleetController {
   @Post("/ships/:shipSymbol/extract")
   extract(
     @AgentParam() agent: Agent,
-    @PathParams("shipSymbol") shipSymbol: string,
-    @BodyParams() body: ExtractResourcesRequest
-  ): ExtractResources201Response {
-    const ship = getShip(agent, shipSymbol);
-    checkShipNotOnCooldown(ship);
-
-    const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
-
-    const { resource, extracted, powerUsage } = extractResources(
-      ship.mounts,
-      waypoint,
-      body.survey
-    );
-
-    ship.cargo.add(resource, extracted);
-    ship.setCooldown(powerUsage);
-
-    return {
-      data: {
-        cooldown: renderCooldown(ship),
-        cargo: renderShipCargo(ship),
-        extraction: {
-          shipSymbol: ship.symbol,
-          yield: {
-            symbol: resource as TradeSymbol,
-            units: extracted,
-          },
-        },
-        events: [],
-      },
-    };
-  }
-
-  @Post("/ships/:shipSymbol/siphon")
-  siphon(
-    @AgentParam() agent: Agent,
     @PathParams("shipSymbol") shipSymbol: string
-  ): SiphonResources201Response {
-    const ship = getShip(agent, shipSymbol);
-    checkShipNotOnCooldown(ship);
-
-    const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
-
-    const { resource, extracted, powerUsage } = extractResources(
-      ship.mounts,
-      waypoint
-    );
-
-    ship.cargo.add(resource, extracted);
-    ship.setCooldown(powerUsage);
-
-    return {
-      data: {
-        cooldown: renderCooldown(ship),
-        cargo: renderShipCargo(ship),
-        siphon: {
-          shipSymbol: ship.symbol,
-          yield: {
-            symbol: resource as TradeSymbol,
-            units: extracted,
-          },
-        },
-        events: [],
-      },
-    };
-  }
-
-  @Post("/ships/:shipSymbol/extract/survey")
-  extractWithSurvey(
-    @AgentParam() agent: Agent,
-    @PathParams("shipSymbol") shipSymbol: string,
-    @BodyParams() body: ExtractResourcesRequest["survey"]
   ): ExtractResources201Response {
     const ship = getShip(agent, shipSymbol);
     checkShipNotOnCooldown(ship);
 
     const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
 
-    const { resource, extracted, powerUsage } = extractResources(
-      ship.mounts,
-      waypoint,
-      body
+    const extractMounts = ship.mounts.filter((m) =>
+      m.capabilities.some((c) => c instanceof ExtractsResources)
     );
+    const powerUsage = extractMounts.reduce(
+      (acc, mount) => acc + mount.stats.powerRequired,
+      0
+    );
+
+    let maxPossibleResources = 0;
+    const allPossibleResources: TradeGood[] = [];
+    let variation = 0;
+    let totalPower = 0;
+    extractMounts.forEach((mount) => {
+      const possibleResources: TradeGood[] = [];
+      mount.stats.resourcesExtracted.forEach((resource) => {
+        resourceGroups[resource].forEach((good) => {
+          if (
+            Object.keys(waypoint.extractableResources).find((ex) => ex === good)
+          ) {
+            possibleResources.push(good);
+          }
+        });
+      });
+
+      if (maxPossibleResources < possibleResources.length) {
+        maxPossibleResources = possibleResources.length;
+      }
+
+      if (maxPossibleResources === 0) {
+        return;
+      }
+
+      allPossibleResources.push(...possibleResources);
+      totalPower += mount.stats.extractionPower;
+      variation += 5;
+    });
+
+    if (maxPossibleResources === 0) {
+      throw new BadRequest(
+        `There are no resources in this location that you can extract with your current mount/module configuration.`
+      );
+    }
+
+    const resource = pickRandom(allPossibleResources);
+    const extracted = totalPower + numberBetween(-variation, variation);
 
     ship.cargo.add(resource, extracted);
     ship.setCooldown(powerUsage);
@@ -539,7 +499,6 @@ export class FleetController {
             units: extracted,
           },
         },
-        events: [],
       },
     };
   }
@@ -589,96 +548,39 @@ export class FleetController {
       powerUsage = 20;
     }
 
-    if (!waypoint.jumpGate) {
-      throw new STError(400, 4254, `You are not at a jump-gate.`);
-    }
-    // if (jumpMounts.length === 0 && !waypoint.jumpGate) {
-    //   throw new STError(
-    //     400,
-    //     4210,
-    //     `You do not have any jump capability or jump gates at this waypoint.`
-    //   );
-    // }
-    if (
-      waypoint.jumpGate &&
-      waypoint.constructionSite &&
-      waypoint.constructionSite.isComplete === false
-    ) {
-      throw new STError(
-        400,
-        4038,
-        `The jump gate at ${waypoint.symbol} is not complete yet.`
+    if (jumpMounts.length === 0 && !waypoint.jumpGate) {
+      throw new BadRequest(
+        `You do not have any jump capability or jump gates at this waypoint.`
       );
     }
 
-    if (
-      waypoint.jumpGate &&
-      !waypoint.jumpGate.connectedWaypointSymbols.some(
-        (wp) => wp === body.waypointSymbol
-      )
-    ) {
-      throw new STError(
-        400,
-        4255,
-        `The jump gate at ${waypoint.symbol} is not connected to ${body.waypointSymbol}.`
-      );
-    }
-
-    // const jumpMountsRange = jumpMounts.reduce(
-    //   (acc, mount) => Math.max(acc, mount.stats.jumpRange),
-    //   0
-    // );
-
-    const targetWaypoint = getWaypoint(universe, body.waypointSymbol);
-
-    if (
-      targetWaypoint.jumpGate &&
-      targetWaypoint.constructionSite &&
-      !targetWaypoint.constructionSite.isComplete
-    ) {
-      throw new STError(
-        400,
-        4262,
-        `The jump gate at ${targetWaypoint.symbol} is not complete yet.`
-      );
-    }
-
-    // let transaction;
-    // if (ship.cargo.has("ANTIMATTER", 1)) {
-    //   ship.cargo.remove("ANTIMATTER", 1);
-    // } else {
-    const transaction = purchaseAtWaypoint(
-      agent,
-      waypoint,
-      ship,
-      "ANTIMATTER",
-      1
+    const jumpMountsRange = jumpMounts.reduce(
+      (acc, mount) => Math.max(acc, mount.stats.jumpRange),
+      0
     );
-    // }
 
-    // const sourceSystem = getSystem(
-    //   universe,
-    //   ship.navigation.current.systemSymbol
-    // );
-    // const targetSystem = getSystem(universe, body.waypointSymbol);
-    //
-    // const jumpRange = waypoint.jumpGate?.range || jumpMountsRange;
-    // const distance = getDistance(sourceSystem, targetSystem);
-    //
-    // if (distance > jumpRange) {
-    //   throw new BadRequest(
-    //     `You do not have enough jump range to travel to ${body.waypointSymbol}. Can go ${jumpRange}, but ${distance} units away.`
-    //   );
-    // }
-    //
-    // const arrivalWp = targetSystem.waypoints.find(
-    //   (wp) => wp.type === "JUMP_GATE"
-    // );
-    // if (!arrivalWp) {
-    //   throw new BadRequest(
-    //     `There is no jump gate in ${body.waypointSymbol} to jump to.`
-    //   );
-    // }
+    if (!waypoint.jumpGate?.connections.includes(body.waypointSymbol)) {
+      throw new BadRequest(`The waypoint you are at is not connected to the waypoint you are trying to jump to.`)
+    }
+
+    const antimatterSupply = waypoint.supplyDemand['ANTIMATTER']
+    const supply = waypoint.inventory.get('ANTIMATTER')
+    if (!antimatterSupply || supply <= 0) {
+      throw new BadRequest(`There is no antimatter available at this waypoint, either because stock ran out, or it is not sold.`)
+    }
+    const antimatterCost = marketPrice(supply, antimatterSupply)
+
+    if (agent.credits < antimatterCost.salePrice) {
+      throw new BadRequest(`You do not have enough credits to purchase the antimatter required for the jump.`)
+    }
+
+    agent.credits -= antimatterCost.salePrice
+
+    const sourceSystem = getSystem(
+      universe,
+      ship.navigation.current.systemSymbol
+    );
+    const targetWaypoint = getWaypoint(universe, body.waypointSymbol);
 
     ship.navigation.setCurrent(targetWaypoint);
     ship.navigation.route = undefined;
@@ -686,11 +588,25 @@ export class FleetController {
 
     ship.setCooldown(powerUsage);
 
+    const trans: Transaction = {
+      waypointSymbol: waypoint.symbol,
+      tradeSymbol: "ANTIMATTER",
+      timestamp: new Date(),
+      shipSymbol: ship.symbol,
+      agentSymbol: agent.symbol,
+      type: "PURCHASE",
+      totalPrice: antimatterCost.salePrice,
+      pricePerUnit: antimatterCost.salePrice,
+      units: 1,
+    };
+    waypoint.transactions.push(trans);
+
     return {
       data: {
         cooldown: renderCooldown(ship),
         nav: renderShipNav(ship.navigation),
-        transaction: renderMarketTransaction(transaction?.transaction),
+        transaction: renderMarketTransaction(trans),
+        agent: renderAgent(agent)
       },
     };
   }
@@ -726,12 +642,12 @@ export class FleetController {
     const departureDate = new Date();
     const arrivalDate = new Date(
       departureDate.getTime() +
-        navigateTravelTime(
-          distance,
-          ship.navigation.flightMode,
-          ship.stats.thrust
-        ) *
-          1000
+      navigateTravelTime(
+        distance,
+        ship.navigation.flightMode,
+        ship.stats.thrust
+      ) *
+      1000
     );
 
     ship.derivedStats.fuel -= fuel;
@@ -754,7 +670,6 @@ export class FleetController {
             amount: fuel,
           },
         },
-        events: [],
       },
     };
   }
@@ -767,9 +682,7 @@ export class FleetController {
   ): GetShipNav200Response {
     const ship = getShip(agent, shipSymbol);
 
-    if (body.flightMode) {
-      ship.navigation.flightMode = body.flightMode;
-    }
+    ship.navigation.flightMode = body.flightMode;
 
     return {
       data: renderShipNav(ship.navigation),
@@ -840,12 +753,12 @@ export class FleetController {
     const departureDate = new Date();
     const arrivalDate = new Date(
       departureDate.getTime() +
-        warpTravelTime(
-          distance,
-          ship.navigation.flightMode,
-          ship.stats.thrust
-        ) *
-          1000
+      warpTravelTime(
+        distance,
+        ship.navigation.flightMode,
+        ship.stats.thrust
+      ) *
+      1000
     );
 
     ship.derivedStats.fuel -= fuel;
@@ -868,7 +781,6 @@ export class FleetController {
             amount: fuel,
           },
         },
-        events: [],
       },
     };
   }
@@ -887,6 +799,12 @@ export class FleetController {
     const supplyDemand = waypoint.supplyDemand[body.symbol];
     if (!supplyDemand) {
       throw new BadRequest(`You cannot sell ${body.symbol} here.`);
+    }
+
+    if (body.units > supplyDemand.tradeVolume) {
+      throw new BadRequest(
+        `You cannot sell ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.tradeVolume} allowed.`
+      );
     }
 
     if (ship.cargo.get(body.symbol) < body.units) {
@@ -1122,19 +1040,52 @@ export class FleetController {
 
     const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
 
-    const result = purchaseAtWaypoint(
-      agent,
-      waypoint,
-      ship,
-      body.symbol,
-      body.units
+    const supplyDemand = waypoint.supplyDemand[body.symbol];
+    if (!supplyDemand) {
+      throw new BadRequest(`You cannot buy ${body.symbol} here.`);
+    }
+
+    if (body.units > supplyDemand.tradeVolume) {
+      throw new BadRequest(
+        `You cannot purchase ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.tradeVolume} allowed.`
+      );
+    }
+
+    if (ship.cargo.total() + body.units > ship.stats.cargoSpace) {
+      throw new BadRequest(`You do not have enough cargo space.`);
+    }
+
+    const price = marketPrice(
+      waypoint.inventory.get(supplyDemand.tradeGood),
+      supplyDemand
     );
+    const total = price.salePrice * body.units;
+
+    if (agent.credits < total) {
+      throw new BadRequest(`You do not have enough credits.`);
+    }
+
+    agent.credits -= total;
+    ship.cargo.add(body.symbol, body.units);
+    const transaction: Transaction = {
+      waypointSymbol: waypoint.symbol,
+      tradeSymbol: body.symbol,
+      timestamp: new Date(),
+      shipSymbol: ship.symbol,
+      agentSymbol: agent.symbol,
+      type: "PURCHASE",
+      totalPrice: total,
+      pricePerUnit: price.salePrice,
+      units: body.units,
+    };
+    waypoint.transactions.push(transaction);
+    waypoint.inventory.remove(supplyDemand.tradeGood, body.units);
 
     return {
       data: {
         cargo: renderShipCargo(ship),
         agent: renderAgent(agent),
-        transaction: renderMarketTransaction(result.transaction),
+        transaction: renderMarketTransaction(transaction),
       },
     };
   }
@@ -1249,7 +1200,7 @@ export class FleetController {
       throw new BadRequest(`You cannot install a mount you do not own.`);
     }
 
-    ship.mounts.push(mountData[body.symbol as Mount]);
+    ship.mounts.push(mountData[body.symbol]);
     agent.credits -= 5000;
     const trans: Transaction = {
       waypointSymbol: waypoint.symbol,

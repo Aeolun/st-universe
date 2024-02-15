@@ -6,7 +6,7 @@ export function renderAgent(newAgent: Agent) {
     accountId: newAgent.accountId,
     headquarters: newAgent.headquarters.waypointSymbol,
     credits: newAgent.credits,
-    ships: newAgent.ships.length,
+    shipCount: newAgent.ships.length,
     startingFaction: newAgent.faction,
   };
 }

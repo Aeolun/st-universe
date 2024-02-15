@@ -1,8 +1,11 @@
 export class JumpGate {
-  public range: number;
-  public connectedWaypointSymbols: string[] = [];
-  constructor(data: { range: number; connectedWaypointSymbols: string[] }) {
-    this.range = data.range;
-    this.connectedWaypointSymbols = data.connectedWaypointSymbols;
+  public range: number
+  public connections: string[]
+  constructor(data: {
+    range: number
+    connections: string[]
+  }) {
+    this.range = data.range
+    this.connections = data.connections
   }
 }

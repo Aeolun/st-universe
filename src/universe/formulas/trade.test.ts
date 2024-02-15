@@ -6,32 +6,24 @@ import { TradeGood } from "src/universe/static-data/trade-goods";
 test("when supply is ideal, price is equal to base", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(100, supplyDemand)).toMatchObject({
-    salePrice: 202,
-    purchasePrice: 182,
+    salePrice: 100,
+    purchasePrice: 90,
   });
 });
 
@@ -39,216 +31,160 @@ test("when supply is ideal, in large market, price is equal to base", () => {
   // slightly below ideal
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.ALUMINUM,
-    current: {
-      idealSupply: 6000,
-      maxSupply: 12000,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 6000,
-      maxSupply: 12000,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 6000,
+    maxSupply: 12000,
     stopSaleAt: 20,
+    consumptionRate: 0,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "demand",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(5953, supplyDemand)).toMatchObject({
-    salePrice: 174,
-    purchasePrice: 157,
+    salePrice: 163,
+    purchasePrice: 147,
   });
 
   // slightly over ideal
   const supplyDemand2: SupplyDemand = {
     tradeGood: TradeGood.ALUMINUM,
-    current: {
-      idealSupply: 6000,
-      maxSupply: 12000,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 6000,
-      maxSupply: 12000,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 6000,
+    maxSupply: 12000,
     stopSaleAt: 20,
+    consumptionRate: 0,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "demand",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(6047, supplyDemand2)).toMatchObject({
-    salePrice: 172,
-    purchasePrice: 152,
+    salePrice: 161,
+    purchasePrice: 142,
   });
 });
 
 test("when supply is over ideal, purchase price rapidly deteriorates", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(120, supplyDemand)).toMatchObject({
-    salePrice: 168,
-    purchasePrice: 105,
+    salePrice: 83,
+    purchasePrice: 52,
   });
 });
 
 test("localfluctuation adjust prices by a fixed amount", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 5,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(100, supplyDemand)).toMatchObject({
-    salePrice: 212,
-    purchasePrice: 191,
+    salePrice: 105,
+    purchasePrice: 95,
   });
 });
 
 test("when supply is empty, price is triple base", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(0, supplyDemand)).toMatchObject({
-    salePrice: 606,
-    purchasePrice: 364,
+    salePrice: 300,
+    purchasePrice: 200,
   });
 });
 
 test("when supply is oversaturated, price is extremely low", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(300, supplyDemand)).toMatchObject({
-    salePrice: 7,
-    purchasePrice: 6,
+    salePrice: 4,
+    purchasePrice: 3,
   });
 });
 
 test("when buying oversaturated market, you cannot make money", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
@@ -272,63 +208,47 @@ test("when buying oversaturated market, you cannot make money", () => {
 test("when supply is saturated, price is half base", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(200, supplyDemand)).toMatchObject({
-    salePrice: 101,
-    purchasePrice: 23,
+    salePrice: 50,
+    purchasePrice: 11,
   });
 });
 
 test("when supply is half saturated, price is 66% base", () => {
   const supplyDemand: SupplyDemand = {
     tradeGood: TradeGood.FOOD,
-    current: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
-    base: {
-      idealSupply: 100,
-      maxSupply: 200,
-      consumptionRate: 10,
-      productionRate: 0,
-      productionLineConsumptionRate: 0,
-      productionLineProductionRate: 0,
-    },
+    tradeVolume: 3,
+    idealSupply: 100,
+    maxSupply: 200,
     stopSaleAt: 20,
+    consumptionRate: 10,
+    productionRate: 0,
     localFluctuation: 0,
     kind: "supply",
+    activity: 0,
+    productionLineConsumptionRate: 0,
+    productionLineProductionRate: 0,
     lastTickProduction: 0,
     lastTickConsumption: 0,
   };
 
   expect(marketPrice(150, supplyDemand)).toMatchObject({
-    salePrice: 135,
-    purchasePrice: 54,
+    salePrice: 67,
+    purchasePrice: 27,
   });
 });

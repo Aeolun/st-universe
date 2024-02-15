@@ -32,6 +32,7 @@ export class AgentsController {
         headquarters: agent.headquarters.waypointSymbol,
         credits: agent.credits,
         startingFaction: agent.faction,
+        shipCount: agent.ships.length
       },
     };
   }

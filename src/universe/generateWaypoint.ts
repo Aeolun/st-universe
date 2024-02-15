@@ -33,8 +33,6 @@ import {
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
 import { JumpGate } from "src/universe/entities/JumpGate";
-import { calculateProduction } from "src/universe/helpers/calculate-production";
-import { calculateSupplyDemand } from "src/universe/helpers/calculate-supply-demand";
 
 const availableTraits: Record<string, WaypointTrait[]> = {};
 
@@ -48,13 +46,12 @@ export interface WaypointGenerationProperties {
   tradeGoods?: { symbol: TradeGood; type: "import" | "export" | "exchange" }[];
   shipHullsAvailable?: Configuration[];
   jumpGateRange?: number;
-  name: string;
   systemSymbol: string;
 }
 export const generateWaypoint = (data: WaypointGenerationProperties) => {
   const { systemSymbol, traits, ...rest } = data;
 
-  const waypointSymbol = `${systemSymbol}-${data.name}`;
+  const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
 
   const waypointType: WaypointType =
     data.type ?? pickRandom(generatableWaypointTypeNames);
@@ -111,17 +108,147 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
       waypoint.population += traitData.populationLevel;
     }
 
-    if (traitData.productionLine) {
-      traitData.productionLine.forEach((line) => {
-        waypoint.productionLines.push(line);
-      });
-    }
-
     if (traitData.extractableResources) {
       traitData.extractableResources.forEach((ex) => {
         waypoint.extractableResources[ex.tradegood] =
-          (waypoint.extractableResources[ex.tradegood] ?? 0) +
-          numberBetween(ex.richness.min * 100, ex.richness.max * 100) / 100;
+          (waypoint.extractableResources[ex.tradegood] ?? 0) + ex.prevalence;
+      });
+    }
+  });
+
+  if (waypoint.population === 1) {
+    waypoint.traits.push("SPARSELY_POPULATED");
+  } else if (waypoint.population > 1) {
+    waypoint.traits.push("POPULATED");
+  }
+
+  const good: Partial<Record<TradeGood, boolean>> = {};
+  const productionRate: Partial<Record<TradeGood, number>> = {};
+  const consumptionRate: Partial<Record<TradeGood, number>> = {};
+  const productionLineProductionRate: Partial<Record<TradeGood, number>> = {};
+  const productionLineConsumptionRate: Partial<Record<TradeGood, number>> = {};
+  const extraRequestedStorage: Partial<Record<TradeGood, number>> = {};
+  const consumedByConstruction: Partial<Record<TradeGood, boolean>> = {};
+
+  const addRates = (
+    tradeGood: TradeGood,
+    data: {
+      production?: number;
+      consumption?: number;
+      extraStorage?: number;
+      productionLineProduction?: number;
+      productionLineConsumption?: number;
+      consumedByConstruction?: boolean;
+    }
+  ) => {
+    good[tradeGood] = true;
+    if (data.production) {
+      productionRate[tradeGood] =
+        (productionRate[tradeGood] ?? 0) + data.production;
+    }
+    if (data.consumption) {
+      consumptionRate[tradeGood] =
+        (consumptionRate[tradeGood] ?? 0) + data.consumption;
+    }
+    if (data.productionLineProduction) {
+      productionLineProductionRate[tradeGood] =
+        (productionLineProductionRate[tradeGood] ?? 0) +
+        data.productionLineProduction;
+    }
+    if (data.productionLineConsumption) {
+      productionLineConsumptionRate[tradeGood] =
+        (productionLineConsumptionRate[tradeGood] ?? 0) +
+        data.productionLineConsumption;
+    }
+    if (data.extraStorage) {
+      extraRequestedStorage[tradeGood] =
+        (extraRequestedStorage[tradeGood] ?? 0) + data.extraStorage;
+    }
+    if (data.consumedByConstruction) {
+      consumedByConstruction[tradeGood] = true;
+    }
+  };
+  const addTraits = (traitData: TraitModifiers) => {
+    if (traitData.exports) {
+      Object.keys(traitData.exports).forEach((tg: TradeGood) => {
+        const count = traitData.exports?.[tg];
+        if (count) {
+          addRates(tg, {
+            production: count,
+          });
+        }
+      });
+    }
+    if (traitData.imports) {
+      Object.keys(traitData.imports).forEach((tg: TradeGood) => {
+        const count = traitData.imports?.[tg];
+        if (count) {
+          addRates(tg, {
+            consumption: count,
+          });
+        }
+      });
+    }
+    if (traitData.exchange) {
+      traitData.exchange.forEach((tg) => {
+        addRates(tg, {
+          extraStorage: 1,
+        });
+      });
+    }
+    if (traitData.exchangeGoodsCount) {
+      for (let i = 0; i < traitData.exchangeGoodsCount; i++) {
+        const tradeGood = pickRandom(tradeGoodTypeNames);
+        addRates(tradeGood, {
+          extraStorage: 1,
+        });
+      }
+    }
+    if (traitData.productionLine) {
+      traitData.productionLine.forEach((line) => {
+        const tradeGoodData = tradeGoods[line.produces];
+        if (tradeGoodData && "components" in tradeGoodData) {
+          addRates(line.produces, {
+            productionLineProduction: line.count ?? 1,
+          });
+          const options = Array.isArray(tradeGoodData.components)
+            ? tradeGoodData.components
+            : [tradeGoodData.components];
+          for (let i = 0; i < options.length; i++) {
+            const componentOptions = options[i];
+            Object.keys(componentOptions).forEach((component: TradeGood) => {
+              const count = componentOptions[component];
+              if (count) {
+                addRates(component, {
+                  productionLineConsumption: count,
+                  extraStorage: count,
+                });
+              }
+            });
+          }
+        }
+
+        waypoint.productionLines.push(line);
+      });
+    }
+    if (traitData.consumes) {
+      Object.keys(traitData.consumes).forEach((tg: TradeGood) => {
+        const count = traitData.consumes?.[tg];
+        if (count) {
+          addRates(tg, {
+            consumption: count,
+          });
+        }
+      });
+    }
+    if (traitData.produces) {
+      Object.keys(traitData.produces).forEach((tg: TradeGood) => {
+        const count = traitData.produces?.[tg];
+        if (count) {
+          addRates(tg, {
+            production: count,
+          });
+        }
       });
     }
 
@@ -141,43 +268,75 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
         }
       });
     }
+    newHulls.forEach((configuration) => {
+      // add all the components to imports
+      const configurationData = shipConfigurationData[configuration];
+      const frameTradeGood =
+        tradeGoods[configurationData.frame as unknown as TradeGood];
+
+      addRates(configurationData.engine as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      if ("components" in frameTradeGood) {
+        Object.keys(frameTradeGood.components).forEach((component) => {
+          addRates(component as unknown as TradeGood, {
+            extraStorage: frameTradeGood.components[component as TradeGood],
+            consumedByConstruction: true,
+          });
+        });
+      }
+      addRates(configurationData.reactor as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      configurationData.modules.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+      configurationData.mounts.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+    });
     newHulls.forEach((newHull) => {
       if (!waypoint.availableShipConfigurations.includes(newHull)) {
         waypoint.availableShipConfigurations.push(newHull);
       }
     });
-  });
+  };
 
-  if (waypoint.population > 1) {
-    waypoint.traits.push("CANT_PRODUCE_EVERYTHING_PLANETSIDE");
-  }
+  // once we've determined other factors, we can determine production
+  waypoint.traits.forEach((trait) => {
+    const traitData = waypointTraits[trait];
+
+    addTraits(traitData);
+
+    // generate random industries based on traits if none are specified
+    if (traitData.industries && !data.industries) {
+      for (let i = 0; i < traitData.industries; i++) {
+        const newIndustry = pickRandom(industryNames);
+        if (!waypoint.industries.includes(newIndustry)) {
+          waypoint.industries.push(newIndustry);
+
+          const industryData = industries[newIndustry];
+          addTraits(industryData);
+        }
+      }
+    }
+  });
 
   // if specific industries have been passed to the function, add them
   if (data.industries) {
     data.industries.forEach((industry) => {
-      waypoint.industries[industry] = (waypoint.industries[industry] ?? 0) + 1;
-    });
-  } else {
-    waypoint.traits.forEach((trait) => {
-      const traitData = waypointTraits[trait];
-
-      // generate random industries based on traits if none are specified
-      if (traitData.industries) {
-        for (let i = 0; i < traitData.industries; i++) {
-          const newIndustry = pickRandom(industryNames);
-          waypoint.industries[newIndustry] =
-            (waypoint.industries[newIndustry] ?? 0) + 1;
-        }
-      }
+      const industryData = industries[industry];
+      addTraits(industryData);
     });
   }
-
-  // add traits that come from industries
-  Object.keys(waypoint.industries).forEach((industry: Industry) => {
-    const industryData = industries[industry];
-
-    // nothing yet, all covered by calculateProduction for now
-  });
 
   if (
     waypoint.availableShipConfigurations.length > 0 &&
@@ -186,26 +345,107 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("SHIPYARD");
   }
 
-  // once we've determined other factors, we can determine production
-  const goods = calculateProduction(
-    waypoint.traits,
-    waypoint.industries,
-    waypoint.availableShipConfigurations
-  );
+  Object.keys(good).forEach((tg: TradeGood) => {
+    try {
+      const tgProductionRate = productionRate[tg] ?? 0;
+      const tgConsumptionRate = consumptionRate[tg] ?? 0;
+      const tgProductionLineProductionRate =
+        productionLineProductionRate[tg] ?? 0;
+      const tgProductionLineConsumptionRate =
+        productionLineConsumptionRate[tg] ?? 0;
+      const tgConsumedByConstruction = consumedByConstruction[tg] ?? false;
 
-  const res = calculateSupplyDemand(goods, waypoint.population);
-  waypoint.imports = res.imports;
-  waypoint.exports = res.exports;
-  waypoint.exchange = res.exchange;
-  waypoint.supplyDemand = res.supplyDemand;
+      const count = tgProductionRate - tgConsumptionRate;
+      const productionLineCount =
+        tgProductionLineProductionRate - tgProductionLineConsumptionRate;
+      const totalCount =
+        count + productionLineCount - (tgConsumedByConstruction ? 1 : 0);
+      const supplyTotal =
+        (tgProductionRate +
+          tgConsumptionRate +
+          tgProductionLineProductionRate +
+          tgProductionLineConsumptionRate +
+          Math.max(extraRequestedStorage[tg] ?? 0, 1)) *
+        Math.max(waypoint.population, 1);
+      const tradeGoodData = tradeGoods[tg];
+      if (count !== undefined) {
+        if (totalCount > 0) {
+          // produce
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
 
-  // start out all waypoints with ideal supply
-  Object.keys(res.supplyDemand).forEach((good: TradeGood) => {
-    if (res.supplyDemand[good]) {
-      waypoint.inventory.set(
-        good,
-        res.supplyDemand[good]?.current.idealSupply ?? 0
-      );
+          waypoint.exports.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
+          waypoint.supplyDemand[tg] = {
+            tradeGood: tg,
+            kind: "supply",
+            tradeVolume: tradeGoodData.baseTradeVolume,
+            idealSupply: idealSupply,
+            maxSupply: idealSupply * 2,
+            lastTickConsumption: 0,
+            lastTickProduction: 0,
+            activity: 0,
+            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+            productionRate: tgProductionRate * waypoint.population,
+            consumptionRate: tgConsumptionRate * waypoint.population,
+            productionLineProductionRate:
+              tgProductionLineProductionRate * waypoint.population,
+            productionLineConsumptionRate:
+              tgProductionLineConsumptionRate * waypoint.population,
+            localFluctuation: numberBetween(-10, 10),
+          };
+        } else if (totalCount < 0) {
+          // consumes
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
+
+          waypoint.imports.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
+          waypoint.supplyDemand[tg] = {
+            tradeGood: tg,
+            kind: "demand",
+            tradeVolume: tradeGoodData.baseTradeVolume,
+            idealSupply: idealSupply,
+            maxSupply: idealSupply * 2,
+            lastTickConsumption: 0,
+            lastTickProduction: 0,
+            activity: 0,
+            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+            productionRate: tgProductionRate * waypoint.population,
+            consumptionRate: tgConsumptionRate * waypoint.population,
+            productionLineProductionRate:
+              tgProductionLineProductionRate * waypoint.population,
+            productionLineConsumptionRate:
+              tgProductionLineConsumptionRate * waypoint.population,
+            localFluctuation: numberBetween(-10, 10),
+          };
+        } else {
+          // exchange
+          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
+
+          waypoint.exchange.push(tg);
+          waypoint.inventory.add(tg, idealSupply);
+          waypoint.supplyDemand[tg] = {
+            tradeGood: tg,
+            kind: "exchange",
+            tradeVolume: tradeGoodData.baseTradeVolume,
+            idealSupply: idealSupply,
+            maxSupply: idealSupply * 2,
+            lastTickConsumption: 0,
+            lastTickProduction: 0,
+            activity: 0,
+            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
+            productionRate: tgProductionRate * waypoint.population,
+            consumptionRate: tgConsumptionRate * waypoint.population,
+            productionLineProductionRate:
+              tgProductionLineProductionRate * waypoint.population,
+            productionLineConsumptionRate:
+              tgProductionLineConsumptionRate * waypoint.population,
+            localFluctuation: numberBetween(-10, 10),
+          };
+        }
+      }
+    } catch (e) {
+      console.log(`Issue setting consumption rate for ${tg}`);
+      console.log(e);
     }
   });
 
@@ -218,10 +458,11 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("MARKETPLACE");
   }
 
-  if (data.type === "JUMP_GATE" && data.jumpGateRange) {
+  if (data.jumpGateRange) {
     waypoint.jumpGate = new JumpGate({
       range: data.jumpGateRange,
-      connectedWaypointSymbols: [],
+      // connections need to be added after all waypoints are generated
+      connections: [],
     });
   }
 

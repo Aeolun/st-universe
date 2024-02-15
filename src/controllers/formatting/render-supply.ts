@@ -1,6 +1,9 @@
-import { SupplyLevel } from "src/controllers/schemas";
+import { SupplyLevel } from "../schemas";
 
-export const renderSupply = (current: number, desired: number): SupplyLevel => {
+export const renderSupply = (
+  current: number,
+  desired: number
+): SupplyLevel => {
   if (current > desired * 1.5) {
     return SupplyLevel.Abundant;
   } else if (current > 0.75 * desired) {

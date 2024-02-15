@@ -3,8 +3,6 @@ import { Get } from "@tsed/schema";
 import { Context, PathParams, QueryParams } from "@tsed/platform-params";
 import { universe } from "src/universe/universe";
 import {
-  ActivityLevel,
-  GetConstruction200Response,
   GetJumpGate200Response,
   GetMarket200Response,
   GetShipyard200Response,
@@ -33,7 +31,7 @@ import { getDistance } from "src/universe/getDistance";
 import { getSystem } from "src/controllers/helpers/get-system";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { renderShipTransaction } from "src/controllers/formatting/render-ship-transaction";
-import { shipModificationCost } from "src/universe/formulas/ship-modification-cost";
+import { renderActivity } from "../formatting/render-activity";
 
 @Controller("/systems/")
 export class SystemsController {
@@ -148,38 +146,34 @@ export class SystemsController {
         }),
         transactions: hasShip
           ? waypoint.transactions.map((transaction) => {
-              return {
-                ...transaction,
-                timestamp: transaction.timestamp.toISOString(),
-              };
-            })
+            return {
+              ...transaction,
+              timestamp: transaction.timestamp.toISOString(),
+            };
+          })
           : undefined,
         tradeGoods: hasShip
           ? Object.values(waypoint.supplyDemand).map((supplyDemand) => {
-              const tradeGoodData = tradeGoods[supplyDemand.tradeGood];
-              const price = marketPrice(
+            const tradeGoodData = tradeGoods[supplyDemand.tradeGood];
+            const goodInventory = waypoint.inventory.get(supplyDemand.tradeGood)
+            const price = marketPrice(
+              goodInventory,
+              supplyDemand
+            );
+            return {
+              symbol: supplyDemand.tradeGood as TradeSymbol,
+              tradeVolume: price.tradeVolume,
+              type: supplyDemand.kind === 'supply' ? 'EXPORT' : supplyDemand.kind === 'exchange' ? 'EXCHANGE' : 'IMPORT',
+              activity: renderActivity(supplyDemand.activity, supplyDemand.lastTickProduction - supplyDemand.lastTickConsumption, supplyDemand.maxSupply, goodInventory),
+              supply: renderSupply(
                 waypoint.inventory.get(supplyDemand.tradeGood),
-                supplyDemand
-              );
-              return {
-                symbol: supplyDemand.tradeGood as TradeSymbol,
-                type:
-                  supplyDemand.kind === "supply"
-                    ? "EXPORT"
-                    : supplyDemand.kind === "demand"
-                    ? "IMPORT"
-                    : "EXCHANGE",
-                tradeVolume: price.tradeVolume,
-                activity: ActivityLevel.Restricted,
-                supply: renderSupply(
-                  waypoint.inventory.get(supplyDemand.tradeGood),
-                  supplyDemand.current.idealSupply
-                ),
-                // purchase and sale price inverted since we are looking at the market from the perspective of the ship
-                purchasePrice: price.salePrice,
-                sellPrice: price.purchasePrice,
-              };
-            })
+                supplyDemand.idealSupply
+              ),
+              // purchase and sale price inverted since we are looking at the market from the perspective of the ship
+              purchasePrice: price.salePrice,
+              sellPrice: price.purchasePrice,
+            };
+          })
           : undefined,
       },
     };
@@ -219,52 +213,14 @@ export class SystemsController {
         }),
         transactions: hasShip
           ? waypoint.shipTransactions.map((st) => {
-              return renderShipTransaction(st);
-            })
+            return renderShipTransaction(st);
+          })
           : undefined,
         ships: hasShip
           ? waypoint.availableShipConfigurations.map((item) => {
-              return renderShipConfiguration(item, waypoint);
-            })
+            return renderShipConfiguration(item, waypoint);
+          })
           : undefined,
-        modificationsFee: shipModificationCost(),
-      },
-    };
-  }
-
-  @Get("/:systemSymbol/waypoints/:waypointSymbol/construction")
-  @CustomAuth({ optional: true })
-  constructionSite(
-    @PathParams("systemSymbol") systemSymbol: string,
-    @PathParams("waypointSymbol") waypointSymbol: string,
-    @Context("auth") context: AuthToken
-  ): GetConstruction200Response {
-    const waypoint = getWaypoint(universe, waypointSymbol);
-
-    if (!waypoint.constructionSite) {
-      throw new Error(
-        `Waypoint ${waypointSymbol} does not have a construction site`
-      );
-    }
-
-    return {
-      data: {
-        symbol: waypoint.symbol,
-        isComplete: waypoint.constructionSite.isComplete,
-        materials: Object.keys(waypoint.constructionSite.requiredResources).map(
-          (resource) => {
-            return {
-              tradeSymbol: resource as TradeSymbol,
-              required:
-                waypoint.constructionSite?.requiredResources[
-                  resource as TradeSymbol
-                ] ?? 0,
-              fulfilled:
-                waypoint.constructionSite?.resources[resource as TradeSymbol] ??
-                0,
-            };
-          }
-        ),
       },
     };
   }
@@ -276,6 +232,7 @@ export class SystemsController {
     @PathParams("waypointSymbol") waypointSymbol: string,
     @Context("auth") context: AuthToken
   ): GetJumpGate200Response {
+    const system = getSystem(universe, systemSymbol);
     const waypoint = getWaypoint(universe, waypointSymbol);
 
     let hasShip = false;
@@ -297,7 +254,17 @@ export class SystemsController {
 
     return {
       data: {
-        connections: waypoint.jumpGate.connectedWaypointSymbols,
+        symbol: waypoint.symbol,
+        connections: Object.values(universe.systems)
+          .filter((s) => {
+            return (
+              s.waypoints.some((w) => w.type === "JUMP_GATE") &&
+              getDistance(system, s)
+            );
+          })
+          .map((s) => {
+            return s.symbol
+          }),
       },
     };
   }
