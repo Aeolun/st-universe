@@ -469,6 +469,7 @@ export class FleetController {
             units: extracted,
           },
         },
+        events: [],
       },
     };
   }
@@ -502,6 +503,7 @@ export class FleetController {
             units: extracted,
           },
         },
+        events: [],
       },
     };
   }
@@ -537,6 +539,7 @@ export class FleetController {
             units: extracted,
           },
         },
+        events: [],
       },
     };
   }
@@ -751,6 +754,7 @@ export class FleetController {
             amount: fuel,
           },
         },
+        events: [],
       },
     };
   }
@@ -864,6 +868,7 @@ export class FleetController {
             amount: fuel,
           },
         },
+        events: [],
       },
     };
   }

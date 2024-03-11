@@ -1,4 +1,4 @@
-import { ShipFrame } from "src/universe/entities/ShipFrame";
+import { ShipFrameType } from "src/universe/entities/ShipFrameType";
 import { ProvidesModuleCapacity } from "src/universe/entities/capabilities/ProvidesModuleCapacity";
 import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
 import { ProvidesMountingPoings } from "src/universe/entities/capabilities/ProvidesMountingPoings";
@@ -32,14 +32,14 @@ export enum Frame {
   // FRAME_STATION = "FRAME_STATION",
 }
 
-export const frameData: Record<Frame, ShipFrame> = {
-  [Frame.FRAME_PROBE]: new ShipFrame(
+export const frameData: Record<Frame, ShipFrameType> = {
+  [Frame.FRAME_PROBE]: new ShipFrameType(
     Frame.FRAME_PROBE,
     "Frame Probe",
     "A small, unmanned spacecraft used for exploration, reconnaissance, and scientific research.",
     [new RequiresPower(1)]
   ),
-  [Frame.FRAME_DRONE]: new ShipFrame(
+  [Frame.FRAME_DRONE]: new ShipFrameType(
     Frame.FRAME_DRONE,
     "Drone Frame",
     "A small, unmanned spacecraft used for various tasks, such as surveillance, transportation, or combat.",
@@ -51,7 +51,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(100),
     ]
   ),
-  [Frame.FRAME_INTERCEPTOR]: new ShipFrame(
+  [Frame.FRAME_INTERCEPTOR]: new ShipFrameType(
     Frame.FRAME_INTERCEPTOR,
     "Frame Interceptor",
     "A small, agile spacecraft designed for high-speed, short-range combat missions.",
@@ -63,19 +63,19 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(500),
     ]
   ),
-  [Frame.FRAME_RACER]: new ShipFrame(Frame.FRAME_RACER, "", "", [
+  [Frame.FRAME_RACER]: new ShipFrameType(Frame.FRAME_RACER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(400),
   ]),
-  [Frame.FRAME_FIGHTER]: new ShipFrame(Frame.FRAME_FIGHTER, "", "", [
+  [Frame.FRAME_FIGHTER]: new ShipFrameType(Frame.FRAME_FIGHTER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(400),
   ]),
-  [Frame.FRAME_FRIGATE]: new ShipFrame(
+  [Frame.FRAME_FRIGATE]: new ShipFrameType(
     Frame.FRAME_FRIGATE,
     "Frame Frigate",
     "A medium-sized, multi-purpose spacecraft, often used for combat, transport, or support operations.",
@@ -87,7 +87,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(1200),
     ]
   ),
-  [Frame.FRAME_SHUTTLE]: new ShipFrame(
+  [Frame.FRAME_SHUTTLE]: new ShipFrameType(
     Frame.FRAME_SHUTTLE,
     "Frame Shuttle",
     "A small, reusable spacecraft designed for short-range, low-speed travel between spacecraft or planetary surfaces.",
@@ -99,7 +99,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(900),
     ]
   ),
-  [Frame.FRAME_EXPLORER]: new ShipFrame(
+  [Frame.FRAME_EXPLORER]: new ShipFrameType(
     Frame.FRAME_EXPLORER,
     "Frame Explorer",
     "A large, long-range spacecraft designed for deep space exploration and scientific research.",
@@ -111,7 +111,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(1500),
     ]
   ),
-  [Frame.FRAME_MINER]: new ShipFrame(
+  [Frame.FRAME_MINER]: new ShipFrameType(
     Frame.FRAME_MINER,
     "Frame Miner",
     "A medium-sized spacecraft designed for mining operations and resource extraction.",
@@ -123,7 +123,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(900),
     ]
   ),
-  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrame(
+  [Frame.FRAME_LIGHT_FREIGHTER]: new ShipFrameType(
     Frame.FRAME_LIGHT_FREIGHTER,
     "Frame Light Freighter",
     "A small, versatile spacecraft used for cargo transport and other commercial operations.",
@@ -135,7 +135,7 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(1700),
     ]
   ),
-  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrame(
+  [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrameType(
     Frame.FRAME_HEAVY_FREIGHTER,
     "Frame Heavy Freighter",
     "A large, heavily-armed spacecraft used for cargo transport and other commercial operations in hostile environments.",
@@ -147,19 +147,19 @@ export const frameData: Record<Frame, ShipFrame> = {
       new StoresFuel(2300),
     ]
   ),
-  [Frame.FRAME_TRANSPORT]: new ShipFrame(Frame.FRAME_TRANSPORT, "", "", [
+  [Frame.FRAME_TRANSPORT]: new ShipFrameType(Frame.FRAME_TRANSPORT, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700),
   ]),
-  [Frame.FRAME_DESTROYER]: new ShipFrame(Frame.FRAME_DESTROYER, "", "", [
+  [Frame.FRAME_DESTROYER]: new ShipFrameType(Frame.FRAME_DESTROYER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
     new StoresFuel(700),
   ]),
-  [Frame.FRAME_CRUISER]: new ShipFrame(Frame.FRAME_CRUISER, "", "", [
+  [Frame.FRAME_CRUISER]: new ShipFrameType(Frame.FRAME_CRUISER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),
@@ -189,7 +189,7 @@ export const frameData: Record<Frame, ShipFrame> = {
   //   new ProvidesMountingPoings(2),
   //   new StoresFuel(100),
   // ]),
-  [Frame.FRAME_CARRIER]: new ShipFrame(Frame.FRAME_CARRIER, "", "", [
+  [Frame.FRAME_CARRIER]: new ShipFrameType(Frame.FRAME_CARRIER, "", "", [
     new RequiresCrew(1),
     new ProvidesModuleCapacity(2),
     new ProvidesMountingPoings(2),

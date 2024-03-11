@@ -1,20 +1,20 @@
-import {ShipEngine, ShipReactor,} from "src/controllers/schemas";
-import {Reactor, reactorData} from "src/universe/static-data/ship-reactors";
-import {Engine, engineData} from "src/universe/static-data/ship-engines";
+import { ShipEngine as ApiShipEngine } from "src/controllers/schemas";
+import { ShipEngine } from "src/universe/entities/ShipEngine";
 
-export const renderShipEngine = (symbol: Engine): ShipEngine => {
-    const engine = engineData[symbol];
+export const renderShipEngine = (shipEngine: ShipEngine): ApiShipEngine => {
+  const engine = shipEngine.engineType;
 
-    return {
-        symbol: symbol,
-        name: engine.name,
-        description: engine.description,
-        condition: 50,
-        speed: engine.stats.thrust,
-        requirements: {
-            power: engine.stats.powerRequired,
-            crew: engine.stats.crewRequired,
-            slots: engine.stats.moduleCapacityRequired,
-        }
-    };
-}
+  return {
+    symbol: shipEngine.engineType.symbol,
+    name: engine.name,
+    description: engine.description,
+    condition: shipEngine.condition,
+    integrity: shipEngine.integrity,
+    speed: engine.stats.thrust,
+    requirements: {
+      power: engine.stats.powerRequired,
+      crew: engine.stats.crewRequired,
+      slots: engine.stats.moduleCapacityRequired,
+    },
+  };
+};

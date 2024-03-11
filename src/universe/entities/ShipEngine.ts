@@ -1,11 +1,21 @@
-import {AbstractCapabilities} from "src/universe/entities/capabilities/AbstractCapabilities";
-import {Engine} from "src/universe/static-data/ship-engines";
-import {Capability} from "src/universe/entities/capabilities/Capability";
+import { ShipEngineType } from "src/universe/entities/ShipEngineType";
+import {
+  CanAddStats,
+  CanMultiplyStats,
+} from "src/universe/entities/capabilities/AbstractCapabilities";
+import { Stats } from "./Stats";
 
-export class ShipEngine extends AbstractCapabilities {
-  constructor(public symbol: Engine, public name: string, public description: string, capabilities: Capability[]) {
-    super()
+export class ShipEngine implements CanAddStats, CanMultiplyStats {
+  public condition: number = 1;
+  public integrity: number = 1;
 
-    this.capabilities = capabilities
+  constructor(public engineType: ShipEngineType) {}
+
+  multiplyStats(stats: Stats): Stats {
+    return this.engineType.addStats(stats);
+  }
+
+  addStats(stats: Stats): Stats {
+    return this.engineType.multiplyStats(stats);
   }
 }

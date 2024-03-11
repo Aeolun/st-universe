@@ -9,6 +9,7 @@ import {
 } from "src/controllers/schemas";
 import { Waypoint as WaypointEntity } from "src/universe/entities/Waypoint";
 import { waypointTraits } from "src/universe/static-data/waypoint-traits";
+import { modifiers } from "src/universe/static-data/modifiers";
 
 export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
   return {
@@ -27,6 +28,9 @@ export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
         symbol: orbital.symbol,
       };
     }),
+    isUnderConstruction: waypoint.constructionSite
+      ? !waypoint.constructionSite.isComplete
+      : false,
     traits: (waypoint.traits.includes("UNCHARTED")
       ? ["UNCHARTED"]
       : waypoint.traits.filter((trait) => {
@@ -42,9 +46,9 @@ export function renderWaypoint(waypoint: WaypointEntity): Waypoint {
     }),
     modifiers: waypoint.modifiers.map((modifier) => {
       return {
-        symbol: modifier.symbol,
-        name: modifier.name,
-        description: modifier.description,
+        symbol: modifier,
+        name: modifiers[modifier].name,
+        description: modifiers[modifier].description,
       };
     }),
     chart: waypoint.chart

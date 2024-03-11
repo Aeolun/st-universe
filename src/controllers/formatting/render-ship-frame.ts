@@ -1,23 +1,22 @@
-import {ShipEngine, ShipFrame, ShipReactor,} from "src/controllers/schemas";
-import {Reactor, reactorData} from "src/universe/static-data/ship-reactors";
-import {Engine, engineData} from "src/universe/static-data/ship-engines";
-import {Frame, frameData} from "src/universe/static-data/ship-frames";
+import { ShipFrame as ApiShipFrame } from "src/controllers/schemas";
+import { ShipFrame } from "src/universe/entities/ShipFrame";
 
-export const renderShipFrame = (symbol: Frame): ShipFrame => {
-    const frame = frameData[symbol];
+export const renderShipFrame = (shipFrame: ShipFrame): ApiShipFrame => {
+  const frame = shipFrame.frameType;
 
-    return {
-        symbol: symbol,
-        name: frame.name,
-        description: frame.description,
-        condition: 50,
-        moduleSlots: frame.stats.moduleCapacity,
-        mountingPoints: frame.stats.mountingPoints,
-        fuelCapacity: frame.stats.fuelCapacity,
-        requirements: {
-            power: frame.stats.powerRequired,
-            crew: frame.stats.crewRequired,
-            slots: frame.stats.moduleCapacityRequired,
-        }
-    };
-}
+  return {
+    symbol: shipFrame.frameType.symbol,
+    name: frame.name,
+    description: frame.description,
+    condition: shipFrame.condition,
+    integrity: shipFrame.integrity,
+    moduleSlots: frame.stats.moduleCapacity,
+    mountingPoints: frame.stats.mountingPoints,
+    fuelCapacity: frame.stats.fuelCapacity,
+    requirements: {
+      power: frame.stats.powerRequired,
+      crew: frame.stats.crewRequired,
+      slots: frame.stats.moduleCapacityRequired,
+    },
+  };
+};

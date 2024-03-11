@@ -1,13 +1,20 @@
-import {AbstractCapabilities} from "src/universe/entities/capabilities/AbstractCapabilities";
-import {Reactor} from "src/universe/static-data/ship-reactors";
-import {Capability} from "src/universe/entities/capabilities/Capability";
+import { ShipReactorType } from "src/universe/entities/ShipReactorType";
+import {
+  CanAddStats,
+  CanMultiplyStats,
+} from "src/universe/entities/capabilities/AbstractCapabilities";
+import { Stats } from "src/universe/entities/Stats";
 
-export class ShipReactor extends AbstractCapabilities {
+export class ShipReactor implements CanAddStats, CanMultiplyStats {
+  public condition: number = 1;
+  public integrity: number = 1;
+  constructor(public reactorType: ShipReactorType) {}
 
-    constructor(public symbol: Reactor, public name: string, public description: string, capabilities: Capability[]) {
-        super();
+  multiplyStats(stats: Stats): Stats {
+    return this.reactorType.addStats(stats);
+  }
 
-        this.capabilities = capabilities;
-    }
-
+  addStats(stats: Stats): Stats {
+    return this.reactorType.multiplyStats(stats);
+  }
 }

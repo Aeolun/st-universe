@@ -1,13 +1,20 @@
-import {Capability} from "src/universe/entities/capabilities/Capability";
-import {AbstractCapabilities} from "src/universe/entities/capabilities/AbstractCapabilities";
-import {Frame} from "src/universe/static-data/ship-frames";
+import { ShipFrameType } from "src/universe/entities/ShipFrameType";
+import {
+  CanAddStats,
+  CanMultiplyStats,
+} from "src/universe/entities/capabilities/AbstractCapabilities";
+import { Stats } from "src/universe/entities/Stats";
 
-export class ShipFrame extends AbstractCapabilities {
+export class ShipFrame implements CanAddStats, CanMultiplyStats {
+  public condition: number = 1;
+  public integrity: number = 1;
+  constructor(public frameType: ShipFrameType) {}
 
-  constructor(public symbol: Frame, public name: string, public description: string, capabilities: Capability[]) {
-    super()
+  multiplyStats(stats: Stats): Stats {
+    return this.frameType.addStats(stats);
+  }
 
-
-    this.capabilities = capabilities
+  addStats(stats: Stats): Stats {
+    return this.frameType.multiplyStats(stats);
   }
 }

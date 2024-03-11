@@ -12,7 +12,7 @@ test("mining generates expected resources", () => {
     y: 0,
     symbol: "TEST",
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ASTEROID",
   });
   wp.extractableResources = {
     GOLD_ORE: 1,
@@ -35,7 +35,7 @@ test("mining always generates a whole number of resources", () => {
     y: 0,
     symbol: "TEST",
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ASTEROID",
   });
   wp.extractableResources = {
     GOLD_ORE: 0.43,
@@ -58,7 +58,7 @@ test("mining at location with extra resources generates more resources", () => {
     y: 0,
     symbol: "TEST",
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ASTEROID",
   });
   wp.extractableResources = {
     GOLD_ORE: 1,
@@ -90,7 +90,7 @@ test("mining with survey generates expected resources", () => {
     y: 0,
     symbol: "TEST",
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ASTEROID",
   });
   const survey: Survey = {
     symbol: "TEST",

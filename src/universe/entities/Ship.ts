@@ -1,6 +1,6 @@
-import { ShipFrame } from "src/universe/entities/ShipFrame";
-import { ShipReactor } from "src/universe/entities/ShipReactor";
-import { ShipEngine } from "src/universe/entities/ShipEngine";
+import { ShipFrameType } from "src/universe/entities/ShipFrameType";
+import { ShipReactorType } from "src/universe/entities/ShipReactorType";
+import { ShipEngineType } from "src/universe/entities/ShipEngineType";
 import { ShipModule } from "src/universe/entities/ShipModule";
 import { ShipMount } from "src/universe/entities/ShipMount";
 import { Location, Navigation } from "src/universe/entities/Navigation";
@@ -24,6 +24,9 @@ import { moduleData } from "src/universe/static-data/ship-modules";
 import { Storage } from "src/universe/entities/Storage";
 import { Waypoint } from "src/universe/entities/Waypoint";
 import { powerUsageCooldown } from "src/universe/formulas/power";
+import { ShipFrame } from "src/universe/entities/ShipFrame";
+import { ShipReactor } from "src/universe/entities/ShipReactor";
+import { ShipEngine } from "src/universe/entities/ShipEngine";
 
 export class Ship {
   public symbol: string;
@@ -61,9 +64,9 @@ export class Ship {
     this.navigation = new Navigation(data.waypoint);
 
     const newConfiguration = shipConfigurationData[data.configuration];
-    this.frame = frameData[newConfiguration.frame];
-    this.reactor = reactorData[newConfiguration.reactor];
-    this.engine = engineData[newConfiguration.engine];
+    this.frame = new ShipFrame(frameData[newConfiguration.frame]);
+    this.reactor = new ShipReactor(reactorData[newConfiguration.reactor]);
+    this.engine = new ShipEngine(engineData[newConfiguration.engine]);
     newConfiguration.mounts.forEach((mount) => {
       this.mounts.push(mountData[mount]);
     });
