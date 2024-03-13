@@ -1,6 +1,6 @@
 import { System } from "src/universe/entities/System";
 import * as fs from "fs";
-import { percentageChance, pickRandom, shuffle } from "src/universe/utilities";
+import { randomPercentage, pickRandom, shuffle } from "src/universe/utilities";
 import { getDistance } from "src/universe/getDistance";
 import { generateSystem } from "./generateSystem";
 import { starTypes } from "./static-data/star-types";
@@ -80,17 +80,17 @@ export async function generateUniverse() {
           const rotation = Math.random() * Math.PI * 2;
           potentialX = Math.round(
             startPos.x +
-            step * stepSize * rotationVectorX +
-            Math.round(
-              Math.sin(rotation) * Math.random() * spreadSize - spreadSize / 2
-            )
+              step * stepSize * rotationVectorX +
+              Math.round(
+                Math.sin(rotation) * Math.random() * spreadSize - spreadSize / 2
+              )
           );
           potentialY = Math.round(
             startPos.y +
-            step * stepSize * rotationVectorY +
-            Math.round(
-              Math.cos(rotation) * Math.random() * spreadSize - spreadSize / 2
-            )
+              step * stepSize * rotationVectorY +
+              Math.round(
+                Math.cos(rotation) * Math.random() * spreadSize - spreadSize / 2
+              )
           );
           attempts++;
         } while (
@@ -111,13 +111,13 @@ export async function generateUniverse() {
         }
 
         const jumpDecreaseChance = JUMP_GATE_DROPOFF * (step / STEPS_PER_ARM);
-        const hasJumpgate = percentageChance(
+        const hasJumpgate = randomPercentage(
           JUMP_GATE_CHANCE - jumpDecreaseChance
         );
 
         const superdutyJumpDecreaseChance =
           SUPERDUTY_JUMP_GATE_DROPOFF * (step / STEPS_PER_ARM);
-        const isSuperduty = percentageChance(
+        const isSuperduty = randomPercentage(
           SUPERDUTY_JUMP_GATE_CHANCE - superdutyJumpDecreaseChance
         )
           ? SUPERDUTY_JUMP_GATE_RANGE
@@ -128,10 +128,11 @@ export async function generateUniverse() {
           universeSymbol: UNIVERSE_SYMBOL,
           jumpGateSpecs: hasJumpgate
             ? {
-              range: isSuperduty
-                ? SUPERDUTY_JUMP_GATE_RANGE
-                : JUMP_GATE_RANGE,
-            }
+                connections: 8,
+                range: isSuperduty
+                  ? SUPERDUTY_JUMP_GATE_RANGE
+                  : JUMP_GATE_RANGE,
+              }
             : undefined,
         });
         universe.addSystem(system);
@@ -226,11 +227,11 @@ export async function generateUniverse() {
           system.factions.length <= 0
         ) {
           if (
-            percentageChance(
+            randomPercentage(
               30 +
-              ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
-                FACTION_OUTER_INFLUENCE_RADIUS) *
-              40
+                ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
+                  FACTION_OUTER_INFLUENCE_RADIUS) *
+                  40
             )
           ) {
             system.waypoints.forEach((wp) => {
@@ -257,15 +258,15 @@ export async function generateUniverse() {
           factionData.homeSystem.x +
           Math.round(
             Math.sin(Math.random() * Math.PI * 2) *
-            FACTION_OUTER_INFLUENCE_RADIUS *
-            0.75
+              FACTION_OUTER_INFLUENCE_RADIUS *
+              0.75
           ),
         y:
           factionData.homeSystem.y +
           Math.round(
             Math.cos(Math.random() * Math.PI * 2) *
-            FACTION_OUTER_INFLUENCE_RADIUS *
-            0.75
+              FACTION_OUTER_INFLUENCE_RADIUS *
+              0.75
           ),
       };
 
@@ -276,11 +277,11 @@ export async function generateUniverse() {
           system.factions.length <= 0
         ) {
           if (
-            percentageChance(
+            randomPercentage(
               30 +
-              ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
-                FACTION_OUTER_INFLUENCE_RADIUS) *
-              40
+                ((FACTION_OUTER_INFLUENCE_RADIUS - distance) /
+                  FACTION_OUTER_INFLUENCE_RADIUS) *
+                  40
             )
           ) {
             system.waypoints.forEach((wp) => {

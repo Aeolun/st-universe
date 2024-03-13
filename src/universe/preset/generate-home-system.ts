@@ -23,39 +23,37 @@ export function generateHomeSystem(data: {
         ],
       },
       {
+        name: "B1",
         type: "GAS_GIANT",
         x: -39,
         y: 38,
         traits: ["STRONG_MAGNETOSPHERE", "VIBRANT_AURORAS"],
         orbitals: [
           {
+            name: "B2",
             type: "ORBITAL_STATION",
             x: -39,
             y: 38,
-            traits: ["MARKETPLACE", "MILITARY_BASE", "HOME_SYSTEM_SHIPYARD"],
+            traits: ["MARKETPLACE", "MILITARY_BASE"],
           },
         ],
       },
       {
+        name: "C1",
         type: "PLANET",
         x: 14,
         y: -3,
         traits: ["TOXIC_ATMOSPHERE", "VOLCANIC", "WEAK_GRAVITY"],
       },
       {
+        name: "D1",
         type: "JUMP_GATE",
         x: 8,
         y: -67,
         jumpGateRange: 2000,
       },
       {
-        type: "ASTEROID_FIELD",
-        x: -30,
-        y: 25,
-        traits: ["COMMON_METAL_DEPOSITS", "MARKETPLACE", "MINERAL_DEPOSITS"],
-        industries: ["MINING_EXCHANGE"],
-      },
-      {
+        name: "E1",
         type: "PLANET",
         x: -12,
         y: 22,
@@ -69,6 +67,7 @@ export function generateHomeSystem(data: {
         industries: ["BOTANICALS"],
         orbitals: [
           {
+            name: "E2",
             type: "MOON",
             x: -12,
             y: 22,
@@ -76,6 +75,7 @@ export function generateHomeSystem(data: {
             industries: ["REFINING"],
           },
           {
+            name: "E3",
             type: "MOON",
             x: -12,
             y: 22,
@@ -89,6 +89,7 @@ export function generateHomeSystem(data: {
             ],
           },
           {
+            name: "E4",
             type: "MOON",
             x: -12,
             y: 22,

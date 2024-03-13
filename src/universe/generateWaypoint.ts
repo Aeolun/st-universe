@@ -1,7 +1,8 @@
 import { Waypoint } from "./entities/Waypoint";
 import {
-  numberBetween,
+  randomBetween,
   pickRandom,
+  random,
   randomString,
   randomWeightedKey,
   trulyUniqId,
@@ -33,12 +34,14 @@ import {
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
 import { JumpGate } from "src/universe/entities/JumpGate";
+import { calculateSupplyDemand } from "src/universe/helpers/calculate-supply-demand";
 
 const availableTraits: Record<string, WaypointTrait[]> = {};
 
 export interface WaypointGenerationProperties {
   x: number;
   y: number;
+  name: string;
   inOrbitOf?: string;
   type?: WaypointType;
   traits?: WaypointTrait[];
@@ -51,7 +54,7 @@ export interface WaypointGenerationProperties {
 export const generateWaypoint = (data: WaypointGenerationProperties) => {
   const { systemSymbol, traits, ...rest } = data;
 
-  const waypointSymbol = `${systemSymbol}-${randomString(4)}`;
+  const waypointSymbol = `${systemSymbol}-${data.name}`;
 
   const waypointType: WaypointType =
     data.type ?? pickRandom(generatableWaypointTypeNames);
@@ -74,7 +77,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     availableTraits[waypointType] = availableTraitsForType;
   }
 
-  const waypointTraitCount = numberBetween(0, waypointTypeData.maxTraits);
+  const waypointTraitCount = randomBetween(0, waypointTypeData.maxTraits);
 
   if (data.traits) {
     waypoint.traits.push(...data.traits);
@@ -111,24 +114,26 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     if (traitData.extractableResources) {
       traitData.extractableResources.forEach((ex) => {
         waypoint.extractableResources[ex.tradegood] =
-          (waypoint.extractableResources[ex.tradegood] ?? 0) + ex.prevalence;
+          (waypoint.extractableResources[ex.tradegood] ?? 0) +
+          randomBetween(ex.richness.min, ex.richness.max);
       });
     }
   });
 
-  if (waypoint.population === 1) {
-    waypoint.traits.push("SPARSELY_POPULATED");
-  } else if (waypoint.population > 1) {
-    waypoint.traits.push("POPULATED");
-  }
-
   const good: Partial<Record<TradeGood, boolean>> = {};
-  const productionRate: Partial<Record<TradeGood, number>> = {};
-  const consumptionRate: Partial<Record<TradeGood, number>> = {};
-  const productionLineProductionRate: Partial<Record<TradeGood, number>> = {};
-  const productionLineConsumptionRate: Partial<Record<TradeGood, number>> = {};
-  const extraRequestedStorage: Partial<Record<TradeGood, number>> = {};
-  const consumedByConstruction: Partial<Record<TradeGood, boolean>> = {};
+  const productionRates: Partial<
+    Record<
+      TradeGood,
+      {
+        production: number;
+        consumption: number;
+        extraStorage: number;
+        productionLineProduction: number;
+        productionLineConsumption: number;
+        consumedByConstruction: boolean;
+      }
+    >
+  > = {};
 
   const addRates = (
     tradeGood: TradeGood,
@@ -142,30 +147,37 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     }
   ) => {
     good[tradeGood] = true;
+    if (!productionRates[tradeGood]) {
+      productionRates[tradeGood] = {
+        production: 0,
+        consumption: 0,
+        extraStorage: 0,
+        productionLineConsumption: 0,
+        productionLineProduction: 0,
+        consumedByConstruction: false,
+      };
+    }
+    const rates = productionRates[tradeGood];
+    if (!rates) {
+      return;
+    }
     if (data.production) {
-      productionRate[tradeGood] =
-        (productionRate[tradeGood] ?? 0) + data.production;
+      rates.production += data.production;
     }
     if (data.consumption) {
-      consumptionRate[tradeGood] =
-        (consumptionRate[tradeGood] ?? 0) + data.consumption;
+      rates.consumption += data.consumption;
     }
     if (data.productionLineProduction) {
-      productionLineProductionRate[tradeGood] =
-        (productionLineProductionRate[tradeGood] ?? 0) +
-        data.productionLineProduction;
+      rates.productionLineProduction += data.productionLineProduction;
     }
     if (data.productionLineConsumption) {
-      productionLineConsumptionRate[tradeGood] =
-        (productionLineConsumptionRate[tradeGood] ?? 0) +
-        data.productionLineConsumption;
+      rates.productionLineConsumption += data.productionLineConsumption;
     }
     if (data.extraStorage) {
-      extraRequestedStorage[tradeGood] =
-        (extraRequestedStorage[tradeGood] ?? 0) + data.extraStorage;
+      rates.extraStorage += data.extraStorage;
     }
     if (data.consumedByConstruction) {
-      consumedByConstruction[tradeGood] = true;
+      rates.consumedByConstruction = true;
     }
   };
   const addTraits = (traitData: TraitModifiers) => {
@@ -320,12 +332,14 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     if (traitData.industries && !data.industries) {
       for (let i = 0; i < traitData.industries; i++) {
         const newIndustry = pickRandom(industryNames);
-        if (!waypoint.industries.includes(newIndustry)) {
-          waypoint.industries.push(newIndustry);
+        if (!waypoint.industries[newIndustry]) {
+          waypoint.industries[newIndustry] = 0;
 
           const industryData = industries[newIndustry];
           addTraits(industryData);
         }
+        waypoint.industries[newIndustry] =
+          (waypoint.industries[newIndustry] ?? 0) + 1;
       }
     }
   });
@@ -345,6 +359,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("SHIPYARD");
   }
 
+  const { exports, imports, exchange, supplyDemand } = calculateSupplyDemand();
   Object.keys(good).forEach((tg: TradeGood) => {
     try {
       const tgProductionRate = productionRate[tg] ?? 0;
@@ -367,6 +382,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
           tgProductionLineConsumptionRate +
           Math.max(extraRequestedStorage[tg] ?? 0, 1)) *
         Math.max(waypoint.population, 1);
+
       const tradeGoodData = tradeGoods[tg];
       if (count !== undefined) {
         if (totalCount > 0) {
@@ -391,7 +407,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
               tgProductionLineProductionRate * waypoint.population,
             productionLineConsumptionRate:
               tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         } else if (totalCount < 0) {
           // consumes
@@ -415,7 +431,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
               tgProductionLineProductionRate * waypoint.population,
             productionLineConsumptionRate:
               tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         } else {
           // exchange
@@ -439,7 +455,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
               tgProductionLineProductionRate * waypoint.population,
             productionLineConsumptionRate:
               tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         }
       }

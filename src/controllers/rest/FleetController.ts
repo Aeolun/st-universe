@@ -73,7 +73,7 @@ import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { refine } from "src/controllers/helpers/refine";
 import { SurveysForResources } from "src/universe/entities/capabilities/SurveysForResources";
 import {
-  numberBetween,
+  randomBetween,
   pickRandom,
   randomWeightedKey,
   trulyUniqId,
@@ -483,7 +483,7 @@ export class FleetController {
     }
 
     const resource = pickRandom(allPossibleResources);
-    const extracted = totalPower + numberBetween(-variation, variation);
+    const extracted = totalPower + randomBetween(-variation, variation);
 
     ship.cargo.add(resource, extracted);
     ship.setCooldown(powerUsage);
@@ -560,21 +560,27 @@ export class FleetController {
     );
 
     if (!waypoint.jumpGate?.connections.includes(body.waypointSymbol)) {
-      throw new BadRequest(`The waypoint you are at is not connected to the waypoint you are trying to jump to.`)
+      throw new BadRequest(
+        `The waypoint you are at is not connected to the waypoint you are trying to jump to.`
+      );
     }
 
-    const antimatterSupply = waypoint.supplyDemand['ANTIMATTER']
-    const supply = waypoint.inventory.get('ANTIMATTER')
+    const antimatterSupply = waypoint.supplyDemand["ANTIMATTER"];
+    const supply = waypoint.inventory.get("ANTIMATTER");
     if (!antimatterSupply || supply <= 0) {
-      throw new BadRequest(`There is no antimatter available at this waypoint, either because stock ran out, or it is not sold.`)
+      throw new BadRequest(
+        `There is no antimatter available at this waypoint, either because stock ran out, or it is not sold.`
+      );
     }
-    const antimatterCost = marketPrice(supply, antimatterSupply)
+    const antimatterCost = marketPrice(supply, antimatterSupply);
 
     if (agent.credits < antimatterCost.salePrice) {
-      throw new BadRequest(`You do not have enough credits to purchase the antimatter required for the jump.`)
+      throw new BadRequest(
+        `You do not have enough credits to purchase the antimatter required for the jump.`
+      );
     }
 
-    agent.credits -= antimatterCost.salePrice
+    agent.credits -= antimatterCost.salePrice;
 
     const sourceSystem = getSystem(
       universe,
@@ -606,7 +612,7 @@ export class FleetController {
         cooldown: renderCooldown(ship),
         nav: renderShipNav(ship.navigation),
         transaction: renderMarketTransaction(trans),
-        agent: renderAgent(agent)
+        agent: renderAgent(agent),
       },
     };
   }
@@ -642,12 +648,12 @@ export class FleetController {
     const departureDate = new Date();
     const arrivalDate = new Date(
       departureDate.getTime() +
-      navigateTravelTime(
-        distance,
-        ship.navigation.flightMode,
-        ship.stats.thrust
-      ) *
-      1000
+        navigateTravelTime(
+          distance,
+          ship.navigation.flightMode,
+          ship.stats.thrust
+        ) *
+          1000
     );
 
     ship.derivedStats.fuel -= fuel;
@@ -753,12 +759,12 @@ export class FleetController {
     const departureDate = new Date();
     const arrivalDate = new Date(
       departureDate.getTime() +
-      warpTravelTime(
-        distance,
-        ship.navigation.flightMode,
-        ship.stats.thrust
-      ) *
-      1000
+        warpTravelTime(
+          distance,
+          ship.navigation.flightMode,
+          ship.stats.thrust
+        ) *
+          1000
     );
 
     ship.derivedStats.fuel -= fuel;

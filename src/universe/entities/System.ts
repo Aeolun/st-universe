@@ -2,7 +2,7 @@ import { Waypoint } from "./Waypoint";
 import { Faction } from "src/universe/static-data/faction";
 import { generateWaypoint } from "src/universe/generateWaypoint";
 import { JumpGate } from "src/universe/entities/JumpGate";
-import { percentageChance } from "src/universe/utilities";
+import { randomPercentage } from "src/universe/utilities";
 
 export class System {
   x: number;

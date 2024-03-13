@@ -1,5 +1,5 @@
 import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
-import { numberBetween } from "src/universe/utilities";
+import { randomBetween } from "src/universe/utilities";
 import { SupplyDemand } from "src/universe/entities/Waypoint";
 import { ProductionRates } from "src/universe/helpers/calculate-production";
 
@@ -51,6 +51,7 @@ export const calculateSupplyDemand = (
             lastTickConsumption: 0,
             lastTickProduction: 0,
             stopSaleAt: Math.max(Math.round(idealSupply * 0.2), 1),
+            activity: 0,
             base: {
               idealSupply: idealSupply,
               maxSupply: idealSupply * 2,
@@ -60,6 +61,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate: tgProductionLineConsumptionRate,
             },
             current: {
+              tradeVolume: tradeGoodData.baseTradeVolume * population,
               idealSupply: idealSupply * population,
               maxSupply: idealSupply * 2 * population,
               productionRate: tgProductionRate * population,
@@ -69,7 +71,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate:
                 tgProductionLineConsumptionRate * population,
             },
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         } else if (tgTotalProductionDiff < 0) {
           // consumes
@@ -82,6 +84,7 @@ export const calculateSupplyDemand = (
             lastTickConsumption: 0,
             lastTickProduction: 0,
             stopSaleAt: Math.max(Math.round(idealSupply * 0.2), 1),
+            activity: 0,
             base: {
               idealSupply: idealSupply,
               maxSupply: idealSupply * 2,
@@ -91,6 +94,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate: tgProductionLineConsumptionRate,
             },
             current: {
+              tradeVolume: tradeGoodData.baseTradeVolume * population,
               idealSupply: idealSupply * population,
               maxSupply: idealSupply * 2 * population,
               productionRate: tgProductionRate * population,
@@ -100,7 +104,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate:
                 tgProductionLineConsumptionRate * population,
             },
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         } else {
           // exchange
@@ -113,6 +117,7 @@ export const calculateSupplyDemand = (
             lastTickConsumption: 0,
             lastTickProduction: 0,
             stopSaleAt: Math.max(Math.round(idealSupply * 0.2), 1),
+            activity: 0,
             base: {
               idealSupply: idealSupply,
               maxSupply: idealSupply * 2,
@@ -122,6 +127,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate: tgProductionLineConsumptionRate,
             },
             current: {
+              tradeVolume: tradeGoodData.baseTradeVolume * population,
               idealSupply: idealSupply * population,
               maxSupply: idealSupply * 2 * population,
               productionRate: tgProductionRate * population,
@@ -131,7 +137,7 @@ export const calculateSupplyDemand = (
               productionLineConsumptionRate:
                 tgProductionLineConsumptionRate * population,
             },
-            localFluctuation: numberBetween(-10, 10),
+            localFluctuation: randomBetween(-10, 10),
           };
         }
       }

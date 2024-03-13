@@ -1,7 +1,7 @@
-import { WaypointModifierSymbolEnum } from "src/controllers/schemas";
+import { WaypointModifierSymbol } from "src/controllers/schemas";
 
 export const modifiers: Record<
-  WaypointModifierSymbolEnum,
+  WaypointModifierSymbol,
   {
     name: string;
     description: string;

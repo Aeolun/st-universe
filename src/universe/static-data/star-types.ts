@@ -21,13 +21,13 @@ export const starTypes: Record<
   },
   ORANGE_STAR: {
     prevalence: 20,
-    waypoints: { min: 3, max: 7 },
+    waypoints: { min: 4, max: 10 },
     belts: { min: 0, max: 2, density: 0.5 },
     color: "orange",
   },
   RED_STAR: {
     prevalence: 30,
-    waypoints: { min: 3, max: 10 },
+    waypoints: { min: 6, max: 12 },
     belts: { min: 1, max: 3, density: 0.5 },
     color: "red",
   },
@@ -69,4 +69,5 @@ export const starTypes: Record<
   },
 };
 
+export type StarType = keyof typeof starTypes;
 export const starTypeNames = Object.keys(starTypes);

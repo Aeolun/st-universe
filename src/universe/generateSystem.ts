@@ -1,14 +1,15 @@
 import {
-  numberBetween,
-  percentageChance,
+  randomBetween,
+  randomPercentage,
   pickRandom,
   randomString,
   randomWeightedKey,
   trulyUniqId,
   uniqueId,
+  random,
 } from "./utilities";
 import { System } from "./entities/System";
-import { starTypeNames, starTypes } from "./static-data/star-types";
+import { StarType, starTypeNames, starTypes } from "./static-data/star-types";
 import {
   generateWaypoint,
   WaypointGenerationProperties,
@@ -24,21 +25,23 @@ const ASTEROID_COUNT = 30;
 const OUTER_SYSTEM_SIZE = 800;
 
 export const generateSystem = (data: {
-  name: string;
+  name?: string;
   x: number;
   y: number;
   universeSymbol: string;
+  starType?: StarType;
   jumpGateSpecs?: {
     connections: number;
+    range: number;
   };
   waypoints?: (Omit<WaypointGenerationProperties, "systemSymbol"> & {
     orbitals?: Omit<WaypointGenerationProperties, "systemSymbol">[];
   })[];
 }) => {
   console.log("== system generation ==");
-  let systemSymbol = `${data.universeSymbol}-${data.name}`;
+  let systemSymbol = `${data.universeSymbol}-${data.name ?? randomString()}`;
 
-  const systemType = pickRandom(starTypeNames);
+  const systemType = data.starType ?? pickRandom(starTypeNames);
 
   const system = new System({
     x: data.x,
@@ -69,11 +72,12 @@ export const generateSystem = (data: {
       });
     });
   } else {
-    const waypointCount = numberBetween(
+    const waypointCount = randomBetween(
       systemData.waypoints.min,
       systemData.waypoints.max
     );
-    const beltCount = numberBetween(systemData.belts.min, systemData.belts.max);
+    console.log("waypoints", waypointCount, systemType);
+    const beltCount = randomBetween(systemData.belts.min, systemData.belts.max);
 
     const waypoints: Waypoint[] = [];
     const distancePerWaypoint = (INNER_SYSTEM_SIZE - 30) / waypointCount;
@@ -84,11 +88,9 @@ export const generateSystem = (data: {
         distance = 0;
 
       distance =
-        30 +
-        distancePerWaypoint * wpIdx -
-        (Math.random() * distancePerWaypoint) / 2;
+        30 + distancePerWaypoint * wpIdx - (random() * distancePerWaypoint) / 2;
       do {
-        const angle = Math.random() * Math.PI * 2;
+        const angle = random() * Math.PI * 2;
         potentialX = Math.sin(angle) * distance;
         potentialY = Math.cos(angle) * distance;
         attempts++;
@@ -122,8 +124,8 @@ export const generateSystem = (data: {
             for (let h = 0; h < count; h++) {
               const newOrbital = generateWaypoint({
                 name: String.fromCharCode(65 + wpIdx) + orbitalIndex,
-                x: data.x,
-                y: data.y,
+                x: wp.x,
+                y: wp.y,
                 inOrbitOf: wp.symbol,
                 systemSymbol,
                 type: o.type,
@@ -145,7 +147,7 @@ export const generateSystem = (data: {
       console.log("generating belt");
       let beltDistance =
         ASTEROID_BELT_START +
-        (OUTER_SYSTEM_SIZE - ASTEROID_BELT_START) * (Math.random() * 0.8 + 0.2);
+        (OUTER_SYSTEM_SIZE - ASTEROID_BELT_START) * (random() * 0.8 + 0.2);
 
       // check if belt is not too close to another
       let attempts = 0;
@@ -157,16 +159,15 @@ export const generateSystem = (data: {
       ) {
         beltDistance =
           ASTEROID_BELT_START +
-          (OUTER_SYSTEM_SIZE - ASTEROID_BELT_START) *
-            (Math.random() * 0.8 + 0.2);
+          (OUTER_SYSTEM_SIZE - ASTEROID_BELT_START) * (random() * 0.8 + 0.2);
         attempts++;
       }
 
       existingBelts.push(beltDistance);
 
       // add an asteroid base in the belt
-      const baseDistance = beltDistance + Math.random() * BELT_WIDTH;
-      const baseAngle = Math.random() * Math.PI * 2;
+      const baseDistance = beltDistance + random() * BELT_WIDTH;
+      const baseAngle = random() * Math.PI * 2;
       const potentialX = Math.sin(baseAngle) * baseDistance;
       const potentialY = Math.cos(baseAngle) * baseDistance;
       const asteroidBase = generateWaypoint({
@@ -187,8 +188,8 @@ export const generateSystem = (data: {
           distance = 0;
 
         do {
-          distance = beltDistance + Math.random() * BELT_WIDTH;
-          const angle = Math.random() * Math.PI * 2;
+          distance = beltDistance + random() * BELT_WIDTH;
+          const angle = random() * Math.PI * 2;
           potentialX = Math.sin(angle) * distance;
           potentialY = Math.cos(angle) * distance;
         } while (

@@ -6,10 +6,12 @@ test("generates waypoints with variable amount of resources extractable", () => 
   seedRandom("test");
 
   const result = generateWaypoint({
+    name: "A1",
     x: 0,
     y: 0,
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ASTEROID",
+    traits: ["COMMON_METAL_DEPOSITS"],
   });
 
   expect(result.extractableResources).toMatchObject({
@@ -22,10 +24,11 @@ test("generated waypoints always start out uncharted", () => {
   seedRandom("test");
 
   const result = generateWaypoint({
+    name: "A1",
     x: 0,
     y: 0,
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ENGINEERED_ASTEROID",
   });
 
   expect(result.traits).toContain("UNCHARTED");
@@ -35,10 +38,11 @@ test("waypoints start out with their ideal supply in storage", () => {
   seedRandom("test");
 
   const result = generateWaypoint({
+    name: "A1",
     x: 0,
     y: 0,
     systemSymbol: "TEST",
-    type: "ASTEROID_FIELD",
+    type: "ENGINEERED_ASTEROID",
   });
 
   expect(result.inventory.resources.FUEL).toEqual(
@@ -50,6 +54,7 @@ test("population levels modify the ideal supply for a waypoint", () => {
   seedRandom("test");
 
   const result = generateWaypoint({
+    name: "A1",
     x: 0,
     y: 0,
     systemSymbol: "TEST",
