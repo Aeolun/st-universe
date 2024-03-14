@@ -32,9 +32,9 @@ export const renderShipOutput = (ship: Ship): ShipOutput => {
       wages: ship.derivedStats.crew,
     },
     cooldown: renderCooldown(ship),
-    reactor: renderShipReactor(ship.reactor.symbol),
-    frame: renderShipFrame(ship.frame.symbol),
-    engine: renderShipEngine(ship.engine.symbol),
+    reactor: renderShipReactor(ship.reactor),
+    frame: renderShipFrame(ship.frame),
+    engine: renderShipEngine(ship.engine),
     modules: ship.modules.map((module) => renderShipModule(module.symbol)),
     mounts: ship.mounts.map((mount) => renderShipMount(mount.symbol)),
   };

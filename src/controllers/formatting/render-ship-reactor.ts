@@ -1,20 +1,18 @@
-import { ShipReactor } from "src/controllers/schemas";
-import { Reactor, reactorData } from "src/universe/static-data/ship-reactors";
+import { ShipReactor } from "src/universe/entities/ShipReactor";
+import { ShipReactor as APIShipReactor } from "src/controllers/schemas/ship-reactor";
 
-export const renderShipReactor = (symbol: Reactor): ShipReactor => {
-  const reactor = reactorData[symbol];
-
+export const renderShipReactor = (shipReactor: ShipReactor): APIShipReactor => {
   return {
-    symbol: symbol,
-    name: reactor.name,
-    description: reactor.description,
-    condition: 1,
-    integrity: 1,
-    powerOutput: reactor.stats.powerGenerated,
+    symbol: shipReactor.reactorType.symbol,
+    name: shipReactor.reactorType.name,
+    description: shipReactor.reactorType.description,
+    condition: shipReactor.condition,
+    integrity: shipReactor.integrity,
+    powerOutput: shipReactor.reactorType.stats.powerGenerated,
     requirements: {
-      power: reactor.stats.powerRequired,
-      crew: reactor.stats.crewRequired,
-      slots: reactor.stats.moduleCapacityRequired,
+      power: shipReactor.reactorType.stats.powerRequired,
+      crew: shipReactor.reactorType.stats.crewRequired,
+      slots: shipReactor.reactorType.stats.moduleCapacityRequired,
     },
   };
 };

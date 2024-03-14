@@ -98,7 +98,7 @@ import { generateContract } from "src/universe/generateContract";
 import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
-import { mountData } from "src/universe/static-data/ship-mounts";
+import { Mount, mountData } from "src/universe/static-data/ship-mounts";
 
 @Controller("/my/")
 @CustomAuth()
@@ -499,6 +499,7 @@ export class FleetController {
             units: extracted,
           },
         },
+        events: [],
       },
     };
   }
@@ -676,6 +677,7 @@ export class FleetController {
             amount: fuel,
           },
         },
+        events: [],
       },
     };
   }
@@ -688,8 +690,9 @@ export class FleetController {
   ): GetShipNav200Response {
     const ship = getShip(agent, shipSymbol);
 
-    ship.navigation.flightMode = body.flightMode;
-
+    if (body.flightMode) {
+      ship.navigation.flightMode = body.flightMode;
+    }
     return {
       data: renderShipNav(ship.navigation),
     };
@@ -787,6 +790,7 @@ export class FleetController {
             amount: fuel,
           },
         },
+        events: [],
       },
     };
   }
@@ -807,9 +811,9 @@ export class FleetController {
       throw new BadRequest(`You cannot sell ${body.symbol} here.`);
     }
 
-    if (body.units > supplyDemand.tradeVolume) {
+    if (body.units > supplyDemand.current.tradeVolume) {
       throw new BadRequest(
-        `You cannot sell ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.tradeVolume} allowed.`
+        `You cannot sell ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.current.tradeVolume} allowed.`
       );
     }
 
@@ -1051,9 +1055,9 @@ export class FleetController {
       throw new BadRequest(`You cannot buy ${body.symbol} here.`);
     }
 
-    if (body.units > supplyDemand.tradeVolume) {
+    if (body.units > supplyDemand.current.tradeVolume) {
       throw new BadRequest(
-        `You cannot purchase ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.tradeVolume} allowed.`
+        `You cannot purchase ${body.units} ${body.symbol} here at the same time. Maximum of ${supplyDemand.current.tradeVolume} allowed.`
       );
     }
 

@@ -146,34 +146,44 @@ export class SystemsController {
         }),
         transactions: hasShip
           ? waypoint.transactions.map((transaction) => {
-            return {
-              ...transaction,
-              timestamp: transaction.timestamp.toISOString(),
-            };
-          })
+              return {
+                ...transaction,
+                timestamp: transaction.timestamp.toISOString(),
+              };
+            })
           : undefined,
         tradeGoods: hasShip
           ? Object.values(waypoint.supplyDemand).map((supplyDemand) => {
-            const tradeGoodData = tradeGoods[supplyDemand.tradeGood];
-            const goodInventory = waypoint.inventory.get(supplyDemand.tradeGood)
-            const price = marketPrice(
-              goodInventory,
-              supplyDemand
-            );
-            return {
-              symbol: supplyDemand.tradeGood as TradeSymbol,
-              tradeVolume: price.tradeVolume,
-              type: supplyDemand.kind === 'supply' ? 'EXPORT' : supplyDemand.kind === 'exchange' ? 'EXCHANGE' : 'IMPORT',
-              activity: renderActivity(supplyDemand.activity, supplyDemand.lastTickProduction - supplyDemand.lastTickConsumption, supplyDemand.maxSupply, goodInventory),
-              supply: renderSupply(
-                waypoint.inventory.get(supplyDemand.tradeGood),
-                supplyDemand.idealSupply
-              ),
-              // purchase and sale price inverted since we are looking at the market from the perspective of the ship
-              purchasePrice: price.salePrice,
-              sellPrice: price.purchasePrice,
-            };
-          })
+              const tradeGoodData = tradeGoods[supplyDemand.tradeGood];
+              const goodInventory = waypoint.inventory.get(
+                supplyDemand.tradeGood
+              );
+              const price = marketPrice(goodInventory, supplyDemand);
+              return {
+                symbol: supplyDemand.tradeGood as TradeSymbol,
+                tradeVolume: price.tradeVolume,
+                type:
+                  supplyDemand.kind === "supply"
+                    ? "EXPORT"
+                    : supplyDemand.kind === "exchange"
+                    ? "EXCHANGE"
+                    : "IMPORT",
+                activity: renderActivity(
+                  supplyDemand.activity,
+                  supplyDemand.lastTickProduction -
+                    supplyDemand.lastTickConsumption,
+                  supplyDemand.current.maxSupply,
+                  goodInventory
+                ),
+                supply: renderSupply(
+                  waypoint.inventory.get(supplyDemand.tradeGood),
+                  supplyDemand.current.idealSupply
+                ),
+                // purchase and sale price inverted since we are looking at the market from the perspective of the ship
+                purchasePrice: price.salePrice,
+                sellPrice: price.purchasePrice,
+              };
+            })
           : undefined,
       },
     };
@@ -213,14 +223,15 @@ export class SystemsController {
         }),
         transactions: hasShip
           ? waypoint.shipTransactions.map((st) => {
-            return renderShipTransaction(st);
-          })
+              return renderShipTransaction(st);
+            })
           : undefined,
         ships: hasShip
           ? waypoint.availableShipConfigurations.map((item) => {
-            return renderShipConfiguration(item, waypoint);
-          })
+              return renderShipConfiguration(item, waypoint);
+            })
           : undefined,
+        modificationsFee: 5000,
       },
     };
   }
@@ -263,7 +274,7 @@ export class SystemsController {
             );
           })
           .map((s) => {
-            return s.symbol
+            return s.symbol;
           }),
       },
     };

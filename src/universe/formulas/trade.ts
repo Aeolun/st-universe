@@ -35,7 +35,7 @@ export function marketPrice(
 
   let salePrice = 0,
     purchasePrice = 0,
-    tradeVolume = supplyDemand.tradeVolume;
+    tradeVolume = supplyDemand.current.tradeVolume;
 
   if (inventory > supplyDemand.current.maxSupply) {
     // supply saturated

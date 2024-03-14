@@ -359,110 +359,20 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("SHIPYARD");
   }
 
-  const { exports, imports, exchange, supplyDemand } = calculateSupplyDemand();
-  Object.keys(good).forEach((tg: TradeGood) => {
-    try {
-      const tgProductionRate = productionRate[tg] ?? 0;
-      const tgConsumptionRate = consumptionRate[tg] ?? 0;
-      const tgProductionLineProductionRate =
-        productionLineProductionRate[tg] ?? 0;
-      const tgProductionLineConsumptionRate =
-        productionLineConsumptionRate[tg] ?? 0;
-      const tgConsumedByConstruction = consumedByConstruction[tg] ?? false;
+  const { exports, imports, exchange, supplyDemand } = calculateSupplyDemand(
+    productionRates,
+    waypoint.population
+  );
+  waypoint.exports = exports;
+  waypoint.imports = imports;
+  waypoint.exchange = exchange;
+  waypoint.supplyDemand = supplyDemand;
 
-      const count = tgProductionRate - tgConsumptionRate;
-      const productionLineCount =
-        tgProductionLineProductionRate - tgProductionLineConsumptionRate;
-      const totalCount =
-        count + productionLineCount - (tgConsumedByConstruction ? 1 : 0);
-      const supplyTotal =
-        (tgProductionRate +
-          tgConsumptionRate +
-          tgProductionLineProductionRate +
-          tgProductionLineConsumptionRate +
-          Math.max(extraRequestedStorage[tg] ?? 0, 1)) *
-        Math.max(waypoint.population, 1);
-
-      const tradeGoodData = tradeGoods[tg];
-      if (count !== undefined) {
-        if (totalCount > 0) {
-          // produce
-          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
-
-          waypoint.exports.push(tg);
-          waypoint.inventory.add(tg, idealSupply);
-          waypoint.supplyDemand[tg] = {
-            tradeGood: tg,
-            kind: "supply",
-            tradeVolume: tradeGoodData.baseTradeVolume,
-            idealSupply: idealSupply,
-            maxSupply: idealSupply * 2,
-            lastTickConsumption: 0,
-            lastTickProduction: 0,
-            activity: 0,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            productionRate: tgProductionRate * waypoint.population,
-            consumptionRate: tgConsumptionRate * waypoint.population,
-            productionLineProductionRate:
-              tgProductionLineProductionRate * waypoint.population,
-            productionLineConsumptionRate:
-              tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: randomBetween(-10, 10),
-          };
-        } else if (totalCount < 0) {
-          // consumes
-          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
-
-          waypoint.imports.push(tg);
-          waypoint.inventory.add(tg, idealSupply);
-          waypoint.supplyDemand[tg] = {
-            tradeGood: tg,
-            kind: "demand",
-            tradeVolume: tradeGoodData.baseTradeVolume,
-            idealSupply: idealSupply,
-            maxSupply: idealSupply * 2,
-            lastTickConsumption: 0,
-            lastTickProduction: 0,
-            activity: 0,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            productionRate: tgProductionRate * waypoint.population,
-            consumptionRate: tgConsumptionRate * waypoint.population,
-            productionLineProductionRate:
-              tgProductionLineProductionRate * waypoint.population,
-            productionLineConsumptionRate:
-              tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: randomBetween(-10, 10),
-          };
-        } else {
-          // exchange
-          const idealSupply = tradeGoodData.baseTradeVolume * 10 * supplyTotal;
-
-          waypoint.exchange.push(tg);
-          waypoint.inventory.add(tg, idealSupply);
-          waypoint.supplyDemand[tg] = {
-            tradeGood: tg,
-            kind: "exchange",
-            tradeVolume: tradeGoodData.baseTradeVolume,
-            idealSupply: idealSupply,
-            maxSupply: idealSupply * 2,
-            lastTickConsumption: 0,
-            lastTickProduction: 0,
-            activity: 0,
-            stopSaleAt: Math.min(Math.round(idealSupply * 0.2), 1),
-            productionRate: tgProductionRate * waypoint.population,
-            consumptionRate: tgConsumptionRate * waypoint.population,
-            productionLineProductionRate:
-              tgProductionLineProductionRate * waypoint.population,
-            productionLineConsumptionRate:
-              tgProductionLineConsumptionRate * waypoint.population,
-            localFluctuation: randomBetween(-10, 10),
-          };
-        }
-      }
-    } catch (e) {
-      console.log(`Issue setting consumption rate for ${tg}`);
-      console.log(e);
-    }
+  Object.values(supplyDemand).forEach((sd) => {
+    waypoint.inventory.add(
+      sd.tradeGood,
+      supplyDemand[sd.tradeGood]?.current.idealSupply ?? 0
+    );
   });
 
   if (

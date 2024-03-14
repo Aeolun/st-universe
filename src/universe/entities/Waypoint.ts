@@ -12,10 +12,7 @@ import { Configuration } from "src/universe/static-data/ship-configurations";
 import { MarketPrice } from "src/universe/formulas/trade";
 import { Storage } from "src/universe/entities/Storage";
 import { ConstructionSite } from "./ConstructionSite";
-import {
-  WaypointModifier,
-  WaypointModifierSymbolEnum,
-} from "src/controllers/schemas";
+import { WaypointModifierSymbol } from "src/controllers/schemas";
 
 export interface SupplyDemand {
   tradeGood: TradeGood;
@@ -71,7 +68,7 @@ export class Waypoint {
 
   public industries: Partial<Record<Industry, number>> = {};
   public traits: WaypointTrait[] = [];
-  public modifiers: WaypointModifierSymbolEnum[] = [];
+  public modifiers: WaypointModifierSymbol[] = [];
 
   public jumpGate?: JumpGate;
   public constructionSite?: ConstructionSite;

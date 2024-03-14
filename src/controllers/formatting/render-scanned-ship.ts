@@ -19,13 +19,13 @@ export const renderScannedShip = (ship: Ship): ScannedShip => {
     },
     nav: renderShipNav(ship.navigation),
     reactor: {
-      symbol: ship.reactor.symbol,
+      symbol: ship.reactor.reactorType.symbol,
     },
     frame: {
-      symbol: ship.frame.symbol,
+      symbol: ship.frame.frameType.symbol,
     },
     engine: {
-      symbol: ship.engine.symbol,
+      symbol: ship.engine.engineType.symbol,
     },
     mounts: ship.mounts.map((mount) => {
       return {
