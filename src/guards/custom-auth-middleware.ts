@@ -1,16 +1,18 @@
 import { Req } from "@tsed/common";
 import { Context } from "@tsed/platform-params";
-import { Middleware, MiddlewareMethods } from "@tsed/platform-middlewares";
-import { Forbidden, Unauthorized } from "@tsed/exceptions";
-import { CustomAuthOptions } from "src/guards/custom-authenticator";
+import { Middleware, type MiddlewareMethods } from "@tsed/platform-middlewares";
 import jwtDecode from "jwt-decode";
-import { verify } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import { STError } from "src/error/STError";
 import { missingTokenRequestError } from "src/universe/static-data/error-codes";
 
 const secret = process.env.JWT_SECRET;
 if (!secret) {
   throw new STError(500, 500, "No JWT_SECRET specified in environment");
+}
+
+export interface CustomAuthOptions extends Record<string, unknown> {
+  optional?: boolean;
 }
 
 @Middleware()
@@ -34,7 +36,10 @@ export class CustomAuthMiddleware implements MiddlewareMethods {
       }
 
       try {
-        const jwt = verify(request.headers.authorization.split(" ")[1], secret);
+        const jwt = jsonwebtoken.verify(
+          request.headers.authorization.split(" ")[1],
+          secret
+        );
       } catch (err) {
         console.log(err.toString());
         throw err;

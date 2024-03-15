@@ -15,8 +15,9 @@ test("generates waypoints with variable amount of resources extractable", () => 
   });
 
   expect(result.extractableResources).toMatchObject({
-    IRON_ORE: 0.96,
-    COPPER_ORE: 0.91,
+    ALUMINUM_ORE: 1.95,
+    IRON_ORE: 1.1,
+    COPPER_ORE: 0.96,
   });
 });
 
@@ -48,23 +49,4 @@ test("waypoints start out with their ideal supply in storage", () => {
   expect(result.inventory.resources.FUEL).toEqual(
     result.supplyDemand.FUEL?.current.idealSupply
   );
-});
-
-test("population levels modify the ideal supply for a waypoint", () => {
-  seedRandom("test");
-
-  const result = generateWaypoint({
-    name: "A1",
-    x: 0,
-    y: 0,
-    systemSymbol: "TEST",
-    type: "PLANET",
-  });
-
-  expect(result.supplyDemand.FUEL?.current.idealSupply).toEqual(125000);
-
-  result.population = 7;
-  result.updateSupplyDemand();
-
-  expect(result.supplyDemand.FUEL?.current.idealSupply).toEqual(175000);
 });

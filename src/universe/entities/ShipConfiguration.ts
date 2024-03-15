@@ -1,11 +1,10 @@
-import { Configuration } from "src/universe/static-data/ship-configurations";
-import { Frame } from "src/universe/static-data/ship-frames";
-import { Reactor } from "src/universe/static-data/ship-reactors";
-import { Engine } from "src/universe/static-data/ship-engines";
-import { Module } from "src/universe/static-data/ship-modules";
-import { Mount } from "src/universe/static-data/ship-mounts";
 import { ShipRole } from "src/controllers/schemas";
-import { Ship } from "src/universe/entities/Ship";
+import { Engine } from "src/universe/static-data/engine-enum";
+import { Frame } from "src/universe/static-data/frame-enum";
+import { Module } from "src/universe/static-data/module-enum";
+import { Mount } from "src/universe/static-data/mount-enum";
+import { Reactor } from "src/universe/static-data/reactor-enum";
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 export class ShipConfiguration {
   symbol: Configuration;

@@ -1,65 +1,12 @@
 import { TradeGood } from "./trade-goods";
-import { WaypointType } from "src/universe/static-data/waypoint-types";
-import { Configuration } from "src/universe/static-data/ship-configurations";
 
-export type WaypointTrait =
-  | "BARREN"
-  | "BLACK_MARKET"
-  | "BUREAUCRATIC"
-  | "COMMON_METAL_DEPOSITS"
-  | "CORROSIVE_ATMOSPHERE"
-  | "CORRUPT"
-  | "DIVERSE_LIVE"
-  | "DRY_SEABEDS"
-  | "DEBRIS_CLUSTER"
-  | "DEEP_CRATERS"
-  | "EXPLORATION_OUTPOST"
-  | "EXPLOSIVE_GASES"
-  | "EXTREME_PRESSURE"
-  | "EXTREME_TEMPERATURES"
-  | "FROZEN"
-  | "HIGH_TECH"
-  | "HOLLOWED_INTERIOR"
-  | "INDUSTRIAL"
-  | "JUNGLE"
-  | "LEGALIZED_SLAVERY"
-  | "MARKETPLACE"
-  | "CANT_PRODUCE_EVERYTHING_PLANETSIDE"
-  | "MEGA_STRUCTURES"
-  | "MILITARY_BASE"
-  | "MINERAL_DEPOSITS"
-  | "NATURAL_SPICES"
-  | "OCEAN"
-  | "OUTPOST"
-  | "OVERCROWDED"
-  | "PRECIOUS_METAL_DEPOSITS"
-  | "RARE_METAL_DEPOSITS"
-  | "RESEARCH_FACILITY"
-  | "ROCKY"
-  | "RADIOACTIVE"
-  | "SCATTERED_SETTLEMENTS"
-  | "SHIPYARD"
-  | "SHALLOW_CRATERS"
-  | "SPRAWLING_CITIES"
-  | "STRIPPED"
-  | "STRONG_GRAVITY"
-  | "STRONG_MAGNETOSPHERE"
-  | "SURVEILLANCE_OUTPOST"
-  | "SWAMP"
-  | "TEMPERATE"
-  | "TERRAFORMED"
-  | "TOXIC_ATMOSPHERE"
-  | "TRADING_HUB"
-  | "UNCHARTED"
-  | "UNSTABLE_COMPOSITION"
-  | "VIBRANT_AURORAS"
-  | "VOLCANIC"
-  | "WEAK_GRAVITY";
+import { Configuration } from "src/universe/static-data/configuration-enum";
+import { WaypointTrait } from "src/universe/static-data/waypoint-trait-enum";
+import { WaypointType } from "src/universe/static-data/waypoint-type-enum";
 
 type TraitCategory = "HABITATION" | "PLANT_LIFE" | "DEPOSIT";
 export type ProductionLine = {
   produces: TradeGood;
-  count?: number;
 };
 export interface TraitModifiers {
   imports?: Partial<Record<TradeGood, number>>;

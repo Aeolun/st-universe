@@ -12,23 +12,18 @@ test("waypoint tick works", () => {
   });
   waypoint.productionLines.push({
     produces: TradeGood.ADVANCED_CIRCUITRY,
-    count: 1,
   });
 
-  waypoint.supplyDemand["ADVANCED_CIRCUITRY"] = {
+  waypoint.supplyDemand.ADVANCED_CIRCUITRY = {
     current: {
-      productionLineProductionRate: 1,
       productionRate: 0,
-      productionLineConsumptionRate: 0,
       consumptionRate: 0,
       tradeVolume: 3,
       idealSupply: 100,
       maxSupply: 200,
     },
     base: {
-      productionLineProductionRate: 1,
       productionRate: 0,
-      productionLineConsumptionRate: 0,
       consumptionRate: 0,
       idealSupply: 100,
       maxSupply: 200,
@@ -43,20 +38,16 @@ test("waypoint tick works", () => {
     localFluctuation: 1,
   };
 
-  waypoint.supplyDemand["ELECTRONICS"] = {
+  waypoint.supplyDemand.ELECTRONICS = {
     current: {
-      productionLineProductionRate: 0,
       productionRate: 0,
-      productionLineConsumptionRate: 3,
       consumptionRate: 0,
       tradeVolume: 6,
       idealSupply: 100,
       maxSupply: 200,
     },
     base: {
-      productionLineProductionRate: 0,
       productionRate: 0,
-      productionLineConsumptionRate: 3,
       consumptionRate: 0,
       idealSupply: 100,
       maxSupply: 200,
@@ -70,20 +61,16 @@ test("waypoint tick works", () => {
     localFluctuation: 1,
   };
 
-  waypoint.supplyDemand["MICROPROCESSORS"] = {
+  waypoint.supplyDemand.MICROPROCESSORS = {
     current: {
-      productionLineProductionRate: 0,
       productionRate: 0,
-      productionLineConsumptionRate: 2,
       consumptionRate: 0,
       tradeVolume: 6,
       idealSupply: 100,
       maxSupply: 200,
     },
     base: {
-      productionLineProductionRate: 0,
       productionRate: 0,
-      productionLineConsumptionRate: 2,
       consumptionRate: 0,
       idealSupply: 100,
       maxSupply: 200,
@@ -103,11 +90,11 @@ test("waypoint tick works", () => {
 
   waypoint.tick(3000);
 
-  expect(waypoint.inventory.get("ADVANCED_CIRCUITRY")).toEqual(1);
-  expect(waypoint.inventory.get("ELECTRONICS")).toEqual(97);
-  expect(waypoint.inventory.get("MICROPROCESSORS")).toEqual(98);
+  expect(waypoint.inventory.get("ADVANCED_CIRCUITRY")).toEqual(3);
+  expect(waypoint.inventory.get("ELECTRONICS")).toEqual(91);
+  expect(waypoint.inventory.get("MICROPROCESSORS")).toEqual(94);
 
-  expect(waypoint.supplyDemand["ADVANCED_CIRCUITRY"].activity).toEqual(1);
-  expect(waypoint.supplyDemand["ELECTRONICS"].activity).toEqual(1);
-  expect(waypoint.supplyDemand["MICROPROCESSORS"].activity).toEqual(1);
+  expect(waypoint.supplyDemand.ADVANCED_CIRCUITRY.activity).toEqual(1);
+  expect(waypoint.supplyDemand.ELECTRONICS.activity).toEqual(1);
+  expect(waypoint.supplyDemand.MICROPROCESSORS.activity).toEqual(1);
 });

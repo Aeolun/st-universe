@@ -8,18 +8,16 @@ export const config: Partial<TsED.Configuration> = {
   envs,
   logger: {
     ...loggerConfig,
-    logger: {
-      requestFields: [
-        "reqId",
-        "method",
-        "url",
-        "headers",
-        "body",
-        "query",
-        "params",
-        "duration",
-      ],
-    },
+    requestFields: [
+      "reqId",
+      "method",
+      "url",
+      "headers",
+      "body",
+      "query",
+      "params",
+      "duration",
+    ],
   },
   // additional shared configuration
 };

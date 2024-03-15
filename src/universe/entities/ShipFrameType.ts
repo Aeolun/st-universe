@@ -1,6 +1,7 @@
 import { Capability } from "src/universe/entities/capabilities/Capability";
 import { AbstractCapabilities } from "src/universe/entities/capabilities/AbstractCapabilities";
-import { Frame } from "src/universe/static-data/ship-frames";
+
+import { Frame } from "src/universe/static-data/frame-enum";
 
 export class ShipFrameType extends AbstractCapabilities {
   constructor(

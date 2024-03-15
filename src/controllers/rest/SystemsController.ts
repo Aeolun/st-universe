@@ -158,10 +158,16 @@ export class SystemsController {
               const goodInventory = waypoint.inventory.get(
                 supplyDemand.tradeGood
               );
-              const price = marketPrice(goodInventory, supplyDemand);
+              const price = marketPrice(
+                tradeGoodData.basePrice ?? 0,
+                goodInventory,
+                supplyDemand.current.idealSupply,
+                supplyDemand.current.maxSupply,
+                supplyDemand.localFluctuation
+              );
               return {
                 symbol: supplyDemand.tradeGood as TradeSymbol,
-                tradeVolume: price.tradeVolume,
+                tradeVolume: supplyDemand.current.tradeVolume,
                 type:
                   supplyDemand.kind === "supply"
                     ? "EXPORT"
@@ -208,7 +214,7 @@ export class SystemsController {
       hasShip =
         universe.ships.find(
           (ship) =>
-            ship.agentSymbol == context.identifier &&
+            ship.agentSymbol === context.identifier &&
             ship.navigation.current.symbol === waypointSymbol
         ) !== undefined;
     }

@@ -1,7 +1,10 @@
 import { ShipEngine, ShipModule, ShipReactor } from "src/controllers/schemas";
-import { Reactor, reactorData } from "src/universe/static-data/ship-reactors";
-import { Engine, engineData } from "src/universe/static-data/ship-engines";
-import { Module, moduleData } from "src/universe/static-data/ship-modules";
+import { reactorData } from "src/universe/static-data/ship-reactors";
+import { engineData } from "src/universe/static-data/ship-engines";
+import { moduleData } from "src/universe/static-data/ship-modules";
+import { Engine } from "src/universe/static-data/engine-enum";
+import { Module } from "src/universe/static-data/module-enum";
+import { Reactor } from "src/universe/static-data/reactor-enum";
 
 export const renderShipModule = (symbol: Module): ShipModule => {
   const module = moduleData[symbol];

@@ -1,11 +1,10 @@
-import {In, Returns, Security} from "@tsed/schema";
-import {UseAuth} from "@tsed/platform-middlewares";
-import {useDecorators} from "@tsed/core";
-import {CustomAuthMiddleware} from "./custom-auth-middleware";
-
-export interface CustomAuthOptions extends Record<string, unknown> {
-  optional?: boolean;
-}
+import { In, Returns } from "@tsed/schema";
+import { UseAuth } from "@tsed/platform-middlewares";
+import { useDecorators } from "@tsed/core";
+import {
+  CustomAuthMiddleware,
+  CustomAuthOptions,
+} from "./custom-auth-middleware";
 
 export function CustomAuth(options: CustomAuthOptions = {}): Function {
   return useDecorators(

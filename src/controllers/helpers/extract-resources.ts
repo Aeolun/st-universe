@@ -1,7 +1,7 @@
 import { ExtractsResources } from "src/universe/entities/capabilities/ExtractsResources";
 import { TradeGood } from "src/universe/static-data/trade-goods";
 import { BadRequest } from "@tsed/exceptions";
-import { randomBetween, pickRandom } from "src/universe/utilities";
+import { randomBetweenInt, pickRandom } from "src/universe/utilities";
 import { ShipMount } from "src/universe/entities/ShipMount";
 import { resourceGroups } from "src/universe/static-data/resource-groups";
 import { Waypoint } from "src/universe/entities/Waypoint";
@@ -90,7 +90,7 @@ export const extractResources = (
     (waypoint.extractableResources[resource] || 1) * (survey ? 2 : 1);
 
   const extracted = Math.ceil(
-    (totalPower + randomBetween(-variation, variation)) * multiplier
+    (totalPower + randomBetweenInt(-variation, variation)) * multiplier
   );
 
   waypoint.extractionInstability += 1 / TIME_FACTOR;

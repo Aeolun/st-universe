@@ -1,21 +1,20 @@
 import { Waypoint } from "./entities/Waypoint";
 import {
-  randomBetween,
+  randomBetweenInt,
   pickRandom,
   random,
   randomString,
   randomWeightedKey,
   trulyUniqId,
   uniqueId,
+  randomBetweenFloat,
 } from "./utilities";
 import {
   generatableWaypointTypeNames,
-  WaypointType,
   waypointTypes,
 } from "./static-data/waypoint-types";
 import {
   TraitModifiers,
-  WaypointTrait,
   waypointTraitNames,
   waypointTraits,
 } from "src/universe/static-data/waypoint-traits";
@@ -29,12 +28,12 @@ import {
   Industry,
   industryNames,
 } from "src/universe/static-data/industries";
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
+import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
 import { JumpGate } from "src/universe/entities/JumpGate";
 import { calculateSupplyDemand } from "src/universe/helpers/calculate-supply-demand";
+import { Configuration } from "src/universe/static-data/configuration-enum";
+import { WaypointTrait } from "src/universe/static-data/waypoint-trait-enum";
+import { WaypointType } from "src/universe/static-data/waypoint-type-enum";
 
 const availableTraits: Record<string, WaypointTrait[]> = {};
 
@@ -77,7 +76,7 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     availableTraits[waypointType] = availableTraitsForType;
   }
 
-  const waypointTraitCount = randomBetween(0, waypointTypeData.maxTraits);
+  const waypointTraitCount = randomBetweenInt(0, waypointTypeData.maxTraits);
 
   if (data.traits) {
     waypoint.traits.push(...data.traits);
@@ -105,20 +104,20 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
       waypoint.traits.push(newTrait);
     }
   }
-  waypoint.traits.forEach((trait) => {
+  for (const trait of waypoint.traits) {
     const traitData = waypointTraits[trait];
     if (traitData.populationLevel) {
       waypoint.population += traitData.populationLevel;
     }
 
     if (traitData.extractableResources) {
-      traitData.extractableResources.forEach((ex) => {
+      for (const ex of traitData.extractableResources) {
         waypoint.extractableResources[ex.tradegood] =
           (waypoint.extractableResources[ex.tradegood] ?? 0) +
-          randomBetween(ex.richness.min, ex.richness.max);
-      });
+          randomBetweenFloat(ex.richness.min, ex.richness.max);
+      }
     }
-  });
+  }
 
   const good: Partial<Record<TradeGood, boolean>> = {};
   const productionRates: Partial<
@@ -217,18 +216,20 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
       }
     }
     if (traitData.productionLine) {
-      traitData.productionLine.forEach((line) => {
+      for (const line of traitData.productionLine) {
         const tradeGoodData = tradeGoods[line.produces];
         if (tradeGoodData && "components" in tradeGoodData) {
           addRates(line.produces, {
-            productionLineProduction: line.count ?? 1,
+            productionLineProduction: 1,
           });
           const options = Array.isArray(tradeGoodData.components)
             ? tradeGoodData.components
             : [tradeGoodData.components];
           for (let i = 0; i < options.length; i++) {
             const componentOptions = options[i];
-            Object.keys(componentOptions).forEach((component: TradeGood) => {
+            for (const component of Object.keys(
+              componentOptions
+            ) as TradeGood[]) {
               const count = componentOptions[component];
               if (count) {
                 addRates(component, {
@@ -236,12 +237,12 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
                   extraStorage: count,
                 });
               }
-            });
+            }
           }
         }
 
         waypoint.productionLines.push(line);
-      });
+      }
     }
     if (traitData.consumes) {
       Object.keys(traitData.consumes).forEach((tg: TradeGood) => {

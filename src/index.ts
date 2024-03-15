@@ -4,12 +4,10 @@ import { Server } from "./Server";
 import { generateUniverse } from "src/universe/generateUniverse";
 import { setUniverse, universe } from "src/universe/universe";
 import { Universe } from "src/universe/entities/Universe";
-import * as os from "os";
 import { Ship } from "src/universe/entities/Ship";
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
+import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
+import { nextReset, resetDuration, setNextReset } from "src/consts";
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 let platform: Awaited<ReturnType<(typeof PlatformKoa)["bootstrap"]>>;
 async function bootstrap() {
@@ -25,22 +23,13 @@ async function bootstrap() {
       message: error.message,
       stack: error.stack,
     });
+    process.exit(1);
   }
 }
 
 let universeTicker: NodeJS.Timeout | undefined = undefined;
 
-export const resetDuration = process.env.RESET_DURATION
-  ? parseInt(process.env.RESET_DURATION)
-  : 3600 * 1000 * 6;
-export let nextReset = Date.now() + resetDuration;
-
 const createNewUniverse = async () => {
-  if (!platform) {
-    await bootstrap();
-  } else {
-    platform.stop();
-  }
   if (universeTicker) {
     clearTimeout(universeTicker);
   }
@@ -60,9 +49,19 @@ const createNewUniverse = async () => {
   }
 
   setUniverse(newUniverse);
+
+  if (!platform) {
+    await bootstrap();
+  } else {
+    platform.stop();
+  }
+
+  if (!platform) {
+    throw new Error("Platform not initialized");
+  }
   platform.listen();
 
-  nextReset = Date.now() + resetDuration;
+  setNextReset(Date.now() + resetDuration);
 
   let lastCpuUsage: NodeJS.CpuUsage | undefined;
   let lastTime = Date.now();

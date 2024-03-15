@@ -27,7 +27,9 @@ export class Storage {
 
   remove(resource: TradeGoodKey, amount: number) {
     if (!this.has(resource, amount)) {
-      throw new Error(`Cannot remove ${amount} of ${resource}`);
+      throw new Error(
+        `Cannot remove ${amount} of ${resource}, have ${this.get(resource)}`
+      );
     }
     this.resources[resource] = (this.resources[resource] ?? 0) - amount;
     if (this.resources[resource] === 0) {

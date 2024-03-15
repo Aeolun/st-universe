@@ -1,6 +1,7 @@
 import { generateSystem } from "src/universe/generateSystem";
 import { TradeGood } from "src/universe/static-data/trade-goods";
-import { Configuration } from "src/universe/static-data/ship-configurations";
+
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 export function generateHomeSystem(data: {
   x: number;

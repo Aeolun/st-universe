@@ -1,9 +1,12 @@
-import { System } from "src/universe/entities/System";
-import { Agent } from "src/universe/entities/Agent";
-import { Ship } from "src/universe/entities/Ship";
-import { Waypoint } from "src/universe/entities/Waypoint";
-import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
-import { Faction } from "src/universe/entities/Faction";
+import type { System } from "src/universe/entities/System";
+import type { Agent } from "src/universe/entities/Agent";
+import type { Ship } from "src/universe/entities/Ship";
+import type { Waypoint } from "src/universe/entities/Waypoint";
+import {
+  type TradeGood,
+  tradeGoods,
+} from "src/universe/static-data/trade-goods";
+import type { Faction } from "src/universe/entities/Faction";
 
 export class Universe {
   public name: string;
@@ -64,6 +67,7 @@ export class Universe {
         TradeGood,
         {
           symbol: TradeGood;
+          level: number;
           productionRate: number;
           consumptionRate: number;
           productionLineProductionRate: number;
@@ -79,12 +83,13 @@ export class Universe {
         }
       >
     > = {};
-    Object.values(this.systems).forEach((s) => {
-      s.waypoints.forEach((w) => {
-        Object.values(w.supplyDemand).forEach((sd) => {
+    for (const s of Object.values(this.systems)) {
+      for (const w of s.waypoints) {
+        for (const sd of Object.values(w.supplyDemand)) {
           if (!goods[sd.tradeGood]) {
             goods[sd.tradeGood] = {
               symbol: sd.tradeGood,
+              level: 1,
               supplyOnConsumers: 0,
               supplyOnProducers: 0,
               supplyOnExchange: 0,
@@ -101,6 +106,7 @@ export class Universe {
           }
           const good = goods[sd.tradeGood];
           if (good) {
+            good.level = goods[sd.tradeGood]?.level ?? good.level;
             good.supplyOnConsumers +=
               sd.kind === "demand" ? w.inventory.get(sd.tradeGood) : 0;
             good.supplyOnProducers +=
@@ -112,15 +118,15 @@ export class Universe {
             good.lastTickProduction += sd.lastTickProduction;
             good.lastTickConsumption += sd.lastTickConsumption;
             good.productionLineProductionRate +=
-              sd.current.productionLineProductionRate;
+              sd.current.productionLineProductionRate ?? 0;
             good.productionLineConsumptionRate +=
-              sd.current.productionLineConsumptionRate;
+              sd.current.productionLineConsumptionRate ?? 0;
             good.desiredSupply += sd.current.idealSupply;
             good.maxSupply += sd.current.maxSupply;
           }
-        });
-      });
-    });
+        }
+      }
+    }
     return Object.values(goods);
   }
 }

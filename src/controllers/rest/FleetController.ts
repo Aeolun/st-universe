@@ -73,7 +73,7 @@ import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { refine } from "src/controllers/helpers/refine";
 import { SurveysForResources } from "src/universe/entities/capabilities/SurveysForResources";
 import {
-  randomBetween,
+  randomBetweenInt,
   pickRandom,
   randomWeightedKey,
   trulyUniqId,
@@ -98,7 +98,8 @@ import { generateContract } from "src/universe/generateContract";
 import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
-import { Mount, mountData } from "src/universe/static-data/ship-mounts";
+import { mountData } from "src/universe/static-data/ship-mounts";
+import { Mount } from "src/universe/static-data/mount-enum";
 
 @Controller("/my/")
 @CustomAuth()
@@ -483,7 +484,7 @@ export class FleetController {
     }
 
     const resource = pickRandom(allPossibleResources);
-    const extracted = totalPower + randomBetween(-variation, variation);
+    const extracted = totalPower + randomBetweenInt(-variation, variation);
 
     ship.cargo.add(resource, extracted);
     ship.setCooldown(powerUsage);
@@ -573,7 +574,13 @@ export class FleetController {
         `There is no antimatter available at this waypoint, either because stock ran out, or it is not sold.`
       );
     }
-    const antimatterCost = marketPrice(supply, antimatterSupply);
+    const antimatterCost = marketPrice(
+      tradeGoods.ANTIMATTER.basePrice ?? 0,
+      supply,
+      antimatterSupply.current.idealSupply,
+      antimatterSupply.current.maxSupply,
+      antimatterSupply.localFluctuation
+    );
 
     if (agent.credits < antimatterCost.salePrice) {
       throw new BadRequest(
@@ -823,8 +830,11 @@ export class FleetController {
       );
     }
     const price = marketPrice(
-      waypoint.inventory.get(supplyDemand.tradeGood),
-      supplyDemand
+      tradeGoods[body.symbol].basePrice ?? 0,
+      waypoint.inventory.get(body.symbol),
+      supplyDemand.current.idealSupply,
+      supplyDemand.current.maxSupply,
+      supplyDemand.localFluctuation
     );
     const total = price.purchasePrice * body.units;
     agent.credits += total;
@@ -1003,8 +1013,11 @@ export class FleetController {
     const refuelUnits = Math.ceil((body.units ?? missingFuel) / 100);
 
     const price = marketPrice(
+      tradeGoods.FUEL.basePrice ?? 0,
       waypoint.inventory.get(supplyDemand.tradeGood),
-      supplyDemand
+      supplyDemand.current.idealSupply,
+      supplyDemand.current.maxSupply,
+      supplyDemand.localFluctuation
     );
     const total = price.salePrice * refuelUnits;
     agent.credits -= total;
@@ -1066,8 +1079,11 @@ export class FleetController {
     }
 
     const price = marketPrice(
+      tradeGoods[body.symbol as TradeGood].basePrice ?? 0,
       waypoint.inventory.get(supplyDemand.tradeGood),
-      supplyDemand
+      supplyDemand.current.idealSupply,
+      supplyDemand.current.maxSupply,
+      supplyDemand.localFluctuation
     );
     const total = price.salePrice * body.units;
 

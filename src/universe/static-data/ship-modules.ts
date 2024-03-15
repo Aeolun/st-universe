@@ -9,26 +9,7 @@ import { ResourceGroup } from "src/universe/static-data/resource-groups";
 import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
 import { RequiresPower } from "src/universe/entities/capabilities/RequiresPower";
 import { RequiresModuleCapacity } from "src/universe/entities/capabilities/RequiresModuleCapacity";
-
-export enum Module {
-  MODULE_CARGO_HOLD_I = "MODULE_CARGO_HOLD_I",
-  MODULE_CARGO_HOLD_II = "MODULE_CARGO_HOLD_II",
-  MODULE_CREW_QUARTERS_I = "MODULE_CREW_QUARTERS_I",
-  MODULE_WARP_DRIVE_I = "MODULE_WARP_DRIVE_I",
-  MODULE_WARP_DRIVE_II = "MODULE_WARP_DRIVE_II",
-  MODULE_WARP_DRIVE_III = "MODULE_WARP_DRIVE_III",
-  MODULE_JUMP_DRIVE_I = "MODULE_JUMP_DRIVE_I",
-  MODULE_JUMP_DRIVE_II = "MODULE_JUMP_DRIVE_II",
-  MODULE_JUMP_DRIVE_III = "MODULE_JUMP_DRIVE_III",
-  MODULE_MINERAL_PROCESSOR_I = "MODULE_MINERAL_PROCESSOR_I",
-  MODULE_GAS_PROCESSOR_I = "MODULE_GAS_PROCESSOR_I",
-  MODULE_ENVOY_QUARTERS_I = "MODULE_ENVOY_QUARTERS_I",
-  MODULE_SCIENCE_LAB_I = "MODULE_SCIENCE_LAB_I",
-  MODULE_PASSENGER_CABIN_I = "MODULE_PASSENGER_CABIN_I",
-  MODULE_ORE_REFINERY_I = "MODULE_ORE_REFINERY_I",
-  MODULE_SHIELD_GENERATOR_I = "MODULE_SHIELD_GENERATOR_I",
-  MODULE_SHIELD_GENERATOR_II = "MODULE_SHIELD_GENERATOR_II",
-}
+import { Module } from "src/universe/static-data/module-enum";
 
 export const moduleData: Record<Module, ShipModule> = {
   [Module.MODULE_CARGO_HOLD_I]: new ShipModule(

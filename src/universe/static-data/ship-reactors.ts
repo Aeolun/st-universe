@@ -1,21 +1,7 @@
-import { ShipModule } from "src/universe/entities/ShipModule";
-import { ProvidesCrewCapacity } from "src/universe/entities/capabilities/ProvidesCrewCapacity";
-import { ProvidesWarpRange } from "src/universe/entities/capabilities/ProvidesWarpRange";
-import { ProvidesJumpRange } from "src/universe/entities/capabilities/ProvidesJumpRange";
-import { ProvidesShield } from "src/universe/entities/capabilities/ProvidesShield";
-import { ShipEngineType } from "src/universe/entities/ShipEngineType";
 import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
-import { RequiresPower } from "src/universe/entities/capabilities/RequiresPower";
-import { ProvidesThrust } from "src/universe/entities/capabilities/ProvidesThrust";
 import { ShipReactorType } from "src/universe/entities/ShipReactorType";
 import { ProvidesPower } from "src/universe/entities/capabilities/ProvidesPower";
-
-export enum Reactor {
-  REACTOR_CHEMICAL_I = "REACTOR_CHEMICAL_I",
-  REACTOR_FISSION_I = "REACTOR_FISSION_I",
-  REACTOR_FUSION_I = "REACTOR_FUSION_I",
-  REACTOR_SOLAR_I = "REACTOR_SOLAR_I",
-}
+import { Reactor } from "src/universe/static-data/reactor-enum";
 
 export const reactorData: Record<Reactor, ShipReactorType> = {
   [Reactor.REACTOR_CHEMICAL_I]: new ShipReactorType(

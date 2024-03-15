@@ -1,16 +1,7 @@
-import { WaypointTrait } from "src/universe/static-data/waypoint-traits";
 import { Industry } from "src/universe/static-data/industries";
+import { WaypointTrait } from "src/universe/static-data/waypoint-trait-enum";
+import { WaypointType } from "src/universe/static-data/waypoint-type-enum";
 
-export type WaypointType =
-  | "ASTEROID"
-  | "ENGINEERED_ASTEROID"
-  | "ASTEROID_BASE"
-  | "FUEL_STATION"
-  | "GAS_GIANT"
-  | "PLANET"
-  | "MOON"
-  | "ORBITAL_STATION"
-  | "JUMP_GATE";
 export const waypointTypes: Record<
   WaypointType,
   {

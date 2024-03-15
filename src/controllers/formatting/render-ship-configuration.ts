@@ -1,7 +1,4 @@
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
+import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
 import {
   ShipType,
   ShipyardShip,
@@ -21,6 +18,7 @@ import { reactorData } from "src/universe/static-data/ship-reactors";
 import { ShipReactor } from "src/universe/entities/ShipReactor";
 import { engineData } from "src/universe/static-data/ship-engines";
 import { ShipEngine } from "src/universe/entities/ShipEngine";
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 export const renderShipConfiguration = (
   configurationSymbol: Configuration,

@@ -15,8 +15,12 @@ export function pickRandom<T>(from: T[]) {
   return from[Math.floor(random() * from.length)];
 }
 
-export function randomBetween(from: number, to: number) {
+export function randomBetweenInt(from: number, to: number) {
   return from + Math.round((to - from) * random());
+}
+
+export function randomBetweenFloat(from: number, to: number) {
+  return from + Math.round((to * 100 - from * 100) * random()) / 100;
 }
 
 export function randomPercentage(percentage: number) {
@@ -41,7 +45,7 @@ export const uniqueId = (str: string, seed: number = 0) => {
 
 export const randomString = (length = 4) => {
   const res = [];
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   for (let i = 0; i < length; i++) {
     res.push(characters.charAt(Math.floor(random() * characters.length)));
   }

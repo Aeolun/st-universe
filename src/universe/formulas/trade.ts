@@ -1,84 +1,52 @@
-import { SupplyDemand, Waypoint } from "src/universe/entities/Waypoint";
 import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { ShipConfiguration } from "src/universe/entities/ShipConfiguration";
-import { Reactor } from "src/universe/static-data/ship-reactors";
-import { Engine } from "src/universe/static-data/ship-engines";
-import { Module } from "src/universe/static-data/ship-modules";
-import { Mount } from "src/universe/static-data/ship-mounts";
-import { Frame } from "src/universe/static-data/ship-frames";
-
-export interface MarketPrice {
-  /**
-   * The purchase price from the perspective of the waypoint
-   */
-  purchasePrice: number;
-  /**
-   * The sale price from the perspective of the waypoint
-   */
-  salePrice: number;
-  /**
-   * The volume of the trade good that can be traded in a single transaction
-   */
-  tradeVolume: number;
-}
+import { Engine } from "src/universe/static-data/engine-enum";
+import { Frame } from "src/universe/static-data/frame-enum";
+import { Module } from "src/universe/static-data/module-enum";
+import { Mount } from "src/universe/static-data/mount-enum";
+import { Reactor } from "src/universe/static-data/reactor-enum";
+import { Storage } from "src/universe/entities/Storage";
+import {
+  MarketPrice,
+  SupplyDemand,
+} from "src/universe/static-data/supply-demand";
 
 export function marketPrice(
+  basePrice: number,
   inventory: number,
-  supplyDemand: SupplyDemand
+  idealSupply: number,
+  maxSupply: number,
+  localFluctuation = 0
 ): MarketPrice {
-  const baseData = tradeGoods[supplyDemand.tradeGood];
+  let salePrice = 0;
+  let purchasePrice = 0;
 
-  if (!baseData.basePrice)
-    throw new Error(
-      `No base price for ${supplyDemand.tradeGood}. Cannot determine market price.`
-    );
-
-  let salePrice = 0,
-    purchasePrice = 0,
-    tradeVolume = supplyDemand.current.tradeVolume;
-
-  if (inventory > supplyDemand.current.maxSupply) {
+  if (inventory > maxSupply) {
     // supply saturated
-    salePrice =
-      baseData.basePrice /
-      Math.pow(inventory / supplyDemand.current.idealSupply, 3);
-    purchasePrice =
-      (baseData.basePrice /
-        Math.pow(inventory / supplyDemand.current.idealSupply, 3)) *
-      0.8;
-    tradeVolume *= 10;
-  } else if (inventory >= supplyDemand.current.idealSupply) {
+    salePrice = basePrice / (inventory / idealSupply) ** 3;
+    purchasePrice = (basePrice / (inventory / idealSupply) ** 3) * 0.8;
+  } else if (inventory >= idealSupply) {
     // demand satisfied
-    salePrice =
-      baseData.basePrice / (inventory / supplyDemand.current.idealSupply);
-    purchasePrice =
-      (baseData.basePrice /
-        Math.pow(inventory / supplyDemand.current.idealSupply, 3)) *
-      0.9;
+    salePrice = basePrice / (inventory / idealSupply);
+    purchasePrice = (basePrice / (inventory / idealSupply) ** 3) * 0.9;
   } else {
     // demand not satisfied
-    salePrice =
-      baseData.basePrice *
-      Math.min(supplyDemand.current.idealSupply / inventory, 3);
+    salePrice = basePrice * Math.min(idealSupply / inventory, 3);
     purchasePrice =
-      baseData.basePrice *
-      (1 +
-        (supplyDemand.current.idealSupply - inventory) /
-          supplyDemand.current.idealSupply) *
-      0.9;
+      basePrice * (1 + (idealSupply - inventory) / idealSupply) * 0.9;
   }
 
-  const fluct = 1 + supplyDemand.localFluctuation / 100;
+  const fluct = 1 + localFluctuation / 100;
   return {
     purchasePrice: Math.round(purchasePrice * fluct),
     salePrice: Math.round(salePrice * fluct),
-    tradeVolume,
   };
 }
 
 export function shipPrice(
   configuration: ShipConfiguration,
-  waypoint: Waypoint
+  supplyDemandR: Record<TradeGood, SupplyDemand>,
+  inventory: Storage
 ) {
   let total = 0;
   const allShipModules: (Frame | Reactor | Engine | Module | Mount)[] = [
@@ -89,9 +57,16 @@ export function shipPrice(
     ...configuration.mounts,
   ];
   for (const module of allShipModules) {
-    const supplyDemand = waypoint.supplyDemand[module];
-    if (supplyDemand) {
-      const price = marketPrice(waypoint.inventory.get(module), supplyDemand);
+    const supplyDemand = supplyDemandR[module];
+    const basePrice = tradeGoods[module].basePrice;
+    if (supplyDemand && basePrice) {
+      const price = marketPrice(
+        basePrice,
+        inventory.get(module),
+        supplyDemand.current.idealSupply,
+        supplyDemand.current.maxSupply,
+        supplyDemand.localFluctuation
+      );
       total += price.purchasePrice;
     }
   }

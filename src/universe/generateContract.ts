@@ -1,12 +1,13 @@
-import { SupplyDemand, Waypoint } from "src/universe/entities/Waypoint";
+import { Waypoint } from "src/universe/entities/Waypoint";
 import { universe } from "src/universe/universe";
-import { TradeGood } from "src/universe/static-data/trade-goods";
+import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
 import { Contract } from "src/universe/entities/Contract";
 import { Agent } from "src/universe/entities/Agent";
 import { pickRandom, trulyUniqId, uniqueId } from "src/universe/utilities";
 import { Faction } from "src/universe/static-data/faction";
 import { marketPrice } from "src/universe/formulas/trade";
 import { getDistance } from "src/universe/getDistance";
+import { SupplyDemand } from "src/universe/static-data/supply-demand";
 
 export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
   if (!generationWaypoint.ownedBy) {
@@ -71,8 +72,10 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
   }
 
   const price = marketPrice(
+    tradeGoods[mostLackingResource.tradeGoodSymbol].basePrice ?? 0,
     waypoint?.inventory.get(mostLackingResource.tradeGoodSymbol),
-    mostLackingResource.supplyDemand
+    mostLackingResource.supplyDemand.current.idealSupply,
+    mostLackingResource.supplyDemand.current.maxSupply
   );
   const finalCount = Math.max(mostLackingResource.amount, 50);
   const totalReward = price.salePrice * finalCount;

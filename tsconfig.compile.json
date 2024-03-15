@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "declaration": true,
+    "emitDecoratorMetadata": true,
     "noResolve": false,
     "preserveConstEnums": true,
     "sourceMap": true,

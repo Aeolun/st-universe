@@ -1,6 +1,6 @@
 import { AbstractCapabilities } from "src/universe/entities/capabilities/AbstractCapabilities";
-import { Engine } from "src/universe/static-data/ship-engines";
 import { Capability } from "src/universe/entities/capabilities/Capability";
+import { Engine } from "src/universe/static-data/engine-enum";
 
 export class ShipEngineType extends AbstractCapabilities {
   constructor(

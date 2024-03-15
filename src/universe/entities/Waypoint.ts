@@ -1,52 +1,18 @@
 import { Industry } from "src/universe/static-data/industries";
-import {
-  ProductionLine,
-  WaypointTrait,
-} from "src/universe/static-data/waypoint-traits";
+import { ProductionLine } from "src/universe/static-data/waypoint-traits";
 import { JumpGate } from "src/universe/entities/JumpGate";
 import { TradeGood, tradeGoods } from "src/universe/static-data/trade-goods";
-import { WaypointType } from "src/universe/static-data/waypoint-types";
 import { Faction } from "src/universe/static-data/faction";
 import { Transaction } from "src/universe/entities/Transaction";
-import { Configuration } from "src/universe/static-data/ship-configurations";
-import { MarketPrice } from "src/universe/formulas/trade";
 import { Storage } from "src/universe/entities/Storage";
 import { ConstructionSite } from "./ConstructionSite";
 import { WaypointModifierSymbol } from "src/controllers/schemas";
-
-export interface SupplyDemand {
-  tradeGood: TradeGood;
-  /**
-   * Determined by whether the market is a net consumer or producer of the trade good.
-   */
-  kind: "supply" | "demand" | "exchange";
-  stopSaleAt: number;
-  lastTickProduction: number;
-  lastTickConsumption: number;
-  /**
-   * Number from -100 to 100 that indicates how close this market is to evolving/devolving (start at 0)
-   */
-  activity: number;
-  localFluctuation: number;
-  price?: MarketPrice;
-  base: {
-    idealSupply: number;
-    maxSupply: number;
-    productionRate: number;
-    consumptionRate: number;
-    productionLineProductionRate: number;
-    productionLineConsumptionRate: number;
-  };
-  current: {
-    tradeVolume: number;
-    idealSupply: number;
-    maxSupply: number;
-    productionRate: number;
-    consumptionRate: number;
-    productionLineProductionRate: number;
-    productionLineConsumptionRate: number;
-  };
-}
+import { tickProduction } from "src/universe/helpers/tick-production";
+import { tickProductionLine } from "src/universe/helpers/tick-production-line";
+import { Configuration } from "src/universe/static-data/configuration-enum";
+import { WaypointTrait } from "src/universe/static-data/waypoint-trait-enum";
+import { WaypointType } from "src/universe/static-data/waypoint-type-enum";
+import { SupplyDemand } from "src/universe/static-data/supply-demand";
 
 export interface WaypointChart {
   waypointSymbol: string;
@@ -90,8 +56,8 @@ export class Waypoint {
 
   public chart?: WaypointChart;
 
-  public population: number = 0;
-  public extractionInstability: number = 0;
+  public population = 0;
+  public extractionInstability = 0;
 
   constructor(data: {
     x: number;
@@ -119,8 +85,8 @@ export class Waypoint {
   }
 
   public updateSupplyDemand() {
-    Object.keys(this.supplyDemand).forEach((tradeGood) => {
-      const sd = this.supplyDemand[tradeGood as TradeGood];
+    for (const tradeGood of Object.keys(this.supplyDemand) as TradeGood[]) {
+      const sd = this.supplyDemand[tradeGood];
       if (sd) {
         sd.current = {
           ...sd.current,
@@ -128,13 +94,9 @@ export class Waypoint {
           maxSupply: sd.base.maxSupply * this.population,
           productionRate: sd.base.productionRate * this.population,
           consumptionRate: sd.base.consumptionRate * this.population,
-          productionLineProductionRate:
-            sd.base.productionLineProductionRate * this.population,
-          productionLineConsumptionRate:
-            sd.base.productionLineConsumptionRate * this.population,
         };
       }
-    });
+    }
   }
 
   public tick(msElapsed: number) {
@@ -153,97 +115,48 @@ export class Waypoint {
     }
 
     // determine production/consumption at this waypoint
-    Object.values(this.supplyDemand).forEach((supplyDemand) => {
-      supplyDemand.lastTickProduction = 0;
-      supplyDemand.lastTickConsumption = 0;
-
-      if (
-        supplyDemand.current.productionRate > 0 &&
-        this.inventory.get(supplyDemand.tradeGood) <
-          supplyDemand.current.maxSupply
-      ) {
-        this.inventory.add(
-          supplyDemand.tradeGood,
-          supplyDemand.current.productionRate
-        );
-        supplyDemand.activity++;
-      } else {
-        supplyDemand.activity--;
+    for (const supplyDemand of Object.values(this.supplyDemand)) {
+      tickProduction(supplyDemand, this.inventory);
+    }
+    for (const productionLine of this.productionLines) {
+      const tradeGood = tradeGoods[productionLine.produces];
+      if (!("components" in tradeGood)) {
+        continue;
       }
-      if (
-        supplyDemand.current.consumptionRate > 0 &&
-        this.inventory.get(supplyDemand.tradeGood) > 0
-      ) {
-        this.inventory.remove(
-          supplyDemand.tradeGood,
-          supplyDemand.current.consumptionRate
-        );
-        supplyDemand.activity++;
-      } else {
-        supplyDemand.activity--;
-      }
-    });
-    this.productionLines.forEach((productionLine) => {
-      const marketGood = tradeGoods[productionLine.produces];
-      if (marketGood && "components" in marketGood) {
-        const componentsOptions = Array.isArray(marketGood.components)
-          ? marketGood.components
-          : [marketGood.components];
-
-        componentsOptions.forEach((components) => {
-          let satisfied = true;
-          Object.keys(components).forEach((component: TradeGood) => {
-            const requiredCount = components[component] ?? 0;
-            const supplyDemand = this.supplyDemand[component];
-            if (
-              !supplyDemand ||
-              this.inventory.get(supplyDemand.tradeGood) < requiredCount
-            ) {
-              satisfied = false;
-              if (supplyDemand) {
-                supplyDemand.activity--;
-              }
-            }
-          });
-          if (satisfied) {
-            Object.keys(components).forEach((component: TradeGood) => {
-              const requiredCount = components[component] ?? 0;
-              const supplyDemand = this.supplyDemand[component];
-              if (supplyDemand) {
-                supplyDemand.lastTickConsumption += requiredCount;
-                supplyDemand.activity++;
-                this.inventory.remove(supplyDemand.tradeGood, requiredCount);
-              }
-            });
-            const produceDemand = this.supplyDemand[productionLine.produces];
-            if (produceDemand) {
-              produceDemand.lastTickProduction += productionLine.count ?? 1;
-              produceDemand.activity++;
-              this.inventory.add(
-                produceDemand.tradeGood,
-                productionLine.count ?? 1
-              );
-            }
-          } else {
-            // if we cannot produce a good, activity on that good goes down
-            const produceDemand = this.supplyDemand[productionLine.produces];
-            if (produceDemand) {
-              produceDemand.activity--;
-            }
+      const supplyDemandEffects = tickProductionLine(
+        tradeGood.components,
+        tradeGood.symbol,
+        this.supplyDemand[tradeGood.symbol]?.current.tradeVolume ?? 1,
+        this.inventory
+      );
+      if (supplyDemandEffects) {
+        for (const [tradeGood, effect] of Object.entries(
+          supplyDemandEffects
+        ) as [
+          TradeGood,
+          { activity: number; consumption: number; production: number }
+        ][]) {
+          const supplyDemand = this.supplyDemand[tradeGood];
+          if (supplyDemand) {
+            supplyDemand.activity += effect.activity;
+            supplyDemand.lastTickConsumption += effect.consumption;
+            supplyDemand.lastTickProduction += effect.production;
           }
-        });
+        }
       }
-    });
-    Object.values(this.supplyDemand).forEach((supplyDemand) => {
+    }
+    for (const supplyDemand of Object.values(this.supplyDemand)) {
       if (supplyDemand.activity >= 100) {
         // evolve
         supplyDemand.current.tradeVolume +=
           tradeGoods[supplyDemand.tradeGood].baseTradeVolume;
+        supplyDemand.activity = 0;
       } else if (supplyDemand.activity <= -100) {
         // devolve
         supplyDemand.current.tradeVolume -=
           tradeGoods[supplyDemand.tradeGood].baseTradeVolume;
+        supplyDemand.activity = 0;
       }
-    });
+    }
   }
 }

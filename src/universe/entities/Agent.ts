@@ -1,13 +1,9 @@
-import { trulyUniqId, uniqueId } from "src/universe/utilities";
+import { trulyUniqId } from "src/universe/utilities";
 import { Faction } from "src/universe/static-data/faction";
 import { Ship } from "src/universe/entities/Ship";
-import jwt from "jsonwebtoken";
-import { AuthToken } from "src/models/auth-token";
-import { universe } from "src/universe/universe";
 import { Location } from "src/universe/entities/Navigation";
 import { Contract } from "src/universe/entities/Contract";
 import {
-  Configuration,
   ConfigurationKeys,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
@@ -29,22 +25,14 @@ export class Agent {
     symbol: string;
     faction: Faction;
     headquarters: Location;
+    token: string;
     credits: number;
   }) {
     this.symbol = data.symbol;
     this.credits = data.credits;
     this.faction = data.faction;
     this.headquarters = data.headquarters;
-    var token = jwt.sign(
-      {
-        identifier: data.symbol,
-        version: "v2",
-        reset_date: universe.createDate,
-        sub: "agent-token",
-      } satisfies AuthToken,
-      process.env.JWT_SECRET ?? "mysecret"
-    );
-    this.token = token;
+    this.token = data.token;
     this.accountId = trulyUniqId();
   }
 

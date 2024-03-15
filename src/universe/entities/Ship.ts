@@ -12,7 +12,6 @@ import {
   ShipRole,
 } from "src/controllers/schemas";
 import {
-  Configuration,
   ConfigurationKeys,
   shipConfigurationData,
 } from "src/universe/static-data/ship-configurations";
@@ -27,6 +26,7 @@ import { powerUsageCooldown } from "src/universe/formulas/power";
 import { ShipFrame } from "src/universe/entities/ShipFrame";
 import { ShipReactor } from "src/universe/entities/ShipReactor";
 import { ShipEngine } from "src/universe/entities/ShipEngine";
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 export class Ship {
   public symbol: string;

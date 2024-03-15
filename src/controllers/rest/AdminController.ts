@@ -1,9 +1,10 @@
 import { Controller } from "@tsed/di";
 import { Get, Hidden, View } from "@tsed/schema";
 import { PathParams } from "@tsed/platform-params";
-import { universe } from "src/universe/universe";
-import { getSystem } from "src/controllers/helpers/get-system";
-import { marketPrice } from "src/universe/formulas/trade";
+import { universe } from "@src/universe/universe";
+import { getSystem } from "@src/controllers/helpers/get-system";
+import { marketPrice } from "@src/universe/formulas/trade";
+import { tradeGoods } from "@src/universe/static-data/trade-goods";
 
 @Controller("/admin/")
 export class AdminController {
@@ -36,10 +37,16 @@ export class AdminController {
     return {
       ...system,
       waypoints: system.waypoints.map((waypoint) => {
-        Object.values(waypoint.supplyDemand).forEach((sd) => {
-          const price = marketPrice(waypoint.inventory.get(sd.tradeGood), sd);
+        for (const sd of Object.values(waypoint.supplyDemand)) {
+          const price = marketPrice(
+            tradeGoods[sd.tradeGood].basePrice ?? 0,
+            waypoint.inventory.get(sd.tradeGood),
+            sd.current.idealSupply,
+            sd.current.maxSupply,
+            sd.localFluctuation
+          );
           sd.price = price;
-        });
+        }
         return {
           ...waypoint,
           supplyDemand: waypoint.supplyDemand,

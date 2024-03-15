@@ -6,6 +6,7 @@ import { TradeSymbol } from "src/controllers/schemas";
 import { Ship } from "src/universe/entities/Ship";
 import { Agent } from "src/universe/entities/Agent";
 import { STError } from "src/error/STError";
+import { tradeGoods } from "src/universe/static-data/trade-goods";
 
 export function purchaseAtWaypoint(
   agent: Agent,
@@ -24,8 +25,11 @@ export function purchaseAtWaypoint(
   }
 
   const price = marketPrice(
+    tradeGoods[supplyDemand.tradeGood].basePrice ?? 0,
     waypoint.inventory.get(supplyDemand.tradeGood),
-    supplyDemand
+    supplyDemand.current.idealSupply,
+    supplyDemand.current.maxSupply,
+    supplyDemand.localFluctuation
   );
   const total = price.salePrice * units;
 

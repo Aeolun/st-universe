@@ -24,3 +24,8 @@ export const BASE_COOLDOWN = ORIGINAL_BASE_COOLDOWN * TIME_FACTOR;
 export const POWER_USE_COOLDOWN = ORIGINAL_POWER_USE_COOLDOWN * TIME_FACTOR;
 
 export const STARTING_MONEY = 175000;
+
+/**
+ * Used to determine how much more than the ideal supply of goods a waypoint can have in storage
+ */
+export const MAX_SUPPLY_MODIFIER = 2;

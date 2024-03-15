@@ -5,15 +5,13 @@ import {
 } from "src/universe/static-data/trade-goods";
 import {
   TraitModifiers,
-  WaypointTrait,
   waypointTraits,
 } from "src/universe/static-data/waypoint-traits";
 import { pickRandom } from "src/universe/utilities";
-import {
-  Configuration,
-  shipConfigurationData,
-} from "src/universe/static-data/ship-configurations";
+import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
 import { industries, Industry } from "src/universe/static-data/industries";
+import { Configuration } from "src/universe/static-data/configuration-enum";
+import { WaypointTrait } from "src/universe/static-data/waypoint-trait-enum";
 
 export type ProductionRates = {
   production: number;
@@ -80,16 +78,16 @@ export function calculateProduction(
     }
   };
 
-  const addTraits = (traitData: TraitModifiers, level: number = 1) => {
+  const addTraits = (traitData: TraitModifiers, level = 1) => {
     if (traitData.exports) {
-      Object.keys(traitData.exports).forEach((tg: TradeGood) => {
+      for (const tg of Object.keys(traitData.exports) as TradeGood[]) {
         const count = traitData.exports?.[tg];
         if (count) {
           addRates(tg, {
             production: count * level,
           });
         }
-      });
+      }
     }
     if (traitData.imports) {
       Object.keys(traitData.imports).forEach((tg: TradeGood) => {
@@ -117,29 +115,26 @@ export function calculateProduction(
       }
     }
     if (traitData.productionLine) {
-      traitData.productionLine.forEach((line) => {
+      for (const line of traitData.productionLine) {
         const tradeGoodData = tradeGoods[line.produces];
         if (tradeGoodData && "components" in tradeGoodData) {
           addRates(line.produces, {
-            productionLineProduction: (line.count ?? 1) * level,
+            productionLineProduction: level,
           });
-          const options = Array.isArray(tradeGoodData.components)
-            ? tradeGoodData.components
-            : [tradeGoodData.components];
-          for (let i = 0; i < options.length; i++) {
-            const componentOptions = options[i];
-            Object.keys(componentOptions).forEach((component: TradeGood) => {
-              const count = componentOptions[component];
-              if (count) {
-                addRates(component, {
-                  productionLineConsumption: count * level,
-                  extraStorage: count * level,
-                });
-              }
-            });
+          const componentOptions = tradeGoodData.components;
+          for (const component of Object.keys(
+            componentOptions
+          ) as TradeGood[]) {
+            const count = componentOptions[component];
+            if (count) {
+              addRates(component, {
+                productionLineConsumption: count * level,
+                extraStorage: count * level,
+              });
+            }
           }
         }
-      });
+      }
     }
     if (traitData.consumes) {
       Object.keys(traitData.consumes).forEach((tg: TradeGood) => {

@@ -1,26 +1,11 @@
 import { ShipConfiguration } from "src/universe/entities/ShipConfiguration";
-import { Frame } from "src/universe/static-data/ship-frames";
-import { Reactor } from "src/universe/static-data/ship-reactors";
-import { Engine } from "src/universe/static-data/ship-engines";
-import { Module } from "src/universe/static-data/ship-modules";
-import { Mount } from "src/universe/static-data/ship-mounts";
 import { ShipRole } from "src/controllers/schemas/ship-role";
-import { Ship } from "src/universe/entities/Ship";
-
-export enum Configuration {
-  SHIP_COMMAND_FRIGATE = "SHIP_COMMAND_FRIGATE",
-  SHIP_EXPLORER = "SHIP_EXPLORER",
-  SHIP_HEAVY_FREIGHTER = "SHIP_HEAVY_FREIGHTER",
-  SHIP_INTERCEPTOR = "SHIP_INTERCEPTOR",
-  SHIP_LIGHT_HAULER = "SHIP_LIGHT_HAULER",
-  SHIP_LIGHT_SHUTTLE = "SHIP_LIGHT_SHUTTLE",
-  SHIP_MINING_DRONE = "SHIP_MINING_DRONE",
-  SHIP_ORE_HOUND = "SHIP_ORE_HOUND",
-  SHIP_PROBE = "SHIP_PROBE",
-  SHIP_SIPHON_DRONE = "SHIP_SIPHON_DRONE",
-  SHIP_SURVEYOR = "SHIP_SURVEYOR",
-  SHIP_REFINING_FREIGHTER = "SHIP_REFINING_FREIGHTER",
-}
+import { Engine } from "src/universe/static-data/engine-enum";
+import { Frame } from "src/universe/static-data/frame-enum";
+import { Module } from "src/universe/static-data/module-enum";
+import { Mount } from "src/universe/static-data/mount-enum";
+import { Reactor } from "src/universe/static-data/reactor-enum";
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 export type ConfigurationKeys = keyof typeof Configuration;
 
@@ -56,8 +41,7 @@ export const shipConfigurationData: Record<Configuration, ShipConfiguration> = {
     Reactor.REACTOR_FUSION_I,
     Engine.ENGINE_ION_DRIVE_II,
     [
-      Module.MODULE_CARGO_HOLD_I,
-      Module.MODULE_CARGO_HOLD_I,
+      Module.MODULE_CARGO_HOLD_II,
       Module.MODULE_CREW_QUARTERS_I,
       Module.MODULE_CREW_QUARTERS_I,
       Module.MODULE_MINERAL_PROCESSOR_I,

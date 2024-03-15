@@ -1,5 +1,5 @@
 import {
-  randomBetween,
+  randomBetweenInt,
   randomPercentage,
   pickRandom,
   randomString,
@@ -72,12 +72,15 @@ export const generateSystem = (data: {
       });
     });
   } else {
-    const waypointCount = randomBetween(
+    const waypointCount = randomBetweenInt(
       systemData.waypoints.min,
       systemData.waypoints.max
     );
     console.log("waypoints", waypointCount, systemType);
-    const beltCount = randomBetween(systemData.belts.min, systemData.belts.max);
+    const beltCount = randomBetweenInt(
+      systemData.belts.min,
+      systemData.belts.max
+    );
 
     const waypoints: Waypoint[] = [];
     const distancePerWaypoint = (INNER_SYSTEM_SIZE - 30) / waypointCount;

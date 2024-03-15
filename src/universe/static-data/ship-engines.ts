@@ -2,12 +2,7 @@ import { ShipEngineType } from "src/universe/entities/ShipEngineType";
 import { RequiresCrew } from "src/universe/entities/capabilities/RequiresCrew";
 import { RequiresPower } from "src/universe/entities/capabilities/RequiresPower";
 import { ProvidesThrust } from "src/universe/entities/capabilities/ProvidesThrust";
-
-export enum Engine {
-  ENGINE_IMPULSE_DRIVE_I = "ENGINE_IMPULSE_DRIVE_I",
-  ENGINE_ION_DRIVE_I = "ENGINE_ION_DRIVE_I",
-  ENGINE_ION_DRIVE_II = "ENGINE_ION_DRIVE_II",
-}
+import { Engine } from "src/universe/static-data/engine-enum";
 
 export const engineData: Record<Engine, ShipEngineType> = {
   [Engine.ENGINE_IMPULSE_DRIVE_I]: new ShipEngineType(

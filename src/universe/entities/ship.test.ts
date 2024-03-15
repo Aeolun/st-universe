@@ -1,6 +1,7 @@
 import { test, expect } from "vitest";
 import { Ship } from "src/universe/entities/Ship";
-import { Configuration } from "src/universe/static-data/ship-configurations";
+
+import { Configuration } from "src/universe/static-data/configuration-enum";
 
 test("ship has expected stats", () => {
   const ship = new Ship({
@@ -23,7 +24,7 @@ test("ship has expected stats", () => {
   expect(ship.stats.warpRange).toBe(2000);
   expect(ship.stats.thrust).toBe(30);
   expect(ship.stats.scanPower).toBe(1);
-  expect(ship.stats.cargoSpace).toBe(60);
+  expect(ship.stats.cargoSpace).toBe(40);
   expect(ship.stats.moduleCapacity).toBe(8);
   expect(ship.stats.mountingPoints).toBe(5);
 });

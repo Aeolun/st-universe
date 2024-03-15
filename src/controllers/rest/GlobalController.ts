@@ -2,7 +2,6 @@ import { Controller } from "@tsed/di";
 import { Get, Post, Returns } from "@tsed/schema";
 import { BodyParams } from "@tsed/platform-params";
 import { GlobalRegisterPayload } from "src/controllers/schemas/global-register-payload";
-import { GlobalGetResponse } from "src/controllers/schemas/global-get-response";
 import { universe } from "src/universe/universe";
 import { Agent } from "src/universe/entities/Agent";
 import { renderShipOutput } from "src/controllers/formatting/render-ship-output";
@@ -12,17 +11,16 @@ import {
 } from "src/controllers/schemas";
 import { renderFaction } from "src/controllers/formatting/render-faction";
 import { generateContract } from "src/universe/generateContract";
-import { Configuration } from "src/universe/static-data/ship-configurations";
 import { renderContract } from "src/controllers/formatting/render-contract";
 import { renderAgent } from "src/controllers/formatting/render-agent";
-import { getSystem } from "src/controllers/helpers/get-system";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { STARTING_MONEY } from "src/universe/constants";
 import { STError } from "src/error/STError";
-import next from "ajv/dist/vocabularies/next";
-import { nextReset, resetDuration } from "src/index";
 import humanizeDuration from "humanize-duration";
-import {registerAgentExistsError} from "src/universe/static-data/error-codes";
+import { registerAgentExistsError } from "src/universe/static-data/error-codes";
+import { nextReset, resetDuration } from "src/consts";
+import { Configuration } from "src/universe/static-data/configuration-enum";
+import { createToken } from "src/universe/helpers/create-token";
 
 @Controller("/")
 export class GlobalController {
@@ -50,6 +48,7 @@ export class GlobalController {
       symbol: body.symbol,
       faction: body.faction,
       headquarters: faction.headquarters,
+      token: createToken(body.symbol),
       credits: STARTING_MONEY,
     });
     universe.agents.push(newAgent);
