@@ -30,7 +30,11 @@ export const renderShipConfiguration = (
     type: configurationSymbol as ShipType,
     name: shipConfiguration.name,
     description: shipConfiguration.description,
-    purchasePrice: shipPrice(shipConfiguration, waypoint),
+    purchasePrice: shipPrice(
+      shipConfiguration,
+      waypoint.supplyDemand,
+      waypoint.inventory
+    ),
     frame: renderShipFrame(new ShipFrame(frameData[shipConfiguration.frame])),
     reactor: renderShipReactor(
       new ShipReactor(reactorData[shipConfiguration.reactor])

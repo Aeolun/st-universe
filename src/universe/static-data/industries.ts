@@ -7,10 +7,11 @@ export type Industry =
   | "AGRICULTURE"
   | "BIOCHEMICALS"
   | "CHEMICALS"
-  | "CONSTRUCTION_MATERIALS"
+  | "SHIP_CONSTRUCTION"
   | "CONSUMER_GOODS"
   | "CYBERNETICS"
   | "ELECTRONICS"
+  | "ADVANCED_ELECTRONICS"
   | "ENERGY"
   | "FUEL_STATION"
   | "FUEL_REFINING"
@@ -80,13 +81,13 @@ export const industries: Record<Industry, IndustryProperties> = {
       },
     ],
   },
-  CONSTRUCTION_MATERIALS: {
+  SHIP_CONSTRUCTION: {
     productionLine: [
       {
-        produces: TradeGood.SHIP_PLATING,
+        produces: TradeGood.SHIP_PARTS,
       },
       {
-        produces: TradeGood.ELECTRONICS,
+        produces: TradeGood.SHIP_PLATING,
       },
     ],
   },
@@ -104,6 +105,13 @@ export const industries: Record<Industry, IndustryProperties> = {
     productionLine: [
       {
         produces: TradeGood.CYBER_IMPLANTS,
+      },
+    ],
+  },
+  ADVANCED_ELECTRONICS: {
+    productionLine: [
+      {
+        produces: TradeGood.ADVANCED_CIRCUITRY,
       },
     ],
   },

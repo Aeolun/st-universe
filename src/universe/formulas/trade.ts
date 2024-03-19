@@ -38,14 +38,14 @@ export function marketPrice(
 
   const fluct = 1 + localFluctuation / 100;
   return {
-    purchasePrice: Math.round(purchasePrice * fluct),
-    salePrice: Math.round(salePrice * fluct),
+    purchasePrice: Math.max(Math.round(purchasePrice * fluct), 1),
+    salePrice: Math.max(Math.round(salePrice * fluct), 1),
   };
 }
 
 export function shipPrice(
   configuration: ShipConfiguration,
-  supplyDemandR: Record<TradeGood, SupplyDemand>,
+  supplyDemandR: Partial<Record<TradeGood, SupplyDemand>>,
   inventory: Storage
 ) {
   let total = 0;

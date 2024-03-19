@@ -100,6 +100,8 @@ import { renderShipMount } from "src/controllers/formatting/render-ship-mount";
 import { renderServiceTransaction } from "src/controllers/formatting/render-service-transaction";
 import { mountData } from "src/universe/static-data/ship-mounts";
 import { Mount } from "src/universe/static-data/mount-enum";
+import { STError } from "@src/error/STError";
+import { waypointChartedError } from "@src/universe/static-data/error-codes";
 
 @Controller("/my/")
 @CustomAuth()
@@ -137,7 +139,11 @@ export class FleetController {
     const shipConfiguration = shipConfigurationData[body.shipType];
     const frameTradeGood = tradeGoods[shipConfiguration.frame];
 
-    const price = shipPrice(shipConfiguration, waypoint);
+    const price = shipPrice(
+      shipConfiguration,
+      waypoint.supplyDemand,
+      waypoint.inventory
+    );
     if (agent.credits < price)
       throw new Error(`Insufficient funds. Ship costs ${price} credits.`);
 
@@ -285,7 +291,11 @@ export class FleetController {
 
     const waypoint = getWaypoint(universe, ship.navigation.current.symbol);
     if (waypoint.chart)
-      throw new BadRequest(`Chart already exists for ${waypoint.symbol}`);
+      throw new STError(
+        400,
+        waypointChartedError,
+        `Chart already exists for ${waypoint.symbol}`
+      );
 
     const chart = waypoint.chartWaypoint({
       waypointSymbol: waypoint.symbol,
@@ -647,7 +657,7 @@ export class FleetController {
     const distance = getDistance(waypoint, targetWaypoint);
 
     const fuel = navigateFuelUsed(distance, ship.navigation.flightMode);
-    if (ship.derivedStats.fuel < fuel) {
+    if (ship.derivedStats.fuel > 0 && ship.derivedStats.fuel < fuel) {
       throw new BadRequest(
         `You do not have enough fuel to travel to ${body.waypointSymbol}.`
       );

@@ -2,7 +2,7 @@ import { Waypoint } from "./Waypoint";
 import { Faction } from "src/universe/static-data/faction";
 import { generateWaypoint } from "src/universe/generateWaypoint";
 import { JumpGate } from "src/universe/entities/JumpGate";
-import { randomPercentage } from "src/universe/utilities";
+import { randomPercentageTrue } from "src/universe/utilities";
 
 export class System {
   x: number;
@@ -13,6 +13,7 @@ export class System {
   factions: Faction[] = [];
 
   hasMarket: boolean = false;
+  hasJumpGate: boolean = false;
 
   public waypoints: Waypoint[] = [];
 
@@ -46,7 +47,14 @@ export class System {
     this.waypoints.forEach((w) => w.tick(msElapsed));
   }
 
-  public addJumpGate(name: string, radius: number) {
+  public addJumpGate(
+    name: string,
+    radius: number,
+    spec: {
+      range: number;
+      connections: number;
+    }
+  ) {
     const angle = Math.random() * Math.PI * 2;
     const jumpGate = generateWaypoint({
       name,
@@ -54,9 +62,11 @@ export class System {
       y: Math.round(Math.cos(angle) * radius),
       systemSymbol: this.symbol,
       type: "JUMP_GATE",
-      jumpGateRange: 4000,
+      jumpGateRange: spec.range,
+      jumpGateConnections: spec.connections,
     });
     this.addWaypoint(jumpGate);
+    this.hasJumpGate = true;
 
     return jumpGate;
   }

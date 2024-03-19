@@ -153,8 +153,13 @@ export class Waypoint {
         supplyDemand.activity = 0;
       } else if (supplyDemand.activity <= -100) {
         // devolve
-        supplyDemand.current.tradeVolume -=
-          tradeGoods[supplyDemand.tradeGood].baseTradeVolume;
+        if (
+          supplyDemand.current.tradeVolume >
+          tradeGoods[supplyDemand.tradeGood].baseTradeVolume
+        ) {
+          supplyDemand.current.tradeVolume -=
+            tradeGoods[supplyDemand.tradeGood].baseTradeVolume;
+        }
         supplyDemand.activity = 0;
       }
     }

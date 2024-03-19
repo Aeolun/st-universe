@@ -59,6 +59,12 @@ export class GlobalController {
         waypoint: wp,
       })
     );
+    universe.ships.push(
+      newAgent.registerShip({
+        configuration: Configuration.SHIP_PROBE,
+        waypoint: wp,
+      })
+    );
 
     const waypoint = getWaypoint(universe, faction.headquarters.waypointSymbol);
     const contract = generateContract(newAgent, waypoint);

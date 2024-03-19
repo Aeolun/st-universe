@@ -27,6 +27,7 @@ export type WaypointTrait =
   | "NATURAL_SPICES"
   | "OCEAN"
   | "OUTPOST"
+  | "GAS_GIANT"
   | "OVERCROWDED"
   | "PRECIOUS_METAL_DEPOSITS"
   | "RARE_METAL_DEPOSITS"

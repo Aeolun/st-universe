@@ -1,6 +1,6 @@
 import {
   randomBetweenInt,
-  randomPercentage,
+  randomPercentageTrue,
   pickRandom,
   randomString,
   randomWeightedKey,
@@ -263,7 +263,11 @@ export const generateSystem = (data: {
       //console.log("hasjumpgate", radius);
       system.addJumpGate(
         String.fromCharCode(65 + waypointCount + beltCount) + "1",
-        radius
+        radius,
+        {
+          connections: data.jumpGateSpecs.connections,
+          range: data.jumpGateSpecs.range,
+        }
       );
     }
   }

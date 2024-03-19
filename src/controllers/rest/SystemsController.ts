@@ -32,6 +32,8 @@ import { getSystem } from "src/controllers/helpers/get-system";
 import { getWaypoint } from "src/controllers/helpers/get-waypoint";
 import { renderShipTransaction } from "src/controllers/formatting/render-ship-transaction";
 import { renderActivity } from "../formatting/render-activity";
+import { STError } from "@src/error/STError";
+import { waypointNoAccessError } from "@src/universe/static-data/error-codes";
 
 @Controller("/systems/")
 export class SystemsController {
@@ -262,26 +264,26 @@ export class SystemsController {
         ) !== undefined;
     }
 
+    if (waypoint.type === "JUMP_GATE" && !waypoint.jumpGate) {
+      throw new Error(
+        "Something is wrong on the server side and the jumpgate wayoint has no jump gate"
+      );
+    }
     if (!waypoint.jumpGate)
       throw new Error(`Waypoint ${waypointSymbol} does not have a jump gate`);
-    if (!hasShip)
-      throw new Error(
-        `Agent ${context.identifier} does not have a ship at waypoint ${waypointSymbol}`
+
+    if (!hasShip && !waypoint.chart) {
+      throw new STError(
+        403,
+        waypointNoAccessError,
+        `Agent ${context.identifier} does not have a ship at waypoint ${waypointSymbol}, and waypoint is not charted.`
       );
+    }
 
     return {
       data: {
         symbol: waypoint.symbol,
-        connections: Object.values(universe.systems)
-          .filter((s) => {
-            return (
-              s.waypoints.some((w) => w.type === "JUMP_GATE") &&
-              getDistance(system, s)
-            );
-          })
-          .map((s) => {
-            return s.symbol;
-          }),
+        connections: waypoint.jumpGate.connections,
       },
     };
   }

@@ -1566,7 +1566,7 @@ const getBasePrice = (good: TradeGoodData, parents: TradeGood[] = []) => {
           prices.length /
           productionVolume
       );
-      good.level = good.notRecipe ? good.level : maxLevel + 1;
+      good.level = maxLevel + 1;
 
       goodList.push(good);
     }

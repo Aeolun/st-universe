@@ -22,7 +22,7 @@ export const frameData: Record<Frame, ShipFrameType> = {
       new RequiresPower(1),
       new ProvidesModuleCapacity(3),
       new ProvidesMountingPoings(2),
-      new StoresFuel(100),
+      new StoresFuel(80),
     ]
   ),
   [Frame.FRAME_INTERCEPTOR]: new ShipFrameType(
@@ -58,7 +58,7 @@ export const frameData: Record<Frame, ShipFrameType> = {
       new RequiresPower(8),
       new ProvidesModuleCapacity(8),
       new ProvidesMountingPoings(5),
-      new StoresFuel(1200),
+      new StoresFuel(400),
     ]
   ),
   [Frame.FRAME_SHUTTLE]: new ShipFrameType(
@@ -70,7 +70,7 @@ export const frameData: Record<Frame, ShipFrameType> = {
       new RequiresPower(1),
       new ProvidesModuleCapacity(4),
       new ProvidesMountingPoings(1),
-      new StoresFuel(900),
+      new StoresFuel(300),
     ]
   ),
   [Frame.FRAME_EXPLORER]: new ShipFrameType(
@@ -106,7 +106,7 @@ export const frameData: Record<Frame, ShipFrameType> = {
       new RequiresPower(5),
       new ProvidesModuleCapacity(6),
       new ProvidesMountingPoings(1),
-      new StoresFuel(1700),
+      new StoresFuel(600),
     ]
   ),
   [Frame.FRAME_HEAVY_FREIGHTER]: new ShipFrameType(

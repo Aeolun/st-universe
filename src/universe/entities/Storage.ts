@@ -38,8 +38,8 @@ export class Storage {
   }
 
   has(resource: TradeGoodKey, amount: number) {
-    const value = this.resources[resource];
-    return value ? value >= amount : false;
+    const value = this.resources[resource] ?? 0;
+    return value >= amount;
   }
 
   toGoodArray() {

@@ -16,10 +16,9 @@ export function generateContract(agent: Agent, generationWaypoint: Waypoint) {
     );
   }
 
-  const systems = Object.values(universe.systems)
-    .filter((s) => s.hasMarket)
-    .filter((s) => getDistance(s, generationWaypoint) < 2000);
-  const system = pickRandom(systems);
+  const system = Object.values(universe.systems).find(
+    (s) => s.symbol === generationWaypoint.systemSymbol
+  );
 
   if (!system)
     throw new Error(

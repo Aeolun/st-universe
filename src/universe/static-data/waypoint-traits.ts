@@ -287,6 +287,14 @@ export const waypointTraits: Record<WaypointTrait, TraitData> = {
       PLASTICS: 0.25,
     },
   },
+  GAS_GIANT: {
+    hidden: true,
+    prevalence: 0,
+    validFor: ["GAS_GIANT"],
+    extractableResources: [
+      { tradegood: TradeGood.HYDROCARBON, richness: { min: 0.5, max: 2 } },
+    ],
+  },
   NATURAL_SPICES: {
     prevalence: 1,
     category: "DEPOSIT",

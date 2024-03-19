@@ -11,6 +11,13 @@ test("when supply is ideal, price is equal to base", () => {
   });
 });
 
+test("price does never become zero", () => {
+  expect(marketPrice(248, 2160, 200, 400)).toMatchObject({
+    salePrice: 1,
+    purchasePrice: 1,
+  });
+});
+
 test("when supply is ideal, in large market, price is equal to base", () => {
   expect(marketPrice(173, 6000, 6000, 12000)).toMatchObject({
     salePrice: 173,

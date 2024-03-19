@@ -6,7 +6,12 @@ import { setUniverse, universe } from "src/universe/universe";
 import { Universe } from "src/universe/entities/Universe";
 import { Ship } from "src/universe/entities/Ship";
 import { shipConfigurationData } from "src/universe/static-data/ship-configurations";
-import { nextReset, resetDuration, setNextReset } from "src/consts";
+import {
+  nextReset,
+  resetDuration,
+  setNextReset,
+  speedFactor,
+} from "src/consts";
 import { Configuration } from "src/universe/static-data/configuration-enum";
 
 let platform: Awaited<ReturnType<(typeof PlatformKoa)["bootstrap"]>>;
@@ -65,6 +70,10 @@ const createNewUniverse = async () => {
 
   let lastCpuUsage: NodeJS.CpuUsage | undefined;
   let lastTime = Date.now();
+  const normalTickDuration = 15 * 60 * 1000;
+  const tickInterval = Math.round(normalTickDuration / speedFactor);
+  console.log(`Ticking every ${tickInterval}ms for a market update step`);
+
   universeTicker = setInterval(() => {
     const memory = process.memoryUsage();
     const cpuDiff = process.cpuUsage(lastCpuUsage);
@@ -79,7 +88,7 @@ const createNewUniverse = async () => {
         cpuDiff.user / 1000
       }ms user, ${cpuDiff.system / 1000}ms system`
     );
-  }, 2000);
+  }, tickInterval);
   setTimeout(createNewUniverse, nextReset - Date.now());
 };
 

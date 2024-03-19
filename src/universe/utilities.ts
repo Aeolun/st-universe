@@ -23,7 +23,7 @@ export function randomBetweenFloat(from: number, to: number) {
   return from + Math.round((to * 100 - from * 100) * random()) / 100;
 }
 
-export function randomPercentage(percentage: number) {
+export function randomPercentageTrue(percentage: number) {
   return random() < percentage / 100;
 }
 

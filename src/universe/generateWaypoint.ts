@@ -48,6 +48,7 @@ export interface WaypointGenerationProperties {
   tradeGoods?: { symbol: TradeGood; type: "import" | "export" | "exchange" }[];
   shipHullsAvailable?: Configuration[];
   jumpGateRange?: number;
+  jumpGateConnections?: number;
   systemSymbol: string;
 }
 export const generateWaypoint = (data: WaypointGenerationProperties) => {
@@ -104,6 +105,12 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
       waypoint.traits.push(newTrait);
     }
   }
+
+  // TODO: Find a better way to do this
+  if (waypointType === "GAS_GIANT") {
+    waypoint.traits.push("GAS_GIANT");
+  }
+
   for (const trait of waypoint.traits) {
     const traitData = waypointTraits[trait];
     if (traitData.populationLevel) {
@@ -179,6 +186,50 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
       rates.consumedByConstruction = true;
     }
   };
+
+  const addHullsToWaypoint = (newHulls: Configuration[]) => {
+    newHulls.forEach((configuration) => {
+      // add all the components to imports
+      const configurationData = shipConfigurationData[configuration];
+      const frameTradeGood =
+        tradeGoods[configurationData.frame as unknown as TradeGood];
+
+      addRates(configurationData.engine as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      if ("components" in frameTradeGood) {
+        Object.keys(frameTradeGood.components).forEach((component) => {
+          addRates(component as unknown as TradeGood, {
+            extraStorage: frameTradeGood.components[component as TradeGood],
+            consumedByConstruction: true,
+          });
+        });
+      }
+      addRates(configurationData.reactor as unknown as TradeGood, {
+        extraStorage: 1,
+        consumedByConstruction: true,
+      });
+      configurationData.modules.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+      configurationData.mounts.forEach((m) => {
+        addRates(m as unknown as TradeGood, {
+          extraStorage: 1,
+          consumedByConstruction: true,
+        });
+      });
+    });
+    newHulls.forEach((newHull) => {
+      if (!waypoint.availableShipConfigurations.includes(newHull)) {
+        waypoint.availableShipConfigurations.push(newHull);
+      }
+    });
+  };
+
   const addTraits = (traitData: TraitModifiers) => {
     if (traitData.exports) {
       Object.keys(traitData.exports).forEach((tg: TradeGood) => {
@@ -281,47 +332,12 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
         }
       });
     }
-    newHulls.forEach((configuration) => {
-      // add all the components to imports
-      const configurationData = shipConfigurationData[configuration];
-      const frameTradeGood =
-        tradeGoods[configurationData.frame as unknown as TradeGood];
-
-      addRates(configurationData.engine as unknown as TradeGood, {
-        extraStorage: 1,
-        consumedByConstruction: true,
-      });
-      if ("components" in frameTradeGood) {
-        Object.keys(frameTradeGood.components).forEach((component) => {
-          addRates(component as unknown as TradeGood, {
-            extraStorage: frameTradeGood.components[component as TradeGood],
-            consumedByConstruction: true,
-          });
-        });
-      }
-      addRates(configurationData.reactor as unknown as TradeGood, {
-        extraStorage: 1,
-        consumedByConstruction: true,
-      });
-      configurationData.modules.forEach((m) => {
-        addRates(m as unknown as TradeGood, {
-          extraStorage: 1,
-          consumedByConstruction: true,
-        });
-      });
-      configurationData.mounts.forEach((m) => {
-        addRates(m as unknown as TradeGood, {
-          extraStorage: 1,
-          consumedByConstruction: true,
-        });
-      });
-    });
-    newHulls.forEach((newHull) => {
-      if (!waypoint.availableShipConfigurations.includes(newHull)) {
-        waypoint.availableShipConfigurations.push(newHull);
-      }
-    });
+    addHullsToWaypoint(newHulls);
   };
+
+  if (data.shipHullsAvailable) {
+    addHullsToWaypoint(data.shipHullsAvailable);
+  }
 
   // once we've determined other factors, we can determine production
   waypoint.traits.forEach((trait) => {
@@ -385,9 +401,18 @@ export const generateWaypoint = (data: WaypointGenerationProperties) => {
     waypoint.traits.push("MARKETPLACE");
   }
 
-  if (data.jumpGateRange) {
+  if (
+    waypointType === "JUMP_GATE" &&
+    (!data.jumpGateRange || !data.jumpGateConnections)
+  ) {
+    console.log(data, waypointType);
+    throw new Error("stuf!");
+  }
+
+  if (data.jumpGateRange && data.jumpGateConnections) {
     waypoint.jumpGate = new JumpGate({
       range: data.jumpGateRange,
+      connectionCount: data.jumpGateConnections,
       // connections need to be added after all waypoints are generated
       connections: [],
     });
